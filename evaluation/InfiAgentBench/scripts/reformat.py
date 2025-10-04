@@ -33,9 +33,6 @@ from utils.utils import read_jsonl, write_jsonl
 from openai import OpenAI
 
 
-client = OpenAI(
-    api_key=os.environ.get("OPENAI_API_KEY"), base_url=os.environ.get("OPENAI_BASE_URL")
-)
 def define_arguments():
     parser = argparse.ArgumentParser()
 
@@ -76,11 +73,7 @@ def call(messages, args):
     }
     while True:
         try:
-            # response = requests.post(args.url, headers=headers, data=json.dumps(data))
-            # import pdb
-
-            # pdb.set_trace()
-            # result = response.json()
+            client = OpenAI(api_key=args.api_key, base_url=args.url)
             print(args.model)
             result = client.chat.completions.create(**data)
 
@@ -137,10 +130,10 @@ if __name__ == "__main__":
     output_file_path = Path(args.output_file_path)
     if not os.path.exists(output_file_path):
         try:
-            # 创建空文件
-            output_file_path.parent.mkdir(parents=True, exist_ok=True)  # 确保目录存在
-            output_file_path.touch()  # 创建空文件
-            # 创建文件并写入空字典
+            # create an empty file
+            output_file_path.parent.mkdir(parents=True, exist_ok=True)
+            output_file_path.touch()
+
             # with output_file_path.open("w", encoding="utf-8") as f:
             #    json.dump({}, f, indent=4)
             print(f"Created empty file at: {output_file_path}")

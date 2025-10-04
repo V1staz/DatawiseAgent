@@ -1,3 +1,35 @@
+"""
+Run DataModeling Evaluation
+===========================
+
+This script evaluates models on the DataModeling benchmark by creating a user, 
+reading dataset samples, uploading related files, and generating responses 
+with chat sessions. The model is expected to perform data modeling, training 
+and prediction, and output the final submission file in CSV format.
+
+Usage
+-----
+First, ensure the server is running (default: http://localhost:8000).
+
+Basic usage with defaults:
+    python eval_data_modeling.py
+
+Specify custom parameters:
+    python eval_data_modeling.py \
+        --user_name "DataModeling-gpt4o-mini-temperature=0-args=(7,6,8)-for-loop" \
+        --result_path "./results/DataModeling/gpt-4o-mini/"
+
+Arguments
+---------
+--user_name : str
+    Name of the user as a readable identifier 
+    (default: DataModeling-gpt4o-mini-temperature=0-args=(7,6,8)-for-loop)
+
+--result_path : str
+    Directory where results will be stored 
+    (default: ./results/DataModeling/gpt-4o-mini/)
+"""
+
 import json
 import os
 import uuid
@@ -198,18 +230,38 @@ def main(
 
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(description="Run DSBench evaluation.")
+
+    parser.add_argument(
+        "--user_name",
+        type=str,
+        default="DSBench-gpt4o-mini-temperature=0-args=(7,6,8)-for-loop",
+        help="Name of the user (default: DSBench-gpt4o-mini-temperature=0-args=(7,6,8)-for-loop)",
+    )
+
+    parser.add_argument(
+        "--result_path",
+        type=str,
+        default="./results/DSBench/gpt-4o-mini/",
+        help="Path to store results (default: ./results/DSBench/gpt-4o-mini/)",
+    )
+
+    args = parser.parse_args()
+
+    user_id = create_user(username=args.user_name)
+    print(f"Created user_id: {user_id}")
+
     import uuid
 
     # user_name = "DataModeling-qwen2.5-temperature=0-args=(7,6,8)-for-loop"
-    user_name = "test_debug"
-    user_id = create_user(username=user_name)
     # user_id = uuid.UUID("383bf999-5537-4267-a65a-a84012b32101")
 
-    print(user_id)
     main(
         user_id=user_id,
-        user_name=user_name,
-        result_path="./results/DataModeling/gpt-4o-test/",
+        user_name=args.user_name,
+        result_path=args.result_path,
+        # "./results/DataModeling/gpt-4o-test/",
         # result_path="./results/DataModeling/qwen25-72B/",
         # model="Qwen/Qwen2.5-72B-Instruct",
     )

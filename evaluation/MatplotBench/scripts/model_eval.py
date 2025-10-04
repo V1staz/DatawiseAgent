@@ -37,8 +37,9 @@ results_path = Path(args.dir) / "result.jsonl"
 output_path = Path(args.dir) / "result_with_score.jsonl"
 
 
-API_KEY = os.environ.get("OPENAI_API_KEY")
-BASE_URL = os.environ.get("OPENAI_BASE_URL")
+API_KEY = open("evaluation/MatplotBench/scripts/api_key.txt").read().strip()
+BASE_URL = open("evaluation/MatplotBench/scripts/url.txt").read().strip()
+
 client = OpenAI(
     api_key=API_KEY,
     base_url=BASE_URL,

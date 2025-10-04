@@ -4,7 +4,7 @@ Usage:
     First of all, start the server at http://localhost:8000
 
     Example:
-        python ./eval_infiagent_bench.py --note "temperature-0_2-args-7-6-8" [--with_tool]
+        python ./eval_matplotbench.py --note "temperature-0_2-args-7-6-8" [--with_tool]
 
 Arguments:
     --note       Unique identifier for the run (e.g., "temperature-0_2-args-7-6-8")

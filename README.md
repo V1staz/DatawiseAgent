@@ -1,77 +1,245 @@
-DatawiseAgent is a notebook-based LLM agent architecture designed to mimic human-like workflows for adaptive, robust, and end-to-end data science automation.
+<div align="center">
 
-# Initialize Environment
-## Conda
-conda create -n datawise python=3.10 -y
-conda activate datawise
-pip install -r requirements.txt
+# DatawiseAgent: A Notebook-Centric LLM Agent Framework for Adaptive and Robust Data Science Automation
 
-## Docker
-As we recommend using Docker sandbox in DatawiseAgent, we need to preinstall Docker, and then build code executor image as needed.
-In specify,
-if there's no need for GPU computing, build `my-jupyter-image` and specify `image_name: my-jupyter-image` in config yaml file (as see [Configuration](## Configuration)):
+[![Paper](https://img.shields.io/badge/Paper-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2503.07044) [![Github](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=000&logoColor=white)](https://github.com/zimingyou01/DatawiseAgent)
+</div>
 
-```
-docker build -t my-jupyter-image -f datawiseagent/coding/jupyter/default_jupyter_server.dockerfile . --progress=plain
-```
 
-if there's need for GPU computing (such as for DataModeling tasks), build `my-jupyter-image-gpus` and specify `image_name: my-jupyter-image-gpus` in config yaml file (as see [Configuration](## Configuration)):
+📘 DatawiseAgent is a notebook-based LLM agent architecture designed to mimic human-like workflows for adaptive, robust, and end-to-end data science automation.
 
-```
-docker build -t my-jupyter-image-gpus -f datawiseagent/coding/jupyter/cuda_jupyter_server.dockerfile . --progress=plain
-```
 
-## Vllm
-Our agent framework demonstrates strong effectiveness, robustness and adaptiveness across various LLMs, including GPT-4o, GPT-4o mini, and Qwen2.5 7B, 14B, 32B, 72B. To support deployment for open-source LLMs, we recommend use [vllm](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html) to deploy open-sourced LLMs as an OpenAI-Compatible Server. After that, it works well by justing setting `OPENAI_API_KEY` and `OPENAI_BASE_URL`.
+---
 
 
 
-# Start DatawiseAgent as a Backend Server
+## 🗂️ Table of Contents
+- [⚙️ Environment Setup](#️-environment-setup)
+- [🚀 Start DatawiseAgent as a Backend Server](#-start-datawiseagent-as-a-backend-server)
+  - [⛏️ Configuration](#️-configuration)
+  - [▶️ Start the Server](#️-start-the-server)
+- [📊 Evaluation](#-evaluation)
+  - [📈 Experiment Results](#-experiment-results)
+  - [📑 Benchmark Data](#-benchmark-data)
+  - [🔍 Data Analysis (InfiAgentBench)](#-data-analysis-infiagentbench)
+  - [🎨 Scientific Visualization (MatplotBench)](#-scientific-visualization-matplotbench)
+  - [𝌭 DataModeling (DSBench)](#-datamodeling-dsbench)
+- [📚 Citing](#-citing)
 
-## Configuration
-1. configure `.env`
-copy `.env.example` to `.env`, and fill all the neccessary env variables, including `OPENAI_API_KEY` and `OPENAI_BASE_URL`. In this repo, we recommend starting DatawiseAgent as a backend server, and the default configuaration is configured by the file `configs/default_config.yaml`. If you want to customize a different config file, create a new yaml file and specify it in the `.env` by `export CUSTOM_CONFIG=`.
 
-2. configure `configs/*.yaml`
-The yaml files in `configs/` specify all the hyperparameters of DatawiseAgent, with each field explained in annotations.
+## ⚙️ Environment Setup
+1. **Clone the  repository** 📥
+   ```bash
+   git clone git@github.com:zimingyou01/DatawiseAgent.git
+   cd DatawiseAgent
+   ```
 
-To facilitate reproducing our experimental results in our paper, we save 2 config files in `configs/`:
-- `default_config.yaml`: InfiAgentBench, MatplotBench
-- `datamodeling.yaml`: Datamodeling tasks from DSBench
+2. **Set up Python environment** 🧑‍💻 
+    We recommend Python ≥ 3.10 (tested with 3.10).
+    ```bash
+    conda create -n datawise python=3.10 -y
+    conda activate datawise
+    pip install -r requirements.txt
+    ```
 
-The main difference between them is the docker image used and some minor modification in limitation to the finite-state transducer of DatawiseAgent.
+3. **Build Docker image for sandboxed code execution** 🐳
 
-## Start a Server
+    DatawiseAgent supports a Docker-based sandbox for secure code execution. Please ensure [Docker](https://docs.docker.com/engine/install/) is installed before proceeding.
+   
+    *  **CPU-only environment**
+        Build the default image and set `image_name`: `my-jupyter-image` in the configuration YAML file (see [Agent hyperparameters](#agent-config)):
 
-start DatawiseAgent as a backend server which supports multi-user and multi-session scenarios.
+        ```bash
+        docker build -t my-jupyter-image -f datawiseagent/coding/jupyter/default_jupyter_server.dockerfile . --progress=plain
+        ```
+    * **GPU-enabled environment (e.g., DataModeling tasks)**
+        Build the GPU-compatible image and set `image_name`: `my-jupyter-image-gpus` in the configuration YAML file (see [Agent hyperparameters](#agent-config)):
+
+        ```bash
+        docker build -t my-jupyter-image-gpus -f datawiseagent/coding/jupyter/cuda_jupyter_server.dockerfile . --progress=plain
+        ```
+4. **Optional: Deploy open-source LLMs with vLLM** 🤖
+    DatawiseAgent is designed to work seamlessly with both commercial and open-source LLMs (e.g., **GPT-4o, GPT-4o-mini, Qwen2.5 7B/14B/32B/72B**).
+
+    For open-source models, we recommend using [vLLM](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html) to serve them as an OpenAI-compatible API.
+    Once deployed, simply configure in `.env` (see [Environment variables](#env-config)):
+    ```bash
+    export OPENAI_API_KEY=<your_key>
+    export OPENAI_BASE_URL=<your_vllm_server_url>
+    ```
+
+##  🚀 Start DatawiseAgent as a Backend Server
+
+We recommend running DatawiseAgent as a backend server.
+
+### ⛏️ Configuration
+DatawiseAgent requires **two levels of configuration**:
+1. **Environment variables (`.env`)** <a name="env-config"></a>
+    * Copy the template file and fill in required fields:
+    ```bash
+    cp .env.example .env
+    ```
+    * At a minimum, set the following variables:
+      * `OPENAI_API_KEY` - your OpenAI (or OpenAI-compatible) API key
+      * `OPENAI_BASE_URL` - the API base URL (can point to [vLLM](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html) or OpenAI's official endpoint)
+    * By default, DatawiseAgent loads settings from `configs/default_config.yaml`.
+    If you wish to use a custom config file, specify it in `.env`:
+    ```bash
+    export CUSTOM_CONFIG=configs/my_config.yaml
+    ```
+
+
+
+2. **Agent hyperparameters (configs/*.yaml)** <a name="agent-config"></a>
+    * The YAML files in `configs/` define all hyperparameters of DatawiseAgent.
+    * Each field is annotated with explanations for clarity.
+    * We provide two reference configurations for reproducibility:
+      * `default_config.yaml` → used in *InfiAgentBench* and *MatplotBench* experiments
+      * `datamodeling.yaml` → used in Datamodeling tasks in DSBench
+    * The main differences between them lie in:
+      * The Docker image used for code execution
+      * Minor adjustments to the finite-state transducer limitations in DatawiseAgent
+
+### ▶️ Start the Server
+Launch DatawiseAgent as a backend service:
+```bash
 python main.py
-
-http://localhost:8000
-
-
-# Evaluation
-
-## Experiment results
-We evaluate DatawiseAgent on three representa111 tive data science scenarios, namely data analysis, scientific visualization, and predictive modeling,
-across both proprietary (GPT-4o, GPT-4o mini) and open-source (Qwen2.5 at multiple scales) LLMs. The experiment results are as follows:
-[插入两张图片，竖着放，分别是`evaluation/experimental_results/effective_result.jpg`, `evaluation/experimental_results/robust_result.jpg`]
+```
+Once started, the server runs at:
+👉 http://localhost:8000
 
 
-To facilitate further research, we open-source the primary experiement results and agent trajectories in `evaluation/experimental_results`.
-Also we can reproduce our results following the following steps.
+## 📊 Evaluation
 
-All the evaluations should at the root of `evaluation/`.
+We evaluate DatawiseAgent on three representative data science scenarios:
+
+* **Data Analysis** (*InfiAgentBench*)
+* **Scientific Visualization** (*MatplotBench*)
+* **Predictive Modelin**g (*DSBench*)
+
+across both **proprietary models** (GPT-4o, GPT-4o-mini) and **open-source models** (Qwen2.5 series).
+
+### 📈 Experiment results
+We report the results on **effectiveness**, **adaptability** and **robustness**:
+- **Effectiveness** and **Adaptability**
+
+<p align="center">
+  <img src="evaluation/experimental_results/effective_result.jpg" alt="Effectiveness Results" width="100%"/>
+</p>
+
+- **Robustness**
+
+<p align="center">
+  <img src="evaluation/experimental_results/robust_result.jpg" alt="Robustness Results" width="60%"/>
+</p>
+
+### 📑 Benchmark Data
+To facilitate further research, we open-source the experimental results and agent trajectories under:
+```
+evaluation/experimental_results/
+```
+
+
+**💡 To reproduce results, run all evaluations (including [Data Analysis](#Data-Analysis), [Scientific Visualization](#Scientific-Visualization), and [DataModeling](#DataModeling)) from the root of `evaluation/`**:
+
 ```
 cd evaluation/
-``
+```
+And ensure the backend server address is consistent with chat_test_asyncio.py:
+```python
+# set in chat_test_asyncio.py
+BASE_URL = "http://0.0.0.0:8000"
+BASE_WS_URL = "ws://localhost:8000/register_websocket"
+```
 
-## Benchmark Data
 
-## Data Analysis [InfiAgentBench]
+### 🔍 Data Analysis [[InfiAgentBench](https://github.com/InfiAgent/InfiAgent)]
+<a name="Data-Analysis"></a>
+1. Run evaluation:
+
+    ```bash
+    python ./eval_infiagent_bench.py --note "temperature-0_2-args-7-6-8"
+    ```
+
+2. Evaluate results (following [InfiAgentBench](https://github.com/InfiAgent/InfiAgent) protocol):
+    * **Step 1: Configure API key and base URL**
+        Set values in:
+        * `evaluation/InfiAgentBench/scripts/api_key.txt`
+        * `evaluation/InfiAgentBench/scripts/url.txt`
+
+    * **Step 2: Reformat agent trajectories**
+
+        ```bash
+        python ./InfiAgentBench/scripts/reformat.py \
+            --model "gpt-4o-mini" \
+            --responses_file_path ./data/results_datawise-test.jsonl \
+            --output_file_path ./experimental_results/InfiAgent-Bench/reformat/results_reformat_datawise-test.jsonl
+        ```
+    
+    * **Step 3: Evaluate reformatted answers against ground truth**
+
+        ```bash
+        python ./InfiAgentBench/scripts/eval_closed_form.py \
+                --questions_file_path ./InfiAgentBench/data/da-dev-questions.jsonl \
+                --labels_file_path ./InfiAgentBench/data/da-dev-labels.jsonl \
+                --responses_file_path ./experimental_results/InfiAgent-Bench/reformat/results_datawise-test.jsonl
+        ```
 
 
-## Scientific Visualizetion [MatplotBench]
+
+### 🎨 Scientific Visualization [MatplotBench](https://github.com/thunlp/MatPlotAgent)
+<a name="Scientific-Visualization"></a>
+
+1. Run MatplotBench tasks:
+    ```bash
+    python ./eval_infiagent_bench.py --note "temperature-0_2-args-7-6-8" [--with_tool]
+    ```
+
+2. Evaluate results with model-based evaluation:
+    In our experimental setting, we use `gpt-4o-2024-08-06` as the default judge VLM.
+    * Set values in:
+        * `evaluation/MatplotBench/scripts/api_key.txt`
+        * `evaluation/MatplotBench/scripts/url.txt`
+    
+    * Run evaluation script:
+    ```bash
+    python ./MatplotBench/scripts/model_eval.py --dir ./experimental_results/MatplotBench/gpt-4o-mini
+    ```
+    
+
+### 𝌭 DataModeling [DSBench]
+<a name="DataModeling"></a>
+
+1. Run DataModeling tasks:
+    ```bash
+    python eval_data_modeling.py \
+        --user_name "DataModeling-gpt4o-mini-temperature=0-args=(7,6,8)-for-loop" \
+        --result_path "./results/DataModeling/gpt-4o-mini/"
+    ```
+
+2. Compute evaluation scores:
+
+    ```bash
+    python ./DataModeling/scripts/score4each.py --model gpt-4o-mini
+    ```
+
+3. Aggregate and summarize results:
+    ```bash
+    python ./DataModeling/scripts/show_results.py --model gpt-4o-mini
+    ```
+
+👉 Detailed parameter usage is documented in the comments of each script.
 
 
-## DataModeling [DSBench]
+## 📚 Citing
 
+If you build upon this work, please cite the accompanying paper:
+
+```bibtex
+@article{you2025datawiseagent,
+  title={DatawiseAgent: A Notebook-Centric LLM Agent Framework for Automated Data Science},
+  author={You, Ziming and Zhang, Yumiao and Xu, Dexuan and Lou, Yiwei and Yan, Yandong and Wang, Wei and Zhang, Huaming and Huang, Yu},
+  journal={arXiv preprint arXiv:2503.07044},
+  year={2025}
+}
+```

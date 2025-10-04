@@ -5,7 +5,7 @@ import asyncio
 from pathlib import Path
 from typing import Optional, Literal
 
-# 配置服务器地址
+# configure server address
 BASE_URL = "http://0.0.0.0:8000"
 BASE_WS_URL = "ws://localhost:8000/register_websocket"
 
@@ -19,7 +19,6 @@ async def register_websocket(user_id: str, session_id: str):
             print(f"Received message from {session_id}: {message}")
 
 
-# 创建一个用户
 def create_user(username: str):
     response = httpx.post(
         f"{BASE_URL}/create_user/", json={"username": username}, timeout=None
@@ -29,7 +28,6 @@ def create_user(username: str):
     return response_data["user_id"]
 
 
-# 创建一个会话
 def create_session(
     user_id: str,
     session_name: str,
@@ -47,7 +45,6 @@ def create_session(
     return response_data["session_id"]
 
 
-# 聊天
 def chat(
     user_id: str,
     session_id: str,
@@ -61,7 +58,7 @@ def chat(
             "session_id": session_id,
             "query": query,
             "work_mode": work_mode,
-            # 可选参数可以省略
+            # optional parameters ignored
             # "agent_config": {...},
         },
         timeout=3600,
@@ -71,7 +68,6 @@ def chat(
     return response_data
 
 
-# 上传文件
 def upload_file(
     user_id: str,
     session_id: str,
@@ -107,14 +103,12 @@ async def main():
 
 
 if __name__ == "__main__":
-    # 创建用户和会话
+    # test
     user_id = create_user("test_user")
 
     import pdb
 
     pdb.set_trace()
-
-    # 发送一个查询
 
     query = """You are solving this machine learning tasks of time series classification: 
 The dataset presented here (the Ethanol Concentration dataset) comprises real-world time series data. We have splitted the dataset into three parts of train, valid and test. The input is a sequence of observed features (INPUT_SEQ_LEN=1751, INPUT_DIM=3). Your task is to predict the labels for the given sequence, where the label is in range of {0, 1, 2, 3}. The evaluation metric is accuracy.
@@ -136,10 +130,9 @@ In this task, you should work in `env/` folder, which means the working memory w
     query = """从以下链接下载文件：`https://github.com/Luffyzm3D2Y/CHEF_assignment_for_NLP/raw/refs/heads/main/test.csv`。 这是一个和病人相关的表型文件。请你先了解下文件内容，然后探究一下不同年龄段的人群在生存率和感染率上是否存在显著差异。你需要使用中文回答我的问题。"""
     chat(user_id, session_id, query)
 
-    # 文件上传测试
     # upload_file(user_id, session_id, "test.csv")
 
-    # 交互式输入查询
+    # interactive chat
     while True:
         user_query = input("Input your query (or 'exit' to quit): ")
         if user_query.lower() == "exit":
