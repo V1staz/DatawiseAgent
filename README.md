@@ -219,6 +219,15 @@ evaluation/experimental_results/
     python ./eval_infiagent_bench.py --note "temperature-0_2-args-7-6-8" [--with_tool]
     ```
 
+    - `--with_tool` *(Optional)*: Enable the **visual tool** during evaluation.  
+    - ⚠️ Before enabling `--with_tool`, make sure to set your API key and base URL in  
+      `datawiseagent/tools/dsbench/vision_tool.py`:
+      ```python
+      # TODO: explicitly write in the api_key and base_url
+      api_key = "<YOUR_API_KEY>"
+      base_url = "<YOUR_BASE_URL>"
+      ```
+
 2. Evaluate results with model-based evaluation:
     In our experimental setting, we use `gpt-4o-2024-08-06` as the default judge VLM.
     * Set values in:

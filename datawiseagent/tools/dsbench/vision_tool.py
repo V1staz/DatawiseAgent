@@ -148,9 +148,9 @@ def evaluate_image(image_path: str, requirements: str, query: str) -> str:
     # Initialize the OpenAI client if not provided
     # client = OpenAI()
 
-    # 显式写入 API 密钥和 Base URL
-    api_key = "sk-IhCvPiAG4gpA4rAcywj8suM79i4IeTE8zj44IdND4qgYftYZ"
-    base_url = "https://api.openai-proxy.org/v1"
+    # TODO: explicitly write in the api_key and base_url
+    api_key = "xxx"
+    base_url = "xxx"
     client = OpenAI(api_key=api_key, base_url=base_url)
 
     global EVALUATION_CNT
