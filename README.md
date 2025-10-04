@@ -153,7 +153,7 @@ BASE_WS_URL = "ws://localhost:8000/register_websocket"
 ```
 
 
-### 🔍 Data Analysis [[InfiAgentBench](https://github.com/InfiAgent/InfiAgent)]
+### 🔍 Data Analysis ([InfiAgentBench](https://github.com/InfiAgent/InfiAgent))
 <a name="Data-Analysis"></a>
 1. Run evaluation:
 
@@ -187,7 +187,7 @@ BASE_WS_URL = "ws://localhost:8000/register_websocket"
 
 
 
-### 🎨 Scientific Visualization [MatplotBench](https://github.com/thunlp/MatPlotAgent)
+### 🎨 Scientific Visualization ([MatplotBench](https://github.com/thunlp/MatPlotAgent))
 <a name="Scientific-Visualization"></a>
 
 1. Run MatplotBench tasks:
@@ -207,7 +207,7 @@ BASE_WS_URL = "ws://localhost:8000/register_websocket"
     ```
     
 
-### 𝌭 DataModeling [DSBench](https://github.com/LiqiangJing/DSBench)
+### 𝌭 DataModeling ([DSBench](https://github.com/LiqiangJing/DSBench))
 <a name="DataModeling"></a>
 
 1. Run DataModeling tasks:
