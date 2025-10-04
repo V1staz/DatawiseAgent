@@ -6,7 +6,7 @@
 </div>
 
 
-📘 DatawiseAgent is a notebook-based LLM agent architecture designed to mimic human-like workflows for adaptive, robust, and end-to-end data science automation.
+📘 DatawiseAgent is a notebook-based LLM agent framework with FST-based multi-stage architecture designed to mimic human-like workflows for adaptive, robust, and end-to-end data science automation.
 
 
 ---
