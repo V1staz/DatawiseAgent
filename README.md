@@ -3,6 +3,7 @@
 # DatawiseAgent: A Notebook-Centric LLM Agent Framework for Adaptive and Robust Data Science Automation
 
 [![Paper](https://img.shields.io/badge/Paper-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2503.07044) [![Github](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=000&logoColor=white)](https://github.com/zimingyou01/DatawiseAgent)
+[![Huggingface](https://img.shields.io/badge/-HuggingFace-3B4252?style=for-the-badge&logo=huggingface)](https://huggingface.co/datasets/JasperYOU/DatawiseAgent-benchmarkdata)
 </div>
 
 
