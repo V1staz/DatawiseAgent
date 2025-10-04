@@ -139,18 +139,41 @@ To facilitate further research, we open-source the experimental results and agen
 evaluation/experimental_results/
 ```
 
+**💡 To reproduce results, follow these steps:**
+1. **Download benchmark data** 
+    All benchmarks (MatplotBench, InfiAgentBench, Datamodeling) are hosted on Hugging Face:  
+    👉 [DatawiseAgent-benchmarkdata](https://huggingface.co/datasets/JasperYOU/DatawiseAgent-benchmarkdata)
 
-**💡 To reproduce results, run all evaluations (including [Data Analysis](#Data-Analysis), [Scientific Visualization](#Scientific-Visualization), and [DataModeling](#DataModeling)) from the root of `evaluation/`**:
+    After downloading, the dataset contains three folders:  
+    - `MatplotBench/`  
+    - `InfiAgentBench/`  
+    - `Datamodeling/`  
 
-```
-cd evaluation/
-```
-And ensure the backend server address is consistent with chat_test_asyncio.py:
-```python
-# set in chat_test_asyncio.py
-BASE_URL = "http://0.0.0.0:8000"
-BASE_WS_URL = "ws://localhost:8000/register_websocket"
-```
+    Move their contents into the corresponding `evaluation/*/data` directories (create the `data/` folders if they don’t exist):  
+    ```bash
+    mkdir -p evaluation/MatplotBench/data evaluation/InfiAgentBench/data evaluation/DataModeling/data
+
+    mv DatawiseAgent-benchmarkdata/MatplotBench/* evaluation/MatplotBench/data/
+    mv DatawiseAgent-benchmarkdata/InfiAgentBench/* evaluation/InfiAgentBench/data/
+    mv DatawiseAgent-benchmarkdata/Datamodeling/* evaluation/DataModeling/data/
+    ```
+    🥑 Alternative:
+    If you prefer, you can also download the benchmark datasets individually from their original repositories and manually organize them under the `evaluation/*/data` folders:
+    * [MatplotBench](https://github.com/thunlp/MatPlotAgent)
+    * [InfiAgentBench](https://github.com/InfiAgent/InfiAgent)
+    * datamodeling tasks from [DSBench](https://github.com/LiqiangJing/DSBench)
+
+2. **Run all evaluations from the root of `evaluation/`**
+
+    ```
+    cd evaluation/
+    ```
+3. **Ensure the backend server address is consistent with `chat_test_asyncio.py`**
+    ```python
+    # set in chat_test_asyncio.py
+    BASE_URL = "http://0.0.0.0:8000"
+    BASE_WS_URL = "ws://localhost:8000/register_websocket"
+    ```
 
 
 ### 🔍 Data Analysis ([InfiAgentBench](https://github.com/InfiAgent/InfiAgent))
