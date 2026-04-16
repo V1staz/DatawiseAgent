@@ -157,9 +157,6 @@ if __name__ == "__main__":
     import sys
     sys.path.append("../../.")
     """
-    import pdb
-
-    pdb.set_trace()
     fs = FileSystem(
         uuid.uuid4(),
         "./test",

@@ -240,20 +240,29 @@ class DatawiseAgent:
         session.code_executor_config = CodeExecutorConfig(**reset_code_executor)
 
         if session.code_executor_config.use_docker:
-            session.code_executor = await JupyterCodeExecutor.create(
-                jupyter_server=DockerJupyterServer(
-                    # custom_image_name="my-jupyter-image-gpus",
-                    custom_image_name=session.code_executor_config.image_name,
-                    out_dir=session.root_dir,
-                    auto_remove=True,
-                    stop_container=True,
-                    use_proxy=session.code_executor_config.use_proxy,
-                    use_gpu=session.code_executor_config.use_gpu,
-                ),
-                # all rich text data output by the kernel will be stored in the path of `{session.session_root_dir}/display`
-                output_dir=session.display_dir,
-                use_docker_space=True,
-            )
+            try:
+                session.code_executor = await JupyterCodeExecutor.create(
+                    jupyter_server=DockerJupyterServer(
+                        custom_image_name=session.code_executor_config.image_name,
+                        out_dir=session.root_dir,
+                        auto_remove=True,
+                        stop_container=True,
+                        use_proxy=session.code_executor_config.use_proxy,
+                        use_gpu=session.code_executor_config.use_gpu,
+                    ),
+                    output_dir=session.display_dir,
+                    use_docker_space=True,
+                )
+            except Exception as exc:
+                logger.warn(
+                    f"Failed to start Docker executor ({exc}). Falling back to LocalJupyterServer for this session."
+                )
+                session.code_executor_config.use_docker = False
+                session.code_executor = await JupyterCodeExecutor.create(
+                    jupyter_server=LocalJupyterServer(out_dir=session.root_dir),
+                    output_dir=session.display_dir,
+                    use_docker_space=False,
+                )
         else:
 
             session.code_executor = await JupyterCodeExecutor.create(
@@ -314,11 +323,10 @@ class DatawiseAgent:
 
             c1 = CodeCell(
                 content="""!grep -E '^(NAME|VERSION|ID|ID_LIKE)=' /etc/os-release
-!pip install -qqq numpy pandas matplotlib scipy scikit-learn torch
 
 # Get system information (CPU, GPU, Memory)
 !echo "CPU Cores: $(lscpu | grep '^CPU(s):' | awk '{print $2}')"
-!echo "GPU Memory: $(nvidia-smi --query-gpu=memory.total,memory.free,memory.used --format=csv,noheader,nounits)"
+!if command -v nvidia-smi >/dev/null 2>&1; then nvidia-smi --query-gpu=memory.total,memory.free,memory.used --format=csv,noheader,nounits; else echo "GPU Memory: unavailable"; fi
 !echo "Memory Usage: $(free -h | grep Mem | awk '{print $2 \" total, \" $3 \" used, \" $4 \" free\"}')"
 
 import pandas as pd
@@ -330,7 +338,7 @@ pd.options.display.notebook_repr_html = False
             )
 
             c2 = CodeCell(
-                content="# You could use sklearn or pytorch for data modeling.\n!pip show numpy pandas matplotlib scipy scikit-learn torch| grep Version",
+                content="# You could use sklearn for local reproduction. PyTorch remains optional.\n!pip show numpy pandas matplotlib scipy scikit-learn xgboost lightgbm | grep Version\nimport importlib.util\nfor module in ['torch', 'transformers']:\n    print(f\"{module}: {'installed' if importlib.util.find_spec(module) else 'not installed'}\")",
                 role="assistant",
                 name="Datawise_Agent",
             )
@@ -361,7 +369,7 @@ pd.options.display.notebook_repr_html = False
             )
 
             c1 = CodeCell(
-                content="!grep -E '^(NAME|VERSION|ID|ID_LIKE)=' /etc/os-release\n!pip install -qqq numpy pandas matplotlib scipy scikit-learn\n\nimport pandas as pd\n# disable HTML representation of dataframe\npd.options.display.notebook_repr_html = False",
+                content="!grep -E '^(NAME|VERSION|ID|ID_LIKE)=' /etc/os-release\n\nimport pandas as pd\n# disable HTML representation of dataframe\npd.options.display.notebook_repr_html = False",
                 role="assistant",
                 name="Datawise_Agent",
             )
@@ -730,7 +738,7 @@ pd.options.display.notebook_repr_html = False
                 >= session.agent_config.execution.execution_max_number
             ):
 
-                is_self_debug = (session.agent_config.debug.self_debug,)
+                is_self_debug = session.agent_config.debug.self_debug
                 append_code_tag, debug_tag = await self._append_code(
                     session, is_self_debug, session.agent_config.debug.debug_max_number
                 )

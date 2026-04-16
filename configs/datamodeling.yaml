@@ -18,10 +18,6 @@ agent:
     # Max number of times to enter the DFS-like planning stage in the FST-based architecture
     planning_max_number: 7
 
-    # The name of docker image for docker code executor, only valid if use_docker = True.
-    # image_name: my-jupyter-image
-    image_name: my-jupyter-image-gpus
-
   execution:
     # Max number of incremental steps for each subtask
     execution_max_number: 6
@@ -40,9 +36,12 @@ agent:
 
 
 code_executor:
-  use_docker: True
-  use_proxy: True
-  use_gpu: True
+  # Shared fork default: local execution for API-first reproduction.
+  # For the original containerized path, use `configs/docker_datamodeling.yaml`.
+  use_docker: False
+  use_proxy: False
+  use_gpu: False
+  image_name: my-jupyter-image-gpus
   
 log:
   users_log_path: log/workspace/users

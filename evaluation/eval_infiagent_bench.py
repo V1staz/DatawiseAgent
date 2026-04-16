@@ -225,10 +225,6 @@ def main(user_id: uuid.UUID):
 
     for q_id, q in enumerate(extracted_data):
 
-        # import pdb
-
-        # pdb.set_trace()
-
         if q["id"] in results_ids:
             continue
 

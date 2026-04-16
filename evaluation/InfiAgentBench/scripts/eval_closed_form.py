@@ -91,15 +91,8 @@ def evaluate_responses(labels, responses):
                     print(data["concepts"])
                     print(data["format"])
                     print(result)
-                    import pdb
-
-                    pdb.set_trace()
                     # check the result
                     pass"""
-
-            # import pdb
-
-            # pdb.set_trace()
     return results
 
 
@@ -249,10 +242,6 @@ def main():
 
     # Evaluating responses
     results = evaluate_responses(labels, responses)
-
-    import pdb
-
-    pdb.set_trace()
 
     # Calculate accuracies
     accuracy_by_question = evaluate_accuracy_by_question(results)

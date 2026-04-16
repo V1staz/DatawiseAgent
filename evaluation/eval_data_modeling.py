@@ -30,29 +30,18 @@ Arguments
     (default: ./results/DataModeling/gpt-4o-mini/)
 """
 
-import json
-import os
-import uuid
 import argparse
-from pathlib import Path
-from chat_test_asyncio import create_session, create_user, chat, upload_file
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import os
-import autogen
-from autogen.coding import LocalCommandLineCodeExecutor
-from autogen import AssistantAgent, UserProxyAgent
-from IPython.display import Image, display
-
-# import fitz  # PyMuPDF
-import json
-import base64
-import re
-import time
-import pandas as pd
-from tqdm import tqdm
-from typing import Optional
 import glob
+import json
+import os
+import time
+import uuid
+from pathlib import Path
+from typing import Optional
+
 import httpx
+
+from chat_test_asyncio import create_session, create_user, chat, upload_file
 
 def main(
     user_id: uuid.UUID,
@@ -73,9 +62,6 @@ def main(
         Path(log_path).touch()
 
     id2results = {}
-    import pdb
-
-    pdb.set_trace()
     with open(results_path, encoding="utf-8", mode="r") as f:
         for line in f:
             item = json.loads(line)
@@ -89,10 +75,6 @@ def main(
     print(f"samples count: {len(samples)}")
 
     print(f"id2results count: {len(id2results)}")
-
-    import pdb
-
-    pdb.set_trace()
 
     instruction = "I have a data modeling task. You must give me the predicted results as a CSV file as detailed in the following content. You should try your best to predict the answer. I provide you with three files. One is training data, one is test data. There is also a sample file for submission."
 

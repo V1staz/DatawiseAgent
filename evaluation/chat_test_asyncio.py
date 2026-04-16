@@ -106,10 +106,6 @@ if __name__ == "__main__":
     # test
     user_id = create_user("test_user")
 
-    import pdb
-
-    pdb.set_trace()
-
     query = """You are solving this machine learning tasks of time series classification: 
 The dataset presented here (the Ethanol Concentration dataset) comprises real-world time series data. We have splitted the dataset into three parts of train, valid and test. The input is a sequence of observed features (INPUT_SEQ_LEN=1751, INPUT_DIM=3). Your task is to predict the labels for the given sequence, where the label is in range of {0, 1, 2, 3}. The evaluation metric is accuracy.
 We provide an overall pipeline in train.py. Now fill in the provided train.py script to train a time series classification model to get a good performance on the given fixed sequences.

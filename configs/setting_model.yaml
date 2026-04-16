@@ -1,0 +1,12 @@
+llm:
+  llm_type: openai-chat
+  # Main agent model for DashScope-compatible mode.
+  # The notebook agent itself is text/code-centric, so the non-VL instruct models
+  # are the correct defaults here.
+  #
+  # Common options:
+  # model: qwen2.5-32b-instruct
+  model: qwen2.5-72b-instruct
+  temperature: 0
+  top_p: 1
+  frequency_penalty: 0.0

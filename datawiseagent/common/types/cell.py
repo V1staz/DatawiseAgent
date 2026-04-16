@@ -301,8 +301,5 @@ if __name__ == "__main__":
     result_a = CodeResult(exit_code=0, output="a")
     result_b = CodeResult(exit_code=0, output="b")
     cell = CodeOutputCell(code_result=result_a)
-    import pdb
-
-    pdb.set_trace()
     cell.code_result = result_b
     print(cell)

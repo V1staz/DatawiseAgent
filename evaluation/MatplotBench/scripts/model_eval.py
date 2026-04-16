@@ -37,13 +37,30 @@ results_path = Path(args.dir) / "result.jsonl"
 output_path = Path(args.dir) / "result_with_score.jsonl"
 
 
-API_KEY = open("evaluation/MatplotBench/scripts/api_key.txt").read().strip()
-BASE_URL = open("evaluation/MatplotBench/scripts/url.txt").read().strip()
+def _read_optional_text(path: str) -> str:
+    if os.path.exists(path):
+        return Path(path).read_text(encoding="utf-8").strip()
+    return ""
+
+
+API_KEY = os.getenv("OPENAI_API_KEY") or _read_optional_text(
+    "evaluation/MatplotBench/scripts/api_key.txt"
+)
+BASE_URL = os.getenv("OPENAI_BASE_URL") or _read_optional_text(
+    "evaluation/MatplotBench/scripts/url.txt"
+)
+
+if not API_KEY:
+    raise RuntimeError(
+        "Missing API key for MatplotBench model_eval. Set OPENAI_API_KEY or write evaluation/MatplotBench/scripts/api_key.txt."
+    )
 
 client = OpenAI(
     api_key=API_KEY,
-    base_url=BASE_URL,
+    base_url=BASE_URL or None,
 )
+
+JUDGE_MODEL = os.getenv("MATPLOT_JUDGE_MODEL", "gpt-4o-2024-08-06")
 
 from pathlib import Path
 from PIL import Image
@@ -92,8 +109,7 @@ def gpt_4v_evaluate(ground_truth_path, image_path):
     ground_truth = encode_image(ground_truth_path)
 
     response = client.chat.completions.create(
-        # model="gpt-4-vision-preview",
-        model="gpt-4o-2024-08-06",
+        model=JUDGE_MODEL,
         temperature=0.2,
         messages=[
             {
@@ -197,15 +213,8 @@ with open(results_path, encoding="utf-8", mode="r") as f:
 
                 traceback.print_exc()
 
-                import pdb
-
-                pdb.set_trace()
-
             # extract the score
 
-import pdb
-
-pdb.set_trace()
 # calculate the whole scores
 total_scores = 0
 # id2result
@@ -233,10 +242,6 @@ for idx, item in new_id2result.items():
         completion_cnt += 1
 
     total_scores += score
-
-import pdb
-
-pdb.set_trace()
 
 print(f"average score: {total_scores/(len(id2result)+len(new_id2result))}")
 print(f"competion rate: {completion_cnt/(len(id2result)+len(new_id2result))}")

@@ -1,0 +1,33 @@
+llm:
+  llm_type: openai-chat
+  model: gpt-4o-mini-2024-07-18
+  temperature: 0
+  top_p: 1
+  frequency_penalty: 0.0
+
+agent:
+  agent_type: datawise_agent
+
+  plan:
+    planning: True
+    planning_max_number: 7
+
+  execution:
+    execution_max_number: 6
+
+  debug:
+    self_debug: True
+    debug_max_number: 8
+
+  max_step_number: 15
+  max_debug_by_step: 2
+
+code_executor:
+  use_docker: True
+  use_proxy: True
+  use_gpu: True
+  image_name: my-jupyter-image-gpus
+
+log:
+  users_log_path: log/workspace/users
+  sessions_log_path: log/data

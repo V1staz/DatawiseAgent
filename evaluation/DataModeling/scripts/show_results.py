@@ -120,9 +120,7 @@ for item in results:
         import traceback
 
         traceback.print_exc()
-        import pdb
-
-        pdb.set_trace()
+        raise
 
 
 print(

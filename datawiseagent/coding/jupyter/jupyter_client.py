@@ -778,8 +778,6 @@ class JupyterKernelClient:
 
                     # content["text"] = remove_duplicate_lines(stderr_msg)
                     # print(stderr_msg)
-                    # import pdb
-                    # pdb.set_trace()
                     # (TextType.OTHER,
                     text_output.append((TextType.STDERR, content["text"]))
                 else:

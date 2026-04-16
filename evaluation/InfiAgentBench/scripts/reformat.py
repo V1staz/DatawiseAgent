@@ -187,6 +187,3 @@ if __name__ == "__main__":
             import traceback
 
             traceback.print_exc()
-            # import pdb
-
-            # pdb.set_trace()

@@ -5,6 +5,23 @@ import openai
 import os
 
 
+def _resolve_client(
+    api_key_env: str = "VISION_TOOL_API_KEY",
+    base_url_env: str = "VISION_TOOL_BASE_URL",
+) -> OpenAI:
+    api_key = os.getenv(api_key_env) or os.getenv("OPENAI_API_KEY")
+    base_url = os.getenv(base_url_env) or os.getenv("OPENAI_BASE_URL")
+
+    if not api_key:
+        raise RuntimeError(
+            "Missing API key for vision tool. Set VISION_TOOL_API_KEY or OPENAI_API_KEY."
+        )
+
+    if base_url:
+        return OpenAI(api_key=api_key, base_url=base_url)
+    return OpenAI(api_key=api_key)
+
+
 def ask_about_images(
     input_prompt: str,
     local_images: Optional[List[str]] = None,
@@ -39,10 +56,10 @@ def ask_about_images(
         - Online images (URLs) are sent directly without downloading or encoding.
         - The model is best at answering general questions about what is present in the images. While it does understand the relationship between objects in images, it is not yet optimized to answer detailed questions about the location of certain objects in an image.
     """
-    model = "gpt-4o-mini"
+    model = os.getenv("VISION_TOOL_MODEL", "gpt-4o-mini")
 
-    # Initialize the OpenAI client if not provided
-    client = OpenAI()
+    # Initialize the OpenAI client from environment variables.
+    client = _resolve_client()
 
     def encode_image_to_base64(image_path: str) -> str:
         """
@@ -106,8 +123,6 @@ def ask_about_images(
         )
         # Extract and return the response text
         return response.choices[0].message.content
-    except openai.error.OpenAIError as e:
-        raise RuntimeError(f"OpenAI API error: {e}")
     except Exception as e:
         raise RuntimeError(f"Failed to get response from OpenAI API: {e}")
 
@@ -143,15 +158,9 @@ def evaluate_image(image_path: str, requirements: str, query: str) -> str:
     Note:
         The `evaluate_image()` tool provides visual feedback that should be used as a reference only as it may not always be entirely accurate.
     """
-    model = "gpt-4o-mini"
+    model = os.getenv("VISION_TOOL_MODEL", "gpt-4o-mini")
 
-    # Initialize the OpenAI client if not provided
-    # client = OpenAI()
-
-    # TODO: explicitly write in the api_key and base_url
-    api_key = "xxx"
-    base_url = "xxx"
-    client = OpenAI(api_key=api_key, base_url=base_url)
+    client = _resolve_client()
 
     global EVALUATION_CNT
     if EVALUATION_CNT >= GLOBAL_CNT:

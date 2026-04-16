@@ -1,32 +1,42 @@
-# ignore the logs
-**/log/*
-**/logs/*
+# --- local secrets / env ---
+.env
+.env.*
+!.env.example
 
-# ignore data collected
-/data
-tests/
-# ignore unrelated directories and files
-# /evaluation/experimental_results/
-/evaluation/DataModeling/data
-/evaluation/data
-evaluation/InfiAgentBench/eval_outputs/
-# ignore vscode counter
-**/.VSCodeCounter/*
-
-# Byte-compiled / optimized / DLL files
-**/__pycache__/*
+# --- python cache / build ---
+**/__pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
+.pytest_cache/
+.ipynb_checkpoints/
 
+# --- local runtimes / logs / workspaces ---
+/log/
+logs/
+**/log/
+**/logs/
+/datawiseagent/logs/
+evaluation/InfiAgentBench/eval_outputs/
 
-# Ignore macOS DS_Store files
+# --- local benchmark data and generated outputs ---
+/evaluation/DataModeling/data/
+/evaluation/data/
+/results/
+
+# keep the reference results already tracked in the repo,
+# but ignore any newly generated local artifacts in common output areas
+/evaluation/**/process.log
+/evaluation/**/log.txt
+
+# --- local editor / os files ---
+**/.VSCodeCounter/
 .DS_Store
+**/node_modules/
 
-# Ignore frontend node_modules
-**/node_modules/*
-
-# ignore .env
-.env
+# --- local helper / intermediate artifacts ---
+/environment.ds.full.yml
+paper_pages/
+paper_extracted.txt
+*.tmp
+*.temp

@@ -35,14 +35,15 @@ agent:
   evaluation: False
 
 code_executor:
-  # Whether to run the code executor inside a Docker sandbox (recommended for safety)
-  use_docker: True
-  # Whether to enable proxy settings inside the Docker server
+  # Shared fork default: run locally without Docker so the backend can start
+  # after only setting OPENAI_BASE_URL / OPENAI_API_KEY.
+  use_docker: False
+  # Whether to enable proxy settings inside the execution environment
   # If enabled, you must define the following in your .env file:
   #   HOST_HTTP_PROXY, HOST_HTTPS_PROXY, HOST_NO_PROXY
-  use_proxy: True
+  use_proxy: False
 
-  # The name of docker image for docker code executor, only valid if use_docker = True.
+  # The docker image name is only used when use_docker = True.
   image_name: my-jupyter-image
   # image_name: my-jupyter-image-gpus
   
