@@ -1,7 +1,8 @@
-# 跟着一步一步复现（zh大爷手打的）
+# 跟着一步一步复现
 
 ## 1. 环境
     跟着翻译之后的readme把环境下载好，随后需要按要求复制.env文件，写好模型和apikey，再以default_config为模板，改一下my_config，并且在.env里用export的方式引用my_config
+    huggingface的数据我直接传进gihub了，再加上有代码改动，你们可以直接重新gitclone，等他下载一会。
 
 ## 2. 数据
     需要的数据都在evaluation里面，需要跑的代码也在evaluation里面，除了chat_test_asyncio以外都是用于evaluation的代码，dsbench的就先不管了，跑剩下三个
