@@ -1,156 +1,156 @@
 <div align="center">
 
-# DatawiseAgent: A Notebook-Centric LLM Agent Framework for Adaptive and Robust Data Science Automation
+# DatawiseAgent: 一个以Notebook为中心的大语言模型智能体框架，用于自适应和鲁棒的数据科学自动化
 
 [![Paper](https://img.shields.io/badge/Paper-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2503.07044) [![Github](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=000&logoColor=white)](https://github.com/zimingyou01/DatawiseAgent)
 [![Huggingface](https://img.shields.io/badge/-HuggingFace-3B4252?style=for-the-badge&logo=huggingface)](https://huggingface.co/datasets/JasperYOU/DatawiseAgent-benchmarkdata)
 </div>
 
 
-📘 DatawiseAgent is a notebook-based LLM agent framework with FST-based multi-stage architecture designed to mimic human-like workflows for adaptive, robust, and end-to-end data science automation.
+📘 DatawiseAgent 是一个基于Notebook的大语言模型（LLM）智能体框架，具有基于有限状态转换器（FST）的多阶段架构，旨在模仿人类的工作流，以实现自适应、鲁棒和端到端的数据科学自动化。
 
 
 ---
 
 
 
-## 🗂️ Table of Contents
-- [⚙️ Environment Setup](#️-environment-setup)
-- [🚀 Start DatawiseAgent as a Backend Server](#-start-datawiseagent-as-a-backend-server)
-  - [⛏️ Configuration](#️-configuration)
-  - [▶️ Start the Server](#️-start-the-server)
-- [📊 Evaluation](#-evaluation)
-  - [📈 Experiment Results](#-experiment-results)
-  - [📑 Benchmark Data](#-benchmark-data)
-  - [🔍 Data Analysis (InfiAgentBench)](#-data-analysis-infiagentbench)
-  - [🎨 Scientific Visualization (MatplotBench)](#-scientific-visualization-matplotbench)
-  - [𝌭 DataModeling (DSBench)](#-datamodeling-dsbench)
-- [📚 Citing](#-citing)
+## 🗂️ 目录
+- [⚙️ 环境配置](#️-environment-setup)
+- [🚀 将 DatawiseAgent 作为后端服务端启动](#-start-datawiseagent-as-a-backend-server)
+  - [⛏️ 配置](#️-configuration)
+  - [▶️ 启动服务端](#️-start-the-server)
+- [📊 评估](#-evaluation)
+  - [📈 实验结果](#-experiment-results)
+  - [📑 基准测试数据](#-benchmark-data)
+  - [🔍 数据分析 (InfiAgentBench)](#-data-analysis-infiagentbench)
+  - [🎨 科学可视化 (MatplotBench)](#-scientific-visualization-matplotbench)
+  - [𝌭 数据建模 (DSBench)](#-datamodeling-dsbench)
+- [📚 引用](#-citing)
 
 
-## ⚙️ Environment Setup
-1. **Clone the  repository** 📥
+## ⚙️ 环境配置
+1. **克隆仓库** 📥
    ```bash
    git clone git@github.com:zimingyou01/DatawiseAgent.git
    cd DatawiseAgent
    ```
 
-2. **Set up Python environment** 🧑‍💻 
-    We recommend Python ≥ 3.10 (tested with 3.10).
+2. **设置 Python 环境** 🧑‍💻 
+    我们建议使用 Python ≥ 3.10（已在 3.10 环境下测试）。
     ```bash
     conda create -n datawise python=3.10 -y
     conda activate datawise
     pip install -r requirements.txt
     ```
 
-3. **Build Docker image for sandboxed code execution** 🐳
+3. **构建用于沙箱代码执行的 Docker 镜像** 🐳
 
-    DatawiseAgent supports a Docker-based sandbox for secure code execution. Please ensure [Docker](https://docs.docker.com/engine/install/) is installed before proceeding.
+    DatawiseAgent 支持基于 Docker 的沙箱，用于安全执行代码。在继续之前，请确保已安装 [Docker](https://docs.docker.com/engine/install/)。
    
-    *  **CPU-only environment**
-        Build the default image and set `image_name`: `my-jupyter-image` in the configuration YAML file (see [Agent hyperparameters](#agent-config)):
+    *  **纯 CPU 环境**
+        构建默认镜像，并在配置 YAML 文件中设置 `image_name`: `my-jupyter-image` （见 [智能体超参数](#agent-config)）：
 
         ```bash
         docker build -t my-jupyter-image -f datawiseagent/coding/jupyter/default_jupyter_server.dockerfile . --progress=plain
         ```
-    * **GPU-enabled environment (e.g., DataModeling tasks)**
-        Build the GPU-compatible image and set `image_name`: `my-jupyter-image-gpus` in the configuration YAML file (see [Agent hyperparameters](#agent-config)):
+    * **支持 GPU 的环境（例如：数据建模任务）**
+        构建适配 GPU 的镜像，并在配置 YAML 文件中设置 `image_name`: `my-jupyter-image-gpus` （见 [智能体超参数](#agent-config)）：
 
         ```bash
         docker build -t my-jupyter-image-gpus -f datawiseagent/coding/jupyter/cuda_jupyter_server.dockerfile . --progress=plain
         ```
-4. **Optional: Deploy open-source LLMs with vLLM** 🤖
-    DatawiseAgent is designed to work seamlessly with both commercial and open-source LLMs (e.g., **GPT-4o, GPT-4o-mini, Qwen2.5 7B/14B/32B/72B**).
+4. **可选：使用 vLLM 部署开源 LLMs** 🤖
+    DatawiseAgent 旨在与商业及开源大模型（例如 **GPT-4o, GPT-4o-mini, Qwen2.5 7B/14B/32B/72B**）无缝协作。
 
-    For open-source models, we recommend using [vLLM](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html) to serve them as an OpenAI-compatible API.
-    Once deployed, simply configure in `.env` (see [Environment variables](#env-config)):
+    对于开源模型，我们推荐使用 [vLLM](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html) 将其作为与 OpenAI 兼容的 API 进行服务。
+    部署完成后，只需在 `.env` 中简单配置（见 [环境变量](#env-config)）：
     ```bash
     export OPENAI_API_KEY=<your_key>
     export OPENAI_BASE_URL=<your_vllm_server_url>
     ```
 
-##  🚀 Start DatawiseAgent as a Backend Server
+##  🚀 将 DatawiseAgent 作为后端服务端启动
 
-We recommend running DatawiseAgent as a backend server.
+我们建议将 DatawiseAgent 作为一个后端服务器运行。
 
-### ⛏️ Configuration
-DatawiseAgent requires **two levels of configuration**:
-1. **Environment variables (`.env`)** <a name="env-config"></a>
-    * Copy the template file and fill in required fields:
+### ⛏️ 配置
+DatawiseAgent 需要 **两个层级的配置**：
+1. **环境变量 (`.env`)** <a name="env-config"></a>
+    * 复制模板文件并填写必要字段：
     ```bash
     cp .env.example .env
     ```
-    * At a minimum, set the following variables:
-      * `OPENAI_API_KEY` - your OpenAI (or OpenAI-compatible) API key
-      * `OPENAI_BASE_URL` - the API base URL (can point to [vLLM](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html) or OpenAI's official endpoint)
-    * By default, DatawiseAgent loads settings from `configs/default_config.yaml`.
-    If you wish to use a custom config file, specify it in `.env`:
+    * 至少要设置以下变量：
+      * `OPENAI_API_KEY` - 你的 OpenAI（或兼容 OpenAI 的）API 密钥
+      * `OPENAI_BASE_URL` - API 的基础 URL（可以指向 [vLLM](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html) 或者 OpenAI 的官方端点）
+    * 默认情况下，DatawiseAgent 会从 `configs/default_config.yaml` 加载设置。
+    如果你想使用自定义的配置文件，请在 `.env` 中指定：
     ```bash
     export CUSTOM_CONFIG=configs/my_config.yaml
     ```
 
 
 
-2. **Agent hyperparameters (configs/*.yaml)** <a name="agent-config"></a>
-    * The YAML files in `configs/` define all hyperparameters of DatawiseAgent.
-    * Each field is annotated with explanations for clarity.
-    * We provide two reference configurations for reproducibility:
-      * `default_config.yaml` → used in *InfiAgentBench* and *MatplotBench* experiments
-      * `datamodeling.yaml` → used in Datamodeling tasks in DSBench
-    * The main differences between them lie in:
-      * The Docker image used for code execution
-      * Minor adjustments to the finite-state transducer limitations in DatawiseAgent
+2. **智能体超参数 (configs/*.yaml)** <a name="agent-config"></a>
+    * `configs/` 目录中的 YAML 文件定义了 DatawiseAgent 的所有超参数。
+    * 每个字段都有清晰的注释说明。
+    * 我们提供了两个参考配置以供复现结果：
+      * `default_config.yaml` → 用于 *InfiAgentBench* 和 *MatplotBench* 实验
+      * `datamodeling.yaml` → 用于 DSBench 中的数据建模任务
+    * 它们之间的主要区别在于：
+      * 代码执行使用的 Docker 镜像不同
+      * 对 DatawiseAgent 中有限状态转换器限制的细微调整
 
-### ▶️ Start the Server
-Launch DatawiseAgent as a backend service:
+### ▶️ 启动服务端
+将 DatawiseAgent 作为后端服务启动：
 ```bash
 python main.py
 ```
-Once started, the server runs at:
+启动之后，服务器将运行在：
 👉 http://localhost:8000
 
 
-## 📊 Evaluation
+## 📊 评估
 
-We evaluate DatawiseAgent on three representative data science scenarios:
+我们在三个具有代表性的数据科学场景下评估了 DatawiseAgent：
 
-* **Data Analysis** (*InfiAgentBench*)
-* **Scientific Visualization** (*MatplotBench*)
-* **Predictive Modelin**g (*DSBench*)
+* **数据分析** (*InfiAgentBench*)
+* **科学可视化** (*MatplotBench*)
+* **预测建模** (*DSBench*)
 
-across both **proprietary models** (GPT-4o, GPT-4o-mini) and **open-source models** (Qwen2.5 series).
+横跨 **商业模型**（GPT-4o, GPT-4o-mini）和 **开源模型**（Qwen2.5 系列）。
 
-### 📈 Experiment results
-We report the results on **effectiveness**, **adaptability** and **robustness**:
-- **Effectiveness** and **Adaptability**
+### 📈 实验结果
+我们报告了在 **有效性** (Effectiveness)、**适应性** (Adaptability) 和 **鲁棒性** (Robustness) 方面的结果：
+- **有效性** 和 **适应性**
 
 <p align="center">
   <img src="evaluation/experimental_results/effective_result.jpg" alt="Effectiveness Results" width="100%"/>
 </p>
 
-- **Robustness**
+- **鲁棒性**
 
 <p align="center">
   <img src="evaluation/experimental_results/robust_result.jpg" alt="Robustness Results" width="60%"/>
 </p>
 
-### 📑 Benchmark Data
-To facilitate further research, we open-source the experimental results and agent trajectories under:
+### 📑 基准测试数据
+为促进后续研究，我们将实验结果和智能体轨迹开源在：
 ```
 evaluation/experimental_results/
 ```
 
-**💡 To reproduce results, follow these steps:**
-1. **Download benchmark data** 
-    All benchmarks (MatplotBench, InfiAgentBench, Datamodeling) are hosted on Hugging Face:  
+**💡 要复现结果，请遵照以下步骤：**
+1. **下载基准测试数据** 
+    所有基准测试（MatplotBench, InfiAgentBench, Datamodeling）均托管在 Hugging Face 上：  
     👉 [DatawiseAgent-benchmarkdata](https://huggingface.co/datasets/JasperYOU/DatawiseAgent-benchmarkdata)
 
-    After downloading, the dataset contains three folders:  
+    下载之后，数据集包含以下三个文件夹：  
     - `MatplotBench/`  
     - `InfiAgentBench/`  
     - `Datamodeling/`  
 
-    Move their contents into the corresponding `evaluation/*/data` directories (create the `data/` folders if they don’t exist):  
+    将它们的内容移动至对应的 `evaluation/*/data` 目录下（如果 `data/` 文件夹不存在，请先创建）：  
     ```bash
     mkdir -p evaluation/MatplotBench/data evaluation/InfiAgentBench/data evaluation/DataModeling/data
 
@@ -158,40 +158,40 @@ evaluation/experimental_results/
     mv DatawiseAgent-benchmarkdata/InfiAgentBench/* evaluation/InfiAgentBench/data/
     mv DatawiseAgent-benchmarkdata/Datamodeling/* evaluation/DataModeling/data/
     ```
-    🥑 Alternative:
-    If you prefer, you can also download the benchmark datasets individually from their original repositories and manually organize them under the `evaluation/*/data` folders:
+    🥑 替代方案：
+    如果你更希望单独下载，也可以从它们的原始仓库下载基准数据集，并手动整理到 `evaluation/*/data` 目录下：
     * [MatplotBench](https://github.com/thunlp/MatPlotAgent)
     * [InfiAgentBench](https://github.com/InfiAgent/InfiAgent)
-    * datamodeling tasks from [DSBench](https://github.com/LiqiangJing/DSBench)
+    * [DSBench](https://github.com/LiqiangJing/DSBench) 中的数据建模任务
 
-2. **Run all evaluations from the root of `evaluation/`**
+2. **在 `evaluation/` 根目录下运行所有评估**
 
     ```
     cd evaluation/
     ```
-3. **Ensure the backend server address is consistent with `chat_test_asyncio.py`**
+3. **确保后端服务器地址与 `chat_test_asyncio.py` 一致**
     ```python
-    # set in chat_test_asyncio.py
+    # 在 chat_test_asyncio.py 中设置
     BASE_URL = "http://0.0.0.0:8000"
     BASE_WS_URL = "ws://localhost:8000/register_websocket"
     ```
 
 
-### 🔍 Data Analysis ([InfiAgentBench](https://github.com/InfiAgent/InfiAgent))
+### 🔍 数据分析 ([InfiAgentBench](https://github.com/InfiAgent/InfiAgent))
 <a name="Data-Analysis"></a>
-1. Run evaluation:
+1. 运行评估：
 
     ```bash
     python ./eval_infiagent_bench.py --note "temperature-0_2-args-7-6-8"
     ```
 
-2. Evaluate results (following [InfiAgentBench](https://github.com/InfiAgent/InfiAgent) protocol):
-    * **Step 1: Configure API key and base URL**
-        Set values in:
+2. 评估结果（遵循 [InfiAgentBench](https://github.com/InfiAgent/InfiAgent) 协议）：
+    * **步骤 1：配置 API 密钥和基础 URL**
+        在以下文件中设置对应值：
         * `evaluation/InfiAgentBench/scripts/api_key.txt`
         * `evaluation/InfiAgentBench/scripts/url.txt`
 
-    * **Step 2: Reformat agent trajectories**
+    * **步骤 2：重新格式化智能体轨迹**
 
         ```bash
         python ./InfiAgentBench/scripts/reformat.py \
@@ -200,7 +200,7 @@ evaluation/experimental_results/
             --output_file_path ./experimental_results/InfiAgent-Bench/reformat/results_reformat_datawise-test.jsonl
         ```
     
-    * **Step 3: Evaluate reformatted answers against ground truth**
+    * **步骤 3：对照由于标签评估重新格式化后的答案**
 
         ```bash
         python ./InfiAgentBench/scripts/eval_closed_form.py \
@@ -211,16 +211,16 @@ evaluation/experimental_results/
 
 
 
-### 🎨 Scientific Visualization ([MatplotBench](https://github.com/thunlp/MatPlotAgent))
+### 🎨 科学可视化 ([MatplotBench](https://github.com/thunlp/MatPlotAgent))
 <a name="Scientific-Visualization"></a>
 
-1. Run MatplotBench tasks:
+1. 运行 MatplotBench 任务：
     ```bash
     python ./eval_infiagent_bench.py --note "temperature-0_2-args-7-6-8" [--with_tool]
     ```
 
-    - `--with_tool` *(Optional)*: Enable the **visual tool** during evaluation.  
-    - ⚠️ Before enabling `--with_tool`, make sure to set your API key and base URL in  
+    - `--with_tool` *(可选)*：在评估阶段启用**视觉工具**。  
+    - ⚠️ 在启用 `--with_tool` 之前，请务必在以下文件中设置好你的 API 密钥和基础 URL
       `datawiseagent/tools/dsbench/vision_tool.py`:
       ```python
       # TODO: explicitly write in the api_key and base_url
@@ -228,45 +228,45 @@ evaluation/experimental_results/
       base_url = "<YOUR_BASE_URL>"
       ```
 
-2. Evaluate results with model-based evaluation:
-    In our experimental setting, we use `gpt-4o-2024-08-06` as the default judge VLM.
-    * Set values in:
+2. 使用基于模型的评估来获取结果：
+    在我们的实验配置中，我们使用 `gpt-4o-2024-08-06` 默认作为 VLM 的裁判。
+    * 在以下文件中设置对应值：
         * `evaluation/MatplotBench/scripts/api_key.txt`
         * `evaluation/MatplotBench/scripts/url.txt`
     
-    * Run evaluation script:
+    * 运行评估脚本：
     ```bash
     python ./MatplotBench/scripts/model_eval.py --dir ./experimental_results/MatplotBench/gpt-4o-mini
     ```
     
 
-### 𝌭 DataModeling ([DSBench](https://github.com/LiqiangJing/DSBench))
+### 𝌭 数据建模 ([DSBench](https://github.com/LiqiangJing/DSBench))
 <a name="DataModeling"></a>
 
-1. Run DataModeling tasks:
+1. 运行数据建模任务：
     ```bash
     python eval_data_modeling.py \
         --user_name "DataModeling-gpt4o-mini-temperature=0-args=(7,6,8)-for-loop" \
         --result_path "./results/DataModeling/gpt-4o-mini/"
     ```
 
-2. Compute evaluation scores:
+2. 计算评估分数：
 
     ```bash
     python ./DataModeling/scripts/score4each.py --model gpt-4o-mini
     ```
 
-3. Aggregate and summarize results:
+3. 聚合与总结结果：
     ```bash
     python ./DataModeling/scripts/show_results.py --model gpt-4o-mini
     ```
 
-👉 Detailed parameter usage is documented in the comments of each script.
+👉 各脚本的详细参数用法已记录在对应脚本的注释中。
 
 
-## 📚 Citing
+## 📚 引用
 
-If you build upon this work, please cite the accompanying paper:
+如果你在工作中使用到了本项目，请引用相关论文：
 
 ```bibtex
 @article{you2025datawiseagent,
