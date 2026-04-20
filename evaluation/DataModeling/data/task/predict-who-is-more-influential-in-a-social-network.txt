@@ -1,0 +1,29 @@
+Description  
+Data Science London and the UK Windows Azure Users Group, in partnership with Microsoft and Peerindex, announce the Influencers in Social Networks competition as part of The Big Data Hackathon. This competition asks you to predict human judgments about who is more influential on social media.  
+The dataset, provided by Peerindex, comprises a standard pair-wise preference learning task. Each datapoint describes two individuals, A and B. For each person, 11 pre-computed, non-negative numeric features based on Twitter activity (such as volume of interactions, number of followers, etc.) are provided.  
+The binary label represents a human judgment about which one of the two individuals is more influential. A label '1' means A is more influential than B. A label ‘0’ means B is more influential than A. The goal of the challenge is to train a machine learning model which, for pairs of individuals, predicts the human judgment on who is more influential with high accuracy. Labels for the dataset have been collected by PeerIndex using an application similar to the one described in this post.  
+A python script computing a sample benchmark solution is available here: https://gist.github.com/fhuszar/5372873  
+Competition begins: Saturday, Apr 13, 1pm BST (12 noon UTC)  
+Competition ends: Sunday, Apr 14, 1pm BST (12 noon UTC)  
+This competition awards 25% of the ranking points of a standard competition but does not count towards tiers. The top remote participant in the Kaggle competition will receive a "Prize Winner" achievement on their profile, in addition to the three local winners.
+
+Evaluation  
+Submissions are judged on the area under the ROC curve:  
+http://en.wikipedia.org/wiki/Receiver_operating_characteristic  
+In R (using the ROCR package):  
+```R
+pred = prediction(predictions, true_labels)  
+auc.tmp = performance(pred, "auc")  
+auc = as.numeric(auc.tmp@y.values)
+```  
+In python (using the metrics module of scikit-learn):  
+```python
+fpr, tpr, thresholds = metrics.roc_curve(true_labels, predictions, pos_label=1)  
+auc = metrics.auc(fpr, tpr)
+```
+
+Dataset Description  
+The dataset, provided by Peerindex, comprises a standard pair-wise preference learning task. Each datapoint describes two individuals. Pre-computed, standardized features based on Twitter activity (such as volume of interactions, number of followers, etc.) are provided for each individual.  
+The discrete label represents a human judgment about which one of the two individuals is more influential. The goal of the challenge is to train a machine learning model which, for a pair of individuals, predicts the human judgment on who is more influential with high accuracy. Labels for the dataset have been collected by PeerIndex using an application similar to the one described in this post.  
+UPDATE:  
+This competition now has an improved parser for scoring solutions, and the submission format has changed. Please check the sample_predictions.csv, generated using this, with only Id and Choice Columns. Id's are 1...n, in the order of test cases in tests.csv.

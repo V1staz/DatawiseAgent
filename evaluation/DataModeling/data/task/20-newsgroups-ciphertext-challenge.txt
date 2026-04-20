@@ -1,0 +1,86 @@
+Description
+
+This isn't your classic decoder ring puzzle found in a cereal box. There's a twist.
+
+Welcome to the Ciphertext Challenge! In this competition, we've encrypted parts of a well-known dataset – the 20 Newsgroups dataset – with several simple, classic ciphers. This dataset is commonly used as a multi-class and NLP sample set, noted for its small size, varied nature, and the first-hand look it offers into the deep existential horrors of the 90s-era internet. With 20 fairly distinct classes and lots of clues, it allows for a wide variety of successful approaches.
+
+We've made the problem a little harder to solve.
+
+Fabulous Kaggle swag will go to the top competitors – the highest-scoring teams (which might be the first to crack the code!), and the most popular kernel. Note that this is a short competition, so use your submissions wisely.
+
+*Note: It is possible to apply a number of techniques using ONLY the ciphertext.
+
+Acknowledgements
+Kaggle is hosting this competition for the machine learning community to use for fun and practice.
+You can view and download the unencrypted dataset from Jason Rennie's homepage. In the words of the host:
+
+The 20 Newsgroups data set is a collection of approximately 20,000 newsgroup documents, partitioned (nearly) evenly across 20 different newsgroups. To the best of my knowledge, it was originally collected by Ken Lang, probably for his Newsweeder: Learning to filter netnews paper, though he does not explicitly mention this collection.
+
+If you use the dataset in a scientific publication, please reference (at a minimum) the above website.
+
+Photo by U.S. Air Force photo/Don Branum
+
+Evaluation
+Submissions will be evaluated based on their macro F1 score.
+
+Submission File
+For each ID in the test set, you must predict which newsgroup a particular item came from. The file should contain a header and have the following format:
+```
+Id, Predicted
+ID_e93d1d4c6, 0
+ID_f5f7560ec, 0
+ID_6ebe8f07f, 0
+ID_26222d9b7, 0
+ID_a0632653b, 0
+ID_641f090da, 0
+ID_888b6c7a5, 0
+ID_7b5b3bb47, 0
+ID_70f08430c, 0
+etc.
+```
+
+Dataset Description
+
+What terms should I be aware of?
+
+A cipher is an algorithm that transforms a readable piece of information into an unreadable one (and in most cases vice versa). Modern encryption algorithms – AES, DES, etc. – are examples of commonly used ciphers.
+
+In this case, we've used simple (or classic) ciphers. For as long as information has existed, methods have been used to obscure the information's meaning. Before computers were common, they usually consisted of a series of simple operations performed on text. In this data you'll encounter multiple text-transformation ciphers that date back centuries, if not longer.
+
+Text that has been encrypted is referred to as ciphertext. (Unencrypted text is usually called plaintext.)
+
+The exact cipher(s) used to encrypt this data will be revealed at the end of the competition – if they're not discovered first!
+
+How has the text been encrypted?
+
+Each document has been encrypted with up to 4 layered ciphers (ciphers 1, 2, 3, and 4). We've used a difficulty value here to denote which ciphers were used for a particular piece of text.
+
+Every document in the dataset was broken into sequential 300-character chunks, and all chunks for the document were then encrypted based on its difficulty level. A difficulty of 1 means that only cipher #1 was used. A difficulty of 2 means cipher #1 was applied, followed by cipher #2, and so on. The difficulty level denotes exactly which ciphers were applied, and in what order.
+
+To clear up some questions we've had:
+1) If a document is 301 characters long, the first chunk is 300 characters and the second is 1, etc.
+2) Line breaks and other special characters in the original text count as characters for the 300-character chunks.
+
+What files do I need?
+
+You'll need train.csv and test.csv. sample_submission.csv contains the same Ids that test.csv does.
+
+What should I expect the data format to be?
+
+Each row in the data provides the ciphertext of a chunk of text from a document. Most documents are represented by multiple rows. Both files are simple CSV files containing Ids, ciphertext, and, in the case of the training data, a target column.
+
+What am I predicting?
+
+The target is a multi-class label denoting which newsgroup the ciphertext originated in.
+
+File descriptions
+
+train.csv – the training data – contains Ids and ciphertext samples for each document in the training set, along with a label.
+test.csv – the test data – Ids and ciphertext.
+sample_submission.csv – a sample submission file in the correct format.
+
+Data fields
+
+Id – A unique ID for each chunk of ciphertext in the set.
+ciphertext – A segment of encrypted text.
+difficulty – Each document has been encrypted with between 1 and 4 ciphers. The difficulty level of a segment of ciphertext denotes which ciphers were used, and in what order (see How has the text been encrypted? above).

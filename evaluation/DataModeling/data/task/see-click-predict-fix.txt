@@ -1,0 +1,70 @@
+Description
+
+This competition is the successor to the See Click Predict Fix Hackathon. The purpose of both competitions is to quantify and predict how people will react to a specific 311 issue. What makes an issue urgent? What do citizens really care about? How much does location matter? Being able to predict the most pressing 311 topics will allow governments to focus their efforts on fixing the most important problems. The data set for the competitions contains several hundred thousand 311 issues from four cities.
+
+For those who are more interested in using the data for visualization or "non-predictive" data mining, we have added a $500 visualization prize. You may submit as many entries as you wish via the Visualization page. If you're plotting issues on maps, displaying the text in some meaningful way, or making any other creative use of the data, save it and post it!
+
+About 311
+
+311 is a mechanism by which citizens can express their desire to solve a problem in the city or government by submitting a description of what needs to be done, fixed, or changed. In effect, this provides a high degree of transparency between government and its constituents. Once an issue has been established, citizens can vote and make comments on the issue so that government officials have some degree of awareness about what is the most important issue to address.
+
+Sponsors
+
+The meeting space has been provided by Microsoft. Prize money is graciously offered by our sponsors:
+
+On the citizen side, SeeClickFix leverages crowdsourcing to help both maintain the flow of incoming requests and show the public how effective you can be. When anyone in the community can report or comment on any issue, the entire group has a better perspective on what's happening—and how to fix it effectively.
+
+For governments, SeeClickFix acts as a completely customizable CRM that plugs into your existing request management tools. From types of service requests to managing different watch areas, SeeClickFix helps better maintain and fulfill 311 requests in your city.
+
+A public policy entrepreneur and open innovation expert, David advises numerous governments on open government and open data and works with leading non-profits and businesses on strategy, open innovation, and community management. In addition to his work, David is an affiliate with the Berkman Centre for Internet and Society at Harvard where he is looking at issues surrounding the politics of data. You can find David's writing on open innovation, public policy, public sector renewal, and open source systems at his blog, or at TechPresident. In addition to his writing, David is frequently invited to speak on open government, policy making, negotiation, and strategy to executives, policymakers, and students.
+
+You can read a background on how this challenge came to be here.
+
+Evaluation
+
+Your model should predict, for each issue in the test set, the number of views, votes, and comments. We will use the Root Mean Squared Logarithmic Error (RMSLE) to measure the accuracy. The RMSLE is calculated as:
+
+\[
+\text{RMSLE} = \sqrt{\frac{1}{n} \sum_{i=1}^n (\log(p_i + 1) - \log(a_i + 1))^2 }
+\]
+
+Where:
+- \(n\) is three times the total number of issues in the test set (summing over each of views, votes, and comments for each issue)
+- \(p_i\) is your predicted value
+- \(a_i\) is the actual value
+- \(\log(x)\) is the natural logarithm
+
+Submission Format
+
+Your submission file must have a header and should be structured in the following format:
+
+```
+id,num_views,num_votes,num_comments
+343272,0,0,0
+274860,0,0,0
+43608,0,0,0
+```
+
+Dataset Description
+
+You are provided with 311 issues from four cities covering the time period since 2012. The goal of the contest is to predict the number of views, votes, and comments that a given issue has received to date. The training set contains the 311 data with the three target variables. The test set contains just the 311 data.
+
+While we have done a small amount of data cleaning, this is largely raw data from SeeClickFix. It will contain noise! Expect to find repeated issues, incomplete descriptions, and any number of data quality hurdles. Among the unique challenges of this data set:
+- SeeClickFix is dynamically evolving—adding users, incorporating new input sources, and changing how it is structured. Your predictions may be affected by global influences outside the issues themselves.
+- Communities are dynamically evolving as well, as are the governments responding to the issues.
+- Older 311 issues leave more time for people to view, vote, and comment, but those solved quickly become less relevant.
+- The data is coming from many different inputs, which may result in systematic differences in the response to the issues.
+
+Data Dictionary
+
+- id: a randomly assigned id
+- latitude: the latitude of the issue
+- longitude: the longitude of the issue
+- summary: a short text title
+- description: a longer text explanation
+- num_votes: the number of user-generated votes
+- num_comments: the number of user-generated comments
+- num_views: the number of views
+- source: a categorical variable indicating where the issue was created
+- created_time: the time the issue originated
+- tag_type: a categorical variable (assigned automatically) of the type of issue

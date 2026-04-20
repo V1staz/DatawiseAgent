@@ -1,0 +1,94 @@
+Description
+
+Ciphertext Challenge III: Wherefore Art Thou, Simple Ciphers?
+
+We've done the 2010's, the 1990s… now it's time for the 80s.
+
+The 1580s!!
+
+In this new decryption competition dataset, we've gone from perfectly respectable sources of electronic horror to a time before computers—heck, before calculus was called "calculus"! Shakespeare's plays are encrypted, and we time travelers must un-encrypt them so people can do innovative stage productions with intricate makeup, costumes, and possibly—possibly!—Leonardo DiCaprio. Think about it, folks: Leo.*
+
+As in previous ciphertext challenges, simple classic ciphers have been used to encrypt this dataset, along with a slightly less simple surprise that expands our definition of "classic" into the modern age. The mission is the same: to correctly match each piece of ciphertext with its corresponding piece of plaintext. Daunting! Meta-puzzles and difficulty await!
+
+Swag prizes go to the first three teams to crack all four ciphers OR to the top three teams on the leaderboard (in case the ciphers are not all cracked). Additionally, swag prizes will be awarded to the best competition-related kernels, in both visualization and cryptanalysis, based on upvotes. Last, the coveted "Phil Prize"—for the team that correctly deduces the form AND key of the final cipher—is up for grabs again.
+
+Go ahead. Get cracking!
+
+* - Leo!
+
+Acknowledgements
+
+Many thanks to Kaggler LiamLarson for their excellent Shakespeare dataset.
+
+Evaluation
+
+Submissions are evaluated on Accuracy between the predicted plaintext index and the actual index.
+
+Submission File
+
+For each ciphertext in the test set, you must predict the plaintext index. The file should contain a header and have the following format:
+
+```
+ciphertext_id, index
+ID_0827e580b, 0
+ID_bfcf14ce8, 0
+ID_aab1e107a, 0
+ID_061cc38c0, 0
+ID_0e16534d3, 0
+ID_b1387ef4a, 0
+ID_e2275f924, 0
+ID_d68e90960, 0
+ID_0a3775e01, 0
+```
+
+Dataset Description
+
+What terms should I be aware of?
+
+A cipher is an algorithm that transforms a readable piece of information into an unreadable one (and in most cases vice versa). Modern encryption algorithms - AES, DES, etc. - are examples of commonly used ciphers.
+
+In this case, we've used simple (or classic) ciphers. For as long as information has existed, methods have been used to obscure the information's meaning. Before computers were common, they usually consisted of a series of simple operations performed on text. In this data you'll encounter multiple text-transformation ciphers that date back centuries, if not longer. There is also a newer, well-known cipher that also consists of a series of simple operations performed on data. Text that has been encrypted is referred to as ciphertext. (Unencrypted text is usually called plaintext.)
+
+The exact cipher(s) used to encrypt this data will be revealed at the end of the competition - if they're not discovered first!
+
+How has the text been encrypted?
+
+Each document has been encrypted with up to 4 layered ciphers (ciphers 1, 2, 3, and 4). We've used a difficulty value here to denote which ciphers were used for a particular piece of text.
+
+Every document in the dataset has been padded to the next hundred characters (95->100, 213->300) with random (in-alphabet) characters, then encrypted based on its difficulty level. A difficulty of 1 means that only cipher #1 was used. A difficulty of 2 means cipher #1 was applied, followed by cipher #2, and so on. The difficulty level denotes exactly which ciphers were applied, and in what order.
+
+To avoid issues with reproducing the plaintext (some cleaning was required to remove spurious characters), the plaintext is provided in training.csv.
+
+What files do I need?
+
+You'll need training.csv and test.csv. sample_submission.csv contains the same IDs that test.csv does.
+
+What should I expect the data format to be?
+
+Each row in training.csv provides the text of a line from a Shakespeare play and the index values you need to predict/match, while test.csv provides the corresponding ciphertext and difficulty levels.
+
+What am I predicting?
+
+The target is a unique identifier (index) for each piece of ciphertext. Each piece of ciphertext must be matched with its corresponding piece of plaintext. To assign ciphertext_id ID_0827e580b to the line of Shakespeare with an index of 10, our prediction would look like this:
+
+```
+ID_0827e580b,10
+```
+
+File descriptions
+
+- training.csv - the training data - contains plaintext_ids and text samples for each Shakespearean line in the training set, along with a unique index.
+- test.csv - the test data - ciphertext_ids, ciphertext, and a difficulty level indicating which ciphers were used.
+- sample_submission.csv - a sample submission file in the correct format.
+
+Training data fields
+
+- plaintext_id - A unique ID for each line in the set.
+- text - The unpadded, unencrypted text of the review.
+- index - A unique ID that should be assigned to each ciphertext_id in test.csv when you've decrypted (or think you've correctly decrypted!) its ciphertext.
+
+Test data fields
+
+- ciphertext_id - A unique ID for each line's ciphertext in the set.
+- ciphertext - A segment of encrypted text.
+- difficulty - Each document has been encrypted with between 1 and 4 ciphers. The difficulty level of a segment of ciphertext denotes which ciphers were used, and in what order (see How has the text been encrypted? above).

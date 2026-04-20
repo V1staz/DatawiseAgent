@@ -1,0 +1,4714 @@
+ForecastId,Province_State,Country_Region,Date
+26772,Kentucky,US,2020-02-12
+1242,Queensland,Australia,2020-03-26
+5920,Beijing,China,2020-02-25
+3179,,Botswana,2020-04-06
+22173,,Saudi Arabia,2020-02-14
+682,,Argentina,2020-03-01
+3817,,Burundi,2020-04-02
+1129,Northern Territory,Australia,2020-03-20
+2374,,Belarus,2020-02-10
+29179,Puerto Rico,US,2020-04-05
+21617,,Rwanda,2020-01-24
+574,,Antigua and Barbuda,2020-02-29
+15413,,Israel,2020-01-26
+18647,,Mongolia,2020-02-19
+21755,,Saint Kitts and Nevis,2020-02-24
+24350,,Timor-Leste,2020-03-22
+17725,,Malaysia,2020-03-31
+30924,Anguilla,United Kingdom,2020-01-22
+19202,,Nepal,2020-03-10
+30870,,United Arab Emirates,2020-03-15
+2054,,Bahrain,2020-02-11
+18125,,Mauritania,2020-03-03
+4619,Newfoundland and Labrador,Canada,2020-02-08
+26889,Louisiana,US,2020-02-22
+2266,,Barbados,2020-02-09
+2719,,Benin,2020-03-05
+20492,,Pakistan,2020-03-16
+31266,Cayman Islands,United Kingdom,2020-02-12
+23931,,Syria,2020-03-31
+27549,Mississippi,US,2020-03-11
+7926,Macau,China,2020-01-29
+19705,,New Zealand,2020-02-07
+14985,,Indonesia,2020-01-26
+5054,Prince Edward Island,Canada,2020-02-15
+26011,Guam,US,2020-01-31
+30030,Virgin Islands,US,2020-03-31
+3235,,Brazil,2020-02-15
+13734,,Greece,2020-02-28
+27637,Missouri,US,2020-02-21
+17123,,Liechtenstein,2020-01-24
+19932,,Niger,2020-02-20
+19744,,New Zealand,2020-03-17
+19865,,Nicaragua,2020-03-31
+12309,Guadeloupe,France,2020-01-25
+24988,Alaska,US,2020-03-18
+17444,,MS Zaandam,2020-01-24
+7346,Hunan,China,2020-03-31
+29032,Pennsylvania,US,2020-02-25
+23812,,Switzerland,2020-03-19
+29074,Pennsylvania,US,2020-04-07
+14080,,Guinea,2020-03-24
+14475,,Holy See,2020-02-20
+20941,,Peru,2020-04-06
+24881,Alabama,US,2020-03-18
+16735,,Latvia,2020-03-04
+8574,Shanxi,China,2020-02-04
+17374,,Luxembourg,2020-03-01
+20676,,Papua New Guinea,2020-02-15
+8672,Sichuan,China,2020-01-26
+9921,,Croatia,2020-04-07
+20765,,Paraguay,2020-01-28
+11942,,Fiji,2020-03-26
+27304,Michigan,US,2020-02-09
+21308,,Qatar,2020-02-05
+6431,Guangxi,China,2020-02-01
+10629,,Diamond Princess,2020-02-26
+31415,Channel Islands,United Kingdom,2020-03-25
+24451,,Togo,2020-03-16
+27212,Massachusetts,US,2020-02-24
+27553,Mississippi,US,2020-03-15
+3586,,Burkina Faso,2020-03-16
+9234,Zhejiang,China,2020-02-22
+11914,,Fiji,2020-02-27
+22333,,Senegal,2020-04-07
+19707,,New Zealand,2020-02-09
+7428,Inner Mongolia,China,2020-03-06
+11680,,Eswatini,2020-02-07
+12691,New Caledonia,France,2020-03-26
+23885,,Syria,2020-02-14
+20189,,North Macedonia,2020-04-03
+18211,,Mauritius,2020-02-11
+14489,,Holy See,2020-03-05
+26794,Kentucky,US,2020-03-05
+5385,Yukon,Canada,2020-02-25
+18587,,Monaco,2020-04-06
+24997,Alaska,US,2020-03-27
+11473,,Eritrea,2020-02-14
+6956,Henan,China,2020-01-22
+22519,,Seychelles,2020-03-10
+10922,,Dominican Republic,2020-01-29
+13940,,Guatemala,2020-02-20
+6598,Guizhou,China,2020-04-01
+13013,St Martin,France,2020-03-27
+23225,,Spain,2020-01-27
+22868,,Slovakia,2020-04-07
+25366,Colorado,US,2020-01-28
+13124,,France,2020-03-31
+14719,,Hungary,2020-03-21
+21014,,Philippines,2020-03-03
+10119,,Cyprus,2020-03-22
+23440,,Sudan,2020-01-28
+13637,,Ghana,2020-03-09
+7932,Macau,China,2020-02-04
+19184,,Nepal,2020-02-21
+16058,,Kenya,2020-01-29
+15682,,Jamaica,2020-03-21
+20574,,Panama,2020-02-20
+32695,,Zimbabwe,2020-03-21
+18639,,Mongolia,2020-02-11
+2196,,Bangladesh,2020-03-17
+6362,Guangdong,China,2020-03-10
+26178,Hawaii,US,2020-03-31
+23234,,Spain,2020-02-05
+10871,,Dominica,2020-03-25
+19071,,Namibia,2020-02-15
+31369,Channel Islands,United Kingdom,2020-02-08
+27127,Maryland,US,2020-03-17
+26755,Kentucky,US,2020-01-26
+23045,,Somalia,2020-03-01
+23458,,Sudan,2020-02-15
+4517,New Brunswick,Canada,2020-02-13
+14339,,Haiti,2020-01-22
+9101,Yunnan,China,2020-01-27
+9467,,Congo (Brazzaville),2020-03-12
+9958,,Cuba,2020-01-28
+8957,Tibet,China,2020-04-06
+24836,Alabama,US,2020-02-02
+15306,,Ireland,2020-01-26
+22490,,Seychelles,2020-02-10
+1418,Tasmania,Australia,2020-02-17
+13860,,Grenada,2020-03-18
+27732,Montana,US,2020-02-09
+3758,,Burundi,2020-02-03
+10718,,Djibouti,2020-02-08
+7021,Henan,China,2020-03-27
+4218,Alberta,Canada,2020-03-06
+10122,,Cyprus,2020-03-25
+15046,,Indonesia,2020-03-27
+13335,,Gambia,2020-03-28
+17074,,Libya,2020-03-22
+11359,,Equatorial Guinea,2020-02-07
+282,,Algeria,2020-03-29
+6785,Hebei,China,2020-03-05
+21351,,Qatar,2020-03-19
+29794,Utah,US,2020-03-09
+27097,Maryland,US,2020-02-16
+31575,Isle of Man,United Kingdom,2020-01-31
+28940,Oregon,US,2020-03-11
+338,,Andorra,2020-02-07
+10530,,Denmark,2020-03-05
+11696,,Eswatini,2020-02-23
+24786,,Turkey,2020-03-30
+7226,Hubei,China,2020-03-18
+20487,,Pakistan,2020-03-11
+14020,,Guinea,2020-01-24
+6111,Fujian,China,2020-02-02
+21964,,Saint Vincent and the Grenadines,2020-02-19
+21236,,Portugal,2020-03-11
+21784,,Saint Kitts and Nevis,2020-03-24
+14586,,Honduras,2020-02-24
+2601,,Belize,2020-02-23
+27465,Minnesota,US,2020-04-03
+24467,,Togo,2020-04-01
+17386,,Luxembourg,2020-03-13
+5462,,Central African Republic,2020-01-26
+30189,Washington,US,2020-02-05
+4843,Nova Scotia,Canada,2020-02-18
+32670,,Zimbabwe,2020-02-25
+21100,,Poland,2020-02-11
+30746,,Ukraine,2020-02-27
+16435,,Kuwait,2020-03-25
+371,,Andorra,2020-03-11
+25088,Arizona,US,2020-03-11
+21979,,Saint Vincent and the Grenadines,2020-03-05
+2824,,Bhutan,2020-03-03
+3791,,Burundi,2020-03-07
+18251,,Mauritius,2020-03-22
+10519,,Denmark,2020-02-23
+15840,,Jordan,2020-01-25
+16842,,Lebanon,2020-03-04
+29020,Pennsylvania,US,2020-02-13
+6875,Heilongjiang,China,2020-02-17
+10276,Faroe Islands,Denmark,2020-01-25
+5676,,Chile,2020-01-26
+20809,,Paraguay,2020-03-12
+16816,,Lebanon,2020-02-07
+14465,,Holy See,2020-02-10
+5502,,Central African Republic,2020-03-06
+10653,,Diamond Princess,2020-03-21
+598,,Antigua and Barbuda,2020-03-24
+17806,,Maldives,2020-03-05
+30137,Virginia,US,2020-03-31
+22596,,Sierra Leone,2020-02-09
+18900,,Morocco,2020-03-29
+1304,South Australia,Australia,2020-02-10
+22382,,Serbia,2020-02-09
+22748,,Singapore,2020-03-25
+23128,,South Africa,2020-02-06
+22855,,Slovakia,2020-03-25
+12461,Martinique,France,2020-03-10
+18795,,Montenegro,2020-03-31
+24859,Alabama,US,2020-02-25
+16295,,Kosovo,2020-02-21
+20688,,Papua New Guinea,2020-02-27
+5823,Anhui,China,2020-03-06
+31824,Turks and Caicos Islands,United Kingdom,2020-03-06
+19832,,Nicaragua,2020-02-27
+2610,,Belize,2020-03-03
+23471,,Sudan,2020-02-28
+17404,,Luxembourg,2020-03-31
+5933,Beijing,China,2020-03-09
+1443,Tasmania,Australia,2020-03-13
+12679,New Caledonia,France,2020-03-14
+228,,Algeria,2020-02-04
+10397,Greenland,Denmark,2020-02-08
+21988,,Saint Vincent and the Grenadines,2020-03-14
+18641,,Mongolia,2020-02-13
+684,,Argentina,2020-03-03
+21654,,Rwanda,2020-03-01
+2691,,Benin,2020-02-06
+28741,Ohio,US,2020-03-26
+30423,Wisconsin,US,2020-02-25
+29571,Tennessee,US,2020-02-29
+28585,North Dakota,US,2020-02-06
+15947,,Kazakhstan,2020-01-25
+20572,,Panama,2020-02-18
+18983,,Mozambique,2020-03-05
+32542,,Zambia,2020-02-04
+14160,,Guinea-Bissau,2020-02-26
+8508,Shanghai,China,2020-03-16
+24472,,Togo,2020-04-06
+11155,,Egypt,2020-02-17
+19947,,Niger,2020-03-06
+650,,Argentina,2020-01-29
+8282,Shaanxi,China,2020-03-04
+271,,Algeria,2020-03-18
+18941,,Mozambique,2020-01-23
+31398,Channel Islands,United Kingdom,2020-03-08
+6017,Chongqing,China,2020-02-15
+13977,,Guatemala,2020-03-28
+12343,Guadeloupe,France,2020-02-28
+7874,Liaoning,China,2020-03-24
+21527,,Russia,2020-02-10
+26142,Hawaii,US,2020-02-24
+18864,,Morocco,2020-02-22
+15998,,Kazakhstan,2020-03-16
+16122,,Kenya,2020-04-02
+28477,North Carolina,US,2020-02-05
+3552,,Burkina Faso,2020-02-11
+23715,,Sweden,2020-03-29
+31832,Turks and Caicos Islands,United Kingdom,2020-03-14
+6602,Guizhou,China,2020-04-05
+24519,,Trinidad and Tobago,2020-02-06
+8916,Tibet,China,2020-02-25
+10624,,Diamond Princess,2020-02-21
+2074,,Bahrain,2020-03-02
+13518,,Germany,2020-02-26
+29559,Tennessee,US,2020-02-17
+31899,,United Kingdom,2020-02-03
+5378,Yukon,Canada,2020-02-18
+18104,,Mauritania,2020-02-11
+32115,,Uzbekistan,2020-02-05
+23177,,South Africa,2020-03-26
+30316,West Virginia,US,2020-02-25
+8801,Tianjin,China,2020-02-17
+30443,Wisconsin,US,2020-03-16
+32060,,Uruguay,2020-03-28
+9310,,Colombia,2020-01-22
+17045,,Libya,2020-02-22
+18842,,Morocco,2020-01-31
+8274,Shaanxi,China,2020-02-25
+8890,Tibet,China,2020-01-30
+29433,South Dakota,US,2020-01-29
+5675,,Chile,2020-01-25
+3973,,Cambodia,2020-02-04
+26884,Louisiana,US,2020-02-17
+18424,,Moldova,2020-02-10
+19905,,Niger,2020-01-24
+350,,Andorra,2020-02-19
+30351,West Virginia,US,2020-03-31
+17071,,Libya,2020-03-19
+8455,Shanghai,China,2020-01-23
+11363,,Equatorial Guinea,2020-02-11
+21670,,Rwanda,2020-03-17
+19939,,Niger,2020-02-27
+23341,,Sri Lanka,2020-02-05
+3012,,Bosnia and Herzegovina,2020-02-06
+6649,Hainan,China,2020-02-05
+20386,,Oman,2020-03-17
+22478,,Seychelles,2020-01-29
+7519,Jiangsu,China,2020-02-19
+6871,Heilongjiang,China,2020-02-13
+8062,Ningxia,China,2020-02-27
+29893,Vermont,US,2020-03-01
+21677,,Rwanda,2020-03-24
+14245,,Guyana,2020-02-04
+29447,South Dakota,US,2020-02-12
+29131,Puerto Rico,US,2020-02-17
+13833,,Grenada,2020-02-20
+12446,Martinique,France,2020-02-24
+19175,,Nepal,2020-02-12
+7983,Macau,China,2020-03-26
+24938,Alaska,US,2020-01-28
+16383,,Kuwait,2020-02-02
+22291,,Senegal,2020-02-25
+165,,Albania,2020-03-19
+4715,Northwest Territories,Canada,2020-01-28
+25543,Connecticut,US,2020-04-07
+11368,,Equatorial Guinea,2020-02-16
+8402,Shandong,China,2020-03-17
+21865,,Saint Lucia,2020-02-27
+19527,Sint Maarten,Netherlands,2020-03-14
+5618,,Chad,2020-03-15
+16105,,Kenya,2020-03-16
+16739,,Latvia,2020-03-08
+18114,,Mauritania,2020-02-21
+17903,,Mali,2020-02-24
+10968,,Dominican Republic,2020-03-15
+9025,Xinjiang,China,2020-02-27
+3262,,Brazil,2020-03-13
+967,New South Wales,Australia,2020-01-25
+22489,,Seychelles,2020-02-09
+27757,Montana,US,2020-03-05
+1324,South Australia,Australia,2020-03-01
+15250,,Iraq,2020-03-17
+17169,,Liechtenstein,2020-03-10
+1568,Victoria,Australia,2020-03-31
+16910,,Liberia,2020-01-25
+7967,Macau,China,2020-03-10
+18118,,Mauritania,2020-02-25
+11720,,Eswatini,2020-03-18
+21096,,Poland,2020-02-07
+28150,New Jersey,US,2020-01-30
+29067,Pennsylvania,US,2020-03-31
+6442,Guangxi,China,2020-02-12
+1552,Victoria,Australia,2020-03-15
+13716,,Greece,2020-02-10
+13503,,Germany,2020-02-11
+4784,Northwest Territories,Canada,2020-04-06
+18752,,Montenegro,2020-02-17
+12489,Martinique,France,2020-04-07
+11277,,El Salvador,2020-03-03
+17904,,Mali,2020-02-25
+23489,,Sudan,2020-03-17
+6260,Gansu,China,2020-03-15
+7019,Henan,China,2020-03-25
+22070,,San Marino,2020-02-18
+16505,,Kyrgyzstan,2020-02-17
+6335,Guangdong,China,2020-02-12
+14495,,Holy See,2020-03-11
+21438,,Romania,2020-02-28
+16483,,Kyrgyzstan,2020-01-26
+27434,Minnesota,US,2020-03-03
+922,Australian Capital Territory,Australia,2020-03-27
+29325,South Carolina,US,2020-01-28
+11678,,Eswatini,2020-02-05
+13438,,Georgia,2020-03-24
+21260,,Portugal,2020-04-04
+25099,Arizona,US,2020-03-22
+20786,,Paraguay,2020-02-18
+8724,Sichuan,China,2020-03-18
+23811,,Switzerland,2020-03-18
+4769,Northwest Territories,Canada,2020-03-22
+21122,,Poland,2020-03-04
+25692,District of Columbia,US,2020-02-02
+881,Australian Capital Territory,Australia,2020-02-15
+17256,,Lithuania,2020-02-19
+7210,Hubei,China,2020-03-02
+7656,Jiangxi,China,2020-03-20
+17795,,Maldives,2020-02-23
+29896,Vermont,US,2020-03-04
+30829,,United Arab Emirates,2020-02-03
+31674,Montserrat,United Kingdom,2020-01-23
+10945,,Dominican Republic,2020-02-21
+11807,,Ethiopia,2020-02-27
+14182,,Guinea-Bissau,2020-03-19
+32138,,Uzbekistan,2020-02-28
+15647,,Jamaica,2020-02-15
+4312,British Columbia,Canada,2020-02-22
+10168,,Czechia,2020-01-24
+22321,,Senegal,2020-03-26
+26505,Indiana,US,2020-04-06
+25189,Arkansas,US,2020-03-05
+12553,Mayotte,France,2020-02-24
+9893,,Croatia,2020-03-10
+32485,,West Bank and Gaza,2020-03-25
+10388,Greenland,Denmark,2020-01-30
+2594,,Belize,2020-02-16
+21796,,Saint Kitts and Nevis,2020-04-05
+13548,,Germany,2020-03-27
+12319,Guadeloupe,France,2020-02-04
+32390,,Vietnam,2020-04-06
+31518,Gibraltar,United Kingdom,2020-03-21
+26604,Iowa,US,2020-03-29
+16307,,Kosovo,2020-03-04
+31196,British Virgin Islands,United Kingdom,2020-03-20
+7725,Jilin,China,2020-02-11
+15347,,Ireland,2020-03-07
+25895,Georgia,US,2020-01-22
+9854,,Croatia,2020-01-31
+31590,Isle of Man,United Kingdom,2020-02-15
+15884,,Jordan,2020-03-09
+26596,Iowa,US,2020-03-21
+7228,Hubei,China,2020-03-20
+3893,,Cabo Verde,2020-03-02
+16500,,Kyrgyzstan,2020-02-12
+23498,,Sudan,2020-03-26
+6321,Guangdong,China,2020-01-29
+32281,,Venezuela,2020-04-04
+27012,Maine,US,2020-03-09
+14173,,Guinea-Bissau,2020-03-10
+11687,,Eswatini,2020-02-14
+9549,,Congo (Kinshasa),2020-02-16
+23887,,Syria,2020-02-16
+21839,,Saint Lucia,2020-02-01
+30226,Washington,US,2020-03-13
+31357,Channel Islands,United Kingdom,2020-01-27
+11954,,Fiji,2020-04-07
+13173,,Gabon,2020-02-02
+6480,Guangxi,China,2020-03-21
+3799,,Burundi,2020-03-15
+5148,Quebec,Canada,2020-02-02
+30529,Wyoming,US,2020-02-24
+26547,Iowa,US,2020-02-01
+3593,,Burkina Faso,2020-03-23
+31292,Cayman Islands,United Kingdom,2020-03-09
+27445,Minnesota,US,2020-03-14
+4221,Alberta,Canada,2020-03-09
+22281,,Senegal,2020-02-15
+260,,Algeria,2020-03-07
+5100,Prince Edward Island,Canada,2020-04-01
+5260,Saskatchewan,Canada,2020-02-07
+2045,,Bahrain,2020-02-02
+53,,Afghanistan,2020-03-14
+12460,Martinique,France,2020-03-09
+1678,Western Australia,Australia,2020-04-03
+697,,Argentina,2020-03-16
+12847,Saint Barthelemy,France,2020-01-28
+6327,Guangdong,China,2020-02-04
+20170,,North Macedonia,2020-03-15
+10445,Greenland,Denmark,2020-03-27
+8098,Ningxia,China,2020-04-03
+2408,,Belarus,2020-03-15
+21629,,Rwanda,2020-02-05
+2200,,Bangladesh,2020-03-21
+3697,,Burma,2020-03-20
+20601,,Panama,2020-03-18
+15211,,Iraq,2020-02-07
+26074,Guam,US,2020-04-03
+9420,,Congo (Brazzaville),2020-01-25
+26241,Idaho,US,2020-02-16
+15005,,Indonesia,2020-02-15
+28833,Oklahoma,US,2020-03-11
+18022,,Malta,2020-03-07
+22386,,Serbia,2020-02-13
+28497,North Carolina,US,2020-02-25
+15991,,Kazakhstan,2020-03-09
+26438,Indiana,US,2020-01-30
+29129,Puerto Rico,US,2020-02-15
+5291,Saskatchewan,Canada,2020-03-09
+15518,,Italy,2020-01-24
+31958,,United Kingdom,2020-04-02
+16958,,Liberia,2020-03-13
+5050,Prince Edward Island,Canada,2020-02-11
+8786,Tianjin,China,2020-02-02
+15646,,Jamaica,2020-02-14
+23387,,Sri Lanka,2020-03-22
+12425,Martinique,France,2020-02-03
+10188,,Czechia,2020-02-13
+25375,Colorado,US,2020-02-06
+14491,,Holy See,2020-03-07
+24534,,Trinidad and Tobago,2020-02-21
+2426,,Belarus,2020-04-02
+24636,,Tunisia,2020-02-16
+13319,,Gambia,2020-03-12
+12314,Guadeloupe,France,2020-01-30
+29286,Rhode Island,US,2020-04-05
+6635,Hainan,China,2020-01-22
+29761,Utah,US,2020-02-05
+11521,,Eritrea,2020-04-02
+11607,,Estonia,2020-03-12
+19651,,Netherlands,2020-03-31
+26908,Louisiana,US,2020-03-12
+488,,Angola,2020-03-21
+30084,Virginia,US,2020-02-07
+8845,Tianjin,China,2020-04-01
+18774,,Montenegro,2020-03-10
+21257,,Portugal,2020-04-01
+16588,,Laos,2020-01-24
+6003,Chongqing,China,2020-02-01
+18776,,Montenegro,2020-03-12
+13091,,France,2020-02-27
+27824,Nebraska,US,2020-01-25
+15973,,Kazakhstan,2020-02-20
+32246,,Venezuela,2020-02-29
+16314,,Kosovo,2020-03-11
+5684,,Chile,2020-02-03
+8818,Tianjin,China,2020-03-05
+15906,,Jordan,2020-03-31
+701,,Argentina,2020-03-20
+4216,Alberta,Canada,2020-03-04
+5495,,Central African Republic,2020-02-28
+9453,,Congo (Brazzaville),2020-02-27
+27241,Massachusetts,US,2020-03-24
+7992,Macau,China,2020-04-04
+1974,,Bahamas,2020-03-09
+26644,Kansas,US,2020-01-22
+14707,,Hungary,2020-03-09
+8603,Shanxi,China,2020-03-04
+29888,Vermont,US,2020-02-25
+25610,Delaware,US,2020-02-27
+11309,,El Salvador,2020-04-04
+21734,,Saint Kitts and Nevis,2020-02-03
+9969,,Cuba,2020-02-08
+26462,Indiana,US,2020-02-23
+10754,,Djibouti,2020-03-15
+32708,,Zimbabwe,2020-04-03
+5791,Anhui,China,2020-02-03
+30518,Wyoming,US,2020-02-13
+32356,,Vietnam,2020-03-03
+7754,Jilin,China,2020-03-11
+29282,Rhode Island,US,2020-04-01
+21156,,Poland,2020-04-07
+17939,,Mali,2020-03-31
+15417,,Israel,2020-01-30
+18092,,Mauritania,2020-01-30
+9647,,Costa Rica,2020-02-07
+3766,,Burundi,2020-02-11
+16055,,Kenya,2020-01-26
+19941,,Niger,2020-02-29
+11573,,Estonia,2020-02-07
+28389,New York,US,2020-02-24
+10492,,Denmark,2020-01-27
+26988,Maine,US,2020-02-14
+29145,Puerto Rico,US,2020-03-02
+2895,,Bolivia,2020-01-27
+24220,,Thailand,2020-02-28
+27751,Montana,US,2020-02-28
+22385,,Serbia,2020-02-12
+5210,Quebec,Canada,2020-04-04
+11677,,Eswatini,2020-02-04
+19830,,Nicaragua,2020-02-25
+8208,Qinghai,China,2020-04-06
+16762,,Latvia,2020-03-31
+29461,South Dakota,US,2020-02-26
+4632,Newfoundland and Labrador,Canada,2020-02-21
+13727,,Greece,2020-02-21
+19760,,New Zealand,2020-04-02
+28517,North Carolina,US,2020-03-16
+30862,,United Arab Emirates,2020-03-07
+16433,,Kuwait,2020-03-23
+3036,,Bosnia and Herzegovina,2020-03-01
+21095,,Poland,2020-02-06
+26471,Indiana,US,2020-03-03
+24324,,Timor-Leste,2020-02-25
+15461,,Israel,2020-03-14
+22914,,Slovenia,2020-02-06
+4644,Newfoundland and Labrador,Canada,2020-03-04
+32036,,Uruguay,2020-03-04
+13555,,Germany,2020-04-03
+24883,Alabama,US,2020-03-20
+23783,,Switzerland,2020-02-19
+24345,,Timor-Leste,2020-03-17
+436,,Angola,2020-01-29
+12055,,Finland,2020-04-01
+269,,Algeria,2020-03-16
+25728,District of Columbia,US,2020-03-09
+1652,Western Australia,Australia,2020-03-08
+26177,Hawaii,US,2020-03-30
+7077,Hong Kong,China,2020-02-05
+11250,,El Salvador,2020-02-05
+5143,Quebec,Canada,2020-01-28
+4442,Manitoba,Canada,2020-03-16
+30311,West Virginia,US,2020-02-20
+24225,,Thailand,2020-03-04
+18579,,Monaco,2020-03-29
+3437,,Bulgaria,2020-02-03
+21229,,Portugal,2020-03-04
+2155,,Bangladesh,2020-02-05
+22009,,Saint Vincent and the Grenadines,2020-04-04
+16830,,Lebanon,2020-02-21
+17709,,Malaysia,2020-03-15
+19066,,Namibia,2020-02-10
+23479,,Sudan,2020-03-07
+11204,,Egypt,2020-04-06
+10089,,Cyprus,2020-02-21
+31286,Cayman Islands,United Kingdom,2020-03-03
+23353,,Sri Lanka,2020-02-17
+32326,,Vietnam,2020-02-02
+13531,,Germany,2020-03-10
+4229,Alberta,Canada,2020-03-17
+11467,,Eritrea,2020-02-08
+12480,Martinique,France,2020-03-29
+26261,Idaho,US,2020-03-07
+5936,Beijing,China,2020-03-12
+22726,,Singapore,2020-03-03
+341,,Andorra,2020-02-10
+19491,Sint Maarten,Netherlands,2020-02-07
+3339,,Brunei,2020-02-12
+374,,Andorra,2020-03-14
+8458,Shanghai,China,2020-01-26
+21778,,Saint Kitts and Nevis,2020-03-18
+1447,Tasmania,Australia,2020-03-17
+29287,Rhode Island,US,2020-04-06
+1543,Victoria,Australia,2020-03-06
+18883,,Morocco,2020-03-12
+11491,,Eritrea,2020-03-03
+7300,Hunan,China,2020-02-14
+27740,Montana,US,2020-02-17
+26138,Hawaii,US,2020-02-20
+13538,,Germany,2020-03-17
+21874,,Saint Lucia,2020-03-07
+11377,,Equatorial Guinea,2020-02-25
+7396,Inner Mongolia,China,2020-02-03
+8352,Shandong,China,2020-01-27
+20797,,Paraguay,2020-02-29
+20867,,Peru,2020-01-23
+18859,,Morocco,2020-02-17
+5807,Anhui,China,2020-02-19
+6794,Hebei,China,2020-03-14
+12359,Guadeloupe,France,2020-03-15
+579,,Antigua and Barbuda,2020-03-05
+32548,,Zambia,2020-02-10
+23043,,Somalia,2020-02-28
+22547,,Seychelles,2020-04-07
+15132,,Iran,2020-03-06
+15974,,Kazakhstan,2020-02-21
+27192,Massachusetts,US,2020-02-04
+19704,,New Zealand,2020-02-06
+22198,,Saudi Arabia,2020-03-10
+21227,,Portugal,2020-03-02
+18015,,Malta,2020-02-29
+32436,,West Bank and Gaza,2020-02-05
+21460,,Romania,2020-03-21
+22940,,Slovenia,2020-03-03
+1332,South Australia,Australia,2020-03-09
+10384,Greenland,Denmark,2020-01-26
+28499,North Carolina,US,2020-02-27
+13633,,Ghana,2020-03-05
+15951,,Kazakhstan,2020-01-29
+30569,Wyoming,US,2020-04-04
+27853,Nebraska,US,2020-02-23
+30497,Wyoming,US,2020-01-23
+23021,,Somalia,2020-02-06
+6317,Guangdong,China,2020-01-25
+27620,Missouri,US,2020-02-04
+29151,Puerto Rico,US,2020-03-08
+21412,,Romania,2020-02-02
+25255,California,US,2020-01-24
+30107,Virginia,US,2020-03-01
+12843,Saint Barthelemy,France,2020-01-24
+23796,,Switzerland,2020-03-03
+7848,Liaoning,China,2020-02-27
+13733,,Greece,2020-02-27
+19749,,New Zealand,2020-03-22
+3599,,Burkina Faso,2020-03-29
+4673,Newfoundland and Labrador,Canada,2020-04-02
+15690,,Jamaica,2020-03-29
+9914,,Croatia,2020-03-31
+22268,,Senegal,2020-02-02
+9212,Zhejiang,China,2020-01-31
+25110,Arizona,US,2020-04-02
+11452,,Eritrea,2020-01-24
+19845,,Nicaragua,2020-03-11
+22272,,Senegal,2020-02-06
+22843,,Slovakia,2020-03-13
+22792,,Slovakia,2020-01-22
+31475,Gibraltar,United Kingdom,2020-02-07
+26377,Illinois,US,2020-03-16
+5277,Saskatchewan,Canada,2020-02-24
+20333,,Oman,2020-01-24
+4248,Alberta,Canada,2020-04-05
+15844,,Jordan,2020-01-29
+12251,French Polynesia,France,2020-03-14
+5609,,Chad,2020-03-06
+15440,,Israel,2020-02-22
+31511,Gibraltar,United Kingdom,2020-03-14
+30208,Washington,US,2020-02-24
+22743,,Singapore,2020-03-20
+31743,Montserrat,United Kingdom,2020-04-01
+1769,,Austria,2020-03-18
+1454,Tasmania,Australia,2020-03-24
+8776,Tianjin,China,2020-01-23
+28514,North Carolina,US,2020-03-13
+5180,Quebec,Canada,2020-03-05
+23051,,Somalia,2020-03-07
+21132,,Poland,2020-03-14
+19602,,Netherlands,2020-02-11
+22055,,San Marino,2020-02-03
+6102,Fujian,China,2020-01-24
+17707,,Malaysia,2020-03-13
+13087,,France,2020-02-23
+14614,,Honduras,2020-03-23
+11275,,El Salvador,2020-03-01
+28502,North Carolina,US,2020-03-01
+10811,,Dominica,2020-01-25
+26339,Illinois,US,2020-02-07
+6334,Guangdong,China,2020-02-11
+21848,,Saint Lucia,2020-02-10
+10669,,Diamond Princess,2020-04-06
+3462,,Bulgaria,2020-02-28
+31740,Montserrat,United Kingdom,2020-03-29
+13120,,France,2020-03-27
+16053,,Kenya,2020-01-24
+16018,,Kazakhstan,2020-04-05
+25636,Delaware,US,2020-03-24
+22851,,Slovakia,2020-03-21
+30354,West Virginia,US,2020-04-03
+7812,Liaoning,China,2020-01-22
+13917,,Guatemala,2020-01-28
+21311,,Qatar,2020-02-08
+25845,Florida,US,2020-03-19
+5079,Prince Edward Island,Canada,2020-03-11
+4947,Ontario,Canada,2020-02-15
+17027,,Libya,2020-02-04
+25909,Georgia,US,2020-02-05
+7654,Jiangxi,China,2020-03-18
+19168,,Nepal,2020-02-05
+29475,South Dakota,US,2020-03-11
+7718,Jilin,China,2020-02-04
+20975,,Philippines,2020-01-24
+21569,,Russia,2020-03-23
+6695,Hainan,China,2020-03-22
+19920,,Niger,2020-02-08
+444,,Angola,2020-02-06
+25367,Colorado,US,2020-01-29
+28740,Ohio,US,2020-03-25
+3911,,Cabo Verde,2020-03-20
+6708,Hainan,China,2020-04-04
+32266,,Venezuela,2020-03-20
+10392,Greenland,Denmark,2020-02-03
+25213,Arkansas,US,2020-03-29
+23785,,Switzerland,2020-02-21
+14588,,Honduras,2020-02-26
+16441,,Kuwait,2020-03-31
+16210,,"Korea, South",2020-03-14
+20158,,North Macedonia,2020-03-03
+10973,,Dominican Republic,2020-03-20
+20146,,North Macedonia,2020-02-20
+28001,Nevada,US,2020-04-04
+6251,Gansu,China,2020-03-06
+24413,,Togo,2020-02-07
+21148,,Poland,2020-03-30
+17155,,Liechtenstein,2020-02-25
+10166,,Czechia,2020-01-22
+9361,,Colombia,2020-03-13
+181,,Albania,2020-04-04
+22310,,Senegal,2020-03-15
+19637,,Netherlands,2020-03-17
+29780,Utah,US,2020-02-24
+16191,,"Korea, South",2020-02-24
+5629,,Chad,2020-03-26
+2785,,Bhutan,2020-01-24
+5265,Saskatchewan,Canada,2020-02-12
+15456,,Israel,2020-03-09
+14558,,Honduras,2020-01-27
+31264,Cayman Islands,United Kingdom,2020-02-10
+15737,,Japan,2020-01-29
+1939,,Bahamas,2020-02-03
+14572,,Honduras,2020-02-10
+7236,Hubei,China,2020-03-28
+25221,Arkansas,US,2020-04-06
+11254,,El Salvador,2020-02-09
+9886,,Croatia,2020-03-03
+23577,,Suriname,2020-02-27
+10723,,Djibouti,2020-02-13
+4244,Alberta,Canada,2020-04-01
+25475,Connecticut,US,2020-01-30
+4990,Ontario,Canada,2020-03-29
+26181,Hawaii,US,2020-04-03
+23548,,Suriname,2020-01-29
+18326,,Mexico,2020-02-19
+11414,,Equatorial Guinea,2020-04-02
+6497,Guangxi,China,2020-04-07
+29373,South Carolina,US,2020-03-16
+4198,Alberta,Canada,2020-02-15
+14061,,Guinea,2020-03-05
+12105,French Guiana,France,2020-02-04
+29386,South Carolina,US,2020-03-29
+2822,,Bhutan,2020-03-01
+3070,,Bosnia and Herzegovina,2020-04-04
+28399,New York,US,2020-03-05
+18554,,Monaco,2020-03-04
+12591,Mayotte,France,2020-04-02
+23937,,Syria,2020-04-06
+19587,,Netherlands,2020-01-27
+6056,Chongqing,China,2020-03-25
+16845,,Lebanon,2020-03-07
+26025,Guam,US,2020-02-14
+28621,North Dakota,US,2020-03-13
+6245,Gansu,China,2020-02-29
+20028,,Nigeria,2020-02-09
+29161,Puerto Rico,US,2020-03-18
+8816,Tianjin,China,2020-03-03
+3870,,Cabo Verde,2020-02-08
+5375,Yukon,Canada,2020-02-15
+1331,South Australia,Australia,2020-03-08
+1970,,Bahamas,2020-03-05
+17663,,Malaysia,2020-01-29
+15016,,Indonesia,2020-02-26
+17247,,Lithuania,2020-02-10
+16330,,Kosovo,2020-03-27
+647,,Argentina,2020-01-26
+32038,,Uruguay,2020-03-06
+19700,,New Zealand,2020-02-02
+16429,,Kuwait,2020-03-19
+4982,Ontario,Canada,2020-03-21
+17497,,MS Zaandam,2020-03-17
+29272,Rhode Island,US,2020-03-22
+29686,Texas,US,2020-03-08
+13738,,Greece,2020-03-03
+7080,Hong Kong,China,2020-02-08
+16530,,Kyrgyzstan,2020-03-13
+30610,,Uganda,2020-01-29
+3343,,Brunei,2020-02-16
+18303,,Mexico,2020-01-27
+9551,,Congo (Kinshasa),2020-02-18
+6765,Hebei,China,2020-02-14
+27574,Mississippi,US,2020-04-05
+14494,,Holy See,2020-03-10
+8354,Shandong,China,2020-01-29
+22514,,Seychelles,2020-03-05
+32022,,Uruguay,2020-02-19
+6210,Gansu,China,2020-01-25
+12239,French Polynesia,France,2020-03-02
+20812,,Paraguay,2020-03-15
+17075,,Libya,2020-03-23
+11067,,Ecuador,2020-03-07
+4739,Northwest Territories,Canada,2020-02-21
+29903,Vermont,US,2020-03-11
+2064,,Bahrain,2020-02-21
+2081,,Bahrain,2020-03-09
+26612,Iowa,US,2020-04-06
+26827,Kentucky,US,2020-04-07
+32559,,Zambia,2020-02-21
+14457,,Holy See,2020-02-02
+14876,,India,2020-01-24
+3608,,Burkina Faso,2020-04-07
+21000,,Philippines,2020-02-18
+9352,,Colombia,2020-03-04
+25167,Arkansas,US,2020-02-12
+3123,,Botswana,2020-02-10
+12995,St Martin,France,2020-03-09
+2371,,Belarus,2020-02-07
+4876,Nova Scotia,Canada,2020-03-22
+29479,South Dakota,US,2020-03-15
+20718,,Papua New Guinea,2020-03-28
+25406,Colorado,US,2020-03-08
+16961,,Liberia,2020-03-16
+17469,,MS Zaandam,2020-02-18
+5688,,Chile,2020-02-07
+2273,,Barbados,2020-02-16
+6135,Fujian,China,2020-02-26
+16285,,Kosovo,2020-02-11
+18680,,Mongolia,2020-03-23
+13642,,Ghana,2020-03-14
+22974,,Slovenia,2020-04-06
+25796,Florida,US,2020-01-30
+18318,,Mexico,2020-02-11
+16082,,Kenya,2020-02-22
+29023,Pennsylvania,US,2020-02-16
+1968,,Bahamas,2020-03-03
+1345,South Australia,Australia,2020-03-22
+12156,French Guiana,France,2020-03-26
+3073,,Bosnia and Herzegovina,2020-04-07
+31091,Bermuda,United Kingdom,2020-03-22
+2930,,Bolivia,2020-03-02
+20913,,Peru,2020-03-09
+8883,Tibet,China,2020-01-23
+28324,New Mexico,US,2020-04-06
+26390,Illinois,US,2020-03-29
+2275,,Barbados,2020-02-18
+11602,,Estonia,2020-03-07
+21903,,Saint Lucia,2020-04-05
+7876,Liaoning,China,2020-03-26
+12916,Saint Barthelemy,France,2020-04-06
+12263,French Polynesia,France,2020-03-26
+26385,Illinois,US,2020-03-24
+21536,,Russia,2020-02-19
+10638,,Diamond Princess,2020-03-06
+20349,,Oman,2020-02-09
+31099,Bermuda,United Kingdom,2020-03-30
+17179,,Liechtenstein,2020-03-20
+13434,,Georgia,2020-03-20
+24982,Alaska,US,2020-03-12
+19206,,Nepal,2020-03-14
+10556,,Denmark,2020-03-31
+2311,,Barbados,2020-03-25
+8144,Qinghai,China,2020-02-02
+21126,,Poland,2020-03-08
+21426,,Romania,2020-02-16
+27460,Minnesota,US,2020-03-29
+13226,,Gabon,2020-03-26
+3668,,Burma,2020-02-20
+27988,Nevada,US,2020-03-22
+17457,,MS Zaandam,2020-02-06
+18569,,Monaco,2020-03-19
+20693,,Papua New Guinea,2020-03-03
+19945,,Niger,2020-03-04
+24784,,Turkey,2020-03-28
+26067,Guam,US,2020-03-27
+20605,,Panama,2020-03-22
+6899,Heilongjiang,China,2020-03-12
+6024,Chongqing,China,2020-02-22
+6685,Hainan,China,2020-03-12
+14350,,Haiti,2020-02-02
+6903,Heilongjiang,China,2020-03-16
+28820,Oklahoma,US,2020-02-27
+11989,,Finland,2020-01-26
+20911,,Peru,2020-03-07
+17345,,Luxembourg,2020-02-01
+1357,South Australia,Australia,2020-04-03
+5747,,Chile,2020-04-06
+25717,District of Columbia,US,2020-02-27
+6345,Guangdong,China,2020-02-22
+30524,Wyoming,US,2020-02-19
+8314,Shaanxi,China,2020-04-05
+10756,,Djibouti,2020-03-17
+14370,,Haiti,2020-02-22
+22493,,Seychelles,2020-02-13
+1197,Queensland,Australia,2020-02-10
+21512,,Russia,2020-01-26
+30002,Virgin Islands,US,2020-03-03
+4314,British Columbia,Canada,2020-02-24
+10123,,Cyprus,2020-03-26
+25962,Georgia,US,2020-03-29
+23442,,Sudan,2020-01-30
+5534,,Central African Republic,2020-04-07
+22962,,Slovenia,2020-03-25
+30772,,Ukraine,2020-03-24
+7634,Jiangxi,China,2020-02-27
+25055,Arizona,US,2020-02-07
+15220,,Iraq,2020-02-16
+19306,Aruba,Netherlands,2020-03-07
+26901,Louisiana,US,2020-03-05
+17136,,Liechtenstein,2020-02-06
+23441,,Sudan,2020-01-29
+18429,,Moldova,2020-02-15
+8390,Shandong,China,2020-03-05
+27938,Nevada,US,2020-02-01
+24340,,Timor-Leste,2020-03-12
+24759,,Turkey,2020-03-03
+12673,New Caledonia,France,2020-03-08
+20298,,Norway,2020-04-05
+11149,,Egypt,2020-02-11
+9241,Zhejiang,China,2020-02-29
+32487,,West Bank and Gaza,2020-03-27
+20086,,Nigeria,2020-04-07
+3287,,Brazil,2020-04-07
+10488,,Denmark,2020-01-23
+28787,Oklahoma,US,2020-01-25
+7853,Liaoning,China,2020-03-03
+20723,,Papua New Guinea,2020-04-02
+32492,,West Bank and Gaza,2020-04-01
+7325,Hunan,China,2020-03-10
+29175,Puerto Rico,US,2020-04-01
+26974,Maine,US,2020-01-31
+1508,Victoria,Australia,2020-01-31
+25637,Delaware,US,2020-03-25
+462,,Angola,2020-02-24
+5422,Yukon,Canada,2020-04-02
+27512,Mississippi,US,2020-02-03
+15036,,Indonesia,2020-03-17
+3765,,Burundi,2020-02-10
+27015,Maine,US,2020-03-12
+23986,,Taiwan*,2020-02-08
+12743,Reunion,France,2020-01-31
+11674,,Eswatini,2020-02-01
+5826,Anhui,China,2020-03-09
+6446,Guangxi,China,2020-02-16
+19655,,Netherlands,2020-04-04
+31040,Bermuda,United Kingdom,2020-01-31
+28473,North Carolina,US,2020-02-01
+28690,Ohio,US,2020-02-04
+16874,,Lebanon,2020-04-05
+28948,Oregon,US,2020-03-19
+22089,,San Marino,2020-03-08
+11771,,Ethiopia,2020-01-22
+18836,,Morocco,2020-01-25
+8740,Sichuan,China,2020-04-03
+32541,,Zambia,2020-02-03
+12029,,Finland,2020-03-06
+17487,,MS Zaandam,2020-03-07
+8394,Shandong,China,2020-03-09
+28466,North Carolina,US,2020-01-25
+28284,New Mexico,US,2020-02-26
+18157,,Mauritania,2020-04-04
+29914,Vermont,US,2020-03-22
+16106,,Kenya,2020-03-17
+21641,,Rwanda,2020-02-17
+1436,Tasmania,Australia,2020-03-06
+29359,South Carolina,US,2020-03-02
+7185,Hubei,China,2020-02-06
+29899,Vermont,US,2020-03-07
+3802,,Burundi,2020-03-18
+15984,,Kazakhstan,2020-03-02
+4194,Alberta,Canada,2020-02-11
+3775,,Burundi,2020-02-20
+9871,,Croatia,2020-02-17
+23928,,Syria,2020-03-28
+3495,,Bulgaria,2020-04-01
+2046,,Bahrain,2020-02-03
+12800,Reunion,France,2020-03-28
+7027,Henan,China,2020-04-02
+20360,,Oman,2020-02-20
+27466,Minnesota,US,2020-04-04
+14021,,Guinea,2020-01-25
+20700,,Papua New Guinea,2020-03-10
+27114,Maryland,US,2020-03-04
+24444,,Togo,2020-03-09
+9862,,Croatia,2020-02-08
+27237,Massachusetts,US,2020-03-20
+22579,,Sierra Leone,2020-01-23
+25698,District of Columbia,US,2020-02-08
+4959,Ontario,Canada,2020-02-27
+21324,,Qatar,2020-02-21
+24403,,Togo,2020-01-28
+16317,,Kosovo,2020-03-14
+31290,Cayman Islands,United Kingdom,2020-03-07
+29680,Texas,US,2020-03-02
+2101,,Bahrain,2020-03-29
+10309,Faroe Islands,Denmark,2020-02-27
+2713,,Benin,2020-02-28
+12217,French Polynesia,France,2020-02-09
+13285,,Gambia,2020-02-07
+23361,,Sri Lanka,2020-02-25
+2583,,Belize,2020-02-05
+3550,,Burkina Faso,2020-02-09
+22964,,Slovenia,2020-03-27
+22109,,San Marino,2020-03-28
+4143,,Cameroon,2020-04-07
+1643,Western Australia,Australia,2020-02-28
+13341,,Gambia,2020-04-03
+29543,Tennessee,US,2020-02-01
+10091,,Cyprus,2020-02-23
+433,,Angola,2020-01-26
+15575,,Italy,2020-03-21
+20551,,Panama,2020-01-28
+27401,Minnesota,US,2020-01-30
+10720,,Djibouti,2020-02-10
+16329,,Kosovo,2020-03-26
+28801,Oklahoma,US,2020-02-08
+23760,,Switzerland,2020-01-27
+369,,Andorra,2020-03-09
+10709,,Djibouti,2020-01-30
+11806,,Ethiopia,2020-02-26
+15157,,Iran,2020-03-31
+5810,Anhui,China,2020-02-22
+22729,,Singapore,2020-03-06
+32593,,Zambia,2020-03-26
+11913,,Fiji,2020-02-26
+15053,,Indonesia,2020-04-03
+278,,Algeria,2020-03-25
+7635,Jiangxi,China,2020-02-28
+23116,,South Africa,2020-01-25
+13728,,Greece,2020-02-22
+12139,French Guiana,France,2020-03-09
+21971,,Saint Vincent and the Grenadines,2020-02-26
+14578,,Honduras,2020-02-16
+3494,,Bulgaria,2020-03-31
+32650,,Zimbabwe,2020-02-05
+4009,,Cambodia,2020-03-11
+5956,Beijing,China,2020-04-01
+8066,Ningxia,China,2020-03-02
+4657,Newfoundland and Labrador,Canada,2020-03-17
+21470,,Romania,2020-03-31
+4973,Ontario,Canada,2020-03-12
+18976,,Mozambique,2020-02-27
+10946,,Dominican Republic,2020-02-22
+26012,Guam,US,2020-02-01
+8291,Shaanxi,China,2020-03-13
+9652,,Costa Rica,2020-02-12
+9328,,Colombia,2020-02-09
+9268,Zhejiang,China,2020-03-27
+23786,,Switzerland,2020-02-22
+28817,Oklahoma,US,2020-02-24
+1535,Victoria,Australia,2020-02-27
+28722,Ohio,US,2020-03-07
+150,,Albania,2020-03-04
+15744,,Japan,2020-02-05
+22740,,Singapore,2020-03-17
+21240,,Portugal,2020-03-15
+3662,,Burma,2020-02-14
+24612,,Tunisia,2020-01-23
+11459,,Eritrea,2020-01-31
+13315,,Gambia,2020-03-08
+5598,,Chad,2020-02-24
+5046,Prince Edward Island,Canada,2020-02-07
+31708,Montserrat,United Kingdom,2020-02-26
+19325,Aruba,Netherlands,2020-03-26
+14629,,Honduras,2020-04-07
+31251,Cayman Islands,United Kingdom,2020-01-28
+26288,Idaho,US,2020-04-03
+11948,,Fiji,2020-04-01
+19826,,Nicaragua,2020-02-21
+24217,,Thailand,2020-02-25
+10858,,Dominica,2020-03-12
+5731,,Chile,2020-03-21
+29235,Rhode Island,US,2020-02-14
+28680,Ohio,US,2020-01-25
+32166,,Uzbekistan,2020-03-27
+11408,,Equatorial Guinea,2020-03-27
+5716,,Chile,2020-03-06
+3335,,Brunei,2020-02-08
+18451,,Moldova,2020-03-08
+13011,St Martin,France,2020-03-25
+18651,,Mongolia,2020-02-23
+30833,,United Arab Emirates,2020-02-07
+13536,,Germany,2020-03-15
+18564,,Monaco,2020-03-14
+26991,Maine,US,2020-02-17
+9163,Yunnan,China,2020-03-29
+24965,Alaska,US,2020-02-24
+30718,,Ukraine,2020-01-30
+8505,Shanghai,China,2020-03-13
+31586,Isle of Man,United Kingdom,2020-02-11
+2098,,Bahrain,2020-03-26
+758,,Armenia,2020-01-30
+25497,Connecticut,US,2020-02-21
+25181,Arkansas,US,2020-02-26
+5361,Yukon,Canada,2020-02-01
+3656,,Burma,2020-02-08
+12669,New Caledonia,France,2020-03-04
+15892,,Jordan,2020-03-17
+4538,New Brunswick,Canada,2020-03-05
+24308,,Timor-Leste,2020-02-09
+16695,,Latvia,2020-01-24
+26337,Illinois,US,2020-02-05
+27295,Michigan,US,2020-01-31
+24227,,Thailand,2020-03-06
+16554,,Kyrgyzstan,2020-04-06
+14725,,Hungary,2020-03-27
+20017,,Nigeria,2020-01-29
+23122,,South Africa,2020-01-31
+28154,New Jersey,US,2020-02-03
+18320,,Mexico,2020-02-13
+7403,Inner Mongolia,China,2020-02-10
+8138,Qinghai,China,2020-01-27
+24667,,Tunisia,2020-03-18
+18780,,Montenegro,2020-03-16
+17080,,Libya,2020-03-28
+21511,,Russia,2020-01-25
+21738,,Saint Kitts and Nevis,2020-02-07
+14023,,Guinea,2020-01-27
+17835,,Maldives,2020-04-03
+7286,Hunan,China,2020-01-31
+19643,,Netherlands,2020-03-23
+28053,New Hampshire,US,2020-02-09
+924,Australian Capital Territory,Australia,2020-03-29
+19307,Aruba,Netherlands,2020-03-08
+8077,Ningxia,China,2020-03-13
+3009,,Bosnia and Herzegovina,2020-02-03
+9477,,Congo (Brazzaville),2020-03-22
+30557,Wyoming,US,2020-03-23
+11577,,Estonia,2020-02-11
+6603,Guizhou,China,2020-04-06
+16075,,Kenya,2020-02-15
+16609,,Laos,2020-02-14
+9878,,Croatia,2020-02-24
+774,,Armenia,2020-02-15
+22906,,Slovenia,2020-01-29
+21200,,Portugal,2020-02-04
+15241,,Iraq,2020-03-08
+30454,Wisconsin,US,2020-03-27
+28825,Oklahoma,US,2020-03-03
+6996,Henan,China,2020-03-02
+18799,,Montenegro,2020-04-04
+30535,Wyoming,US,2020-03-01
+9311,,Colombia,2020-01-23
+7353,Hunan,China,2020-04-07
+24341,,Timor-Leste,2020-03-13
+29169,Puerto Rico,US,2020-03-26
+6069,Chongqing,China,2020-04-07
+22049,,San Marino,2020-01-28
+447,,Angola,2020-02-09
+17610,,Madagascar,2020-03-23
+8582,Shanxi,China,2020-02-12
+8924,Tibet,China,2020-03-04
+23392,,Sri Lanka,2020-03-27
+6768,Hebei,China,2020-02-17
+11990,,Finland,2020-01-27
+15568,,Italy,2020-03-14
+16767,,Latvia,2020-04-05
+21572,,Russia,2020-03-26
+2204,,Bangladesh,2020-03-25
+2956,,Bolivia,2020-03-28
+9868,,Croatia,2020-02-14
+27957,Nevada,US,2020-02-20
+7517,Jiangsu,China,2020-02-17
+4412,Manitoba,Canada,2020-02-15
+989,New South Wales,Australia,2020-02-16
+22007,,Saint Vincent and the Grenadines,2020-04-02
+11593,,Estonia,2020-02-27
+4742,Northwest Territories,Canada,2020-02-24
+24019,,Taiwan*,2020-03-12
+24958,Alaska,US,2020-02-17
+16232,,"Korea, South",2020-04-05
+3042,,Bosnia and Herzegovina,2020-03-07
+26233,Idaho,US,2020-02-08
+24190,,Thailand,2020-01-29
+10062,,Cyprus,2020-01-25
+3962,,Cambodia,2020-01-24
+9778,,Cote d'Ivoire,2020-03-02
+13306,,Gambia,2020-02-28
+19268,Aruba,Netherlands,2020-01-29
+18636,,Mongolia,2020-02-08
+16648,,Laos,2020-03-24
+6121,Fujian,China,2020-02-12
+20614,,Panama,2020-03-31
+24860,Alabama,US,2020-02-26
+16755,,Latvia,2020-03-24
+21336,,Qatar,2020-03-04
+29660,Texas,US,2020-02-11
+36,,Afghanistan,2020-02-26
+11592,,Estonia,2020-02-26
+25494,Connecticut,US,2020-02-18
+26449,Indiana,US,2020-02-10
+19390,Curacao,Netherlands,2020-02-13
+24218,,Thailand,2020-02-26
+31172,British Virgin Islands,United Kingdom,2020-02-25
+20162,,North Macedonia,2020-03-07
+7733,Jilin,China,2020-02-19
+9096,Yunnan,China,2020-01-22
+8038,Ningxia,China,2020-02-03
+31086,Bermuda,United Kingdom,2020-03-17
+29026,Pennsylvania,US,2020-02-19
+26885,Louisiana,US,2020-02-18
+13976,,Guatemala,2020-03-27
+1013,New South Wales,Australia,2020-03-11
+7075,Hong Kong,China,2020-02-03
+31624,Isle of Man,United Kingdom,2020-03-20
+18052,,Malta,2020-04-06
+35,,Afghanistan,2020-02-25
+4535,New Brunswick,Canada,2020-03-02
+4206,Alberta,Canada,2020-02-23
+21835,,Saint Lucia,2020-01-28
+13705,,Greece,2020-01-30
+25688,District of Columbia,US,2020-01-29
+7604,Jiangxi,China,2020-01-28
+1997,,Bahamas,2020-04-01
+3995,,Cambodia,2020-02-26
+26020,Guam,US,2020-02-09
+31727,Montserrat,United Kingdom,2020-03-16
+21768,,Saint Kitts and Nevis,2020-03-08
+18261,,Mauritius,2020-04-01
+3970,,Cambodia,2020-02-01
+1959,,Bahamas,2020-02-23
+27681,Missouri,US,2020-04-05
+8286,Shaanxi,China,2020-03-08
+29818,Utah,US,2020-04-02
+5620,,Chad,2020-03-17
+19407,Curacao,Netherlands,2020-03-01
+9137,Yunnan,China,2020-03-03
+4543,New Brunswick,Canada,2020-03-10
+4034,,Cambodia,2020-04-05
+16935,,Liberia,2020-02-19
+16008,,Kazakhstan,2020-03-26
+13099,,France,2020-03-06
+20927,,Peru,2020-03-23
+11595,,Estonia,2020-02-29
+24899,Alabama,US,2020-04-05
+10707,,Djibouti,2020-01-28
+18899,,Morocco,2020-03-28
+134,,Albania,2020-02-17
+29277,Rhode Island,US,2020-03-27
+17351,,Luxembourg,2020-02-07
+11845,,Ethiopia,2020-04-05
+20762,,Paraguay,2020-01-25
+27469,Minnesota,US,2020-04-07
+25048,Arizona,US,2020-01-31
+28184,New Jersey,US,2020-03-04
+24099,,Tanzania,2020-02-14
+22586,,Sierra Leone,2020-01-30
+19870,,Nicaragua,2020-04-05
+31822,Turks and Caicos Islands,United Kingdom,2020-03-04
+6805,Hebei,China,2020-03-25
+31303,Cayman Islands,United Kingdom,2020-03-20
+21335,,Qatar,2020-03-03
+21509,,Russia,2020-01-23
+8309,Shaanxi,China,2020-03-31
+3785,,Burundi,2020-03-01
+28923,Oregon,US,2020-02-23
+1666,Western Australia,Australia,2020-03-22
+8471,Shanghai,China,2020-02-08
+32580,,Zambia,2020-03-13
+11818,,Ethiopia,2020-03-09
+29034,Pennsylvania,US,2020-02-27
+27310,Michigan,US,2020-02-15
+11618,,Estonia,2020-03-23
+12896,Saint Barthelemy,France,2020-03-17
+2513,,Belgium,2020-03-13
+14068,,Guinea,2020-03-12
+25320,California,US,2020-03-29
+16373,,Kuwait,2020-01-23
+27255,Massachusetts,US,2020-04-07
+14041,,Guinea,2020-02-14
+27095,Maryland,US,2020-02-14
+1187,Queensland,Australia,2020-01-31
+4326,British Columbia,Canada,2020-03-07
+30507,Wyoming,US,2020-02-02
+14808,,Iceland,2020-03-03
+16715,,Latvia,2020-02-13
+6454,Guangxi,China,2020-02-24
+18019,,Malta,2020-03-04
+5960,Beijing,China,2020-04-05
+28819,Oklahoma,US,2020-02-26
+45,,Afghanistan,2020-03-06
+27836,Nebraska,US,2020-02-06
+21307,,Qatar,2020-02-04
+27633,Missouri,US,2020-02-17
+8811,Tianjin,China,2020-02-27
+20060,,Nigeria,2020-03-12
+7209,Hubei,China,2020-03-01
+16805,,Lebanon,2020-01-27
+25411,Colorado,US,2020-03-13
+28495,North Carolina,US,2020-02-23
+1778,,Austria,2020-03-27
+796,,Armenia,2020-03-08
+21312,,Qatar,2020-02-09
+19079,,Namibia,2020-02-23
+13080,,France,2020-02-16
+10107,,Cyprus,2020-03-10
+382,,Andorra,2020-03-22
+18691,,Mongolia,2020-04-03
+8939,Tibet,China,2020-03-19
+24530,,Trinidad and Tobago,2020-02-17
+27745,Montana,US,2020-02-22
+30401,Wisconsin,US,2020-02-03
+8580,Shanxi,China,2020-02-10
+19290,Aruba,Netherlands,2020-02-20
+31089,Bermuda,United Kingdom,2020-03-20
+24685,,Tunisia,2020-04-05
+7567,Jiangsu,China,2020-04-07
+23447,,Sudan,2020-02-04
+20191,,North Macedonia,2020-04-05
+23774,,Switzerland,2020-02-10
+25290,California,US,2020-02-28
+9340,,Colombia,2020-02-21
+15315,,Ireland,2020-02-04
+12168,French Guiana,France,2020-04-07
+29066,Pennsylvania,US,2020-03-30
+18890,,Morocco,2020-03-19
+12948,St Martin,France,2020-01-22
+16822,,Lebanon,2020-02-13
+12094,French Guiana,France,2020-01-24
+29684,Texas,US,2020-03-06
+3260,,Brazil,2020-03-11
+15634,,Jamaica,2020-02-02
+28500,North Carolina,US,2020-02-28
+16111,,Kenya,2020-03-22
+4997,Ontario,Canada,2020-04-05
+17082,,Libya,2020-03-30
+4526,New Brunswick,Canada,2020-02-22
+3356,,Brunei,2020-02-29
+3224,,Brazil,2020-02-04
+9846,,Croatia,2020-01-23
+30628,,Uganda,2020-02-16
+6220,Gansu,China,2020-02-04
+9323,,Colombia,2020-02-04
+15137,,Iran,2020-03-11
+7022,Henan,China,2020-03-28
+4428,Manitoba,Canada,2020-03-02
+4672,Newfoundland and Labrador,Canada,2020-04-01
+4563,New Brunswick,Canada,2020-03-30
+15229,,Iraq,2020-02-25
+20275,,Norway,2020-03-13
+13981,,Guatemala,2020-04-01
+9634,,Costa Rica,2020-01-25
+17238,,Lithuania,2020-02-01
+28191,New Jersey,US,2020-03-11
+21368,,Qatar,2020-04-05
+23454,,Sudan,2020-02-11
+2181,,Bangladesh,2020-03-02
+14478,,Holy See,2020-02-23
+26115,Hawaii,US,2020-01-28
+18656,,Mongolia,2020-02-28
+17657,,Malaysia,2020-01-23
+23141,,South Africa,2020-02-19
+23913,,Syria,2020-03-13
+31830,Turks and Caicos Islands,United Kingdom,2020-03-12
+13289,,Gambia,2020-02-11
+7627,Jiangxi,China,2020-02-20
+15959,,Kazakhstan,2020-02-06
+27676,Missouri,US,2020-03-31
+22924,,Slovenia,2020-02-16
+1297,South Australia,Australia,2020-02-03
+30453,Wisconsin,US,2020-03-26
+1236,Queensland,Australia,2020-03-20
+22692,,Singapore,2020-01-29
+4088,,Cameroon,2020-02-12
+15655,,Jamaica,2020-02-23
+21330,,Qatar,2020-02-27
+261,,Algeria,2020-03-08
+11817,,Ethiopia,2020-03-08
+10617,,Diamond Princess,2020-02-14
+9317,,Colombia,2020-01-29
+11146,,Egypt,2020-02-08
+18113,,Mauritania,2020-02-20
+4854,Nova Scotia,Canada,2020-02-29
+24773,,Turkey,2020-03-17
+16520,,Kyrgyzstan,2020-03-03
+11800,,Ethiopia,2020-02-20
+14705,,Hungary,2020-03-07
+31623,Isle of Man,United Kingdom,2020-03-19
+5144,Quebec,Canada,2020-01-29
+30856,,United Arab Emirates,2020-03-01
+8625,Shanxi,China,2020-03-26
+18234,,Mauritius,2020-03-05
+20986,,Philippines,2020-02-04
+504,,Angola,2020-04-06
+31676,Montserrat,United Kingdom,2020-01-25
+4873,Nova Scotia,Canada,2020-03-19
+28842,Oklahoma,US,2020-03-20
+19514,Sint Maarten,Netherlands,2020-03-01
+23792,,Switzerland,2020-02-28
+10320,Faroe Islands,Denmark,2020-03-09
+14254,,Guyana,2020-02-13
+27515,Mississippi,US,2020-02-06
+26041,Guam,US,2020-03-01
+28463,North Carolina,US,2020-01-22
+12340,Guadeloupe,France,2020-02-25
+15354,,Ireland,2020-03-14
+2404,,Belarus,2020-03-11
+27332,Michigan,US,2020-03-08
+19541,Sint Maarten,Netherlands,2020-03-28
+28059,New Hampshire,US,2020-02-15
+7658,Jiangxi,China,2020-03-22
+16294,,Kosovo,2020-02-20
+10733,,Djibouti,2020-02-23
+24128,,Tanzania,2020-03-14
+2503,,Belgium,2020-03-03
+9131,Yunnan,China,2020-02-26
+17477,,MS Zaandam,2020-02-26
+3111,,Botswana,2020-01-29
+24780,,Turkey,2020-03-24
+27878,Nebraska,US,2020-03-19
+21205,,Portugal,2020-02-09
+8851,Tianjin,China,2020-04-07
+16959,,Liberia,2020-03-14
+25808,Florida,US,2020-02-11
+9584,,Congo (Kinshasa),2020-03-22
+17999,,Malta,2020-02-13
+9873,,Croatia,2020-02-19
+14574,,Honduras,2020-02-12
+4396,Manitoba,Canada,2020-01-30
+29578,Tennessee,US,2020-03-07
+15899,,Jordan,2020-03-24
+9364,,Colombia,2020-03-16
+19065,,Namibia,2020-02-09
+9112,Yunnan,China,2020-02-07
+27023,Maine,US,2020-03-20
+18428,,Moldova,2020-02-14
+31309,Cayman Islands,United Kingdom,2020-03-26
+5916,Beijing,China,2020-02-21
+10881,,Dominica,2020-04-04
+6026,Chongqing,China,2020-02-24
+30227,Washington,US,2020-03-14
+4239,Alberta,Canada,2020-03-27
+16614,,Laos,2020-02-19
+15983,,Kazakhstan,2020-03-01
+26663,Kansas,US,2020-02-10
+22922,,Slovenia,2020-02-14
+32588,,Zambia,2020-03-21
+29361,South Carolina,US,2020-03-04
+14127,,Guinea-Bissau,2020-01-24
+11295,,El Salvador,2020-03-21
+5730,,Chile,2020-03-20
+3055,,Bosnia and Herzegovina,2020-03-20
+31036,Bermuda,United Kingdom,2020-01-27
+20081,,Nigeria,2020-04-02
+26394,Illinois,US,2020-04-02
+23978,,Taiwan*,2020-01-31
+23151,,South Africa,2020-02-29
+23357,,Sri Lanka,2020-02-21
+22594,,Sierra Leone,2020-02-07
+30456,Wisconsin,US,2020-03-29
+9874,,Croatia,2020-02-20
+30093,Virginia,US,2020-02-16
+27133,Maryland,US,2020-03-23
+22587,,Sierra Leone,2020-01-31
+12151,French Guiana,France,2020-03-21
+23825,,Switzerland,2020-04-01
+15765,,Japan,2020-02-26
+16971,,Liberia,2020-03-26
+2306,,Barbados,2020-03-20
+3704,,Burma,2020-03-27
+16634,,Laos,2020-03-10
+8491,Shanghai,China,2020-02-28
+12690,New Caledonia,France,2020-03-25
+10287,Faroe Islands,Denmark,2020-02-05
+24857,Alabama,US,2020-02-23
+30525,Wyoming,US,2020-02-20
+30306,West Virginia,US,2020-02-15
+30771,,Ukraine,2020-03-23
+14880,,India,2020-01-28
+16072,,Kenya,2020-02-12
+15797,,Japan,2020-03-29
+655,,Argentina,2020-02-03
+25470,Connecticut,US,2020-01-25
+10549,,Denmark,2020-03-24
+8789,Tianjin,China,2020-02-05
+25178,Arkansas,US,2020-02-23
+32465,,West Bank and Gaza,2020-03-05
+25830,Florida,US,2020-03-04
+22415,,Serbia,2020-03-13
+15467,,Israel,2020-03-20
+29059,Pennsylvania,US,2020-03-23
+17240,,Lithuania,2020-02-03
+13646,,Ghana,2020-03-18
+11164,,Egypt,2020-02-26
+3324,,Brunei,2020-01-28
+21444,,Romania,2020-03-05
+16065,,Kenya,2020-02-05
+1229,Queensland,Australia,2020-03-13
+27322,Michigan,US,2020-02-27
+13652,,Ghana,2020-03-24
+18140,,Mauritania,2020-03-18
+6028,Chongqing,China,2020-02-26
+23186,,South Africa,2020-04-04
+28062,New Hampshire,US,2020-02-18
+29027,Pennsylvania,US,2020-02-20
+15632,,Jamaica,2020-01-31
+18536,,Monaco,2020-02-15
+14025,,Guinea,2020-01-29
+1633,Western Australia,Australia,2020-02-18
+10726,,Djibouti,2020-02-16
+21436,,Romania,2020-02-26
+4833,Nova Scotia,Canada,2020-02-08
+27318,Michigan,US,2020-02-23
+6343,Guangdong,China,2020-02-20
+26792,Kentucky,US,2020-03-03
+3473,,Bulgaria,2020-03-10
+32538,,Zambia,2020-01-31
+15481,,Israel,2020-04-03
+13339,,Gambia,2020-04-01
+31732,Montserrat,United Kingdom,2020-03-21
+4607,Newfoundland and Labrador,Canada,2020-01-27
+27035,Maine,US,2020-04-01
+14396,,Haiti,2020-03-19
+16497,,Kyrgyzstan,2020-02-09
+30561,Wyoming,US,2020-03-27
+8635,Shanxi,China,2020-04-05
+32639,,Zimbabwe,2020-01-25
+17909,,Mali,2020-03-01
+29758,Utah,US,2020-02-02
+22526,,Seychelles,2020-03-17
+17821,,Maldives,2020-03-20
+22817,,Slovakia,2020-02-16
+18619,,Mongolia,2020-01-22
+31923,,United Kingdom,2020-02-27
+12226,French Polynesia,France,2020-02-18
+26909,Louisiana,US,2020-03-13
+6887,Heilongjiang,China,2020-02-29
+16801,,Lebanon,2020-01-23
+8409,Shandong,China,2020-03-24
+24400,,Togo,2020-01-25
+28845,Oklahoma,US,2020-03-23
+22757,,Singapore,2020-04-03
+31675,Montserrat,United Kingdom,2020-01-24
+18366,,Mexico,2020-03-30
+11481,,Eritrea,2020-02-22
+19336,Aruba,Netherlands,2020-04-06
+10969,,Dominican Republic,2020-03-16
+20991,,Philippines,2020-02-09
+3996,,Cambodia,2020-02-27
+2315,,Barbados,2020-03-29
+1998,,Bahamas,2020-04-02
+7845,Liaoning,China,2020-02-24
+17625,,Madagascar,2020-04-07
+14906,,India,2020-02-23
+6261,Gansu,China,2020-03-16
+17054,,Libya,2020-03-02
+15908,,Jordan,2020-04-02
+4078,,Cameroon,2020-02-02
+32031,,Uruguay,2020-02-28
+11520,,Eritrea,2020-04-01
+13655,,Ghana,2020-03-27
+26878,Louisiana,US,2020-02-11
+6340,Guangdong,China,2020-02-17
+1341,South Australia,Australia,2020-03-18
+32332,,Vietnam,2020-02-08
+1894,,Azerbaijan,2020-04-05
+693,,Argentina,2020-03-12
+24448,,Togo,2020-03-13
+16662,,Laos,2020-04-07
+12797,Reunion,France,2020-03-25
+12130,French Guiana,France,2020-02-29
+3125,,Botswana,2020-02-12
+11675,,Eswatini,2020-02-02
+24469,,Togo,2020-04-03
+24439,,Togo,2020-03-04
+29321,South Carolina,US,2020-01-24
+28075,New Hampshire,US,2020-03-02
+26695,Kansas,US,2020-03-13
+1513,Victoria,Australia,2020-02-05
+4309,British Columbia,Canada,2020-02-19
+602,,Antigua and Barbuda,2020-03-28
+28375,New York,US,2020-02-10
+12880,Saint Barthelemy,France,2020-03-01
+5571,,Chad,2020-01-28
+14270,,Guyana,2020-02-29
+28002,Nevada,US,2020-04-05
+29148,Puerto Rico,US,2020-03-05
+490,,Angola,2020-03-23
+16319,,Kosovo,2020-03-16
+7547,Jiangsu,China,2020-03-18
+17774,,Maldives,2020-02-02
+20365,,Oman,2020-02-25
+5484,,Central African Republic,2020-02-17
+5812,Anhui,China,2020-02-24
+25190,Arkansas,US,2020-03-06
+22288,,Senegal,2020-02-22
+3871,,Cabo Verde,2020-02-09
+23398,,Sri Lanka,2020-04-02
+4301,British Columbia,Canada,2020-02-11
+20396,,Oman,2020-03-27
+25749,District of Columbia,US,2020-03-30
+5073,Prince Edward Island,Canada,2020-03-05
+1953,,Bahamas,2020-02-17
+23161,,South Africa,2020-03-10
+15254,,Iraq,2020-03-21
+23155,,South Africa,2020-03-04
+24945,Alaska,US,2020-02-04
+11843,,Ethiopia,2020-04-03
+14387,,Haiti,2020-03-10
+26707,Kansas,US,2020-03-25
+4970,Ontario,Canada,2020-03-09
+58,,Afghanistan,2020-03-19
+28098,New Hampshire,US,2020-03-25
+30544,Wyoming,US,2020-03-10
+30296,West Virginia,US,2020-02-05
+2105,,Bahrain,2020-04-02
+9803,,Cote d'Ivoire,2020-03-27
+31837,Turks and Caicos Islands,United Kingdom,2020-03-19
+17396,,Luxembourg,2020-03-23
+18086,,Mauritania,2020-01-24
+26005,Guam,US,2020-01-25
+31608,Isle of Man,United Kingdom,2020-03-04
+4643,Newfoundland and Labrador,Canada,2020-03-03
+25687,District of Columbia,US,2020-01-28
+9231,Zhejiang,China,2020-02-19
+13709,,Greece,2020-02-03
+15841,,Jordan,2020-01-26
+9913,,Croatia,2020-03-30
+23139,,South Africa,2020-02-17
+2963,,Bolivia,2020-04-04
+6894,Heilongjiang,China,2020-03-07
+5489,,Central African Republic,2020-02-22
+14187,,Guinea-Bissau,2020-03-24
+3014,,Bosnia and Herzegovina,2020-02-08
+15095,,Iran,2020-01-29
+27415,Minnesota,US,2020-02-13
+31,,Afghanistan,2020-02-21
+20505,,Pakistan,2020-03-29
+6266,Gansu,China,2020-03-21
+20587,,Panama,2020-03-04
+11076,,Ecuador,2020-03-16
+28306,New Mexico,US,2020-03-19
+443,,Angola,2020-02-05
+25906,Georgia,US,2020-02-02
+12780,Reunion,France,2020-03-08
+21234,,Portugal,2020-03-09
+26256,Idaho,US,2020-03-02
+2815,,Bhutan,2020-02-23
+26017,Guam,US,2020-02-06
+1006,New South Wales,Australia,2020-03-04
+8670,Sichuan,China,2020-01-24
+4776,Northwest Territories,Canada,2020-03-29
+22381,,Serbia,2020-02-08
+22923,,Slovenia,2020-02-15
+7435,Inner Mongolia,China,2020-03-13
+10181,,Czechia,2020-02-06
+13130,,France,2020-04-06
+27336,Michigan,US,2020-03-12
+5799,Anhui,China,2020-02-11
+10385,Greenland,Denmark,2020-01-27
+22203,,Saudi Arabia,2020-03-15
+17777,,Maldives,2020-02-05
+14680,,Hungary,2020-02-11
+26453,Indiana,US,2020-02-14
+18534,,Monaco,2020-02-13
+26348,Illinois,US,2020-02-16
+22308,,Senegal,2020-03-13
+6870,Heilongjiang,China,2020-02-12
+32555,,Zambia,2020-02-17
+17934,,Mali,2020-03-26
+28750,Ohio,US,2020-04-04
+929,Australian Capital Territory,Australia,2020-04-03
+10949,,Dominican Republic,2020-02-25
+28156,New Jersey,US,2020-02-05
+14772,,Iceland,2020-01-27
+13914,,Guatemala,2020-01-25
+8565,Shanxi,China,2020-01-26
+26676,Kansas,US,2020-02-23
+16806,,Lebanon,2020-01-28
+10813,,Dominica,2020-01-27
+19850,,Nicaragua,2020-03-16
+27787,Montana,US,2020-04-04
+14809,,Iceland,2020-03-04
+29815,Utah,US,2020-03-30
+22634,,Sierra Leone,2020-03-18
+5697,,Chile,2020-02-16
+6318,Guangdong,China,2020-01-26
+30457,Wisconsin,US,2020-03-30
+20820,,Paraguay,2020-03-23
+5739,,Chile,2020-03-29
+4522,New Brunswick,Canada,2020-02-18
+29666,Texas,US,2020-02-17
+27135,Maryland,US,2020-03-25
+9422,,Congo (Brazzaville),2020-01-27
+27682,Missouri,US,2020-04-06
+9158,Yunnan,China,2020-03-24
+3141,,Botswana,2020-02-28
+20054,,Nigeria,2020-03-06
+27231,Massachusetts,US,2020-03-14
+5524,,Central African Republic,2020-03-28
+672,,Argentina,2020-02-20
+20053,,Nigeria,2020-03-05
+5701,,Chile,2020-02-20
+17084,,Libya,2020-04-01
+25432,Colorado,US,2020-04-03
+15945,,Kazakhstan,2020-01-23
+536,,Antigua and Barbuda,2020-01-22
+21957,,Saint Vincent and the Grenadines,2020-02-12
+21785,,Saint Kitts and Nevis,2020-03-25
+9279,Zhejiang,China,2020-04-07
+11586,,Estonia,2020-02-20
+24426,,Togo,2020-02-20
+21900,,Saint Lucia,2020-04-02
+16596,,Laos,2020-02-01
+24139,,Tanzania,2020-03-25
+20785,,Paraguay,2020-02-17
+22541,,Seychelles,2020-04-01
+5318,Saskatchewan,Canada,2020-04-05
+1763,,Austria,2020-03-12
+29652,Texas,US,2020-02-03
+6376,Guangdong,China,2020-03-24
+14389,,Haiti,2020-03-12
+15322,,Ireland,2020-02-11
+27139,Maryland,US,2020-03-29
+8944,Tibet,China,2020-03-24
+21544,,Russia,2020-02-27
+4966,Ontario,Canada,2020-03-05
+4849,Nova Scotia,Canada,2020-02-24
+3853,,Cabo Verde,2020-01-22
+29977,Virgin Islands,US,2020-02-07
+26600,Iowa,US,2020-03-25
+28199,New Jersey,US,2020-03-19
+3137,,Botswana,2020-02-24
+5045,Prince Edward Island,Canada,2020-02-06
+15874,,Jordan,2020-02-28
+1822,,Azerbaijan,2020-01-24
+32056,,Uruguay,2020-03-24
+17557,,Madagascar,2020-01-30
+31781,Turks and Caicos Islands,United Kingdom,2020-01-23
+26701,Kansas,US,2020-03-19
+19742,,New Zealand,2020-03-15
+24134,,Tanzania,2020-03-20
+6561,Guizhou,China,2020-02-24
+7880,Liaoning,China,2020-03-30
+6793,Hebei,China,2020-03-13
+18154,,Mauritania,2020-04-01
+22831,,Slovakia,2020-03-01
+29279,Rhode Island,US,2020-03-29
+13229,,Gabon,2020-03-29
+27936,Nevada,US,2020-01-30
+20444,,Pakistan,2020-01-28
+28641,North Dakota,US,2020-04-02
+22274,,Senegal,2020-02-08
+12634,New Caledonia,France,2020-01-29
+10220,,Czechia,2020-03-16
+15907,,Jordan,2020-04-01
+7197,Hubei,China,2020-02-18
+21534,,Russia,2020-02-17
+32491,,West Bank and Gaza,2020-03-31
+28828,Oklahoma,US,2020-03-06
+1426,Tasmania,Australia,2020-02-25
+17268,,Lithuania,2020-03-02
+30211,Washington,US,2020-02-27
+16322,,Kosovo,2020-03-19
+14458,,Holy See,2020-02-03
+15054,,Indonesia,2020-04-04
+22154,,Saudi Arabia,2020-01-26
+7318,Hunan,China,2020-03-03
+18240,,Mauritius,2020-03-11
+23360,,Sri Lanka,2020-02-24
+30979,Anguilla,United Kingdom,2020-03-17
+3862,,Cabo Verde,2020-01-31
+16502,,Kyrgyzstan,2020-02-14
+17267,,Lithuania,2020-03-01
+12583,Mayotte,France,2020-03-25
+30783,,Ukraine,2020-04-04
+17794,,Maldives,2020-02-22
+2896,,Bolivia,2020-01-28
+27965,Nevada,US,2020-02-28
+9666,,Costa Rica,2020-02-26
+26481,Indiana,US,2020-03-13
+25270,California,US,2020-02-08
+31917,,United Kingdom,2020-02-21
+13075,,France,2020-02-11
+13622,,Ghana,2020-02-23
+2642,,Belize,2020-04-04
+15750,,Japan,2020-02-11
+7422,Inner Mongolia,China,2020-02-29
+28173,New Jersey,US,2020-02-22
+31745,Montserrat,United Kingdom,2020-04-03
+6893,Heilongjiang,China,2020-03-06
+1727,,Austria,2020-02-05
+9053,Xinjiang,China,2020-03-26
+29448,South Dakota,US,2020-02-13
+27719,Montana,US,2020-01-27
+12565,Mayotte,France,2020-03-07
+29704,Texas,US,2020-03-26
+4952,Ontario,Canada,2020-02-20
+12766,Reunion,France,2020-02-23
+8712,Sichuan,China,2020-03-06
+24433,,Togo,2020-02-27
+17558,,Madagascar,2020-01-31
+14991,,Indonesia,2020-02-01
+12199,French Polynesia,France,2020-01-22
+3247,,Brazil,2020-02-27
+6998,Henan,China,2020-03-04
+30096,Virginia,US,2020-02-19
+12441,Martinique,France,2020-02-19
+23911,,Syria,2020-03-11
+7711,Jilin,China,2020-01-28
+17933,,Mali,2020-03-25
+9100,Yunnan,China,2020-01-26
+4297,British Columbia,Canada,2020-02-07
+3975,,Cambodia,2020-02-06
+30745,,Ukraine,2020-02-26
+23183,,South Africa,2020-04-01
+26045,Guam,US,2020-03-05
+30939,Anguilla,United Kingdom,2020-02-06
+2952,,Bolivia,2020-03-24
+20807,,Paraguay,2020-03-10
+817,,Armenia,2020-03-29
+11585,,Estonia,2020-02-19
+28263,New Mexico,US,2020-02-05
+3243,,Brazil,2020-02-23
+29678,Texas,US,2020-02-29
+32156,,Uzbekistan,2020-03-17
+10550,,Denmark,2020-03-25
+3136,,Botswana,2020-02-23
+25077,Arizona,US,2020-02-29
+6486,Guangxi,China,2020-03-27
+19942,,Niger,2020-03-01
+1994,,Bahamas,2020-03-29
+26063,Guam,US,2020-03-23
+8636,Shanxi,China,2020-04-06
+26685,Kansas,US,2020-03-03
+27623,Missouri,US,2020-02-07
+3545,,Burkina Faso,2020-02-04
+28946,Oregon,US,2020-03-17
+31318,Cayman Islands,United Kingdom,2020-04-04
+7639,Jiangxi,China,2020-03-03
+3161,,Botswana,2020-03-19
+17359,,Luxembourg,2020-02-15
+23470,,Sudan,2020-02-27
+21985,,Saint Vincent and the Grenadines,2020-03-11
+14692,,Hungary,2020-02-23
+909,Australian Capital Territory,Australia,2020-03-14
+29119,Puerto Rico,US,2020-02-05
+23775,,Switzerland,2020-02-11
+26655,Kansas,US,2020-02-02
+28798,Oklahoma,US,2020-02-05
+11270,,El Salvador,2020-02-25
+19641,,Netherlands,2020-03-21
+4880,Nova Scotia,Canada,2020-03-26
+20043,,Nigeria,2020-02-24
+6655,Hainan,China,2020-02-11
+16419,,Kuwait,2020-03-09
+2083,,Bahrain,2020-03-11
+22174,,Saudi Arabia,2020-02-15
+19625,,Netherlands,2020-03-05
+16109,,Kenya,2020-03-20
+3570,,Burkina Faso,2020-02-29
+6468,Guangxi,China,2020-03-09
+21760,,Saint Kitts and Nevis,2020-02-29
+13769,,Greece,2020-04-03
+6906,Heilongjiang,China,2020-03-19
+12454,Martinique,France,2020-03-03
+24517,,Trinidad and Tobago,2020-02-04
+20552,,Panama,2020-01-29
+17260,,Lithuania,2020-02-23
+10962,,Dominican Republic,2020-03-09
+20494,,Pakistan,2020-03-18
+23699,,Sweden,2020-03-13
+30940,Anguilla,United Kingdom,2020-02-07
+17905,,Mali,2020-02-26
+13074,,France,2020-02-10
+32640,,Zimbabwe,2020-01-26
+24084,,Tanzania,2020-01-30
+32530,,Zambia,2020-01-23
+1641,Western Australia,Australia,2020-02-26
+28634,North Dakota,US,2020-03-26
+1850,,Azerbaijan,2020-02-21
+4015,,Cambodia,2020-03-17
+9056,Xinjiang,China,2020-03-29
+13713,,Greece,2020-02-07
+17608,,Madagascar,2020-03-21
+22059,,San Marino,2020-02-07
+31308,Cayman Islands,United Kingdom,2020-03-25
+7603,Jiangxi,China,2020-01-27
+23401,,Sri Lanka,2020-04-05
+21362,,Qatar,2020-03-30
+15341,,Ireland,2020-03-01
+18010,,Malta,2020-02-24
+24118,,Tanzania,2020-03-04
+1527,Victoria,Australia,2020-02-19
+10931,,Dominican Republic,2020-02-07
+20790,,Paraguay,2020-02-22
+29854,Vermont,US,2020-01-22
+32442,,West Bank and Gaza,2020-02-11
+2842,,Bhutan,2020-03-21
+10859,,Dominica,2020-03-13
+28529,North Carolina,US,2020-03-28
+28170,New Jersey,US,2020-02-19
+2836,,Bhutan,2020-03-15
+6994,Henan,China,2020-02-29
+11992,,Finland,2020-01-29
+30323,West Virginia,US,2020-03-03
+3887,,Cabo Verde,2020-02-25
+17274,,Lithuania,2020-03-08
+23915,,Syria,2020-03-15
+24434,,Togo,2020-02-28
+3171,,Botswana,2020-03-29
+31288,Cayman Islands,United Kingdom,2020-03-05
+4329,British Columbia,Canada,2020-03-10
+11557,,Estonia,2020-01-22
+23276,,Spain,2020-03-18
+28052,New Hampshire,US,2020-02-08
+1321,South Australia,Australia,2020-02-27
+890,Australian Capital Territory,Australia,2020-02-24
+27414,Minnesota,US,2020-02-12
+25577,Delaware,US,2020-01-25
+5886,Beijing,China,2020-01-22
+23257,,Spain,2020-02-28
+17994,,Malta,2020-02-08
+29445,South Dakota,US,2020-02-10
+20763,,Paraguay,2020-01-26
+28536,North Carolina,US,2020-04-04
+11826,,Ethiopia,2020-03-17
+21449,,Romania,2020-03-10
+24643,,Tunisia,2020-02-23
+16059,,Kenya,2020-01-30
+5605,,Chad,2020-03-02
+27683,Missouri,US,2020-04-07
+4853,Nova Scotia,Canada,2020-02-28
+4862,Nova Scotia,Canada,2020-03-08
+23068,,Somalia,2020-03-24
+6057,Chongqing,China,2020-03-26
+18334,,Mexico,2020-02-27
+29021,Pennsylvania,US,2020-02-14
+20078,,Nigeria,2020-03-30
+31913,,United Kingdom,2020-02-17
+16516,,Kyrgyzstan,2020-02-28
+15960,,Kazakhstan,2020-02-07
+31300,Cayman Islands,United Kingdom,2020-03-17
+20663,,Papua New Guinea,2020-02-02
+6108,Fujian,China,2020-01-30
+9244,Zhejiang,China,2020-03-03
+20405,,Oman,2020-04-05
+27999,Nevada,US,2020-04-02
+31105,Bermuda,United Kingdom,2020-04-05
+25534,Connecticut,US,2020-03-29
+3049,,Bosnia and Herzegovina,2020-03-14
+29968,Virgin Islands,US,2020-01-29
+3778,,Burundi,2020-02-23
+20892,,Peru,2020-02-17
+23327,,Sri Lanka,2020-01-22
+26897,Louisiana,US,2020-03-01
+31509,Gibraltar,United Kingdom,2020-03-12
+9660,,Costa Rica,2020-02-20
+18551,,Monaco,2020-03-01
+7492,Jiangsu,China,2020-01-23
+18470,,Moldova,2020-03-27
+27016,Maine,US,2020-03-13
+5695,,Chile,2020-02-14
+29546,Tennessee,US,2020-02-04
+12264,French Polynesia,France,2020-03-27
+19619,,Netherlands,2020-02-28
+17773,,Maldives,2020-02-01
+31995,,Uruguay,2020-01-23
+9228,Zhejiang,China,2020-02-16
+12670,New Caledonia,France,2020-03-05
+3574,,Burkina Faso,2020-03-04
+21248,,Portugal,2020-03-23
+2509,,Belgium,2020-03-09
+2263,,Barbados,2020-02-06
+5269,Saskatchewan,Canada,2020-02-16
+18360,,Mexico,2020-03-24
+26879,Louisiana,US,2020-02-12
+2922,,Bolivia,2020-02-23
+26968,Maine,US,2020-01-25
+6350,Guangdong,China,2020-02-27
+26898,Louisiana,US,2020-03-02
+29028,Pennsylvania,US,2020-02-21
+12424,Martinique,France,2020-02-02
+4674,Newfoundland and Labrador,Canada,2020-04-03
+6172,Fujian,China,2020-04-03
+6132,Fujian,China,2020-02-23
+17134,,Liechtenstein,2020-02-04
+21261,,Portugal,2020-04-05
+6479,Guangxi,China,2020-03-20
+17720,,Malaysia,2020-03-26
+24787,,Turkey,2020-03-31
+2801,,Bhutan,2020-02-09
+22511,,Seychelles,2020-03-02
+6246,Gansu,China,2020-03-01
+29168,Puerto Rico,US,2020-03-25
+22955,,Slovenia,2020-03-18
+23279,,Spain,2020-03-21
+14233,,Guyana,2020-01-23
+27433,Minnesota,US,2020-03-02
+11180,,Egypt,2020-03-13
+9004,Xinjiang,China,2020-02-06
+24941,Alaska,US,2020-01-31
+7442,Inner Mongolia,China,2020-03-20
+4883,Nova Scotia,Canada,2020-03-29
+11777,,Ethiopia,2020-01-28
+17294,,Lithuania,2020-03-28
+11783,,Ethiopia,2020-02-03
+10453,Greenland,Denmark,2020-04-04
+14519,,Holy See,2020-04-04
+12347,Guadeloupe,France,2020-03-03
+27451,Minnesota,US,2020-03-20
+14048,,Guinea,2020-02-21
+31996,,Uruguay,2020-01-24
+25293,California,US,2020-03-02
+13834,,Grenada,2020-02-21
+24827,Alabama,US,2020-01-24
+9253,Zhejiang,China,2020-03-12
+27639,Missouri,US,2020-02-23
+6812,Hebei,China,2020-04-01
+19228,,Nepal,2020-04-05
+15978,,Kazakhstan,2020-02-25
+4625,Newfoundland and Labrador,Canada,2020-02-14
+20343,,Oman,2020-02-03
+21226,,Portugal,2020-03-01
+31254,Cayman Islands,United Kingdom,2020-01-31
+19714,,New Zealand,2020-02-16
+20477,,Pakistan,2020-03-01
+30508,Wyoming,US,2020-02-03
+12572,Mayotte,France,2020-03-14
+19388,Curacao,Netherlands,2020-02-11
+17824,,Maldives,2020-03-23
+26396,Illinois,US,2020-04-04
+21873,,Saint Lucia,2020-03-06
+3659,,Burma,2020-02-11
+25538,Connecticut,US,2020-04-02
+11938,,Fiji,2020-03-22
+10947,,Dominican Republic,2020-02-23
+13875,,Grenada,2020-04-02
+19193,,Nepal,2020-03-01
+10115,,Cyprus,2020-03-18
+8522,Shanghai,China,2020-03-30
+18871,,Morocco,2020-02-29
+3469,,Bulgaria,2020-03-06
+24986,Alaska,US,2020-03-16
+11134,,Egypt,2020-01-27
+20599,,Panama,2020-03-16
+11379,,Equatorial Guinea,2020-02-27
+23906,,Syria,2020-03-06
+4403,Manitoba,Canada,2020-02-06
+29395,South Carolina,US,2020-04-07
+466,,Angola,2020-02-28
+20369,,Oman,2020-02-29
+17291,,Lithuania,2020-03-25
+18989,,Mozambique,2020-03-11
+17162,,Liechtenstein,2020-03-03
+1425,Tasmania,Australia,2020-02-24
+7561,Jiangsu,China,2020-04-01
+996,New South Wales,Australia,2020-02-23
+29367,South Carolina,US,2020-03-10
+5477,,Central African Republic,2020-02-10
+7643,Jiangxi,China,2020-03-07
+9250,Zhejiang,China,2020-03-09
+5706,,Chile,2020-02-25
+11901,,Fiji,2020-02-14
+2789,,Bhutan,2020-01-28
+14185,,Guinea-Bissau,2020-03-22
+5186,Quebec,Canada,2020-03-11
+26174,Hawaii,US,2020-03-27
+8898,Tibet,China,2020-02-07
+11596,,Estonia,2020-03-01
+19106,,Namibia,2020-03-21
+12270,French Polynesia,France,2020-04-02
+15471,,Israel,2020-03-24
+25730,District of Columbia,US,2020-03-11
+7771,Jilin,China,2020-03-28
+16089,,Kenya,2020-02-29
+2612,,Belize,2020-03-05
+19379,Curacao,Netherlands,2020-02-02
+3761,,Burundi,2020-02-06
+22582,,Sierra Leone,2020-01-26
+9108,Yunnan,China,2020-02-03
+18358,,Mexico,2020-03-22
+15367,,Ireland,2020-03-27
+5402,Yukon,Canada,2020-03-13
+27033,Maine,US,2020-03-30
+4133,,Cameroon,2020-03-28
+3063,,Bosnia and Herzegovina,2020-03-28
+29362,South Carolina,US,2020-03-05
+11713,,Eswatini,2020-03-11
+29159,Puerto Rico,US,2020-03-16
+31512,Gibraltar,United Kingdom,2020-03-15
+4852,Nova Scotia,Canada,2020-02-27
+18962,,Mozambique,2020-02-13
+4837,Nova Scotia,Canada,2020-02-12
+857,Australian Capital Territory,Australia,2020-01-22
+31392,Channel Islands,United Kingdom,2020-03-02
+2622,,Belize,2020-03-15
+18633,,Mongolia,2020-02-05
+559,,Antigua and Barbuda,2020-02-14
+4457,Manitoba,Canada,2020-03-31
+10399,Greenland,Denmark,2020-02-10
+17187,,Liechtenstein,2020-03-28
+24536,,Trinidad and Tobago,2020-02-23
+11582,,Estonia,2020-02-16
+20777,,Paraguay,2020-02-09
+712,,Argentina,2020-03-31
+12059,,Finland,2020-04-05
+19289,Aruba,Netherlands,2020-02-19
+16737,,Latvia,2020-03-06
+20140,,North Macedonia,2020-02-14
+4016,,Cambodia,2020-03-18
+23156,,South Africa,2020-03-05
+17165,,Liechtenstein,2020-03-06
+32170,,Uzbekistan,2020-03-31
+25508,Connecticut,US,2020-03-03
+29482,South Dakota,US,2020-03-18
+7664,Jiangxi,China,2020-03-28
+22795,,Slovakia,2020-01-25
+24460,,Togo,2020-03-25
+28061,New Hampshire,US,2020-02-17
+26862,Louisiana,US,2020-01-26
+236,,Algeria,2020-02-12
+18987,,Mozambique,2020-03-09
+16384,,Kuwait,2020-02-03
+24975,Alaska,US,2020-03-05
+27252,Massachusetts,US,2020-04-04
+23724,,Sweden,2020-04-07
+31107,Bermuda,United Kingdom,2020-04-07
+4750,Northwest Territories,Canada,2020-03-03
+12749,Reunion,France,2020-02-06
+5145,Quebec,Canada,2020-01-30
+23716,,Sweden,2020-03-30
+2175,,Bangladesh,2020-02-25
+21115,,Poland,2020-02-26
+7818,Liaoning,China,2020-01-28
+19738,,New Zealand,2020-03-11
+26176,Hawaii,US,2020-03-29
+6389,Guangdong,China,2020-04-06
+28311,New Mexico,US,2020-03-24
+7121,Hong Kong,China,2020-03-20
+356,,Andorra,2020-02-25
+16586,,Laos,2020-01-22
+15372,,Ireland,2020-04-01
+21245,,Portugal,2020-03-20
+28530,North Carolina,US,2020-03-29
+15142,,Iran,2020-03-16
+28823,Oklahoma,US,2020-03-01
+31085,Bermuda,United Kingdom,2020-03-16
+25914,Georgia,US,2020-02-10
+32245,,Venezuela,2020-02-28
+18456,,Moldova,2020-03-13
+18785,,Montenegro,2020-03-21
+4343,British Columbia,Canada,2020-03-24
+26871,Louisiana,US,2020-02-04
+8067,Ningxia,China,2020-03-03
+7495,Jiangsu,China,2020-01-26
+25627,Delaware,US,2020-03-15
+5166,Quebec,Canada,2020-02-20
+2938,,Bolivia,2020-03-10
+11906,,Fiji,2020-02-19
+11731,,Eswatini,2020-03-29
+30526,Wyoming,US,2020-02-21
+16711,,Latvia,2020-02-09
+30181,Washington,US,2020-01-28
+12215,French Polynesia,France,2020-02-07
+32581,,Zambia,2020-03-14
+16718,,Latvia,2020-02-16
+17517,,MS Zaandam,2020-04-06
+17367,,Luxembourg,2020-02-23
+8055,Ningxia,China,2020-02-20
+18431,,Moldova,2020-02-17
+1742,,Austria,2020-02-20
+18348,,Mexico,2020-03-12
+12095,French Guiana,France,2020-01-25
+17556,,Madagascar,2020-01-29
+9018,Xinjiang,China,2020-02-20
+5423,Yukon,Canada,2020-04-03
+24613,,Tunisia,2020-01-24
+3818,,Burundi,2020-04-03
+26278,Idaho,US,2020-03-24
+30765,,Ukraine,2020-03-17
+23339,,Sri Lanka,2020-02-03
+8838,Tianjin,China,2020-03-25
+5786,Anhui,China,2020-01-29
+6762,Hebei,China,2020-02-11
+575,,Antigua and Barbuda,2020-03-01
+19186,,Nepal,2020-02-23
+25104,Arizona,US,2020-03-27
+8507,Shanghai,China,2020-03-15
+25405,Colorado,US,2020-03-07
+20281,,Norway,2020-03-19
+21508,,Russia,2020-01-22
+15855,,Jordan,2020-02-09
+23149,,South Africa,2020-02-27
+22439,,Serbia,2020-04-06
+9141,Yunnan,China,2020-03-07
+1113,Northern Territory,Australia,2020-03-04
+10979,,Dominican Republic,2020-03-26
+21353,,Qatar,2020-03-21
+12571,Mayotte,France,2020-03-13
+26434,Indiana,US,2020-01-26
+7459,Inner Mongolia,China,2020-04-06
+9039,Xinjiang,China,2020-03-12
+22191,,Saudi Arabia,2020-03-03
+4660,Newfoundland and Labrador,Canada,2020-03-20
+1306,South Australia,Australia,2020-02-12
+31098,Bermuda,United Kingdom,2020-03-29
+26933,Louisiana,US,2020-04-06
+11583,,Estonia,2020-02-17
+9892,,Croatia,2020-03-09
+6530,Guizhou,China,2020-01-24
+9255,Zhejiang,China,2020-03-14
+24748,,Turkey,2020-02-21
+23509,,Sudan,2020-04-06
+9782,,Cote d'Ivoire,2020-03-06
+6115,Fujian,China,2020-02-06
+11899,,Fiji,2020-02-12
+9761,,Cote d'Ivoire,2020-02-14
+26328,Illinois,US,2020-01-27
+28217,New Jersey,US,2020-04-06
+17338,,Luxembourg,2020-01-25
+2538,,Belgium,2020-04-07
+23249,,Spain,2020-02-20
+25301,California,US,2020-03-10
+3029,,Bosnia and Herzegovina,2020-02-23
+24841,Alabama,US,2020-02-07
+23284,,Spain,2020-03-26
+21097,,Poland,2020-02-08
+5692,,Chile,2020-02-11
+4762,Northwest Territories,Canada,2020-03-15
+5743,,Chile,2020-04-02
+25724,District of Columbia,US,2020-03-05
+6104,Fujian,China,2020-01-26
+4557,New Brunswick,Canada,2020-03-24
+22287,,Senegal,2020-02-21
+6216,Gansu,China,2020-01-31
+32585,,Zambia,2020-03-18
+30720,,Ukraine,2020-02-01
+18471,,Moldova,2020-03-28
+4441,Manitoba,Canada,2020-03-15
+22927,,Slovenia,2020-02-19
+29126,Puerto Rico,US,2020-02-12
+30350,West Virginia,US,2020-03-30
+24007,,Taiwan*,2020-02-29
+21982,,Saint Vincent and the Grenadines,2020-03-08
+10410,Greenland,Denmark,2020-02-21
+22916,,Slovenia,2020-02-08
+1984,,Bahamas,2020-03-19
+10387,Greenland,Denmark,2020-01-29
+10340,Faroe Islands,Denmark,2020-03-29
+16443,,Kuwait,2020-04-02
+21103,,Poland,2020-02-14
+26932,Louisiana,US,2020-04-05
+12040,,Finland,2020-03-17
+20596,,Panama,2020-03-13
+1077,Northern Territory,Australia,2020-01-28
+22431,,Serbia,2020-03-29
+29984,Virgin Islands,US,2020-02-14
+8929,Tibet,China,2020-03-09
+15043,,Indonesia,2020-03-24
+30194,Washington,US,2020-02-10
+27947,Nevada,US,2020-02-10
+23042,,Somalia,2020-02-27
+12321,Guadeloupe,France,2020-02-06
+12785,Reunion,France,2020-03-13
+32331,,Vietnam,2020-02-07
+9534,,Congo (Kinshasa),2020-02-01
+27530,Mississippi,US,2020-02-21
+13281,,Gambia,2020-02-03
+19855,,Nicaragua,2020-03-21
+22297,,Senegal,2020-03-02
+1648,Western Australia,Australia,2020-03-04
+6025,Chongqing,China,2020-02-23
+30124,Virginia,US,2020-03-18
+22081,,San Marino,2020-02-29
+15463,,Israel,2020-03-16
+14596,,Honduras,2020-03-05
+15752,,Japan,2020-02-13
+3878,,Cabo Verde,2020-02-16
+765,,Armenia,2020-02-06
+30131,Virginia,US,2020-03-25
+7557,Jiangsu,China,2020-03-28
+15027,,Indonesia,2020-03-08
+9567,,Congo (Kinshasa),2020-03-05
+3466,,Bulgaria,2020-03-03
+25964,Georgia,US,2020-03-31
+1657,Western Australia,Australia,2020-03-13
+6538,Guizhou,China,2020-02-01
+30217,Washington,US,2020-03-04
+12437,Martinique,France,2020-02-15
+4515,New Brunswick,Canada,2020-02-11
+18738,,Montenegro,2020-02-03
+19710,,New Zealand,2020-02-12
+3479,,Bulgaria,2020-03-16
+26982,Maine,US,2020-02-08
+6381,Guangdong,China,2020-03-29
+17993,,Malta,2020-02-07
+29961,Virgin Islands,US,2020-01-22
+10704,,Djibouti,2020-01-25
+18219,,Mauritius,2020-02-19
+8197,Qinghai,China,2020-03-26
+27854,Nebraska,US,2020-02-24
+2399,,Belarus,2020-03-06
+9370,,Colombia,2020-03-22
+32678,,Zimbabwe,2020-03-04
+47,,Afghanistan,2020-03-08
+7927,Macau,China,2020-01-30
+3784,,Burundi,2020-02-29
+19432,Curacao,Netherlands,2020-03-26
+32325,,Vietnam,2020-02-01
+10972,,Dominican Republic,2020-03-19
+17512,,MS Zaandam,2020-04-01
+14154,,Guinea-Bissau,2020-02-20
+27996,Nevada,US,2020-03-30
+24186,,Thailand,2020-01-25
+1015,New South Wales,Australia,2020-03-13
+28408,New York,US,2020-03-14
+20919,,Peru,2020-03-15
+24045,,Taiwan*,2020-04-07
+31190,British Virgin Islands,United Kingdom,2020-03-14
+18134,,Mauritania,2020-03-12
+17445,,MS Zaandam,2020-01-25
+3054,,Bosnia and Herzegovina,2020-03-19
+11381,,Equatorial Guinea,2020-02-29
+25937,Georgia,US,2020-03-04
+12466,Martinique,France,2020-03-15
+9270,Zhejiang,China,2020-03-29
+24895,Alabama,US,2020-04-01
+1771,,Austria,2020-03-20
+30223,Washington,US,2020-03-10
+2185,,Bangladesh,2020-03-06
+26365,Illinois,US,2020-03-04
+23571,,Suriname,2020-02-21
+17616,,Madagascar,2020-03-29
+31956,,United Kingdom,2020-03-31
+26820,Kentucky,US,2020-03-31
+8607,Shanxi,China,2020-03-08
+12253,French Polynesia,France,2020-03-16
+13841,,Grenada,2020-02-28
+15096,,Iran,2020-01-30
+5847,Anhui,China,2020-03-30
+17690,,Malaysia,2020-02-25
+30717,,Ukraine,2020-01-29
+21419,,Romania,2020-02-09
+19076,,Namibia,2020-02-20
+23916,,Syria,2020-03-16
+14288,,Guyana,2020-03-18
+11568,,Estonia,2020-02-02
+15780,,Japan,2020-03-12
+26493,Indiana,US,2020-03-25
+3109,,Botswana,2020-01-27
+6674,Hainan,China,2020-03-01
+18475,,Moldova,2020-04-01
+16382,,Kuwait,2020-02-01
+9587,,Congo (Kinshasa),2020-03-25
+1989,,Bahamas,2020-03-24
+27087,Maryland,US,2020-02-06
+32583,,Zambia,2020-03-16
+28848,Oklahoma,US,2020-03-26
+16701,,Latvia,2020-01-30
+27124,Maryland,US,2020-03-14
+15418,,Israel,2020-01-31
+10019,,Cuba,2020-03-29
+1211,Queensland,Australia,2020-02-24
+7762,Jilin,China,2020-03-19
+3319,,Brunei,2020-01-23
+8370,Shandong,China,2020-02-14
+26387,Illinois,US,2020-03-26
+12160,French Guiana,France,2020-03-30
+18327,,Mexico,2020-02-20
+2498,,Belgium,2020-02-27
+13103,,France,2020-03-10
+23798,,Switzerland,2020-03-05
+28914,Oregon,US,2020-02-14
+10413,Greenland,Denmark,2020-02-24
+13963,,Guatemala,2020-03-14
+28587,North Dakota,US,2020-02-08
+25732,District of Columbia,US,2020-03-13
+7854,Liaoning,China,2020-03-04
+24204,,Thailand,2020-02-12
+31951,,United Kingdom,2020-03-26
+29606,Tennessee,US,2020-04-04
+30632,,Uganda,2020-02-20
+27570,Mississippi,US,2020-04-01
+24244,,Thailand,2020-03-23
+465,,Angola,2020-02-27
+23880,,Syria,2020-02-09
+4884,Nova Scotia,Canada,2020-03-30
+12694,New Caledonia,France,2020-03-29
+3923,,Cabo Verde,2020-04-01
+27340,Michigan,US,2020-03-16
+13223,,Gabon,2020-03-23
+24624,,Tunisia,2020-02-04
+30654,,Uganda,2020-03-13
+2380,,Belarus,2020-02-16
+8815,Tianjin,China,2020-03-02
+28846,Oklahoma,US,2020-03-24
+29790,Utah,US,2020-03-05
+11829,,Ethiopia,2020-03-20
+7731,Jilin,China,2020-02-17
+2729,,Benin,2020-03-15
+2365,,Belarus,2020-02-01
+2293,,Barbados,2020-03-07
+13386,,Georgia,2020-02-01
+4185,Alberta,Canada,2020-02-02
+20368,,Oman,2020-02-28
+25278,California,US,2020-02-16
+27507,Mississippi,US,2020-01-29
+10597,,Diamond Princess,2020-01-25
+15003,,Indonesia,2020-02-13
+19105,,Namibia,2020-03-20
+7975,Macau,China,2020-03-18
+18666,,Mongolia,2020-03-09
+4431,Manitoba,Canada,2020-03-05
+24200,,Thailand,2020-02-08
+8490,Shanghai,China,2020-02-27
+31311,Cayman Islands,United Kingdom,2020-03-28
+14721,,Hungary,2020-03-23
+5105,Prince Edward Island,Canada,2020-04-06
+7953,Macau,China,2020-02-25
+1839,,Azerbaijan,2020-02-10
+14375,,Haiti,2020-02-27
+27399,Minnesota,US,2020-01-28
+20256,,Norway,2020-02-23
+17018,,Libya,2020-01-26
+11953,,Fiji,2020-04-06
+30141,Virginia,US,2020-04-04
+21622,,Rwanda,2020-01-29
+15781,,Japan,2020-03-13
+24359,,Timor-Leste,2020-03-31
+13433,,Georgia,2020-03-19
+25509,Connecticut,US,2020-03-04
+30314,West Virginia,US,2020-02-23
+23242,,Spain,2020-02-13
+24077,,Tanzania,2020-01-23
+7293,Hunan,China,2020-02-07
+3643,,Burma,2020-01-26
+9102,Yunnan,China,2020-01-28
+7229,Hubei,China,2020-03-21
+16071,,Kenya,2020-02-11
+18874,,Morocco,2020-03-03
+12525,Mayotte,France,2020-01-27
+8807,Tianjin,China,2020-02-23
+8043,Ningxia,China,2020-02-08
+5780,Anhui,China,2020-01-23
+28619,North Dakota,US,2020-03-11
+21131,,Poland,2020-03-13
+23579,,Suriname,2020-02-29
+10496,,Denmark,2020-01-31
+11798,,Ethiopia,2020-02-18
+11300,,El Salvador,2020-03-26
+7844,Liaoning,China,2020-02-23
+3062,,Bosnia and Herzegovina,2020-03-27
+348,,Andorra,2020-02-17
+31514,Gibraltar,United Kingdom,2020-03-17
+3043,,Bosnia and Herzegovina,2020-03-08
+24575,,Trinidad and Tobago,2020-04-02
+6331,Guangdong,China,2020-02-08
+16917,,Liberia,2020-02-01
+30320,West Virginia,US,2020-02-29
+13385,,Georgia,2020-01-31
+11242,,El Salvador,2020-01-28
+5255,Saskatchewan,Canada,2020-02-02
+19864,,Nicaragua,2020-03-30
+27781,Montana,US,2020-03-29
+18343,,Mexico,2020-03-07
+30077,Virginia,US,2020-01-31
+7205,Hubei,China,2020-02-26
+7071,Hong Kong,China,2020-01-30
+3477,,Bulgaria,2020-03-14
+25169,Arkansas,US,2020-02-14
+22644,,Sierra Leone,2020-03-28
+665,,Argentina,2020-02-13
+6970,Henan,China,2020-02-05
+17911,,Mali,2020-03-03
+1144,Northern Territory,Australia,2020-04-04
+20609,,Panama,2020-03-26
+30875,,United Arab Emirates,2020-03-20
+30132,Virginia,US,2020-03-26
+7616,Jiangxi,China,2020-02-09
+8738,Sichuan,China,2020-04-01
+19111,,Namibia,2020-03-26
+28182,New Jersey,US,2020-03-02
+22065,,San Marino,2020-02-13
+20029,,Nigeria,2020-02-10
+2644,,Belize,2020-04-06
+30872,,United Arab Emirates,2020-03-17
+30647,,Uganda,2020-03-06
+32157,,Uzbekistan,2020-03-18
+5592,,Chad,2020-02-18
+11721,,Eswatini,2020-03-19
+9476,,Congo (Brazzaville),2020-03-21
+23473,,Sudan,2020-03-01
+2060,,Bahrain,2020-02-17
+1009,New South Wales,Australia,2020-03-07
+15022,,Indonesia,2020-03-03
+12899,Saint Barthelemy,France,2020-03-20
+23892,,Syria,2020-02-21
+4678,Newfoundland and Labrador,Canada,2020-04-07
+13868,,Grenada,2020-03-26
+28102,New Hampshire,US,2020-03-29
+15149,,Iran,2020-03-23
+14367,,Haiti,2020-02-19
+14918,,India,2020-03-06
+19542,Sint Maarten,Netherlands,2020-03-29
+7722,Jilin,China,2020-02-08
+5284,Saskatchewan,Canada,2020-03-02
+14587,,Honduras,2020-02-25
+31163,British Virgin Islands,United Kingdom,2020-02-16
+455,,Angola,2020-02-17
+21884,,Saint Lucia,2020-03-17
+28910,Oregon,US,2020-02-10
+16205,,"Korea, South",2020-03-09
+26223,Idaho,US,2020-01-29
+11170,,Egypt,2020-03-03
+21093,,Poland,2020-02-04
+30736,,Ukraine,2020-02-17
+1452,Tasmania,Australia,2020-03-22
+27610,Missouri,US,2020-01-25
+20918,,Peru,2020-03-14
+14302,,Guyana,2020-04-01
+9273,Zhejiang,China,2020-04-01
+23146,,South Africa,2020-02-24
+22188,,Saudi Arabia,2020-02-29
+21956,,Saint Vincent and the Grenadines,2020-02-11
+31423,Channel Islands,United Kingdom,2020-04-02
+26502,Indiana,US,2020-04-03
+24877,Alabama,US,2020-03-14
+5147,Quebec,Canada,2020-02-01
+6855,Heilongjiang,China,2020-01-28
+2359,,Belarus,2020-01-26
+19112,,Namibia,2020-03-27
+15913,,Jordan,2020-04-07
+30436,Wisconsin,US,2020-03-09
+8152,Qinghai,China,2020-02-10
+28533,North Carolina,US,2020-04-01
+2834,,Bhutan,2020-03-13
+11302,,El Salvador,2020-03-28
+12559,Mayotte,France,2020-03-01
+4241,Alberta,Canada,2020-03-29
+29583,Tennessee,US,2020-03-12
+3536,,Burkina Faso,2020-01-26
+6275,Gansu,China,2020-03-30
+8361,Shandong,China,2020-02-05
+5840,Anhui,China,2020-03-23
+164,,Albania,2020-03-18
+21904,,Saint Lucia,2020-04-06
+19835,,Nicaragua,2020-03-01
+23824,,Switzerland,2020-03-31
+24364,,Timor-Leste,2020-04-05
+20361,,Oman,2020-02-21
+6912,Heilongjiang,China,2020-03-25
+17823,,Maldives,2020-03-22
+13343,,Gambia,2020-04-05
+2694,,Benin,2020-02-09
+19756,,New Zealand,2020-03-29
+17183,,Liechtenstein,2020-03-24
+31260,Cayman Islands,United Kingdom,2020-02-06
+18017,,Malta,2020-03-02
+865,Australian Capital Territory,Australia,2020-01-30
+15129,,Iran,2020-03-03
+11200,,Egypt,2020-04-02
+16199,,"Korea, South",2020-03-03
+31903,,United Kingdom,2020-02-07
+32105,,Uzbekistan,2020-01-26
+31959,,United Kingdom,2020-04-03
+20924,,Peru,2020-03-20
+23007,,Somalia,2020-01-23
+2793,,Bhutan,2020-02-01
+25646,Delaware,US,2020-04-03
+30726,,Ukraine,2020-02-07
+21313,,Qatar,2020-02-10
+25682,District of Columbia,US,2020-01-23
+3666,,Burma,2020-02-18
+3378,,Brunei,2020-03-22
+11601,,Estonia,2020-03-06
+28189,New Jersey,US,2020-03-09
+2069,,Bahrain,2020-02-26
+15100,,Iran,2020-02-03
+28480,North Carolina,US,2020-02-08
+31609,Isle of Man,United Kingdom,2020-03-05
+21560,,Russia,2020-03-14
+2199,,Bangladesh,2020-03-20
+15466,,Israel,2020-03-19
+20764,,Paraguay,2020-01-27
+12122,French Guiana,France,2020-02-21
+8499,Shanghai,China,2020-03-07
+3446,,Bulgaria,2020-02-12
+27117,Maryland,US,2020-03-07
+10199,,Czechia,2020-02-24
+32120,,Uzbekistan,2020-02-10
+4821,Nova Scotia,Canada,2020-01-27
+29259,Rhode Island,US,2020-03-09
+30345,West Virginia,US,2020-03-25
+26495,Indiana,US,2020-03-27
+29798,Utah,US,2020-03-13
+9545,,Congo (Kinshasa),2020-02-12
+14557,,Honduras,2020-01-26
+5460,,Central African Republic,2020-01-24
+24307,,Timor-Leste,2020-02-08
+18372,,Mexico,2020-04-05
+27453,Minnesota,US,2020-03-22
+5585,,Chad,2020-02-11
+6969,Henan,China,2020-02-04
+3146,,Botswana,2020-03-04
+18882,,Morocco,2020-03-11
+16399,,Kuwait,2020-02-18
+26646,Kansas,US,2020-01-24
+3116,,Botswana,2020-02-03
+21352,,Qatar,2020-03-20
+6571,Guizhou,China,2020-03-05
+11895,,Fiji,2020-02-08
+24356,,Timor-Leste,2020-03-28
+9780,,Cote d'Ivoire,2020-03-04
+20905,,Peru,2020-03-01
+19608,,Netherlands,2020-02-17
+8683,Sichuan,China,2020-02-06
+365,,Andorra,2020-03-05
+15424,,Israel,2020-02-06
+17348,,Luxembourg,2020-02-04
+17053,,Libya,2020-03-01
+22709,,Singapore,2020-02-15
+5574,,Chad,2020-01-31
+6545,Guizhou,China,2020-02-08
+2299,,Barbados,2020-03-13
+30611,,Uganda,2020-01-30
+25203,Arkansas,US,2020-03-19
+28929,Oregon,US,2020-02-29
+13180,,Gabon,2020-02-09
+27347,Michigan,US,2020-03-23
+24747,,Turkey,2020-02-20
+29985,Virgin Islands,US,2020-02-15
+27949,Nevada,US,2020-02-12
+1849,,Azerbaijan,2020-02-20
+474,,Angola,2020-03-07
+9431,,Congo (Brazzaville),2020-02-05
+32315,,Vietnam,2020-01-22
+20235,,Norway,2020-02-02
+22369,,Serbia,2020-01-27
+8140,Qinghai,China,2020-01-29
+29138,Puerto Rico,US,2020-02-24
+10627,,Diamond Princess,2020-02-24
+17292,,Lithuania,2020-03-26
+12904,Saint Barthelemy,France,2020-03-25
+20335,,Oman,2020-01-26
+18519,,Monaco,2020-01-29
+6053,Chongqing,China,2020-03-22
+15476,,Israel,2020-03-29
+9876,,Croatia,2020-02-22
+17355,,Luxembourg,2020-02-11
+16639,,Laos,2020-03-15
+5841,Anhui,China,2020-03-24
+2496,,Belgium,2020-02-25
+23344,,Sri Lanka,2020-02-08
+11517,,Eritrea,2020-03-29
+30864,,United Arab Emirates,2020-03-09
+1354,South Australia,Australia,2020-03-31
+30192,Washington,US,2020-02-08
+4444,Manitoba,Canada,2020-03-18
+31187,British Virgin Islands,United Kingdom,2020-03-11
+32463,,West Bank and Gaza,2020-03-03
+7222,Hubei,China,2020-03-14
+24208,,Thailand,2020-02-16
+8739,Sichuan,China,2020-04-02
+663,,Argentina,2020-02-11
+25841,Florida,US,2020-03-15
+28838,Oklahoma,US,2020-03-16
+31801,Turks and Caicos Islands,United Kingdom,2020-02-12
+10286,Faroe Islands,Denmark,2020-02-04
+2901,,Bolivia,2020-02-02
+12353,Guadeloupe,France,2020-03-09
+8264,Shaanxi,China,2020-02-15
+16074,,Kenya,2020-02-14
+15565,,Italy,2020-03-11
+24087,,Tanzania,2020-02-02
+4453,Manitoba,Canada,2020-03-27
+31897,,United Kingdom,2020-02-01
+170,,Albania,2020-03-24
+19398,Curacao,Netherlands,2020-02-21
+22151,,Saudi Arabia,2020-01-23
+31469,Gibraltar,United Kingdom,2020-02-01
+4743,Northwest Territories,Canada,2020-02-25
+25361,Colorado,US,2020-01-23
+11169,,Egypt,2020-03-02
+23655,,Sweden,2020-01-29
+13866,,Grenada,2020-03-24
+24794,,Turkey,2020-04-07
+23124,,South Africa,2020-02-02
+11373,,Equatorial Guinea,2020-02-21
+2518,,Belgium,2020-03-18
+23554,,Suriname,2020-02-04
+4609,Newfoundland and Labrador,Canada,2020-01-29
+8633,Shanxi,China,2020-04-03
+24185,,Thailand,2020-01-24
+19762,,New Zealand,2020-04-04
+25479,Connecticut,US,2020-02-03
+15311,,Ireland,2020-01-31
+24445,,Togo,2020-03-10
+32426,,West Bank and Gaza,2020-01-26
+19757,,New Zealand,2020-03-30
+3969,,Cambodia,2020-01-31
+16764,,Latvia,2020-04-02
+2212,,Bangladesh,2020-04-02
+26054,Guam,US,2020-03-14
+1183,Queensland,Australia,2020-01-27
+24211,,Thailand,2020-02-19
+25414,Colorado,US,2020-03-16
+16012,,Kazakhstan,2020-03-30
+7745,Jilin,China,2020-03-02
+28857,Oklahoma,US,2020-04-04
+7081,Hong Kong,China,2020-02-09
+3276,,Brazil,2020-03-27
+15312,,Ireland,2020-02-01
+22486,,Seychelles,2020-02-06
+5319,Saskatchewan,Canada,2020-04-06
+12237,French Polynesia,France,2020-02-29
+32482,,West Bank and Gaza,2020-03-22
+17400,,Luxembourg,2020-03-27
+1946,,Bahamas,2020-02-10
+15133,,Iran,2020-03-07
+21238,,Portugal,2020-03-13
+18267,,Mauritius,2020-04-07
+27134,Maryland,US,2020-03-24
+5926,Beijing,China,2020-03-02
+30658,,Uganda,2020-03-17
+28378,New York,US,2020-02-13
+23229,,Spain,2020-01-31
+7609,Jiangxi,China,2020-02-02
+13863,,Grenada,2020-03-21
+17239,,Lithuania,2020-02-02
+2429,,Belarus,2020-04-05
+26761,Kentucky,US,2020-02-01
+7778,Jilin,China,2020-04-04
+26351,Illinois,US,2020-02-19
+1724,,Austria,2020-02-02
+21634,,Rwanda,2020-02-10
+5505,,Central African Republic,2020-03-09
+1104,Northern Territory,Australia,2020-02-24
+14045,,Guinea,2020-02-18
+31702,Montserrat,United Kingdom,2020-02-20
+31489,Gibraltar,United Kingdom,2020-02-21
+3252,,Brazil,2020-03-03
+16337,,Kosovo,2020-04-03
+3126,,Botswana,2020-02-13
+22278,,Senegal,2020-02-12
+30880,,United Arab Emirates,2020-03-25
+28418,New York,US,2020-03-24
+4975,Ontario,Canada,2020-03-14
+32212,,Venezuela,2020-01-26
+18306,,Mexico,2020-01-30
+5305,Saskatchewan,Canada,2020-03-23
+11345,,Equatorial Guinea,2020-01-24
+4461,Manitoba,Canada,2020-04-04
+12531,Mayotte,France,2020-02-02
+32489,,West Bank and Gaza,2020-03-29
+21463,,Romania,2020-03-24
+20348,,Oman,2020-02-08
+3381,,Brunei,2020-03-25
+13539,,Germany,2020-03-18
+21326,,Qatar,2020-02-23
+3595,,Burkina Faso,2020-03-25
+16097,,Kenya,2020-03-08
+27462,Minnesota,US,2020-03-31
+10284,Faroe Islands,Denmark,2020-02-02
+2732,,Benin,2020-03-18
+25385,Colorado,US,2020-02-16
+32451,,West Bank and Gaza,2020-02-20
+23168,,South Africa,2020-03-17
+17870,,Mali,2020-01-22
+9580,,Congo (Kinshasa),2020-03-18
+13858,,Grenada,2020-03-16
+16752,,Latvia,2020-03-21
+25681,District of Columbia,US,2020-01-22
+22909,,Slovenia,2020-02-01
+10426,Greenland,Denmark,2020-03-08
+27307,Michigan,US,2020-02-12
+2173,,Bangladesh,2020-02-23
+7171,Hubei,China,2020-01-23
+20678,,Papua New Guinea,2020-02-17
+8706,Sichuan,China,2020-02-29
+27895,Nebraska,US,2020-04-05
+9057,Xinjiang,China,2020-03-30
+26126,Hawaii,US,2020-02-08
+32033,,Uruguay,2020-03-01
+8087,Ningxia,China,2020-03-23
+31788,Turks and Caicos Islands,United Kingdom,2020-01-30
+29336,South Carolina,US,2020-02-08
+30965,Anguilla,United Kingdom,2020-03-03
+29490,South Dakota,US,2020-03-26
+10098,,Cyprus,2020-03-01
+12376,Guadeloupe,France,2020-04-01
+20016,,Nigeria,2020-01-28
+28498,North Carolina,US,2020-02-26
+9059,Xinjiang,China,2020-04-01
+1468,Tasmania,Australia,2020-04-07
+8679,Sichuan,China,2020-02-02
+2964,,Bolivia,2020-04-05
+5140,Quebec,Canada,2020-01-25
+25912,Georgia,US,2020-02-08
+548,,Antigua and Barbuda,2020-02-03
+20071,,Nigeria,2020-03-23
+18858,,Morocco,2020-02-16
+8462,Shanghai,China,2020-01-30
+2961,,Bolivia,2020-04-02
+25316,California,US,2020-03-25
+23055,,Somalia,2020-03-11
+12036,,Finland,2020-03-13
+5174,Quebec,Canada,2020-02-28
+19593,,Netherlands,2020-02-02
+26930,Louisiana,US,2020-04-03
+3121,,Botswana,2020-02-08
+8209,Qinghai,China,2020-04-07
+30427,Wisconsin,US,2020-02-29
+14660,,Hungary,2020-01-22
+31688,Montserrat,United Kingdom,2020-02-06
+32676,,Zimbabwe,2020-03-02
+31695,Montserrat,United Kingdom,2020-02-13
+7937,Macau,China,2020-02-09
+21083,,Poland,2020-01-25
+26720,Kansas,US,2020-04-07
+8065,Ningxia,China,2020-03-01
+10450,Greenland,Denmark,2020-04-01
+32592,,Zambia,2020-03-25
+1206,Queensland,Australia,2020-02-19
+27645,Missouri,US,2020-02-29
+28494,North Carolina,US,2020-02-22
+13208,,Gabon,2020-03-08
+19216,,Nepal,2020-03-24
+3428,,Bulgaria,2020-01-25
+16069,,Kenya,2020-02-09
+11141,,Egypt,2020-02-03
+26814,Kentucky,US,2020-03-25
+3458,,Bulgaria,2020-02-24
+30328,West Virginia,US,2020-03-08
+24985,Alaska,US,2020-03-15
+32603,,Zambia,2020-04-05
+21422,,Romania,2020-02-12
+21846,,Saint Lucia,2020-02-08
+28383,New York,US,2020-02-18
+23807,,Switzerland,2020-03-14
+24767,,Turkey,2020-03-11
+786,,Armenia,2020-02-27
+22366,,Serbia,2020-01-24
+1238,Queensland,Australia,2020-03-22
+15103,,Iran,2020-02-06
+467,,Angola,2020-02-29
+22543,,Seychelles,2020-04-03
+14129,,Guinea-Bissau,2020-01-26
+11737,,Eswatini,2020-04-04
+9855,,Croatia,2020-02-01
+30015,Virgin Islands,US,2020-03-16
+5942,Beijing,China,2020-03-18
+21845,,Saint Lucia,2020-02-07
+11260,,El Salvador,2020-02-15
+4723,Northwest Territories,Canada,2020-02-05
+1244,Queensland,Australia,2020-03-28
+9019,Xinjiang,China,2020-02-21
+14150,,Guinea-Bissau,2020-02-16
+22300,,Senegal,2020-03-05
+23550,,Suriname,2020-01-31
+690,,Argentina,2020-03-09
+25817,Florida,US,2020-02-20
+13070,,France,2020-02-06
+13217,,Gabon,2020-03-17
+28384,New York,US,2020-02-19
+15584,,Italy,2020-03-30
+13200,,Gabon,2020-02-29
+14252,,Guyana,2020-02-11
+23593,,Suriname,2020-03-14
+26657,Kansas,US,2020-02-04
+25854,Florida,US,2020-03-28
+13168,,Gabon,2020-01-28
+32213,,Venezuela,2020-01-27
+17344,,Luxembourg,2020-01-31
+14898,,India,2020-02-15
+16287,,Kosovo,2020-02-13
+15643,,Jamaica,2020-02-11
+21306,,Qatar,2020-02-03
+589,,Antigua and Barbuda,2020-03-15
+30358,West Virginia,US,2020-04-07
+10748,,Djibouti,2020-03-09
+22005,,Saint Vincent and the Grenadines,2020-03-31
+5781,Anhui,China,2020-01-24
+6371,Guangdong,China,2020-03-19
+11129,,Egypt,2020-01-22
+25706,District of Columbia,US,2020-02-16
+17149,,Liechtenstein,2020-02-19
+10554,,Denmark,2020-03-29
+3489,,Bulgaria,2020-03-26
+29792,Utah,US,2020-03-07
+21879,,Saint Lucia,2020-03-12
+6351,Guangdong,China,2020-02-28
+12963,St Martin,France,2020-02-06
+26912,Louisiana,US,2020-03-16
+9456,,Congo (Brazzaville),2020-03-01
+20886,,Peru,2020-02-11
+17928,,Mali,2020-03-20
+9954,,Cuba,2020-01-24
+14479,,Holy See,2020-02-24
+24935,Alaska,US,2020-01-25
+22271,,Senegal,2020-02-05
+31383,Channel Islands,United Kingdom,2020-02-22
+29360,South Carolina,US,2020-03-03
+4529,New Brunswick,Canada,2020-02-25
+14589,,Honduras,2020-02-27
+2926,,Bolivia,2020-02-27
+6213,Gansu,China,2020-01-28
+4070,,Cameroon,2020-01-25
+915,Australian Capital Territory,Australia,2020-03-20
+25932,Georgia,US,2020-02-28
+18458,,Moldova,2020-03-15
+342,,Andorra,2020-02-11
+5947,Beijing,China,2020-03-23
+16859,,Lebanon,2020-03-21
+16522,,Kyrgyzstan,2020-03-05
+7636,Jiangxi,China,2020-02-29
+5604,,Chad,2020-03-01
+1991,,Bahamas,2020-03-26
+22099,,San Marino,2020-03-18
+20240,,Norway,2020-02-07
+17233,,Lithuania,2020-01-27
+21235,,Portugal,2020-03-10
+19479,Sint Maarten,Netherlands,2020-01-26
+22437,,Serbia,2020-04-04
+20999,,Philippines,2020-02-17
+16746,,Latvia,2020-03-15
+11410,,Equatorial Guinea,2020-03-29
+25490,Connecticut,US,2020-02-14
+18540,,Monaco,2020-02-19
+28432,New York,US,2020-04-07
+16270,,Kosovo,2020-01-27
+7083,Hong Kong,China,2020-02-11
+11023,,Ecuador,2020-01-23
+15346,,Ireland,2020-03-06
+26976,Maine,US,2020-02-02
+354,,Andorra,2020-02-23
+29116,Puerto Rico,US,2020-02-02
+24732,,Turkey,2020-02-05
+29477,South Dakota,US,2020-03-13
+1518,Victoria,Australia,2020-02-10
+22095,,San Marino,2020-03-14
+15222,,Iraq,2020-02-18
+21579,,Russia,2020-04-02
+13441,,Georgia,2020-03-27
+26077,Guam,US,2020-04-06
+7455,Inner Mongolia,China,2020-04-02
+14731,,Hungary,2020-04-02
+12046,,Finland,2020-03-23
+1004,New South Wales,Australia,2020-03-02
+1456,Tasmania,Australia,2020-03-26
+15849,,Jordan,2020-02-03
+11387,,Equatorial Guinea,2020-03-06
+19746,,New Zealand,2020-03-19
+19549,Sint Maarten,Netherlands,2020-04-05
+20499,,Pakistan,2020-03-23
+7327,Hunan,China,2020-03-12
+25473,Connecticut,US,2020-01-28
+5173,Quebec,Canada,2020-02-27
+28839,Oklahoma,US,2020-03-17
+8723,Sichuan,China,2020-03-17
+6230,Gansu,China,2020-02-14
+23873,,Syria,2020-02-02
+17808,,Maldives,2020-03-07
+23152,,South Africa,2020-03-01
+1023,New South Wales,Australia,2020-03-21
+719,,Argentina,2020-04-07
+7238,Hubei,China,2020-03-30
+21791,,Saint Kitts and Nevis,2020-03-31
+14184,,Guinea-Bissau,2020-03-21
+8051,Ningxia,China,2020-02-16
+13406,,Georgia,2020-02-21
+29328,South Carolina,US,2020-01-31
+3537,,Burkina Faso,2020-01-27
+16732,,Latvia,2020-03-01
+12101,French Guiana,France,2020-01-31
+5740,,Chile,2020-03-30
+31851,Turks and Caicos Islands,United Kingdom,2020-04-02
+6806,Hebei,China,2020-03-26
+13813,,Grenada,2020-01-31
+12250,French Polynesia,France,2020-03-13
+24742,,Turkey,2020-02-15
+11775,,Ethiopia,2020-01-26
+7410,Inner Mongolia,China,2020-02-17
+14600,,Honduras,2020-03-09
+1130,Northern Territory,Australia,2020-03-21
+22932,,Slovenia,2020-02-24
+26179,Hawaii,US,2020-04-01
+18477,,Moldova,2020-04-03
+18000,,Malta,2020-02-14
+24144,,Tanzania,2020-03-30
+21230,,Portugal,2020-03-05
+2506,,Belgium,2020-03-06
+6703,Hainan,China,2020-03-30
+13022,St Martin,France,2020-04-05
+8035,Ningxia,China,2020-01-31
+25814,Florida,US,2020-02-17
+27309,Michigan,US,2020-02-14
+381,,Andorra,2020-03-21
+9992,,Cuba,2020-03-02
+22044,,San Marino,2020-01-23
+13084,,France,2020-02-20
+14253,,Guyana,2020-02-12
+28734,Ohio,US,2020-03-19
+8413,Shandong,China,2020-03-28
+18454,,Moldova,2020-03-11
+24576,,Trinidad and Tobago,2020-04-03
+13530,,Germany,2020-03-09
+27286,Michigan,US,2020-01-22
+9113,Yunnan,China,2020-02-08
+14358,,Haiti,2020-02-10
+10238,,Czechia,2020-04-03
+4998,Ontario,Canada,2020-04-06
+17513,,MS Zaandam,2020-04-02
+2075,,Bahrain,2020-03-03
+7436,Inner Mongolia,China,2020-03-14
+4189,Alberta,Canada,2020-02-06
+29492,South Dakota,US,2020-03-28
+6535,Guizhou,China,2020-01-29
+19334,Aruba,Netherlands,2020-04-04
+15214,,Iraq,2020-02-10
+28262,New Mexico,US,2020-02-04
+4415,Manitoba,Canada,2020-02-18
+4122,,Cameroon,2020-03-17
+11287,,El Salvador,2020-03-13
+26823,Kentucky,US,2020-04-03
+11515,,Eritrea,2020-03-27
+18202,,Mauritius,2020-02-02
+25616,Delaware,US,2020-03-04
+24183,,Thailand,2020-01-22
+15251,,Iraq,2020-03-18
+29539,Tennessee,US,2020-01-28
+18476,,Moldova,2020-04-02
+31395,Channel Islands,United Kingdom,2020-03-05
+3803,,Burundi,2020-03-19
+10127,,Cyprus,2020-03-30
+30410,Wisconsin,US,2020-02-12
+9637,,Costa Rica,2020-01-28
+28604,North Dakota,US,2020-02-25
+6153,Fujian,China,2020-03-15
+26397,Illinois,US,2020-04-05
+11496,,Eritrea,2020-03-08
+22515,,Seychelles,2020-03-06
+22742,,Singapore,2020-03-19
+979,New South Wales,Australia,2020-02-06
+229,,Algeria,2020-02-05
+8806,Tianjin,China,2020-02-22
+31519,Gibraltar,United Kingdom,2020-03-22
+23657,,Sweden,2020-01-31
+20825,,Paraguay,2020-03-28
+584,,Antigua and Barbuda,2020-03-10
+17086,,Libya,2020-04-03
+32648,,Zimbabwe,2020-02-03
+32125,,Uzbekistan,2020-02-15
+21937,,Saint Vincent and the Grenadines,2020-01-23
+13291,,Gambia,2020-02-13
+27423,Minnesota,US,2020-02-21
+7750,Jilin,China,2020-03-07
+26927,Louisiana,US,2020-03-31
+2106,,Bahrain,2020-04-03
+3989,,Cambodia,2020-02-20
+23037,,Somalia,2020-02-22
+11788,,Ethiopia,2020-02-08
+1753,,Austria,2020-03-02
+14481,,Holy See,2020-02-26
+18547,,Monaco,2020-02-26
+29134,Puerto Rico,US,2020-02-20
+27609,Missouri,US,2020-01-24
+16303,,Kosovo,2020-02-29
+5400,Yukon,Canada,2020-03-11
+9895,,Croatia,2020-03-12
+21762,,Saint Kitts and Nevis,2020-03-02
+20559,,Panama,2020-02-05
+13664,,Ghana,2020-04-05
+26496,Indiana,US,2020-03-28
+18860,,Morocco,2020-02-18
+29247,Rhode Island,US,2020-02-26
+22861,,Slovakia,2020-03-31
+7856,Liaoning,China,2020-03-06
+20784,,Paraguay,2020-02-16
+13198,,Gabon,2020-02-27
+14386,,Haiti,2020-03-09
+19107,,Namibia,2020-03-22
+13946,,Guatemala,2020-02-26
+30784,,Ukraine,2020-04-05
+29542,Tennessee,US,2020-01-31
+14276,,Guyana,2020-03-06
+19916,,Niger,2020-02-04
+26880,Louisiana,US,2020-02-13
+30528,Wyoming,US,2020-02-23
+30537,Wyoming,US,2020-03-03
+5251,Saskatchewan,Canada,2020-01-29
+16169,,"Korea, South",2020-02-02
+4969,Ontario,Canada,2020-03-08
+7116,Hong Kong,China,2020-03-15
+21347,,Qatar,2020-03-15
+6742,Hebei,China,2020-01-22
+25511,Connecticut,US,2020-03-06
+10872,,Dominica,2020-03-26
+14512,,Holy See,2020-03-28
+19103,,Namibia,2020-03-18
+30849,,United Arab Emirates,2020-02-23
+29371,South Carolina,US,2020-03-14
+25488,Connecticut,US,2020-02-12
+17151,,Liechtenstein,2020-02-21
+4840,Nova Scotia,Canada,2020-02-15
+21015,,Philippines,2020-03-04
+18538,,Monaco,2020-02-17
+8143,Qinghai,China,2020-02-01
+17442,,MS Zaandam,2020-01-22
+10961,,Dominican Republic,2020-03-08
+29010,Pennsylvania,US,2020-02-03
+19836,,Nicaragua,2020-03-02
+27961,Nevada,US,2020-02-24
+9801,,Cote d'Ivoire,2020-03-25
+8094,Ningxia,China,2020-03-30
+11629,,Estonia,2020-04-03
+14281,,Guyana,2020-03-11
+25062,Arizona,US,2020-02-14
+429,,Angola,2020-01-22
+9098,Yunnan,China,2020-01-24
+17052,,Libya,2020-02-29
+30402,Wisconsin,US,2020-02-04
+15670,,Jamaica,2020-03-09
+20928,,Peru,2020-03-24
+7347,Hunan,China,2020-04-01
+21018,,Philippines,2020-03-07
+13913,,Guatemala,2020-01-24
+6435,Guangxi,China,2020-02-05
+27238,Massachusetts,US,2020-03-21
+4714,Northwest Territories,Canada,2020-01-27
+31891,,United Kingdom,2020-01-26
+6775,Hebei,China,2020-02-24
+20183,,North Macedonia,2020-03-28
+16390,,Kuwait,2020-02-09
+15238,,Iraq,2020-03-05
+29434,South Dakota,US,2020-01-30
+8516,Shanghai,China,2020-03-24
+23402,,Sri Lanka,2020-04-06
+27831,Nebraska,US,2020-02-01
+28607,North Dakota,US,2020-02-28
+10003,,Cuba,2020-03-13
+29883,Vermont,US,2020-02-20
+4420,Manitoba,Canada,2020-02-23
+3336,,Brunei,2020-02-09
+31523,Gibraltar,United Kingdom,2020-03-26
+31176,British Virgin Islands,United Kingdom,2020-02-29
+19823,,Nicaragua,2020-02-18
+25060,Arizona,US,2020-02-12
+12207,French Polynesia,France,2020-01-30
+472,,Angola,2020-03-05
+14769,,Iceland,2020-01-24
+27199,Massachusetts,US,2020-02-11
+11921,,Fiji,2020-03-05
+4940,Ontario,Canada,2020-02-08
+11919,,Fiji,2020-03-03
+17569,,Madagascar,2020-02-11
+11283,,El Salvador,2020-03-09
+23255,,Spain,2020-02-26
+4348,British Columbia,Canada,2020-03-29
+6533,Guizhou,China,2020-01-27
+28274,New Mexico,US,2020-02-16
+3138,,Botswana,2020-02-25
+23462,,Sudan,2020-02-19
+10982,,Dominican Republic,2020-03-29
+1617,Western Australia,Australia,2020-02-02
+20590,,Panama,2020-03-07
+32158,,Uzbekistan,2020-03-19
+4747,Northwest Territories,Canada,2020-02-29
+14943,,India,2020-03-31
+28728,Ohio,US,2020-03-13
+15019,,Indonesia,2020-02-29
+5247,Saskatchewan,Canada,2020-01-25
+16159,,"Korea, South",2020-01-23
+9229,Zhejiang,China,2020-02-17
+30289,West Virginia,US,2020-01-29
+15988,,Kazakhstan,2020-03-06
+20073,,Nigeria,2020-03-25
+3233,,Brazil,2020-02-13
+16052,,Kenya,2020-01-23
+22502,,Seychelles,2020-02-22
+12231,French Polynesia,France,2020-02-23
+16280,,Kosovo,2020-02-06
+29356,South Carolina,US,2020-02-28
+10610,,Diamond Princess,2020-02-07
+991,New South Wales,Australia,2020-02-18
+30991,Anguilla,United Kingdom,2020-03-29
+55,,Afghanistan,2020-03-16
+7129,Hong Kong,China,2020-03-28
+27319,Michigan,US,2020-02-24
+13523,,Germany,2020-03-02
+23434,,Sudan,2020-01-22
+28496,North Carolina,US,2020-02-24
+18316,,Mexico,2020-02-09
+21315,,Qatar,2020-02-12
+30837,,United Arab Emirates,2020-02-11
+14565,,Honduras,2020-02-03
+12795,Reunion,France,2020-03-23
+27832,Nebraska,US,2020-02-02
+9170,Yunnan,China,2020-04-05
+3226,,Brazil,2020-02-06
+22195,,Saudi Arabia,2020-03-07
+22845,,Slovakia,2020-03-15
+659,,Argentina,2020-02-07
+1882,,Azerbaijan,2020-03-24
+25716,District of Columbia,US,2020-02-26
+291,,Algeria,2020-04-07
+17253,,Lithuania,2020-02-16
+27964,Nevada,US,2020-02-27
+3555,,Burkina Faso,2020-02-14
+1656,Western Australia,Australia,2020-03-12
+18689,,Mongolia,2020-04-01
+16115,,Kenya,2020-03-26
+13528,,Germany,2020-03-07
+6257,Gansu,China,2020-03-12
+12877,Saint Barthelemy,France,2020-02-27
+21837,,Saint Lucia,2020-01-30
+19163,,Nepal,2020-01-31
+4547,New Brunswick,Canada,2020-03-14
+15531,,Italy,2020-02-06
+23609,,Suriname,2020-03-30
+3251,,Brazil,2020-03-02
+13743,,Greece,2020-03-08
+28924,Oregon,US,2020-02-24
+255,,Algeria,2020-03-02
+13712,,Greece,2020-02-06
+25007,Alaska,US,2020-04-06
+10227,,Czechia,2020-03-23
+13945,,Guatemala,2020-02-25
+5377,Yukon,Canada,2020-02-17
+22971,,Slovenia,2020-04-03
+25313,California,US,2020-03-22
+11406,,Equatorial Guinea,2020-03-25
+4068,,Cameroon,2020-01-23
+32037,,Uruguay,2020-03-05
+2591,,Belize,2020-02-13
+7631,Jiangxi,China,2020-02-24
+25941,Georgia,US,2020-03-08
+22266,,Senegal,2020-01-31
+10852,,Dominica,2020-03-06
+31155,British Virgin Islands,United Kingdom,2020-02-08
+12220,French Polynesia,France,2020-02-12
+23275,,Spain,2020-03-17
+797,,Armenia,2020-03-09
+20830,,Paraguay,2020-04-02
+14912,,India,2020-02-29
+17044,,Libya,2020-02-21
+15479,,Israel,2020-04-01
+4214,Alberta,Canada,2020-03-02
+22279,,Senegal,2020-02-13
+20996,,Philippines,2020-02-14
+23466,,Sudan,2020-02-23
+16067,,Kenya,2020-02-07
+694,,Argentina,2020-03-13
+13924,,Guatemala,2020-02-04
+32349,,Vietnam,2020-02-25
+24199,,Thailand,2020-02-07
+15846,,Jordan,2020-01-31
+30641,,Uganda,2020-02-29
+2632,,Belize,2020-03-25
+30819,,United Arab Emirates,2020-01-24
+24653,,Tunisia,2020-03-04
+7608,Jiangxi,China,2020-02-01
+432,,Angola,2020-01-25
+30435,Wisconsin,US,2020-03-08
+30438,Wisconsin,US,2020-03-11
+1638,Western Australia,Australia,2020-02-23
+6754,Hebei,China,2020-02-03
+13216,,Gabon,2020-03-16
+30769,,Ukraine,2020-03-21
+7430,Inner Mongolia,China,2020-03-08
+12879,Saint Barthelemy,France,2020-02-29
+1858,,Azerbaijan,2020-02-29
+32035,,Uruguay,2020-03-03
+4606,Newfoundland and Labrador,Canada,2020-01-26
+18897,,Morocco,2020-03-26
+20156,,North Macedonia,2020-03-01
+17817,,Maldives,2020-03-16
+27398,Minnesota,US,2020-01-27
+7759,Jilin,China,2020-03-16
+20234,,Norway,2020-02-01
+31631,Isle of Man,United Kingdom,2020-03-27
+25151,Arkansas,US,2020-01-27
+7404,Inner Mongolia,China,2020-02-11
+26580,Iowa,US,2020-03-05
+23994,,Taiwan*,2020-02-16
+26460,Indiana,US,2020-02-21
+17063,,Libya,2020-03-11
+24774,,Turkey,2020-03-18
+21786,,Saint Kitts and Nevis,2020-03-26
+2944,,Bolivia,2020-03-16
+24412,,Togo,2020-02-06
+18765,,Montenegro,2020-03-01
+24435,,Togo,2020-02-29
+18108,,Mauritania,2020-02-15
+21781,,Saint Kitts and Nevis,2020-03-21
+22755,,Singapore,2020-04-01
+21749,,Saint Kitts and Nevis,2020-02-18
+1127,Northern Territory,Australia,2020-03-18
+25378,Colorado,US,2020-02-09
+4071,,Cameroon,2020-01-26
+13927,,Guatemala,2020-02-07
+1565,Victoria,Australia,2020-03-28
+8189,Qinghai,China,2020-03-18
+19867,,Nicaragua,2020-04-02
+30018,Virgin Islands,US,2020-03-19
+11502,,Eritrea,2020-03-14
+1609,Western Australia,Australia,2020-01-25
+11665,,Eswatini,2020-01-23
+11267,,El Salvador,2020-02-22
+16379,,Kuwait,2020-01-29
+23933,,Syria,2020-04-02
+9386,,Colombia,2020-04-07
+16336,,Kosovo,2020-04-02
+1120,Northern Territory,Australia,2020-03-11
+25486,Connecticut,US,2020-02-10
+11179,,Egypt,2020-03-12
+25284,California,US,2020-02-22
+31377,Channel Islands,United Kingdom,2020-02-16
+13846,,Grenada,2020-03-04
+29588,Tennessee,US,2020-03-17
+25297,California,US,2020-03-06
+5178,Quebec,Canada,2020-03-03
+32149,,Uzbekistan,2020-03-10
+28192,New Jersey,US,2020-03-12
+4642,Newfoundland and Labrador,Canada,2020-03-02
+4307,British Columbia,Canada,2020-02-17
+6228,Gansu,China,2020-02-12
+31905,,United Kingdom,2020-02-09
+2271,,Barbados,2020-02-14
+28897,Oregon,US,2020-01-28
+29929,Vermont,US,2020-04-06
+6644,Hainan,China,2020-01-31
+17450,,MS Zaandam,2020-01-30
+9146,Yunnan,China,2020-03-12
+18469,,Moldova,2020-03-26
+11490,,Eritrea,2020-03-02
+31406,Channel Islands,United Kingdom,2020-03-16
+23261,,Spain,2020-03-03
+31926,,United Kingdom,2020-03-01
+14308,,Guyana,2020-04-07
+8411,Shandong,China,2020-03-26
+4858,Nova Scotia,Canada,2020-03-04
+28106,New Hampshire,US,2020-04-02
+8164,Qinghai,China,2020-02-22
+5193,Quebec,Canada,2020-03-18
+21092,,Poland,2020-02-03
+20795,,Paraguay,2020-02-27
+2390,,Belarus,2020-02-26
+32127,,Uzbekistan,2020-02-17
+31816,Turks and Caicos Islands,United Kingdom,2020-02-27
+18995,,Mozambique,2020-03-17
+4004,,Cambodia,2020-03-06
+25515,Connecticut,US,2020-03-10
+6367,Guangdong,China,2020-03-15
+10126,,Cyprus,2020-03-29
+8368,Shandong,China,2020-02-12
+5909,Beijing,China,2020-02-14
+8145,Qinghai,China,2020-02-03
+279,,Algeria,2020-03-26
+16538,,Kyrgyzstan,2020-03-21
+25093,Arizona,US,2020-03-16
+31310,Cayman Islands,United Kingdom,2020-03-27
+18300,,Mexico,2020-01-24
+3281,,Brazil,2020-04-01
+11987,,Finland,2020-01-24
+23335,,Sri Lanka,2020-01-30
+31142,British Virgin Islands,United Kingdom,2020-01-26
+22211,,Saudi Arabia,2020-03-23
+3987,,Cambodia,2020-02-18
+14141,,Guinea-Bissau,2020-02-07
+3708,,Burma,2020-03-31
+26488,Indiana,US,2020-03-20
+8504,Shanghai,China,2020-03-12
+10435,Greenland,Denmark,2020-03-17
+29681,Texas,US,2020-03-03
+4717,Northwest Territories,Canada,2020-01-30
+29376,South Carolina,US,2020-03-19
+21887,,Saint Lucia,2020-03-20
+4439,Manitoba,Canada,2020-03-13
+10631,,Diamond Princess,2020-02-28
+19588,,Netherlands,2020-01-28
+25902,Georgia,US,2020-01-29
+15261,,Iraq,2020-03-28
+17072,,Libya,2020-03-20
+20498,,Pakistan,2020-03-22
+3351,,Brunei,2020-02-24
+27767,Montana,US,2020-03-15
+4438,Manitoba,Canada,2020-03-12
+13729,,Greece,2020-02-23
+15140,,Iran,2020-03-14
+13300,,Gambia,2020-02-22
+5526,,Central African Republic,2020-03-30
+8673,Sichuan,China,2020-01-27
+16661,,Laos,2020-04-06
+7423,Inner Mongolia,China,2020-03-01
+7565,Jiangsu,China,2020-04-05
+30626,,Uganda,2020-02-14
+15975,,Kazakhstan,2020-02-22
+24934,Alaska,US,2020-01-24
+9684,,Costa Rica,2020-03-15
+20148,,North Macedonia,2020-02-22
+11718,,Eswatini,2020-03-16
+4824,Nova Scotia,Canada,2020-01-30
+17871,,Mali,2020-01-23
+30631,,Uganda,2020-02-19
+3795,,Burundi,2020-03-11
+22516,,Seychelles,2020-03-07
+21528,,Russia,2020-02-11
+10011,,Cuba,2020-03-21
+15992,,Kazakhstan,2020-03-10
+32003,,Uruguay,2020-01-31
+1934,,Bahamas,2020-01-29
+18727,,Montenegro,2020-01-23
+1323,South Australia,Australia,2020-02-29
+24040,,Taiwan*,2020-04-02
+6019,Chongqing,China,2020-02-17
+7414,Inner Mongolia,China,2020-02-21
+905,Australian Capital Territory,Australia,2020-03-10
+28577,North Dakota,US,2020-01-29
+14393,,Haiti,2020-03-16
+13559,,Germany,2020-04-07
+448,,Angola,2020-02-10
+11307,,El Salvador,2020-04-02
+32140,,Uzbekistan,2020-03-01
+23863,,Syria,2020-01-23
+26122,Hawaii,US,2020-02-04
+18951,,Mozambique,2020-02-02
+20932,,Peru,2020-03-28
+28928,Oregon,US,2020-02-28
+31535,Gibraltar,United Kingdom,2020-04-07
+18889,,Morocco,2020-03-18
+14343,,Haiti,2020-01-26
+32008,,Uruguay,2020-02-05
+12685,New Caledonia,France,2020-03-20
+30501,Wyoming,US,2020-01-27
+14377,,Haiti,2020-02-29
+13509,,Germany,2020-02-17
+23555,,Suriname,2020-02-05
+29577,Tennessee,US,2020-03-06
+18745,,Montenegro,2020-02-10
+30116,Virginia,US,2020-03-10
+14180,,Guinea-Bissau,2020-03-17
+11238,,El Salvador,2020-01-24
+27288,Michigan,US,2020-01-24
+16185,,"Korea, South",2020-02-18
+31797,Turks and Caicos Islands,United Kingdom,2020-02-08
+20993,,Philippines,2020-02-11
+5589,,Chad,2020-02-15
+5922,Beijing,China,2020-02-27
+7515,Jiangsu,China,2020-02-15
+13282,,Gambia,2020-02-04
+3388,,Brunei,2020-04-01
+12329,Guadeloupe,France,2020-02-14
+21529,,Russia,2020-02-12
+4141,,Cameroon,2020-04-05
+26882,Louisiana,US,2020-02-15
+24969,Alaska,US,2020-02-28
+2205,,Bangladesh,2020-03-26
+30008,Virgin Islands,US,2020-03-09
+132,,Albania,2020-02-15
+21026,,Philippines,2020-03-15
+4860,Nova Scotia,Canada,2020-03-06
+32067,,Uruguay,2020-04-04
+28751,Ohio,US,2020-04-05
+28730,Ohio,US,2020-03-15
+19804,,Nicaragua,2020-01-30
+4556,New Brunswick,Canada,2020-03-23
+14626,,Honduras,2020-04-04
+18301,,Mexico,2020-01-25
+19304,Aruba,Netherlands,2020-03-05
+17273,,Lithuania,2020-03-07
+3334,,Brunei,2020-02-07
+5593,,Chad,2020-02-19
+12633,New Caledonia,France,2020-01-28
+31471,Gibraltar,United Kingdom,2020-02-03
+28143,New Jersey,US,2020-01-23
+1209,Queensland,Australia,2020-02-22
+14585,,Honduras,2020-02-23
+6174,Fujian,China,2020-04-05
+1861,,Azerbaijan,2020-03-03
+2920,,Bolivia,2020-02-21
+24203,,Thailand,2020-02-11
+5151,Quebec,Canada,2020-02-05
+31168,British Virgin Islands,United Kingdom,2020-02-21
+13541,,Germany,2020-03-20
+32229,,Venezuela,2020-02-12
+561,,Antigua and Barbuda,2020-02-16
+32569,,Zambia,2020-03-02
+13742,,Greece,2020-03-07
+29909,Vermont,US,2020-03-17
+25107,Arizona,US,2020-03-30
+28373,New York,US,2020-02-08
+11560,,Estonia,2020-01-25
+3030,,Bosnia and Herzegovina,2020-02-24
+22158,,Saudi Arabia,2020-01-30
+12595,Mayotte,France,2020-04-06
+20331,,Oman,2020-01-22
+8169,Qinghai,China,2020-02-27
+21462,,Romania,2020-03-23
+10950,,Dominican Republic,2020-02-26
+27865,Nebraska,US,2020-03-06
+6131,Fujian,China,2020-02-22
+23274,,Spain,2020-03-16
+22904,,Slovenia,2020-01-27
+10839,,Dominica,2020-02-22
+4507,New Brunswick,Canada,2020-02-03
+434,,Angola,2020-01-27
+11089,,Ecuador,2020-03-29
+31717,Montserrat,United Kingdom,2020-03-06
+19281,Aruba,Netherlands,2020-02-11
+26027,Guam,US,2020-02-16
+9596,,Congo (Kinshasa),2020-04-03
+2479,,Belgium,2020-02-08
+7644,Jiangxi,China,2020-03-08
+3170,,Botswana,2020-03-28
+22492,,Seychelles,2020-02-12
+6704,Hainan,China,2020-03-31
+8251,Shaanxi,China,2020-02-02
+16276,,Kosovo,2020-02-02
+11714,,Eswatini,2020-03-12
+19953,,Niger,2020-03-12
+5152,Quebec,Canada,2020-02-06
+14936,,India,2020-03-24
+5472,,Central African Republic,2020-02-05
+1289,South Australia,Australia,2020-01-26
+6570,Guizhou,China,2020-03-04
+10666,,Diamond Princess,2020-04-03
+27968,Nevada,US,2020-03-02
+14039,,Guinea,2020-02-12
+11187,,Egypt,2020-03-20
+17048,,Libya,2020-02-25
+4316,British Columbia,Canada,2020-02-26
+9015,Xinjiang,China,2020-02-17
+32167,,Uzbekistan,2020-03-28
+29892,Vermont,US,2020-02-29
+7397,Inner Mongolia,China,2020-02-04
+11478,,Eritrea,2020-02-19
+11779,,Ethiopia,2020-01-30
+9635,,Costa Rica,2020-01-26
+10512,,Denmark,2020-02-16
+6065,Chongqing,China,2020-04-03
+20677,,Papua New Guinea,2020-02-16
+3220,,Brazil,2020-01-31
+20478,,Pakistan,2020-03-02
+20882,,Peru,2020-02-07
+13058,,France,2020-01-25
+11088,,Ecuador,2020-03-28
+4233,Alberta,Canada,2020-03-21
+21568,,Russia,2020-03-22
+25187,Arkansas,US,2020-03-03
+1397,Tasmania,Australia,2020-01-27
+11404,,Equatorial Guinea,2020-03-23
+18153,,Mauritania,2020-03-31
+13169,,Gabon,2020-01-29
+26780,Kentucky,US,2020-02-20
+13236,,Gabon,2020-04-05
+25389,Colorado,US,2020-02-20
+17944,,Mali,2020-04-05
+25258,California,US,2020-01-27
+29856,Vermont,US,2020-01-24
+21655,,Rwanda,2020-03-02
+3118,,Botswana,2020-02-05
+26157,Hawaii,US,2020-03-10
+8701,Sichuan,China,2020-02-24
+23790,,Switzerland,2020-02-26
+22600,,Sierra Leone,2020-02-13
+23153,,South Africa,2020-03-02
+5249,Saskatchewan,Canada,2020-01-27
+7230,Hubei,China,2020-03-22
+21537,,Russia,2020-02-20
+31621,Isle of Man,United Kingdom,2020-03-17
+22834,,Slovakia,2020-03-04
+28692,Ohio,US,2020-02-06
+23497,,Sudan,2020-03-25
+859,Australian Capital Territory,Australia,2020-01-24
+5420,Yukon,Canada,2020-03-31
+18557,,Monaco,2020-03-07
+9381,,Colombia,2020-04-02
+14483,,Holy See,2020-02-28
+18413,,Moldova,2020-01-30
+158,,Albania,2020-03-12
+1866,,Azerbaijan,2020-03-08
+9541,,Congo (Kinshasa),2020-02-08
+29465,South Dakota,US,2020-03-01
+6269,Gansu,China,2020-03-24
+25384,Colorado,US,2020-02-15
+17919,,Mali,2020-03-11
+9341,,Colombia,2020-02-22
+24944,Alaska,US,2020-02-03
+6281,Gansu,China,2020-04-05
+32459,,West Bank and Gaza,2020-02-28
+31528,Gibraltar,United Kingdom,2020-03-31
+15253,,Iraq,2020-03-20
+6551,Guizhou,China,2020-02-14
+4677,Newfoundland and Labrador,Canada,2020-04-06
+23296,,Spain,2020-04-07
+5292,Saskatchewan,Canada,2020-03-10
+32682,,Zimbabwe,2020-03-08
+4839,Nova Scotia,Canada,2020-02-14
+18568,,Monaco,2020-03-18
+31477,Gibraltar,United Kingdom,2020-02-09
+22626,,Sierra Leone,2020-03-10
+15114,,Iran,2020-02-17
+4303,British Columbia,Canada,2020-02-13
+60,,Afghanistan,2020-03-21
+31097,Bermuda,United Kingdom,2020-03-28
+8793,Tianjin,China,2020-02-09
+6116,Fujian,China,2020-02-07
+9631,,Costa Rica,2020-01-22
+24654,,Tunisia,2020-03-05
+15342,,Ireland,2020-03-02
+30839,,United Arab Emirates,2020-02-13
+1614,Western Australia,Australia,2020-01-30
+29691,Texas,US,2020-03-13
+3389,,Brunei,2020-04-02
+30980,Anguilla,United Kingdom,2020-03-18
+28748,Ohio,US,2020-04-02
+18957,,Mozambique,2020-02-08
+31513,Gibraltar,United Kingdom,2020-03-16
+22389,,Serbia,2020-02-16
+7537,Jiangsu,China,2020-03-08
+14828,,Iceland,2020-03-23
+10632,,Diamond Princess,2020-02-29
+4224,Alberta,Canada,2020-03-12
+11296,,El Salvador,2020-03-22
+14487,,Holy See,2020-03-03
+13912,,Guatemala,2020-01-23
+27187,Massachusetts,US,2020-01-30
+12740,Reunion,France,2020-01-28
+20702,,Papua New Guinea,2020-03-12
+20171,,North Macedonia,2020-03-16
+4641,Newfoundland and Labrador,Canada,2020-03-01
+5734,,Chile,2020-03-24
+5311,Saskatchewan,Canada,2020-03-29
+27630,Missouri,US,2020-02-14
+17055,,Libya,2020-03-03
+4823,Nova Scotia,Canada,2020-01-29
+25483,Connecticut,US,2020-02-07
+9269,Zhejiang,China,2020-03-28
+28365,New York,US,2020-01-31
+31583,Isle of Man,United Kingdom,2020-02-08
+32021,,Uruguay,2020-02-18
+21219,,Portugal,2020-02-23
+12846,Saint Barthelemy,France,2020-01-27
+8906,Tibet,China,2020-02-15
+19706,,New Zealand,2020-02-08
+8716,Sichuan,China,2020-03-10
+2951,,Bolivia,2020-03-23
+15993,,Kazakhstan,2020-03-11
+19853,,Nicaragua,2020-03-19
+26793,Kentucky,US,2020-03-04
+23495,,Sudan,2020-03-23
+27000,Maine,US,2020-02-26
+8146,Qinghai,China,2020-02-04
+821,,Armenia,2020-04-02
+6124,Fujian,China,2020-02-15
+6489,Guangxi,China,2020-03-30
+608,,Antigua and Barbuda,2020-04-03
+1736,,Austria,2020-02-14
+9900,,Croatia,2020-03-17
+3749,,Burundi,2020-01-25
+884,Australian Capital Territory,Australia,2020-02-18
+7970,Macau,China,2020-03-13
+15426,,Israel,2020-02-08
+6555,Guizhou,China,2020-02-18
+13609,,Ghana,2020-02-10
+13114,,France,2020-03-21
+22075,,San Marino,2020-02-23
+21431,,Romania,2020-02-21
+18675,,Mongolia,2020-03-18
+30241,Washington,US,2020-03-28
+17600,,Madagascar,2020-03-13
+8310,Shaanxi,China,2020-04-01
+7402,Inner Mongolia,China,2020-02-09
+11710,,Eswatini,2020-03-08
+5815,Anhui,China,2020-02-27
+10111,,Cyprus,2020-03-14
+7225,Hubei,China,2020-03-17
+10544,,Denmark,2020-03-19
+28537,North Carolina,US,2020-04-05
+5903,Beijing,China,2020-02-08
+10976,,Dominican Republic,2020-03-23
+3488,,Bulgaria,2020-03-25
+7862,Liaoning,China,2020-03-12
+3015,,Bosnia and Herzegovina,2020-02-09
+18907,,Morocco,2020-04-05
+16439,,Kuwait,2020-03-29
+8181,Qinghai,China,2020-03-10
+7419,Inner Mongolia,China,2020-02-26
+15526,,Italy,2020-02-01
+19532,Sint Maarten,Netherlands,2020-03-19
+11025,,Ecuador,2020-01-25
+27528,Mississippi,US,2020-02-19
+24686,,Tunisia,2020-04-06
+14810,,Iceland,2020-03-05
+25373,Colorado,US,2020-02-04
+10954,,Dominican Republic,2020-03-01
+16592,,Laos,2020-01-28
+2207,,Bangladesh,2020-03-28
+30876,,United Arab Emirates,2020-03-21
+13088,,France,2020-02-24
+17662,,Malaysia,2020-01-28
+10319,Faroe Islands,Denmark,2020-03-08
+23896,,Syria,2020-02-25
+481,,Angola,2020-03-14
+17263,,Lithuania,2020-02-26
+31592,Isle of Man,United Kingdom,2020-02-17
+4021,,Cambodia,2020-03-23
+17178,,Liechtenstein,2020-03-19
+9003,Xinjiang,China,2020-02-05
+11245,,El Salvador,2020-01-31
+3040,,Bosnia and Herzegovina,2020-03-05
+18659,,Mongolia,2020-03-02
+12969,St Martin,France,2020-02-12
+27002,Maine,US,2020-02-28
+28624,North Dakota,US,2020-03-16
+31912,,United Kingdom,2020-02-16
+8408,Shandong,China,2020-03-23
+19404,Curacao,Netherlands,2020-02-27
+5270,Saskatchewan,Canada,2020-02-17
+4856,Nova Scotia,Canada,2020-03-02
+9589,,Congo (Kinshasa),2020-03-27
+25065,Arizona,US,2020-02-17
+610,,Antigua and Barbuda,2020-04-05
+10022,,Cuba,2020-04-01
+28407,New York,US,2020-03-13
+28388,New York,US,2020-02-23
+27729,Montana,US,2020-02-06
+17375,,Luxembourg,2020-03-02
+29763,Utah,US,2020-02-07
+29485,South Dakota,US,2020-03-21
+9031,Xinjiang,China,2020-03-04
+27508,Mississippi,US,2020-01-30
+7843,Liaoning,China,2020-02-22
+6905,Heilongjiang,China,2020-03-18
+5315,Saskatchewan,Canada,2020-04-02
+14449,,Holy See,2020-01-25
+2093,,Bahrain,2020-03-21
+32006,,Uruguay,2020-02-03
+15453,,Israel,2020-03-06
+28791,Oklahoma,US,2020-01-29
+31961,,United Kingdom,2020-04-05
+13293,,Gambia,2020-02-15
+29278,Rhode Island,US,2020-03-28
+28157,New Jersey,US,2020-02-06
+3023,,Bosnia and Herzegovina,2020-02-17
+31910,,United Kingdom,2020-02-14
+13662,,Ghana,2020-04-03
+13770,,Greece,2020-04-04
+12666,New Caledonia,France,2020-03-01
+4847,Nova Scotia,Canada,2020-02-22
+12249,French Polynesia,France,2020-03-12
+21404,,Romania,2020-01-25
+16517,,Kyrgyzstan,2020-02-29
+21843,,Saint Lucia,2020-02-05
+30433,Wisconsin,US,2020-03-06
+1982,,Bahamas,2020-03-17
+12561,Mayotte,France,2020-03-03
+18901,,Morocco,2020-03-30
+12243,French Polynesia,France,2020-03-06
+29697,Texas,US,2020-03-19
+4870,Nova Scotia,Canada,2020-03-16
+20930,,Peru,2020-03-26
+29068,Pennsylvania,US,2020-04-01
+5314,Saskatchewan,Canada,2020-04-01
+2499,,Belgium,2020-02-28
+4091,,Cameroon,2020-02-15
+17282,,Lithuania,2020-03-16
+24130,,Tanzania,2020-03-16
+28193,New Jersey,US,2020-03-13
+26576,Iowa,US,2020-03-01
+3907,,Cabo Verde,2020-03-16
+32010,,Uruguay,2020-02-07
+17920,,Mali,2020-03-12
+11022,,Ecuador,2020-01-22
+31387,Channel Islands,United Kingdom,2020-02-26
+8953,Tibet,China,2020-04-02
+26490,Indiana,US,2020-03-22
+28571,North Dakota,US,2020-01-23
+24962,Alaska,US,2020-02-21
+241,,Algeria,2020-02-17
+29906,Vermont,US,2020-03-14
+20511,,Pakistan,2020-04-04
+26591,Iowa,US,2020-03-16
+23505,,Sudan,2020-04-02
+9419,,Congo (Brazzaville),2020-01-24
+7212,Hubei,China,2020-03-04
+23130,,South Africa,2020-02-08
+15351,,Ireland,2020-03-11
+30863,,United Arab Emirates,2020-03-08
+21130,,Poland,2020-03-12
+27613,Missouri,US,2020-01-28
+2487,,Belgium,2020-02-16
+1857,,Azerbaijan,2020-02-28
+21448,,Romania,2020-03-09
+28523,North Carolina,US,2020-03-22
+23071,,Somalia,2020-03-27
+7221,Hubei,China,2020-03-13
+10504,,Denmark,2020-02-08
+8885,Tibet,China,2020-01-25
+30715,,Ukraine,2020-01-27
+19182,,Nepal,2020-02-19
+30541,Wyoming,US,2020-03-07
+18644,,Mongolia,2020-02-16
+19009,,Mozambique,2020-03-31
+27027,Maine,US,2020-03-24
+17482,,MS Zaandam,2020-03-02
+7079,Hong Kong,China,2020-02-07
+32571,,Zambia,2020-03-04
+16413,,Kuwait,2020-03-03
+11505,,Eritrea,2020-03-17
+32267,,Venezuela,2020-03-21
+16507,,Kyrgyzstan,2020-02-19
+21420,,Romania,2020-02-10
+27958,Nevada,US,2020-02-21
+25696,District of Columbia,US,2020-02-06
+29920,Vermont,US,2020-03-28
+16302,,Kosovo,2020-02-28
+10510,,Denmark,2020-02-14
+18359,,Mexico,2020-03-23
+15373,,Ireland,2020-04-02
+8377,Shandong,China,2020-02-21
+6999,Henan,China,2020-03-05
+18,,Afghanistan,2020-02-08
+22925,,Slovenia,2020-02-17
+896,Australian Capital Territory,Australia,2020-03-01
+17490,,MS Zaandam,2020-03-10
+4666,Newfoundland and Labrador,Canada,2020-03-26
+10620,,Diamond Princess,2020-02-17
+11917,,Fiji,2020-03-01
+17785,,Maldives,2020-02-13
+560,,Antigua and Barbuda,2020-02-15
+9150,Yunnan,China,2020-03-16
+24615,,Tunisia,2020-01-26
+17874,,Mali,2020-01-26
+8204,Qinghai,China,2020-04-02
+12370,Guadeloupe,France,2020-03-26
+17508,,MS Zaandam,2020-03-28
+12641,New Caledonia,France,2020-02-05
+24729,,Turkey,2020-02-02
+3880,,Cabo Verde,2020-02-18
+3106,,Botswana,2020-01-24
+30824,,United Arab Emirates,2020-01-29
+14485,,Holy See,2020-03-01
+17078,,Libya,2020-03-26
+13773,,Greece,2020-04-07
+7109,Hong Kong,China,2020-03-08
+18137,,Mauritania,2020-03-15
+23830,,Switzerland,2020-04-06
+11237,,El Salvador,2020-01-23
+31412,Channel Islands,United Kingdom,2020-03-22
+24437,,Togo,2020-03-02
+6573,Guizhou,China,2020-03-07
+32244,,Venezuela,2020-02-27
+11140,,Egypt,2020-02-02
+22908,,Slovenia,2020-01-31
+13235,,Gabon,2020-04-04
+29220,Rhode Island,US,2020-01-30
+22472,,Seychelles,2020-01-23
+22376,,Serbia,2020-02-03
+26008,Guam,US,2020-01-28
+15865,,Jordan,2020-02-19
+14383,,Haiti,2020-03-06
+17062,,Libya,2020-03-10
+16920,,Liberia,2020-02-04
+28964,Oregon,US,2020-04-04
+16084,,Kenya,2020-02-24
+17182,,Liechtenstein,2020-03-23
+24363,,Timor-Leste,2020-04-04
+16858,,Lebanon,2020-03-20
+20337,,Oman,2020-01-28
+4464,Manitoba,Canada,2020-04-07
+10014,,Cuba,2020-03-24
+14496,,Holy See,2020-03-12
+22106,,San Marino,2020-03-25
+23882,,Syria,2020-02-11
+3640,,Burma,2020-01-23
+6537,Guizhou,China,2020-01-31
+3480,,Bulgaria,2020-03-17
+9055,Xinjiang,China,2020-03-28
+23049,,Somalia,2020-03-05
+9539,,Congo (Kinshasa),2020-02-06
+19208,,Nepal,2020-03-16
+24630,,Tunisia,2020-02-10
+10842,,Dominica,2020-02-25
+27501,Mississippi,US,2020-01-23
+31692,Montserrat,United Kingdom,2020-02-10
+25590,Delaware,US,2020-02-07
+8134,Qinghai,China,2020-01-23
+6160,Fujian,China,2020-03-22
+2409,,Belarus,2020-03-16
+28058,New Hampshire,US,2020-02-14
+28697,Ohio,US,2020-02-11
+22603,,Sierra Leone,2020-02-16
+12000,,Finland,2020-02-06
+22728,,Singapore,2020-03-05
+795,,Armenia,2020-03-07
+4400,Manitoba,Canada,2020-02-03
+23162,,South Africa,2020-03-11
+26022,Guam,US,2020-02-11
+9058,Xinjiang,China,2020-03-31
+8468,Shanghai,China,2020-02-05
+10824,,Dominica,2020-02-07
+4758,Northwest Territories,Canada,2020-03-11
+32143,,Uzbekistan,2020-03-04
+31855,Turks and Caicos Islands,United Kingdom,2020-04-06
+29993,Virgin Islands,US,2020-02-23
+28215,New Jersey,US,2020-04-04
+31468,Gibraltar,United Kingdom,2020-01-31
+3665,,Burma,2020-02-17
+3216,,Brazil,2020-01-27
+10776,,Djibouti,2020-04-06
+7425,Inner Mongolia,China,2020-03-03
+5175,Quebec,Canada,2020-02-29
+2855,,Bhutan,2020-04-03
+10533,,Denmark,2020-03-08
+11723,,Eswatini,2020-03-21
+6128,Fujian,China,2020-02-19
+31941,,United Kingdom,2020-03-16
+19371,Curacao,Netherlands,2020-01-25
+20138,,North Macedonia,2020-02-12
+14905,,India,2020-02-22
+966,New South Wales,Australia,2020-01-24
+26182,Hawaii,US,2020-04-04
+14581,,Honduras,2020-02-19
+19288,Aruba,Netherlands,2020-02-18
+28850,Oklahoma,US,2020-03-28
+16705,,Latvia,2020-02-03
+23501,,Sudan,2020-03-29
+1411,Tasmania,Australia,2020-02-10
+6149,Fujian,China,2020-03-11
+15239,,Iraq,2020-03-06
+25298,California,US,2020-03-07
+4869,Nova Scotia,Canada,2020-03-15
+28539,North Carolina,US,2020-04-07
+19755,,New Zealand,2020-03-28
+12997,St Martin,France,2020-03-11
+26344,Illinois,US,2020-02-12
+26785,Kentucky,US,2020-02-25
+3763,,Burundi,2020-02-08
+10395,Greenland,Denmark,2020-02-06
+9128,Yunnan,China,2020-02-23
+25826,Florida,US,2020-02-29
+8306,Shaanxi,China,2020-03-28
+18787,,Montenegro,2020-03-23
+5944,Beijing,China,2020-03-20
+7560,Jiangsu,China,2020-03-31
+7522,Jiangsu,China,2020-02-22
+20621,,Panama,2020-04-07
+13702,,Greece,2020-01-27
+6705,Hainan,China,2020-04-01
+8514,Shanghai,China,2020-03-22
+4845,Nova Scotia,Canada,2020-02-20
+20897,,Peru,2020-02-22
+6989,Henan,China,2020-02-24
+24510,,Trinidad and Tobago,2020-01-28
+19597,,Netherlands,2020-02-06
+29975,Virgin Islands,US,2020-02-05
+15155,,Iran,2020-03-29
+20481,,Pakistan,2020-03-05
+10831,,Dominica,2020-02-14
+3562,,Burkina Faso,2020-02-21
+20039,,Nigeria,2020-02-20
+8737,Sichuan,China,2020-03-31
+1505,Victoria,Australia,2020-01-28
+7448,Inner Mongolia,China,2020-03-26
+5478,,Central African Republic,2020-02-11
+27844,Nebraska,US,2020-02-14
+1877,,Azerbaijan,2020-03-19
+20799,,Paraguay,2020-03-02
+5084,Prince Edward Island,Canada,2020-03-16
+22838,,Slovakia,2020-03-08
+4754,Northwest Territories,Canada,2020-03-07
+12116,French Guiana,France,2020-02-15
+28702,Ohio,US,2020-02-16
+24294,,Timor-Leste,2020-01-26
+2255,,Barbados,2020-01-29
+17622,,Madagascar,2020-04-04
+12360,Guadeloupe,France,2020-03-16
+26140,Hawaii,US,2020-02-22
+11572,,Estonia,2020-02-06
+32160,,Uzbekistan,2020-03-21
+10332,Faroe Islands,Denmark,2020-03-21
+27932,Nevada,US,2020-01-26
+17780,,Maldives,2020-02-08
+21467,,Romania,2020-03-28
+26716,Kansas,US,2020-04-03
+4323,British Columbia,Canada,2020-03-04
+15538,,Italy,2020-02-13
+25957,Georgia,US,2020-03-24
+1091,Northern Territory,Australia,2020-02-11
+21990,,Saint Vincent and the Grenadines,2020-03-16
+680,,Argentina,2020-02-28
+9585,,Congo (Kinshasa),2020-03-23
+5510,,Central African Republic,2020-03-14
+17997,,Malta,2020-02-11
+30240,Washington,US,2020-03-27
+456,,Angola,2020-02-18
+23023,,Somalia,2020-02-08
+2856,,Bhutan,2020-04-04
+28921,Oregon,US,2020-02-21
+2947,,Bolivia,2020-03-19
+30312,West Virginia,US,2020-02-21
+16623,,Laos,2020-02-28
+29589,Tennessee,US,2020-03-18
+22798,,Slovakia,2020-01-28
+11378,,Equatorial Guinea,2020-02-26
+28261,New Mexico,US,2020-02-03
+10654,,Diamond Princess,2020-03-22
+7004,Henan,China,2020-03-10
+6876,Heilongjiang,China,2020-02-18
+13640,,Ghana,2020-03-12
+3642,,Burma,2020-01-25
+2923,,Bolivia,2020-02-24
+17941,,Mali,2020-04-02
+6706,Hainan,China,2020-04-02
+25205,Arkansas,US,2020-03-21
+13879,,Grenada,2020-04-06
+25061,Arizona,US,2020-02-13
+26654,Kansas,US,2020-02-01
+24405,,Togo,2020-01-30
+7416,Inner Mongolia,China,2020-02-23
+8196,Qinghai,China,2020-03-25
+4830,Nova Scotia,Canada,2020-02-05
+30307,West Virginia,US,2020-02-16
+4653,Newfoundland and Labrador,Canada,2020-03-13
+10543,,Denmark,2020-03-18
+16934,,Liberia,2020-02-18
+25217,Arkansas,US,2020-04-02
+19053,,Namibia,2020-01-28
+27315,Michigan,US,2020-02-20
+4719,Northwest Territories,Canada,2020-02-01
+11847,,Ethiopia,2020-04-07
+4996,Ontario,Canada,2020-04-04
+2784,,Bhutan,2020-01-23
+9651,,Costa Rica,2020-02-11
+20976,,Philippines,2020-01-25
+13082,,France,2020-02-18
+5897,Beijing,China,2020-02-02
+27989,Nevada,US,2020-03-23
+30287,West Virginia,US,2020-01-27
+15839,,Jordan,2020-01-24
+5633,,Chad,2020-03-30
+15224,,Iraq,2020-02-20
+16271,,Kosovo,2020-01-28
+28713,Ohio,US,2020-02-27
+14476,,Holy See,2020-02-21
+13399,,Georgia,2020-02-14
+14088,,Guinea,2020-04-01
+8900,Tibet,China,2020-02-09
+9865,,Croatia,2020-02-11
+2364,,Belarus,2020-01-31
+9570,,Congo (Kinshasa),2020-03-08
+23167,,South Africa,2020-03-16
+28799,Oklahoma,US,2020-02-06
+27209,Massachusetts,US,2020-02-21
+26858,Louisiana,US,2020-01-22
+27743,Montana,US,2020-02-20
+6857,Heilongjiang,China,2020-01-30
+25191,Arkansas,US,2020-03-07
+28603,North Dakota,US,2020-02-24
+1653,Western Australia,Australia,2020-03-09
+6993,Henan,China,2020-02-28
+29253,Rhode Island,US,2020-03-03
+32,,Afghanistan,2020-02-22
+968,New South Wales,Australia,2020-01-26
+6922,Heilongjiang,China,2020-04-04
+17366,,Luxembourg,2020-02-22
+5097,Prince Edward Island,Canada,2020-03-29
+26552,Iowa,US,2020-02-06
+872,Australian Capital Territory,Australia,2020-02-06
+24647,,Tunisia,2020-02-27
+16375,,Kuwait,2020-01-25
+28534,North Carolina,US,2020-04-02
+22601,,Sierra Leone,2020-02-14
+24568,,Trinidad and Tobago,2020-03-26
+9982,,Cuba,2020-02-21
+28812,Oklahoma,US,2020-02-19
+876,Australian Capital Territory,Australia,2020-02-10
+15785,,Japan,2020-03-17
+17701,,Malaysia,2020-03-07
+30664,,Uganda,2020-03-23
+13817,,Grenada,2020-02-04
+5748,,Chile,2020-04-07
+18944,,Mozambique,2020-01-26
+5288,Saskatchewan,Canada,2020-03-06
+30567,Wyoming,US,2020-04-02
+8466,Shanghai,China,2020-02-03
+4011,,Cambodia,2020-03-13
+23131,,South Africa,2020-02-09
+21319,,Qatar,2020-02-16
+20011,,Nigeria,2020-01-23
+21844,,Saint Lucia,2020-02-06
+14268,,Guyana,2020-02-27
+26280,Idaho,US,2020-03-26
+16077,,Kenya,2020-02-17
+32636,,Zimbabwe,2020-01-22
+4709,Northwest Territories,Canada,2020-01-22
+4571,New Brunswick,Canada,2020-04-07
+29441,South Dakota,US,2020-02-06
+19271,Aruba,Netherlands,2020-02-01
+31315,Cayman Islands,United Kingdom,2020-04-01
+5049,Prince Edward Island,Canada,2020-02-10
+27206,Massachusetts,US,2020-02-18
+23448,,Sudan,2020-02-05
+29348,South Carolina,US,2020-02-20
+146,,Albania,2020-02-29
+27777,Montana,US,2020-03-25
+27723,Montana,US,2020-01-31
+3459,,Bulgaria,2020-02-25
+30459,Wisconsin,US,2020-04-01
+19300,Aruba,Netherlands,2020-03-01
+32112,,Uzbekistan,2020-02-02
+30848,,United Arab Emirates,2020-02-22
+15469,,Israel,2020-03-22
+1650,Western Australia,Australia,2020-03-06
+29995,Virgin Islands,US,2020-02-25
+26771,Kentucky,US,2020-02-11
+2323,,Barbados,2020-04-06
+31417,Channel Islands,United Kingdom,2020-03-27
+25801,Florida,US,2020-02-04
+11736,,Eswatini,2020-04-03
+27939,Nevada,US,2020-02-02
+25734,District of Columbia,US,2020-03-15
+9963,,Cuba,2020-02-02
+29491,South Dakota,US,2020-03-27
+11920,,Fiji,2020-03-04
+9012,Xinjiang,China,2020-02-14
+2209,,Bangladesh,2020-03-30
+31033,Bermuda,United Kingdom,2020-01-24
+14831,,Iceland,2020-03-26
+28296,New Mexico,US,2020-03-09
+4186,Alberta,Canada,2020-02-03
+16292,,Kosovo,2020-02-18
+29687,Texas,US,2020-03-09
+4129,,Cameroon,2020-03-24
+10736,,Djibouti,2020-02-26
+20239,,Norway,2020-02-06
+2154,,Bangladesh,2020-02-04
+13225,,Gabon,2020-03-25
+21616,,Rwanda,2020-01-23
+13510,,Germany,2020-02-18
+1848,,Azerbaijan,2020-02-19
+3441,,Bulgaria,2020-02-07
+31594,Isle of Man,United Kingdom,2020-02-19
+26244,Idaho,US,2020-02-19
+18194,,Mauritius,2020-01-25
+31361,Channel Islands,United Kingdom,2020-01-31
+28108,New Hampshire,US,2020-04-04
+5957,Beijing,China,2020-04-02
+12364,Guadeloupe,France,2020-03-20
+7659,Jiangxi,China,2020-03-23
+6112,Fujian,China,2020-02-03
+19603,,Netherlands,2020-02-12
+20914,,Peru,2020-03-10
+14482,,Holy See,2020-02-27
+30220,Washington,US,2020-03-07
+26762,Kentucky,US,2020-02-02
+5824,Anhui,China,2020-03-07
+6668,Hainan,China,2020-02-24
+11558,,Estonia,2020-01-23
+4142,,Cameroon,2020-04-06
+9050,Xinjiang,China,2020-03-23
+32239,,Venezuela,2020-02-22
+10523,,Denmark,2020-02-27
+1139,Northern Territory,Australia,2020-03-30
+3375,,Brunei,2020-03-19
+24828,Alabama,US,2020-01-25
+9449,,Congo (Brazzaville),2020-02-23
+32595,,Zambia,2020-03-28
+16445,,Kuwait,2020-04-04
+7174,Hubei,China,2020-01-26
+18423,,Moldova,2020-02-09
+2807,,Bhutan,2020-02-15
+7614,Jiangxi,China,2020-02-07
+10339,Faroe Islands,Denmark,2020-03-28
+5941,Beijing,China,2020-03-17
+4424,Manitoba,Canada,2020-02-27
+21840,,Saint Lucia,2020-02-02
+330,,Andorra,2020-01-30
+1973,,Bahamas,2020-03-08
+2809,,Bhutan,2020-02-17
+23613,,Suriname,2020-04-03
+6490,Guangxi,China,2020-03-31
+7191,Hubei,China,2020-02-12
+14035,,Guinea,2020-02-08
+22624,,Sierra Leone,2020-03-08
+18528,,Monaco,2020-02-07
+26360,Illinois,US,2020-02-28
+32533,,Zambia,2020-01-26
+986,New South Wales,Australia,2020-02-13
+28509,North Carolina,US,2020-03-08
+12155,French Guiana,France,2020-03-25
+20922,,Peru,2020-03-18
+10764,,Djibouti,2020-03-25
+11684,,Eswatini,2020-02-11
+2680,,Benin,2020-01-26
+11947,,Fiji,2020-03-31
+28309,New Mexico,US,2020-03-22
+21214,,Portugal,2020-02-18
+26818,Kentucky,US,2020-03-29
+20775,,Paraguay,2020-02-07
+23806,,Switzerland,2020-03-13
+6225,Gansu,China,2020-02-09
+20500,,Pakistan,2020-03-24
+16818,,Lebanon,2020-02-09
+26572,Iowa,US,2020-02-26
+22753,,Singapore,2020-03-30
+23375,,Sri Lanka,2020-03-10
+1873,,Azerbaijan,2020-03-15
+26484,Indiana,US,2020-03-16
+22282,,Senegal,2020-02-16
+17360,,Luxembourg,2020-02-16
+18091,,Mauritania,2020-01-29
+16308,,Kosovo,2020-03-05
+27867,Nebraska,US,2020-03-08
+10621,,Diamond Princess,2020-02-18
+3148,,Botswana,2020-03-06
+19640,,Netherlands,2020-03-20
+26983,Maine,US,2020-02-09
+11466,,Eritrea,2020-02-07
+2391,,Belarus,2020-02-27
+14723,,Hungary,2020-03-25
+17980,,Malta,2020-01-25
+30773,,Ukraine,2020-03-25
+9750,,Cote d'Ivoire,2020-02-03
+27670,Missouri,US,2020-03-25
+28065,New Hampshire,US,2020-02-21
+18308,,Mexico,2020-02-01
+6158,Fujian,China,2020-03-20
+18405,,Moldova,2020-01-22
+21888,,Saint Lucia,2020-03-21
+12736,Reunion,France,2020-01-24
+23380,,Sri Lanka,2020-03-15
+18679,,Mongolia,2020-03-22
+27834,Nebraska,US,2020-02-04
+4819,Nova Scotia,Canada,2020-01-25
+18746,,Montenegro,2020-02-11
+10290,Faroe Islands,Denmark,2020-02-08
+22946,,Slovenia,2020-03-09
+25056,Arizona,US,2020-02-08
+15970,,Kazakhstan,2020-02-17
+19166,,Nepal,2020-02-03
+21190,,Portugal,2020-01-25
+27874,Nebraska,US,2020-03-15
+391,,Andorra,2020-03-31
+14075,,Guinea,2020-03-19
+4026,,Cambodia,2020-03-28
+20056,,Nigeria,2020-03-08
+27104,Maryland,US,2020-02-23
+15442,,Israel,2020-02-24
+12802,Reunion,France,2020-03-30
+30282,West Virginia,US,2020-01-22
+2373,,Belarus,2020-02-09
+18001,,Malta,2020-02-15
+22508,,Seychelles,2020-02-28
+26872,Louisiana,US,2020-02-05
+17782,,Maldives,2020-02-10
+21960,,Saint Vincent and the Grenadines,2020-02-15
+21125,,Poland,2020-03-07
+12841,Saint Barthelemy,France,2020-01-22
+4440,Manitoba,Canada,2020-03-14
+10656,,Diamond Princess,2020-03-24
+22912,,Slovenia,2020-02-04
+5034,Prince Edward Island,Canada,2020-01-26
+28364,New York,US,2020-01-30
+1499,Victoria,Australia,2020-01-22
+18109,,Mauritania,2020-02-16
+12773,Reunion,France,2020-03-01
+10312,Faroe Islands,Denmark,2020-03-01
+24432,,Togo,2020-02-26
+8675,Sichuan,China,2020-01-29
+27963,Nevada,US,2020-02-26
+22607,,Sierra Leone,2020-02-20
+17269,,Lithuania,2020-03-03
+26664,Kansas,US,2020-02-11
+18942,,Mozambique,2020-01-24
+23435,,Sudan,2020-01-23
+8616,Shanxi,China,2020-03-17
+17381,,Luxembourg,2020-03-08
+14234,,Guyana,2020-01-24
+914,Australian Capital Territory,Australia,2020-03-19
+9547,,Congo (Kinshasa),2020-02-14
+5930,Beijing,China,2020-03-06
+22103,,San Marino,2020-03-22
+22311,,Senegal,2020-03-16
+8676,Sichuan,China,2020-01-30
+29438,South Dakota,US,2020-02-03
+11605,,Estonia,2020-03-10
+15044,,Indonesia,2020-03-25
+10823,,Dominica,2020-02-06
+15007,,Indonesia,2020-02-17
+15334,,Ireland,2020-02-23
+18006,,Malta,2020-02-20
+24736,,Turkey,2020-02-09
+15130,,Iran,2020-03-04
+27722,Montana,US,2020-01-30
+12656,New Caledonia,France,2020-02-20
+23876,,Syria,2020-02-05
+31418,Channel Islands,United Kingdom,2020-03-28
+5619,,Chad,2020-03-16
+14575,,Honduras,2020-02-13
+15869,,Jordan,2020-02-23
+4782,Northwest Territories,Canada,2020-04-04
+1338,South Australia,Australia,2020-03-15
+25400,Colorado,US,2020-03-02
+19509,Sint Maarten,Netherlands,2020-02-25
+8418,Shandong,China,2020-04-02
+22716,,Singapore,2020-02-22
+18203,,Mauritius,2020-02-03
+28936,Oregon,US,2020-03-07
+6693,Hainan,China,2020-03-20
+22405,,Serbia,2020-03-03
+25467,Connecticut,US,2020-01-22
+19708,,New Zealand,2020-02-10
+26395,Illinois,US,2020-04-03
+30212,Washington,US,2020-02-28
+26038,Guam,US,2020-02-27
+119,,Albania,2020-02-02
+5272,Saskatchewan,Canada,2020-02-19
+25097,Arizona,US,2020-03-20
+11178,,Egypt,2020-03-11
+25849,Florida,US,2020-03-23
+21519,,Russia,2020-02-02
+31301,Cayman Islands,United Kingdom,2020-03-18
+25948,Georgia,US,2020-03-15
+22072,,San Marino,2020-02-20
+8099,Ningxia,China,2020-04-04
+20374,,Oman,2020-03-05
+7194,Hubei,China,2020-02-15
+29785,Utah,US,2020-02-29
+11039,,Ecuador,2020-02-08
+25815,Florida,US,2020-02-18
+28904,Oregon,US,2020-02-04
+21948,,Saint Vincent and the Grenadines,2020-02-03
+21752,,Saint Kitts and Nevis,2020-02-21
+22314,,Senegal,2020-03-19
+8097,Ningxia,China,2020-04-02
+28701,Ohio,US,2020-02-15
+4779,Northwest Territories,Canada,2020-04-01
+29459,South Dakota,US,2020-02-24
+5155,Quebec,Canada,2020-02-09
+16334,,Kosovo,2020-03-31
+13298,,Gambia,2020-02-20
+3176,,Botswana,2020-04-03
+10210,,Czechia,2020-03-06
+6440,Guangxi,China,2020-02-10
+14196,,Guinea-Bissau,2020-04-02
+14362,,Haiti,2020-02-14
+32369,,Vietnam,2020-03-16
+18244,,Mauritius,2020-03-15
+22325,,Senegal,2020-03-30
+24867,Alabama,US,2020-03-04
+25426,Colorado,US,2020-03-28
+25852,Florida,US,2020-03-26
+19849,,Nicaragua,2020-03-15
+2059,,Bahrain,2020-02-16
+22636,,Sierra Leone,2020-03-20
+13611,,Ghana,2020-02-12
+26680,Kansas,US,2020-02-27
+16374,,Kuwait,2020-01-24
+27236,Massachusetts,US,2020-03-19
+23230,,Spain,2020-02-01
+4202,Alberta,Canada,2020-02-19
+15329,,Ireland,2020-02-18
+787,,Armenia,2020-02-28
+24648,,Tunisia,2020-02-28
+1444,Tasmania,Australia,2020-03-14
+25685,District of Columbia,US,2020-01-26
+29701,Texas,US,2020-03-23
+32461,,West Bank and Gaza,2020-03-01
+6166,Fujian,China,2020-03-28
+17612,,Madagascar,2020-03-25
+15551,,Italy,2020-02-26
+14685,,Hungary,2020-02-16
+22215,,Saudi Arabia,2020-03-27
+12049,,Finland,2020-03-26
+3018,,Bosnia and Herzegovina,2020-02-12
+24080,,Tanzania,2020-01-26
+24209,,Thailand,2020-02-17
+27463,Minnesota,US,2020-04-01
+12484,Martinique,France,2020-04-02
+15101,,Iran,2020-02-04
+27314,Michigan,US,2020-02-19
+28465,North Carolina,US,2020-01-24
+13427,,Georgia,2020-03-13
+8393,Shandong,China,2020-03-08
+21958,,Saint Vincent and the Grenadines,2020-02-13
+16434,,Kuwait,2020-03-24
+24578,,Trinidad and Tobago,2020-04-05
+1118,Northern Territory,Australia,2020-03-09
+19284,Aruba,Netherlands,2020-02-14
+27847,Nebraska,US,2020-02-17
+27534,Mississippi,US,2020-02-25
+19516,Sint Maarten,Netherlands,2020-03-03
+31617,Isle of Man,United Kingdom,2020-03-13
+11151,,Egypt,2020-02-13
+9371,,Colombia,2020-03-23
+3715,,Burma,2020-04-07
+25720,District of Columbia,US,2020-03-01
+4957,Ontario,Canada,2020-02-25
+15450,,Israel,2020-03-03
+13746,,Greece,2020-03-11
+3877,,Cabo Verde,2020-02-15
+5595,,Chad,2020-02-21
+16174,,"Korea, South",2020-02-07
+73,,Afghanistan,2020-04-03
+1943,,Bahamas,2020-02-07
+17704,,Malaysia,2020-03-10
+29972,Virgin Islands,US,2020-02-02
+22811,,Slovakia,2020-02-10
+21959,,Saint Vincent and the Grenadines,2020-02-14
+17397,,Luxembourg,2020-03-24
+31283,Cayman Islands,United Kingdom,2020-02-29
+8365,Shandong,China,2020-02-09
+21038,,Philippines,2020-03-27
+21742,,Saint Kitts and Nevis,2020-02-11
+10192,,Czechia,2020-02-17
+31285,Cayman Islands,United Kingdom,2020-03-02
+23332,,Sri Lanka,2020-01-27
+9153,Yunnan,China,2020-03-19
+13410,,Georgia,2020-02-25
+19003,,Mozambique,2020-03-25
+24993,Alaska,US,2020-03-23
+4087,,Cameroon,2020-02-11
+19286,Aruba,Netherlands,2020-02-16
+8632,Shanxi,China,2020-04-02
+17387,,Luxembourg,2020-03-14
+27733,Montana,US,2020-02-10
+19069,,Namibia,2020-02-13
+5297,Saskatchewan,Canada,2020-03-15
+17698,,Malaysia,2020-03-04
+249,,Algeria,2020-02-25
+24976,Alaska,US,2020-03-06
+15753,,Japan,2020-02-14
+17913,,Mali,2020-03-05
+23551,,Suriname,2020-02-01
+20135,,North Macedonia,2020-02-09
+11722,,Eswatini,2020-03-20
+25806,Florida,US,2020-02-09
+4848,Nova Scotia,Canada,2020-02-23
+9346,,Colombia,2020-02-27
+3776,,Burundi,2020-02-21
+11724,,Eswatini,2020-03-22
+11308,,El Salvador,2020-04-03
+25752,District of Columbia,US,2020-04-02
+11139,,Egypt,2020-02-01
+23057,,Somalia,2020-03-13
+17710,,Malaysia,2020-03-16
+9851,,Croatia,2020-01-28
+17388,,Luxembourg,2020-03-15
+20869,,Peru,2020-01-25
+31497,Gibraltar,United Kingdom,2020-02-29
+32114,,Uzbekistan,2020-02-04
+27634,Missouri,US,2020-02-18
+3990,,Cambodia,2020-02-21
+24129,,Tanzania,2020-03-15
+31604,Isle of Man,United Kingdom,2020-02-29
+32441,,West Bank and Gaza,2020-02-10
+12053,,Finland,2020-03-30
+4524,New Brunswick,Canada,2020-02-20
+3805,,Burundi,2020-03-21
+4953,Ontario,Canada,2020-02-21
+29382,South Carolina,US,2020-03-25
+28078,New Hampshire,US,2020-03-05
+24461,,Togo,2020-03-26
+24669,,Tunisia,2020-03-20
+22043,,San Marino,2020-01-22
+21847,,Saint Lucia,2020-02-09
+5427,Yukon,Canada,2020-04-07
+19219,,Nepal,2020-03-27
+14265,,Guyana,2020-02-24
+8380,Shandong,China,2020-02-24
+27730,Montana,US,2020-02-07
+12003,,Finland,2020-02-09
+16832,,Lebanon,2020-02-23
+4963,Ontario,Canada,2020-03-02
+4755,Northwest Territories,Canada,2020-03-08
+6173,Fujian,China,2020-04-04
+10380,Greenland,Denmark,2020-01-22
+1252,Queensland,Australia,2020-04-05
+20169,,North Macedonia,2020-03-14
+6009,Chongqing,China,2020-02-07
+2041,,Bahrain,2020-01-29
+2410,,Belarus,2020-03-17
+23333,,Sri Lanka,2020-01-28
+8562,Shanxi,China,2020-01-23
+17354,,Luxembourg,2020-02-10
+26398,Illinois,US,2020-04-06
+11190,,Egypt,2020-03-23
+8588,Shanxi,China,2020-02-18
+2392,,Belarus,2020-02-28
+19964,,Niger,2020-03-23
+12700,New Caledonia,France,2020-04-04
+9001,Xinjiang,China,2020-02-03
+17410,,Luxembourg,2020-04-06
+11265,,El Salvador,2020-02-20
+15968,,Kazakhstan,2020-02-15
+12554,Mayotte,France,2020-02-25
+32136,,Uzbekistan,2020-02-26
+32048,,Uruguay,2020-03-16
+26876,Louisiana,US,2020-02-09
+18726,,Montenegro,2020-01-22
+5843,Anhui,China,2020-03-26
+18948,,Mozambique,2020-01-30
+30442,Wisconsin,US,2020-03-15
+8579,Shanxi,China,2020-02-09
+7737,Jilin,China,2020-02-23
+1739,,Austria,2020-02-17
+22096,,San Marino,2020-03-15
+6682,Hainan,China,2020-03-09
+18891,,Morocco,2020-03-20
+26973,Maine,US,2020-01-30
+21360,,Qatar,2020-03-28
+364,,Andorra,2020-03-04
+21671,,Rwanda,2020-03-18
+15110,,Iran,2020-02-13
+9336,,Colombia,2020-02-17
+23052,,Somalia,2020-03-08
+20283,,Norway,2020-03-21
+4402,Manitoba,Canada,2020-02-05
+32029,,Uruguay,2020-02-26
+24037,,Taiwan*,2020-03-30
+20933,,Peru,2020-03-29
+14982,,Indonesia,2020-01-23
+17090,,Libya,2020-04-07
+28721,Ohio,US,2020-03-06
+14089,,Guinea,2020-04-02
+9444,,Congo (Brazzaville),2020-02-18
+21301,,Qatar,2020-01-29
+14152,,Guinea-Bissau,2020-02-18
+18668,,Mongolia,2020-03-11
+27640,Missouri,US,2020-02-24
+5388,Yukon,Canada,2020-02-28
+22685,,Singapore,2020-01-22
+30990,Anguilla,United Kingdom,2020-03-28
+15362,,Ireland,2020-03-22
+25425,Colorado,US,2020-03-27
+7088,Hong Kong,China,2020-02-16
+21193,,Portugal,2020-01-28
+9314,,Colombia,2020-01-26
+22196,,Saudi Arabia,2020-03-08
+28749,Ohio,US,2020-04-03
+24114,,Tanzania,2020-02-29
+31506,Gibraltar,United Kingdom,2020-03-09
+24438,,Togo,2020-03-03
+3108,,Botswana,2020-01-26
+9550,,Congo (Kinshasa),2020-02-17
+11312,,El Salvador,2020-04-07
+11939,,Fiji,2020-03-23
+322,,Andorra,2020-01-22
+10983,,Dominican Republic,2020-03-30
+15694,,Jamaica,2020-04-02
+21017,,Philippines,2020-03-06
+14373,,Haiti,2020-02-25
+10278,Faroe Islands,Denmark,2020-01-27
+18146,,Mauritania,2020-03-24
+22736,,Singapore,2020-03-13
+23033,,Somalia,2020-02-18
+25955,Georgia,US,2020-03-22
+13920,,Guatemala,2020-01-31
+5509,,Central African Republic,2020-03-13
+14018,,Guinea,2020-01-22
+20165,,North Macedonia,2020-03-10
+4746,Northwest Territories,Canada,2020-02-28
+20985,,Philippines,2020-02-03
+21363,,Qatar,2020-03-31
+25503,Connecticut,US,2020-02-27
+25946,Georgia,US,2020-03-13
+12987,St Martin,France,2020-03-01
+11290,,El Salvador,2020-03-16
+23669,,Sweden,2020-02-12
+28582,North Dakota,US,2020-02-03
+3213,,Brazil,2020-01-24
+27969,Nevada,US,2020-03-03
+22118,,San Marino,2020-04-06
+26032,Guam,US,2020-02-21
+28944,Oregon,US,2020-03-15
+27291,Michigan,US,2020-01-27
+20771,,Paraguay,2020-02-03
+27535,Mississippi,US,2020-02-26
+10124,,Cyprus,2020-03-27
+11272,,El Salvador,2020-02-27
+31371,Channel Islands,United Kingdom,2020-02-10
+28264,New Mexico,US,2020-02-06
+18106,,Mauritania,2020-02-13
+7176,Hubei,China,2020-01-28
+5300,Saskatchewan,Canada,2020-03-18
+13205,,Gabon,2020-03-05
+19510,Sint Maarten,Netherlands,2020-02-26
+5820,Anhui,China,2020-03-03
+32259,,Venezuela,2020-03-13
+2383,,Belarus,2020-02-19
+7001,Henan,China,2020-03-07
+17271,,Lithuania,2020-03-05
+22936,,Slovenia,2020-02-28
+12772,Reunion,France,2020-02-29
+11458,,Eritrea,2020-01-30
+28586,North Dakota,US,2020-02-07
+2393,,Belarus,2020-02-29
+7508,Jiangsu,China,2020-02-08
+23697,,Sweden,2020-03-11
+3929,,Cabo Verde,2020-04-07
+12152,French Guiana,France,2020-03-22
+14594,,Honduras,2020-03-03
+5395,Yukon,Canada,2020-03-06
+29904,Vermont,US,2020-03-12
+11946,,Fiji,2020-03-30
+9670,,Costa Rica,2020-03-01
+20362,,Oman,2020-02-22
+9968,,Cuba,2020-02-07
+31488,Gibraltar,United Kingdom,2020-02-20
+28602,North Dakota,US,2020-02-23
+30184,Washington,US,2020-01-31
+5744,,Chile,2020-04-03
+4084,,Cameroon,2020-02-08
+25703,District of Columbia,US,2020-02-13
+25163,Arkansas,US,2020-02-08
+6898,Heilongjiang,China,2020-03-11
+30080,Virginia,US,2020-02-03
+9005,Xinjiang,China,2020-02-07
+18695,,Mongolia,2020-04-07
+7096,Hong Kong,China,2020-02-24
+30068,Virginia,US,2020-01-22
+32652,,Zimbabwe,2020-02-07
+17451,,MS Zaandam,2020-01-31
+23672,,Sweden,2020-02-15
+11506,,Eritrea,2020-03-18
+3172,,Botswana,2020-03-30
+31166,British Virgin Islands,United Kingdom,2020-02-19
+4139,,Cameroon,2020-04-03
+28535,North Carolina,US,2020-04-03
+9966,,Cuba,2020-02-05
+500,,Angola,2020-04-02
+17389,,Luxembourg,2020-03-16
+5481,,Central African Republic,2020-02-14
+18043,,Malta,2020-03-28
+16327,,Kosovo,2020-03-24
+18653,,Mongolia,2020-02-25
+13807,,Grenada,2020-01-25
+26487,Indiana,US,2020-03-19
+6250,Gansu,China,2020-03-05
+1288,South Australia,Australia,2020-01-25
+18351,,Mexico,2020-03-15
+25714,District of Columbia,US,2020-02-24
+8777,Tianjin,China,2020-01-24
+12106,French Guiana,France,2020-02-05
+22536,,Seychelles,2020-03-27
+550,,Antigua and Barbuda,2020-02-05
+9738,,Cote d'Ivoire,2020-01-22
+8842,Tianjin,China,2020-03-29
+10825,,Dominica,2020-02-08
+3464,,Bulgaria,2020-03-01
+24663,,Tunisia,2020-03-14
+15699,,Jamaica,2020-04-07
+19159,,Nepal,2020-01-27
+26660,Kansas,US,2020-02-07
+6461,Guangxi,China,2020-03-02
+17727,,Malaysia,2020-04-02
+30186,Washington,US,2020-02-02
+12234,French Polynesia,France,2020-02-26
+9485,,Congo (Brazzaville),2020-03-30
+15444,,Israel,2020-02-26
+21992,,Saint Vincent and the Grenadines,2020-03-18
+17775,,Maldives,2020-02-03
+17262,,Lithuania,2020-02-25
+29584,Tennessee,US,2020-03-13
+12351,Guadeloupe,France,2020-03-07
+5138,Quebec,Canada,2020-01-23
+30969,Anguilla,United Kingdom,2020-03-07
+1402,Tasmania,Australia,2020-02-01
+19173,,Nepal,2020-02-10
+16828,,Lebanon,2020-02-19
+9542,,Congo (Kinshasa),2020-02-09
+3607,,Burkina Faso,2020-04-06
+648,,Argentina,2020-01-27
+11351,,Equatorial Guinea,2020-01-30
+8689,Sichuan,China,2020-02-12
+13603,,Ghana,2020-02-04
+31731,Montserrat,United Kingdom,2020-03-20
+10348,Faroe Islands,Denmark,2020-04-06
+29695,Texas,US,2020-03-17
+9259,Zhejiang,China,2020-03-18
+18345,,Mexico,2020-03-09
+582,,Antigua and Barbuda,2020-03-08
+15763,,Japan,2020-02-24
+31843,Turks and Caicos Islands,United Kingdom,2020-03-25
+29597,Tennessee,US,2020-03-26
+12760,Reunion,France,2020-02-17
+558,,Antigua and Barbuda,2020-02-13
+11614,,Estonia,2020-03-19
+7645,Jiangxi,China,2020-03-09
+16123,,Kenya,2020-04-03
+13970,,Guatemala,2020-03-21
+14155,,Guinea-Bissau,2020-02-21
+18373,,Mexico,2020-04-06
+12420,Martinique,France,2020-01-29
