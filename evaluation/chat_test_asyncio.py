@@ -6,8 +6,18 @@ from pathlib import Path
 from typing import Optional, Literal
 
 # configure server address
-BASE_URL = "http://0.0.0.0:8000"
+BASE_URL = "http://127.0.0.1:8000"
 BASE_WS_URL = "ws://localhost:8000/register_websocket"
+
+
+def _json_or_raise(response: httpx.Response, request_name: str):
+    try:
+        return response.json()
+    except Exception as exc:
+        raise RuntimeError(
+            f"{request_name} failed: status={response.status_code}, "
+            f"body={response.text[:200]!r}"
+        ) from exc
 
 
 async def register_websocket(user_id: str, session_id: str):
@@ -23,7 +33,7 @@ def create_user(username: str):
     response = httpx.post(
         f"{BASE_URL}/create_user/", json={"username": username}, timeout=None
     )
-    response_data = response.json()
+    response_data = _json_or_raise(response, "create_user")
     print("Create User Response:", response_data)
     return response_data["user_id"]
 
@@ -40,7 +50,7 @@ def create_session(
         },
         timeout=None,
     )
-    response_data = response.json()
+    response_data = _json_or_raise(response, "create_session")
     print("Create Session Response:", response_data)
     return response_data["session_id"]
 
@@ -63,7 +73,7 @@ def chat(
         },
         timeout=3600,
     )
-    response_data = response.json()
+    response_data = _json_or_raise(response, "chat")
     print("Chat Response:", response_data)
     return response_data
 
@@ -89,7 +99,7 @@ def upload_file(
             files=files,
             timeout=None,
         )
-    response_data = response.json()
+    response_data = _json_or_raise(response, "upload_file")
     print("Upload File Response:", response_data)
 
 
