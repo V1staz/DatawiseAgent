@@ -1,0 +1,352 @@
+===== [2026-04-21 10:10:45] START hard =====
+===== [2026-04-21 10:13:27] START hard =====
+===== [2026-04-21 12:03:10] REFORMAT hard =====
+Created empty file at: /home/yu/projects/DataWiseAgent/DatawiseAgent/evaluation/experimental_results/InfiAgent-Bench/reformat/results_reformat_qwen32b_hard.jsonl
+qwen2.5-32b-instruct
+0: \Answer{{
+@prediction_accuracy[0.78]
+}}
+qwen2.5-32b-instruct
+1: \Answer{{
+@Mean_Squared_Error[12211.45]
+}}
+qwen2.5-32b-instruct
+2: \Answer{{
+@model_rmse[11464.74]
+}}
+qwen2.5-32b-instruct
+3: \Answer{{
+@mean_age[0.4610]
+@mean_sex[0.5052]
+@mean_bmi[0.3956]
+@mean_children[0.2190]
+@mean_smoker[0.2048]
+@mean_region[nan]
+@mean_charges[0.1939]
+}} 
+
+Note: The mean for the 'region' column is represented as 'nan' because it is a categorical variable and does not have a numerical mean.
+qwen2.5-32b-instruct
+4: \Answer{{
+@RMSE[3.63]
+}}
+qwen2.5-32b-instruct
+5: \Answer{{
+@Highest_Monthly_Average_Close_Price[1, 2018, 88.32]
+}}
+qwen2.5-32b-instruct
+6: \Answer{{
+@graduate_mean_loan[141.36]
+@not_graduate_mean_loan[118.57]
+@significance[significant]
+}}
+qwen2.5-32b-instruct
+7: \Answer{{
+@is_normal[0.0000]
+@transformed_importance_score_mean[-7.30]
+@transformed_importance_score_std[2.63]
+}}
+qwen2.5-32b-instruct
+8: \Answer{{
+@mean_loan[136.00]
+@median_loan[125.00]
+@std_dev_loan[61.00]
+}}
+qwen2.5-32b-instruct
+9: \Answer{{
+@coefficient_determination[0.67]
+@model_fit[poor fit]
+}}
+qwen2.5-32b-instruct
+10: \Answer{{
+@row_count[204]
+@median_age[28.0]
+}}
+qwen2.5-32b-instruct
+11: \Answer{{
+@significance_of_difference[yes]
+@p_value[0.0043]
+}}
+qwen2.5-32b-instruct
+12: \Answer{{
+@significant_predictor[yes,yes]
+@r_squared[0.6059]
+}}
+qwen2.5-32b-instruct
+13: \Answer{{
+@correlation_coefficient[0.02] 
+@p_value[0.1704] 
+@relationship_type[none]   
+}}
+qwen2.5-32b-instruct
+14: \Answer{{
+@model_score[0.61]
+}}
+qwen2.5-32b-instruct
+15: \Answer{{
+@sex_encoded_count[314, 577]
+@fare_after_scaling[0.00, 1.00, 0.0629]
+}}
+qwen2.5-32b-instruct
+16: \Answer{{
+@p_value[8.80e-22]
+@significance[Yes]
+}}
+qwen2.5-32b-instruct
+17: \Answer{{
+@mean_neg[0.07]
+@std_dev_neg[0.04]
+}}
+qwen2.5-32b-instruct
+18: \Answer{{
+@mean_dem[0.32]
+@mean_gop[0.64]
+@std_dev_dem[0.153]
+@std_dev_gop[0.156]
+@dist_dem[Not Normal]
+@dist_gop[Not Normal]
+}}
+qwen2.5-32b-instruct
+19: \Answer{{
+@cleaned_dataset["site,abs_diffsel,positive_diffsel,negative_diffsel,max_diffsel,min_diffsel,diff_range\n(HA2)121,9.03,4.15,-4.88,1.58,-1.00,2.58\n326,9.00,3.62,-5.39,0.72,-1.22,1.94\n280,8.42,5.15,-3.27,0.97,-1.02,1.99\n9,8.19,4.42,-3.77,1.00,-0.85,1.85\n210,8.06,5.82,-2.23,1.38,-1.24,2.62\n..."]
+@missing_values_handling[No missing values were found.]
+}} 
+
+(Note: The cleaned dataset provided here is a truncated representation for illustration purposes. In practice, it would include all 566 rows from the original dataset with the new 'diff_range' column appended.)
+qwen2.5-32b-instruct
+20: \Answer{{
+@skewness_value[0.14]
+@kurtosis_value[-0.30]
+The data in the `abs_diffsel` column is normally distributed given the skewness and kurtosis values.
+}}
+qwen2.5-32b-instruct
+21: \Answer{{
+@neg_length_corr[-0.10]
+@neu_length_corr[0.42]
+@pos_length_corr[-0.35]
+}}
+qwen2.5-32b-instruct
+22: \Answer{{
+@correlation_coefficient[0.58]
+@p_value[0.0000]
+}}
+qwen2.5-32b-instruct
+23: \Answer{{
+@accuracy_score[0.97]
+}}
+qwen2.5-32b-instruct
+24: \Answer{{
+@correlation_coefficient[0.922]
+@outlier_count[0]
+@outlier_list[]
+}}
+qwen2.5-32b-instruct
+25: \Answer{{
+@clean_entries[1440]
+@mean_USFLUX[3.92e+21]
+@log_MEANJZH[-2.543]
+@norm_TOTUSJZ[0.107]
+}}
+qwen2.5-32b-instruct
+26: \Answer{{
+@correlation_coefficient[-0.17]
+@number_of_outliers[0]
+}}
+qwen2.5-32b-instruct
+27: \Answer{{
+@mean_with_tree_null[4.26]
+@mean_with_tree_notnull[43.31]
+@pvalue[0.0000]
+}}
+qwen2.5-32b-instruct
+28: \Answer{{
+@duplicate_count[0]
+@usflux_mean[3.89e+21]
+@new_feature_mean[-68.17]
+@model_accuracy[99.746]
+}}
+qwen2.5-32b-instruct
+29: \Answer{{
+@average_fare_Mr[34.01]
+@average_fare_Mrs[44.73]
+@average_fare_Miss[23.88]
+@average_fare_Master[49.29]
+}}
+qwen2.5-32b-instruct
+30: \Answer{{
+@correlation_coefficient[0.53]
+@p_value[0.0000]
+@correlation[correlated]
+}}
+qwen2.5-32b-instruct
+31: \Answer{{
+@age_skewness[0.39]   
+@age_kurtosis[0.17] 
+@age_values_within_one_stdev[516]
+@fare_skewness[4.78] 
+@fare_kurtosis[33.20] 
+@fare_values_within_one_stdev[818]
+}}
+qwen2.5-32b-instruct
+32: \Answer{{
+@correlation_coefficient[0.08]
+@p_value[0.0749]
+@relationship[none]
+}}
+qwen2.5-32b-instruct
+33: \Answer{{
+@coef_age[-0.05]
+@coef_pclass[-0.98]
+@relationship_age[not significant]
+@relationship_pclass[significant]
+}}
+qwen2.5-32b-instruct
+34: \Answer{{
+@strongest_correlation_pair["Parch", "SibSp"]
+@strongest_correlation_coefficient[0.41]
+}}
+qwen2.5-32b-instruct
+35: \Answer{{
+@mean_squared_error[1.18]
+}}
+qwen2.5-32b-instruct
+36: \Answer{{
+@correlation_coefficient[-0.53]
+@p_value[0.0000]
+@relationship_significance[significant]
+}}
+qwen2.5-32b-instruct
+37: \Answer{{
+@trips_per_membership_mean[0.17]
+@trips_per_membership_median[0.16]
+@trips_per_day_mean[21144.08]
+@trips_per_day_median[19711.00]
+}}
+qwen2.5-32b-instruct
+38: \Answer{{
+@weekday_mean_price[37.30]
+@weekend_mean_price[38.49]
+@p_value[0.8448]
+@significance[No]
+}}
+qwen2.5-32b-instruct
+39: \Answer{{
+@survived_fare_mean[40.82]
+@survived_fare_std[71.36]
+@not_survived_fare_mean[21.96]
+@not_survived_fare_std[32.41]
+@fare_difference_significance[significant]
+}}
+qwen2.5-32b-instruct
+40: \Answer{{
+@pre_mean[21144.08]
+@pre_median[19711.00]
+@pre_sd[9889.93]
+@pre_skewness[0.15]
+@pre_kurtosis[-1.13]
+@post_mean[21144.08]
+@post_median[19711.00]
+@post_sd[9889.93]
+@post_skewness[0.15]
+@post_kurtosis[-1.13]
+}}
+qwen2.5-32b-instruct
+41: \Answer{{
+@correlation_coefficient[-0.09]
+@relationship_type[none]
+}}
+qwen2.5-32b-instruct
+42: \Answer{{
+@correlation_coefficient[0.19]
+@p_value[0.0000]
+@relationship_type[linear]
+}}
+qwen2.5-32b-instruct
+43: \Answer{{
+@average_damage[68264740.00, 52942.35, 176452900.00, 300651800.00, 3823702000.00, 5830548000.00, 50464500.00, 201529300.00, 2909142000.00, 5291818.00, 351946900.00]
+@p_value[0.4911]
+@difference_type[none]
+}}
+qwen2.5-32b-instruct
+44: \Answer{{
+@mean_squared_error[263.1896]
+}}
+qwen2.5-32b-instruct
+45: \Answer{{
+@accuracy[1.00], @feature1[High], @feature2[Open], @feature3[Low]
+}}
+qwen2.5-32b-instruct
+46: \Answer{{
+@correlation_coefficient[-0.08]
+@p_value[0.6756]
+@relationship_type[none]
+}}
+qwen2.5-32b-instruct
+47: \Answer{{
+@high_damage_correlation_coefficient[0.60]
+@high_damage_p_value[0.0000]
+@high_damage_relationship_type[linear]
+@low_damage_correlation_coefficient[NaN]
+@low_damage_p_value[NaN]
+@low_damage_relationship_type[none]
+}}
+qwen2.5-32b-instruct
+48: \Answer{{
+@standard_deviation[1.22]
+}}
+qwen2.5-32b-instruct
+49: \Answer{{
+@mean_wind_pre[5.98]
+@mean_atmos_temp_pre[52.47]
+@mean_wind_post[5.79]
+@mean_atmos_temp_post[52.47]
+}}
+qwen2.5-32b-instruct
+50: \Answer{{
+@outlier_years[]
+@mean_without_outliers[33.69]
+@std_without_outliers[9.57]
+}}
+qwen2.5-32b-instruct
+51: \Answer{{
+@mean_STEM[124.18]
+@range_STEM[17.70]
+}}
+qwen2.5-32b-instruct
+52: \Answer{{
+@classifier_accuracy[0.78]
+}}
+qwen2.5-32b-instruct
+53: \Answer{{
+@correlation_coefficient[0.31]
+@p_value[0.0000]
+@relationship_type[nonlinear]
+}}
+qwen2.5-32b-instruct
+54: \Answer{{
+@child_count[71]
+@teenager_count[45]
+@adult_count[749]
+@senior_count[26]
+}}
+qwen2.5-32b-instruct
+55: \Answer{{
+@chi_square_statistic[37.13]
+@p_value[0.0000]
+}}
+qwen2.5-32b-instruct
+56: \Answer{{
+@correlation_coefficient[0.9253]
+@original_model_rmse[2.5097]
+@volume_feature_model_rmse[2.4968]
+}}
+qwen2.5-32b-instruct
+57: \Answer{{
+@max_SPX_date[2018-01]
+@AAPL_price_percentage_change[0.23]   
+}}
+===== [2026-04-21 12:05:35] EVAL hard =====
+===== [2026-04-21 12:05:35] DONE hard =====
+===== [2026-04-21 14:09:05] REFORMAT hard =====
+File already exists: /home/yu/projects/DataWiseAgent/DatawiseAgent/evaluation/experimental_results/InfiAgent-Bench/reformat/results_reformat_qwen32b_hard.jsonl
+===== [2026-04-21 14:09:06] EVAL hard =====

@@ -1,0 +1,5 @@
+Loading custom config from /home/yu/projects/DataWiseAgent/DatawiseAgent/configs/setting_model.yaml
+INFO:     Started server process [451951]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
