@@ -40,3 +40,4 @@ paper_pages/
 paper_extracted.txt
 *.tmp
 *.temp
+/.venv310
