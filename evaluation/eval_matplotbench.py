@@ -157,7 +157,7 @@ def determine_result_path(user_id, session_id, ground_truth_path, tolerance=0):
         return None
 
 
-def main(user_id: UUID, with_tool: bool = False):
+def main(user_id: UUID, result_tag: str, with_tool: bool = False):
 
     if with_tool:
         user_prompt_template = USER_PROMPT_WITH_TOOL
@@ -165,15 +165,18 @@ def main(user_id: UUID, with_tool: bool = False):
         user_prompt_template = USER_PROMPT_WITHOUT_TOOL
 
     data_path = "./MatplotBench/data"
-    result_file_path = "experimental_results/MatplotBench/gpt-4o-mini/result.jsonl"
+    result_dir = f"experimental_results/MatplotBench/{result_tag}"
+    result_file_path = os.path.join(result_dir, "result.jsonl")
 
-    log_file_path = "experimental_results/MatplotBench/gpt-4o-mini/process.log"
+    log_file_path = os.path.join(result_dir, "process.log")
 
     ground_truth_path = "./MatplotBench/data/ground_truth"
     # open the json file
     data = json.load(open(f"{data_path}/benchmark_instructions.json"))
 
     result_dict = {}
+
+    os.makedirs(result_dir, exist_ok=True)
 
     if not os.path.exists(result_file_path):
         Path(result_file_path).touch()
@@ -273,4 +276,8 @@ if __name__ == "__main__":
     user_id = create_user(username=args.note)
     print(f"Created user_id: {user_id}")
 
-    main(user_id, with_tool=args.with_tool)
+    result_tag = args.note
+    if args.with_tool and not result_tag.endswith("-with-visual-tool"):
+        result_tag = f"{result_tag}-with-visual-tool"
+
+    main(user_id, result_tag=result_tag, with_tool=args.with_tool)
