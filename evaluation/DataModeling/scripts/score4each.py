@@ -32,6 +32,8 @@ Outputs
 
 import os
 import json
+import sys
+import subprocess
 from tqdm import tqdm
 import time
 import argparse
@@ -82,15 +84,30 @@ for result in results:
     name = result["name"]
     answer_file = gt_path + name + "/test_answer.csv"
     try:
-        if os.path.exists(os.path.join(output_dir, name)):
+        result_dir = os.path.join(output_dir, name)
+        result_file = os.path.join(result_dir, "result.txt")
+
+        if os.path.exists(result_file):
             continue
 
-        if not os.path.exists(os.path.join(output_dir, name)):
-            os.makedirs(os.path.join(output_dir, name))
+        if not os.path.exists(result_dir):
+            os.makedirs(result_dir)
 
         print(f"compute performance for {name}")
-        os.system(
-            f"python {python_path}{name}_eval.py --answer_file {answer_file} --predict_file {pred_file} --path {output_dir} --name {name}"
+        subprocess.run(
+            [
+                sys.executable,
+                f"{python_path}{name}_eval.py",
+                "--answer_file",
+                answer_file,
+                "--predict_file",
+                pred_file,
+                "--path",
+                output_dir,
+                "--name",
+                name,
+            ],
+            check=False,
         )
 
     except Exception as e:
