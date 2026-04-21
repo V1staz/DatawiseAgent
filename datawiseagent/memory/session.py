@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 
 # import mimetypes
 from typing import Any, Literal, List, Union, Optional, TypedDict
@@ -100,6 +101,111 @@ class Session:
         code_executor could be jupyter kernel or just python interpreter.
         """
 
+    def _sync_persistent_artifacts(self) -> None:
+        """Mirror likely training artifacts into ./input for datamodeling runs.
+
+        The agent sometimes writes scripts or model files to the workspace root or
+        `./working` even though downstream steps expect them under `./input`.
+        This keeps the persistent path aligned with those later expectations.
+        """
+        persistent_exts = {
+            ".py",
+            ".ipynb",
+            ".pkl",
+            ".pickle",
+            ".joblib",
+            ".pt",
+            ".pth",
+            ".bin",
+            ".csv",
+            ".json",
+            ".jsonl",
+            ".txt",
+            ".log",
+            ".yaml",
+            ".yml",
+            ".parquet",
+            ".npy",
+            ".npz",
+        }
+
+        def should_sync(path: Path) -> bool:
+            name = path.name.lower()
+            return (
+                path.is_file()
+                and not name.startswith(".")
+                and (
+                    path.suffix.lower() in persistent_exts
+                    or "submission" in name
+                    or "model" in name
+                    or "train" in name
+                )
+            )
+
+        candidates: list[Path] = []
+        for child in self.root_dir.iterdir():
+            if should_sync(child):
+                candidates.append(child)
+        if self.working_dir.exists():
+            for child in self.working_dir.iterdir():
+                if should_sync(child):
+                    candidates.append(child)
+
+        for src in candidates:
+            dst = self.input_dir / src.name
+            try:
+                if not dst.exists() or src.stat().st_mtime > dst.stat().st_mtime:
+                    shutil.copy2(src, dst)
+            except Exception:
+                continue
+
+    def _cleanup_incompatible_model_artifacts(
+        self, result: IPythonCodeResult
+    ) -> IPythonCodeResult:
+        """Drop cached model files when sklearn reports feature-name mismatch.
+
+        DataModeling tasks often evolve feature engineering over several debug
+        attempts. Re-loading an older checkpoint can then fail forever with
+        sklearn's "feature names should match" error. Removing stale model
+        artifacts lets the next retry retrain instead of looping on the same
+        incompatible checkpoint.
+        """
+        output = result.output or ""
+        lowered = output.lower()
+        has_feature_mismatch = (
+            "feature names should match" in lowered
+            and "unseen at fit time" in lowered
+            and "yet now missing" in lowered
+        )
+        if not has_feature_mismatch:
+            return result
+
+        removed_files: list[str] = []
+        model_exts = {".pkl", ".pickle", ".joblib", ".pt", ".pth", ".bin"}
+        for base_dir in (self.input_dir, self.working_dir, self.root_dir):
+            if not base_dir.exists():
+                continue
+            for child in base_dir.iterdir():
+                name = child.name.lower()
+                if (
+                    child.is_file()
+                    and child.suffix.lower() in model_exts
+                    and "model" in name
+                ):
+                    try:
+                        child.unlink()
+                        removed_files.append(str(child.relative_to(self.root_dir)))
+                    except Exception:
+                        continue
+
+        if removed_files:
+            cleanup_note = (
+                "\n[AUTO-RECOVERY] Removed stale model artifacts after sklearn "
+                f"feature mismatch: {', '.join(sorted(removed_files))}"
+            )
+            result.output = output + cleanup_note
+        return result
+
     async def rerun_cells(self):
         # Restart the kernel and rerun all the cells
         await self.code_executor.restart()
@@ -167,7 +273,10 @@ class Session:
                 else:
                     raise e
 
-            return await self.code_executor.execute_code_blocks(code_blocks)
+            result = await self.code_executor.execute_code_blocks(code_blocks)
+            self._sync_persistent_artifacts()
+            result = self._cleanup_incompatible_model_artifacts(result)
+            return result
 
     def workspace_root_dir(self):
         assert isinstance(self.code_executor, JupyterCodeExecutor)

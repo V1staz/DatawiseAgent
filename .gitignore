@@ -41,3 +41,5 @@ paper_extracted.txt
 *.tmp
 *.temp
 /.venv310
+.env.example
+/.vscode

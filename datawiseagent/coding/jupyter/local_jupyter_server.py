@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import atexit
 import json
+import os
 import secrets
 import signal
 import socket
@@ -176,12 +177,16 @@ class LocalJupyterServer(JupyterConnectable):
             args.extend(["--KernelGatewayApp.port", str(port)])
             # args.extend(["--KernelGatewayApp.port_retries", "0"])
             args.extend(["--KernelGatewayApp.port_retries", "100"])
+        env = os.environ.copy()
+        python_bin_dir = str(Path(sys.executable).resolve().parent)
+        env["PATH"] = python_bin_dir + os.pathsep + env.get("PATH", "")
         self._subprocess = subprocess.Popen(
             args,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
             cwd=self.out_dir,  # set the working directory of the running kernel
+            env=env,
         )
 
         # Satisfy mypy, we know this is not None because we passed PIPE

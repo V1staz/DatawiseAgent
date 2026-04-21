@@ -42,7 +42,7 @@ class JupyterCodeExecutor(CodeExecutor):
         cls,
         jupyter_server: Union[JupyterConnectable, JupyterConnectionInfo],
         kernel_name: str = "python3",
-        timeout: int = 6,
+        timeout: int = 20,
         output_dir: Union[Path, str] = Path("."),
         use_docker_space: bool = False,
     ):

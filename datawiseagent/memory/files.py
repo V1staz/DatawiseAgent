@@ -3,6 +3,7 @@ from pydantic import BaseModel, field_validator, ValidationError
 from pathlib import Path
 import uuid
 import os
+import shutil
 from typing import Literal, Union
 import subprocess
 
@@ -135,9 +136,38 @@ class FileSystem:
 
         tree -F ./
         """
+        tree_bin = shutil.which("tree")
+        if tree_bin is None:
+            lines = ["./"]
+            for root, dirs, files in os.walk(self.root_dir):
+                root_path = Path(root)
+                rel_root = root_path.relative_to(self.root_dir)
+                depth = 0 if rel_root == Path(".") else len(rel_root.parts)
+                indent = "    " * depth
+
+                dirs[:] = sorted(
+                    d for d in dirs if d != "__pycache__" and not d.startswith(".")
+                )
+                visible_files = sorted(
+                    f
+                    for f in files
+                    if not f.endswith(".pyc") and not f.startswith(".")
+                )
+
+                for directory in dirs:
+                    lines.append(f"{indent}{directory}/")
+                for file_name in visible_files:
+                    file_path = root_path / file_name
+                    try:
+                        size = file_path.stat().st_size
+                    except OSError:
+                        size = "?"
+                    lines.append(f"{indent}{file_name} ({size} B)")
+            return "\n".join(lines)
+
         result = subprocess.run(
             # ["tree", "-F", "./"],
-            ["tree", "-Fsh", "-I", "__pycache__|*.pyc", "./"],
+            [tree_bin, "-Fsh", "-I", "__pycache__|*.pyc", "./"],
             capture_output=True,
             text=True,
             cwd=self.root_dir,
