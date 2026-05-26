@@ -43,3 +43,4 @@ paper_extracted.txt
 /.venv310
 .env.example
 /.vscode
+/runs/infiagent_improve/
