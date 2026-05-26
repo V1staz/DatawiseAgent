@@ -47,11 +47,35 @@ python3 scripts/run_infiagent_improve.py \
 在已有 DatawiseAgent 服务运行时执行单题完整流程：
 
 ```bash
+env HTTP_PROXY= HTTPS_PROXY= ALL_PROXY= \
+  http_proxy= https_proxy= all_proxy= \
+  NO_PROXY=127.0.0.1,localhost \
+  .venv310/bin/python main.py
+```
+
+```bash
 python3 scripts/run_infiagent_improve.py \
   --task-id 5 \
   --ablation full \
   --note full-single
 ```
+
+运行 47 题小集时建议使用增量写入和恢复参数：
+
+```bash
+env HTTP_PROXY= HTTPS_PROXY= ALL_PROXY= \
+  http_proxy= https_proxy= all_proxy= \
+  NO_PROXY=127.0.0.1,localhost \
+  .venv310/bin/python scripts/run_infiagent_improve.py \
+  --task-ids-file runs/infiagent_improve/small_error_set.json \
+  --ablation full \
+  --note small-error-live \
+  --write-incremental \
+  --resume \
+  --continue-on-error
+```
+
+可用的运行控制参数包括 `--resume`、`--skip-existing`、`--max-tasks`、`--start-from-task-id`、`--stop-on-error` 和 `--continue-on-error`。每题失败会在 predictions JSONL 和 `tasks/{task_id}/error.json` 中记录 `task_status`、`error_type` 和 traceback。
 
 对已有 baseline 响应做 final block reformat：
 

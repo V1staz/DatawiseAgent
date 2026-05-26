@@ -89,6 +89,34 @@ def _expected_names(contract: dict[str, Any] | None) -> list[str]:
     return list(contract.get("answer_names") or (contract.get("format_requirements") or {}).get("answer_names") or [])
 
 
+def _answer_slot_format(name: str, contract: dict[str, Any] | None) -> str:
+    format_requirements = (contract or {}).get("format_requirements") or (contract or {}).get("output_format") or {}
+    raw_format = str(format_requirements.get("raw_format") or "")
+    match = re.search(rf"@{re.escape(name)}\[([^\]]*)\]", raw_format)
+    return match.group(1) if match else ""
+
+
+def _format_value_for_answer(name: str, value: str, contract: dict[str, Any] | None) -> str:
+    text = value.strip()
+    format_requirements = (contract or {}).get("format_requirements") or (contract or {}).get("output_format") or {}
+    container_type = format_requirements.get("container_type")
+
+    # InfiAgentBench wraps values as @name[value]. For comma-separated answer
+    # formats, models often put list brackets inside the final block value, which
+    # becomes @name[[...]] and breaks the benchmark's non-greedy extractor.
+    if container_type not in {"list", "dict"} and len(text) >= 2 and text[0] == "[" and text[-1] == "]":
+        text = text[1:-1].strip()
+
+    slot_format = _answer_slot_format(name, contract)
+    if (
+        container_type not in {"list", "dict"}
+        and "," in slot_format
+        and ", " not in slot_format
+    ):
+        text = re.sub(r"\s*,\s*", ",", text)
+    return text
+
+
 def validate_final_block(
     final_block: dict[str, Any] | None,
     contract: dict[str, Any] | None = None,
@@ -183,7 +211,11 @@ def final_block_to_response(
     expected_names = _expected_names(contract)
     answer_map = validation["answer_map"]
     names = expected_names or list(answer_map.keys())
-    response = "\n".join(f"@{name}[{answer_map[name]}]" for name in names if name in answer_map)
+    response = "\n".join(
+        f"@{name}[{_format_value_for_answer(name, answer_map[name], contract)}]"
+        for name in names
+        if name in answer_map
+    )
     if not response:
         validation["passed"] = False
         validation["errors"].append("empty_formatted_response")
@@ -214,4 +246,3 @@ def _main() -> None:
 
 if __name__ == "__main__":
     _main()
-

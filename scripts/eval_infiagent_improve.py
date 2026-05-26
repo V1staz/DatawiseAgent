@@ -50,6 +50,29 @@ def _format_errors(expected: dict[str, str], predicted: dict[str, str], response
     return (1 if missing or extra else 0), 0
 
 
+def _derive_task_status(
+    response: dict[str, Any] | None,
+    expected: dict[str, str],
+    predicted: dict[str, str],
+    response_text: str,
+    is_correct: bool,
+) -> str:
+    if response is None:
+        return "execution_error"
+    existing_status = response.get("task_status")
+    if existing_status in {"model_api_error", "execution_error", "verifier_blocked"}:
+        return str(existing_status)
+    if existing_status == "reformat_missing" or "ERROR_NEED_RETRY" in (response_text or ""):
+        return "reformat_missing"
+    missing = [name for name in expected if name not in predicted]
+    extra = [name for name in predicted if name not in expected]
+    if not predicted or missing or extra:
+        return "format_error" if predicted else "reformat_missing"
+    if not is_correct:
+        return "evaluation_wrong"
+    return "success"
+
+
 def evaluate(args: argparse.Namespace) -> dict[str, Any]:
     labels = read_jsonl(args.labels_file)
     responses = _response_map(args.responses_file)
@@ -71,6 +94,7 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
         names, values = extract_format(response_text)
         predicted = dict(zip(names, values))
         correctness = {name: is_equal(predicted.get(name), expected[name]) for name in expected}
+        is_correct = bool(correctness) and all(correctness.values())
         if response is None:
             error_counts["silent_failure"] += 1
         fmt_error, missing_error = _format_errors(expected, predicted, response_text)
@@ -95,7 +119,8 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
                 "label_answers": expected,
                 "predicted_answers": predicted,
                 "correctness": correctness,
-                "is_correct": bool(correctness) and all(correctness.values()),
+                "is_correct": is_correct,
+                "task_status": _derive_task_status(response, expected, predicted, response_text, is_correct),
             }
         )
 
@@ -118,6 +143,7 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
     for concept, values in concept_totals.items():
         concept_scores[concept] = {"total": len(values), "ABQ": round(sum(values) / len(values), 4)}
 
+    task_status_counts = Counter(str(result.get("task_status", "unknown")) for result in results)
     runtime_values = [float(row.get("runtime_seconds", 0.0)) for row in responses.values()]
     token_values = [int(row.get("token_estimate", 0)) for row in responses.values()]
     log_lengths = [int(row.get("log_length", len(str(row.get("raw_response") or row.get("response") or "")))) for row in responses.values()]
@@ -140,6 +166,7 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
         "responses_file": args.responses_file,
         "metrics": metrics,
         "error_type_counts": {error_type: int(error_counts[error_type]) for error_type in ERROR_TYPES},
+        "task_status_counts": dict(task_status_counts),
         "concept_scores": concept_scores,
         "results": results,
     }

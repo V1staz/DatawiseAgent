@@ -25,6 +25,29 @@ FINAL_BLOCK
     assert response == "@mean_fare[34.65]"
 
 
+def test_final_block_strips_inner_list_for_comma_separated_format():
+    block = {
+        "answers": [
+            {"name": "site_identifiers", "value": "[(HA2)121, 326]", "format_checked": True},
+            {"name": "outlier_values", "value": "[9.03, 9.0]", "format_checked": True},
+        ]
+    }
+    contract = {
+        "answer_names": ["site_identifiers", "outlier_values"],
+        "format_requirements": {
+            "raw_format": "@site_identifiers[site_id1,site_id2,...] @outlier_values[value1,value2,...]",
+            "decimal_places": 2,
+            "quote_string": False,
+            "container_type": "string",
+        },
+    }
+
+    response, validation = final_block_to_response(block, contract)
+
+    assert validation["passed"]
+    assert response == "@site_identifiers[(HA2)121,326]\n@outlier_values[9.03,9.0]"
+
+
 def test_formatting_verifier_rejects_bad_decimals_and_missing_quotes():
     numeric_contract = {
         "answer_names": ["mean_fare"],
@@ -41,4 +64,3 @@ def test_formatting_verifier_rejects_bad_decimals_and_missing_quotes():
     bad_string = {"answers": [{"name": "station", "value": "ABC", "format_checked": True}]}
 
     assert not validate_final_block(bad_string, string_contract)["passed"]
-
