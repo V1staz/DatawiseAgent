@@ -52,6 +52,25 @@
 
 这次不是单纯加长 prompt，而是把“题目理解—约束检查—候选生成—答案收束—失败记忆”做成可测、可开关的 harness 组件。
 
+#### 2.1.1 和预设主线的对应关系
+
+`汇总.pdf` 里给出的改进主线是：把 DatawiseAgent 从“能执行、能调试”的 notebook agent，往“能识别任务、能理解约束、能校验过程、能保证格式”的数据分析 agent 推。下面按这个主线说明这轮做到哪里，哪些还没做。
+
+| 预设方向 | 本轮做到的程度 | 还没做 / 没纳入本轮 |
+| --- | --- | --- |
+| 任务类型识别与技能路由 | 已做基础版。`contract.py` 从题面、constraints、format 中抽取概念、方法、目标答案；`skills.py` 按 concept / keyword 路由到统计、分布、相关性、异常值、预处理、特征工程、机器学习、最终格式等 skill protocol。支持多标签，不是单一路由。 | 还不是强分类器，也没有训练/标注一个专门的 task router。没有做“人工选择技能模块 vs 模型自动选择技能模块”的正式对照实验。 |
+| 技能模块库 | 做了 protocol 级技能库。每类技能有 required checks 和规则卡，例如 std 的 ddof、相关性正负号、IQR/z-score、预处理顺序、ML split/random_state/feature/metric、final format。 | 还不是完整可执行技能库：大部分技能仍通过 prompt directive、rule、oracle 约束 agent 行为，没有把每一类题都封装成独立确定性 Python 算子。 |
+| 数据结构预分析 | 已做 DataCard。`datacard.py` 会整理列名、类型、缺失、数值范围、日期/类别/ID 候选等信息，并作为后续 contract、oracle、prompt 的输入。 | 当前 DataCard 主要服务约束和列检查，还没有系统压缩 token，也没有做数据卡片质量对最终分数的单独消融。 |
+| 答案契约 | 已做。`contract.py` 解析目标答案名、类型、rounding、格式模板、筛选/方法/字段约束；后续 final block 和 reformat 都围绕 contract 收束。 | 对复杂自然语言约束仍是启发式解析，不保证所有筛选条件、统计口径和禁止操作都能被完整抽出。 |
+| 执行过程校验 | 做了基础校验。`verifier.py` 检查 final block、answer names、format targets、类型和 verified；`oracles.py` 检查 std ddof、年份边界、ML split/features/metric、required columns 等高频错误点。 | 还没有做到每一步 dataframe shape、缺失值、分母、筛选样本数、日期解析等都强制自动验证。也没有把列名错误、预处理顺序错误、统计判断错误全部做成独立计数指标。 |
+| 最终答案块与 reformat 解耦 | 已做得比较完整。主 agent 输出 `FinalAnswerBlock`；`reformat.py` 支持优先从 final block deterministic 抽取 `@answer[value]`，避免从长日志里猜答案。 | 如果模型没有生成可信 final block，当前主要靠 fallback / rerender 修复；还没形成“缺 final block 就自动回到执行阶段补算”的闭环。 |
+| 安全重试与降级 | 做了接口和部分机制。`recovery.py` 记录恢复事件；runner 支持 retry/final-block rerender；Jupyter/session cleanup 也做了异常兜底。 | 还不是完整自动回溯系统。遇到空输出、超时、样本数为 0、语义校验失败时，不一定能自动定位到上一正确状态并换策略继续。 |
+| 搜索 / ToT / LATS 化 hard 题 | 做了轻量多分支。`search.py` 和 runner 支持 deterministic branch、alternative branch、oracle guarded branch，并用 validator / oracle / runtime 信息选分支。 | 还没做真正的 MCTS、价值函数、自反思 rollout 或可执行 branch verifier。hard 题下降说明“生成多个候选”还不等于“选对候选”。 |
+| 失败经验沉淀 | 已做自更新记忆链路。validator/runtime/oracle/final-block evidence 可以写入 self memory；round2 能检索 round1 记忆。人工规则和自更新记忆是分开的。 | 记忆检索还偏粗，没有“是否值得注入”的门控；收益不稳定。也没有把自更新 memory store 作为可复制产物提交。 |
+| 实验设计与指标 | 做了 Qwen3.5-35B-A3B 全量、论文 72B 对比、medium/hard harness、两轮 memory-learning full；eval 增加了 harness metrics 字段。 | 没完整跑 `数据卡片 / 契约 / 技能路由 / 执行校验 / 最终格式 / 全部模块` 的逐层消融。平均 token、平均调用次数、平均运行时间、错误类型计数也没有形成统一主表。 |
+
+所以这轮的定位更准确地说是：**把预设主线中的关键工程骨架搭起来，并用 medium/hard 与两轮 full memory 实验验证链路能跑；但还没有完成严格的模块级消融、难度自适应 harness、完整可执行技能库和强 hard 分支搜索。**
+
 ### 2.2 记忆与规则分离
 
 当前有两类知识来源：
