@@ -44,3 +44,10 @@ paper_extracted.txt
 .env.example
 /.vscode
 /runs/infiagent_improve/
+
+# --- local OMX / InfiAgentBench runtime-only artifacts ---
+/.omx/
+/InfiAgentBench/
+/evaluation/experimental_results/InfiAgent-Bench/run_logs/
+/evaluation/experimental_results/InfiAgent-Bench/harness_artifacts/
+/evaluation/experimental_results/InfiAgent-Bench/harness_memory/

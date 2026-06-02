@@ -17,6 +17,7 @@ from pathlib import Path
 from types import TracebackType
 from typing import Any, ClassVar, List, Optional, Type, Union
 import asyncio
+import logging
 import time
 
 from datawiseagent.coding.utils import silence_pip
@@ -33,6 +34,8 @@ from .base import JupyterConnectable, JupyterConnectionInfo
 from .local_jupyter_server import LocalJupyterServer
 from .docker_jupyter_server import DockerJupyterServer
 from .jupyter_client import JupyterClient, JupyterKernelClient
+
+logger = logging.getLogger(__name__)
 
 
 class JupyterCodeExecutor(CodeExecutor):
@@ -232,13 +235,24 @@ class JupyterCodeExecutor(CodeExecutor):
             return os.path.abspath(path)
 
     async def stop(self) -> None:
-        # Stop the kernel
-        await self._jupyter_kernel_client.stop()
-        self._jupyter_client.delete_kernel(self._kernel_id)
+        # Stop the kernel. Shutdown is best-effort because evaluation runners
+        # call this in finally blocks; a failed cleanup must not keep the
+        # FastAPI session alive or fail the whole benchmark process.
+        try:
+            await self._jupyter_kernel_client.stop()
+        except Exception:
+            logger.warning("Failed to stop Jupyter kernel client", exc_info=True)
+        try:
+            self._jupyter_client.delete_kernel(self._kernel_id)
+        except Exception:
+            logger.warning("Failed to delete Jupyter kernel %s", self._kernel_id, exc_info=True)
 
         # Stop the kernel server
         if isinstance(self.jupyter_server, (LocalJupyterServer, DockerJupyterServer)):
-            self.jupyter_server.stop()
+            try:
+                self.jupyter_server.stop()
+            except Exception:
+                logger.warning("Failed to stop Jupyter server", exc_info=True)
 
     async def __aenter__(self) -> Self:
         return self

@@ -26,11 +26,18 @@ import json
 import argparse
 import traceback
 import os
+import sys
+from pathlib import Path
 
-import requests
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from utils.utils import read_jsonl, write_jsonl
-from openai import OpenAI
+from datawiseagent.harness.finalizer import (
+    extract_final_answer_block,
+    render_reformat_response,
+)
 
 
 def define_arguments():
@@ -59,32 +66,67 @@ def define_arguments():
     )
     parser.add_argument("--model", type=str, default="gpt-4o-mini")
     parser.add_argument("--max_resp", type=int, default=2048)
+    parser.add_argument(
+        "--max_retries",
+        type=int,
+        default=3,
+        help="Maximum LLM fallback retry attempts per row.",
+    )
+    parser.add_argument(
+        "--retry_sleep",
+        type=float,
+        default=10.0,
+        help="Seconds to sleep between LLM fallback retry attempts.",
+    )
+    parser.add_argument(
+        "--request_timeout",
+        type=float,
+        default=120.0,
+        help="OpenAI-compatible client timeout in seconds for LLM fallback.",
+    )
+    parser.add_argument(
+        "--final_block_only",
+        action="store_true",
+        help="Only reformat from machine-readable FinalAnswerBlock; do not call an LLM fallback.",
+    )
 
     args = parser.parse_args()
     return args
 
 
 def call(messages, args):
+    from openai import OpenAI
+
+    max_retries = max(1, int(args.max_retries))
     data = {
         "max_tokens": args.max_resp,
         "model": args.model,
         "temperature": 0,
         "messages": messages,
     }
-    while True:
+    last_error = None
+    for attempt in range(1, max_retries + 1):
         try:
-            client = OpenAI(api_key=args.api_key, base_url=args.url)
-            print(args.model)
+            client = OpenAI(
+                api_key=args.api_key,
+                base_url=args.url,
+                timeout=args.request_timeout,
+            )
+            logging.info("Calling reformat model: %s", args.model)
             result = client.chat.completions.create(**data)
 
             return result.choices[0].message.content
         except Exception as e:
+            last_error = e
+            logging.error("Reformat call failed on attempt %s/%s", attempt, max_retries)
             logging.error(data)
             logging.error(traceback.format_exc())
-            time.sleep(10)
+            if attempt < max_retries:
+                time.sleep(max(0.0, float(args.retry_sleep)))
+    raise RuntimeError(f"LLM reformat failed after {max_retries} attempts: {last_error}")
 
 
-demons = """\Format{{
+demons = r"""\Format{{
 @shapiro_wilk_statistic[test_statistic]
 @shapiro_wilk_p_value[p_value]
 where "test_statistic" is a number between 0 and 1 representing the Shapiro-Wilk test statistic. Rounding off the answer to two decimal places.
@@ -112,10 +154,14 @@ The format requirements of this question is:
 
 if __name__ == "__main__":
     args = define_arguments()
-    args.url = open(args.url_file).read().strip()
-    args.api_key = open(args.api_key_file).read().strip()
+    args.url = None
+    args.api_key = None
+    if not args.final_block_only:
+        args.url = open(args.url_file).read().strip()
+        args.api_key = open(args.api_key_file).read().strip()
 
     questions = read_jsonl(args.questions_file_path)
+    question_by_id = {question["id"]: question for question in questions}
 
     responses = []
     with open(args.responses_file_path, encoding="utf-8", mode="r") as f:
@@ -123,10 +169,7 @@ if __name__ == "__main__":
             item = json.loads(line)
             responses.append(item)
 
-    reformatted_responses_ids = []
-    from pathlib import Path
-    import os
-
+    reformatted_responses_ids: set[int | str] = set()
     output_file_path = Path(args.output_file_path)
     if not os.path.exists(output_file_path):
         try:
@@ -134,8 +177,6 @@ if __name__ == "__main__":
             output_file_path.parent.mkdir(parents=True, exist_ok=True)
             output_file_path.touch()
 
-            # with output_file_path.open("w", encoding="utf-8") as f:
-            #    json.dump({}, f, indent=4)
             print(f"Created empty file at: {output_file_path}")
         except Exception as e:
             print(f"Failed to create file: {e}")
@@ -143,47 +184,48 @@ if __name__ == "__main__":
         print(f"File already exists: {output_file_path}")
 
     with open(args.output_file_path, encoding="utf-8", mode="r") as f:
-        # reformatted_responses = json.load(f)
         for line in f:
             item = json.loads(line)
             if "id" in item:
-                reformatted_responses_ids.append(item["id"])
-
-    # response_number = len(reformatted_responses_ids)
-    new_responses = []
+                reformatted_responses_ids.add(item["id"])
 
     for res_id, response in enumerate(responses):
         if response["id"] in reformatted_responses_ids:
             continue
 
-        for question in questions:
-            if question["id"] == response["id"]:
-                question_description = question["question"]
-                format = question["format"]
-                break
-
-        messages = [{"role": "user", "content": question_description}]
-        messages.append({"role": "assistant", "content": response["response"]})
-        messages.append(
-            {
-                "role": "user",
-                "content": reformat_template.format(demons=demons, format=format),
-            }
-        )
+        question = question_by_id.get(response["id"], {})
+        question_description = question.get("question", "")
+        format = question.get("format", response.get("format", ""))
 
         try:
-            if "is_solved" in response and response["is_solved"]:
-                pass
-
+            final_block = extract_final_answer_block(response)
+            if final_block is not None:
+                reformatted_response = render_reformat_response(final_block, format)
+                response["reformat_response"] = reformatted_response
+                response["final_block_missing"] = False
+                print(f"{res_id}: {reformatted_response}")
+            elif args.final_block_only:
+                response["reformat_response"] = ""
+                response["final_block_missing"] = True
+                print(f"{res_id}: FinalAnswerBlock missing; skipped LLM fallback")
             else:
+                messages = [{"role": "user", "content": question_description}]
+                messages.append({"role": "assistant", "content": response.get("response", "")})
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": reformat_template.format(demons=demons, format=format),
+                    }
+                )
                 reformatted_response = call(messages, args)
                 response["reformat_response"] = reformatted_response
-
+                response["final_block_missing"] = True
                 print(f"{res_id}: {reformatted_response}")
 
-            new_responses.append(response)
             write_jsonl([response], args.output_file_path, mode="a+")
         except Exception as e:
-            import traceback
-
             traceback.print_exc()
+            response["reformat_response"] = ""
+            response["final_block_missing"] = True
+            response["reformat_error"] = f"{type(e).__name__}: {e}"
+            write_jsonl([response], args.output_file_path, mode="a+")

@@ -1,0 +1,21 @@
+{
+    "main_results": {
+        "Accuracy by Question": 0.9512,
+        "Accuracy Proportional by Sub-Question": 0.9634,
+        "Accuracy by Sub-Question": 0.9604
+    },
+    "concept_accuracy_analysis": {
+        "Summary Statistics": 0.9268,
+        "Distribution Analysis": 0.9048,
+        "Correlation Analysis": 1.0,
+        "Comprehensive Data Preprocessing": 1.0,
+        "Feature Engineering": 0.6667,
+        "Outlier Detection": 1.0
+    },
+    "concept_count_accuracy_analysis": {
+        "1": 0.961,
+        "2": 1.0,
+        "3": 0.0
+    },
+    "two_or_more_concepts_accuracy": 0.8
+}

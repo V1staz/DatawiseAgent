@@ -42,12 +42,17 @@ def create_session(
     user_id: str,
     session_name: str,
     tool_mode: Literal["default", "dsbench", "datamodeling"] = "default",
+    reset_llm_config: Optional[dict] = None,
+    reset_code_executor: Optional[dict] = None,
 ):
+    payload = {"tool_mode": tool_mode}
+    if reset_llm_config is not None:
+        payload["reset_llm_config"] = reset_llm_config
+    if reset_code_executor is not None:
+        payload["reset_code_executor"] = reset_code_executor
     response = httpx.post(
         f"{BASE_URL}/users/{user_id}/sessions/{session_name}",
-        json={
-            "tool_mode": tool_mode,
-        },
+        json=payload,
         timeout=None,
     )
     response_data = _json_or_raise(response, "create_session")
@@ -86,7 +91,7 @@ def upload_file(
 ):
     with open(file_path, "rb") as f:
         # filename = Path(file_path).name
-        if filename_to_save == None:
+        if filename_to_save is None:
             filename = Path(file_path).name
         else:
             filename = filename_to_save
@@ -101,6 +106,15 @@ def upload_file(
         )
     response_data = _json_or_raise(response, "upload_file")
     print("Upload File Response:", response_data)
+
+
+def stop_session(user_id: str, session_id: str):
+    response = httpx.delete(
+        f"{BASE_URL}/users/{user_id}/sessions/{session_id}", timeout=120
+    )
+    response_data = _json_or_raise(response, "stop_session")
+    print("Stop Session Response:", response_data)
+    return response_data
 
 
 async def main():

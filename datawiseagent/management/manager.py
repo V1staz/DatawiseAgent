@@ -1,9 +1,14 @@
+import logging
+
 from datawiseagent.agents.datawise_agent import DatawiseAgent
 from uuid import UUID, uuid4
 from typing import Optional, List, Tuple
 from fastapi import WebSocket
 from datawiseagent.memory.session import SessionContent
 from datawiseagent.common.types import SessionInfo
+
+logger = logging.getLogger(__name__)
+
 
 class DatawiseAgentManager:
     def __init__(self):
@@ -64,11 +69,22 @@ class DatawiseAgentManager:
         self, user_id: UUID, session_id: UUID, session_content: SessionContent
     ):
         websockets = self.get_websockets(user_id, session_id)
+        if not websockets:
+            return
 
-        data = session_content.model_dump_json()
+        try:
+            data = session_content.model_dump_json()
+        except Exception:
+            logger.warning(
+                "Skipping session update broadcast because session content "
+                "could not be serialized",
+                exc_info=True,
+            )
+            return
         for websocket in websockets:
             try:
                 await websocket.send_text(data)
-            except Exception as e:
+            except Exception:
                 # 如果发送失败，移除该 WebSocket 连接
+                logger.warning("Removing websocket after send failure", exc_info=True)
                 self.remove_websocket(user_id, session_id, websocket)

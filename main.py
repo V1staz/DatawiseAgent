@@ -39,6 +39,7 @@ from pathlib import Path
 import json
 import os
 import asyncio
+import logging
 from starlette.websockets import WebSocketState
 
 from datawiseagent.memory.session import SessionContent, CellHistoryMemory
@@ -62,6 +63,7 @@ from datawiseagent.common.types import (
 
 app = FastAPI()
 agent_manager = DatawiseAgentManager()
+logger = logging.getLogger(__name__)
 
 
 @app.post("/create_user/")
@@ -124,6 +126,30 @@ async def upload_file(
     paths = await agent.process_uploaded_files(session_id, files)
 
     return {"message": "Files processed successfully", "results": paths}
+
+
+@app.get("/healthz")
+async def healthz():
+    return {"status": "ok"}
+
+
+@app.delete("/users/{user_id}/sessions/{session_id}")
+async def stop_session(user_id: UUID, session_id: UUID):
+    agent = agent_manager.get_agent(user_id)
+    if session_id not in agent.sessions:
+        return {"session_id": str(session_id), "stopped": False, "reason": "not_found"}
+    stopped_session_id = await agent.stop_session(session_id)
+    return {"session_id": str(stopped_session_id), "stopped": True}
+
+
+@app.on_event("shutdown")
+async def shutdown_sessions():
+    for agent in list(agent_manager.agents.values()):
+        for session_id in list(agent.sessions.keys()):
+            try:
+                await agent.stop_session(session_id)
+            except Exception:
+                logger.warning("Failed to stop session %s during shutdown", session_id, exc_info=True)
 
 
 @app.get("/users", response_model=List[str])

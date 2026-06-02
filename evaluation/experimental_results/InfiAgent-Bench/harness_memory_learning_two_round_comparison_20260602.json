@@ -1,0 +1,459 @@
+{
+  "flip_ids": {
+    "improved": [
+      75,
+      271,
+      310,
+      351,
+      446,
+      490,
+      506
+    ],
+    "regressed": [
+      137,
+      254,
+      424,
+      473,
+      521,
+      542,
+      554,
+      587
+    ],
+    "sub_negative": [
+      137,
+      254,
+      424,
+      431,
+      473,
+      521,
+      542,
+      554,
+      587
+    ],
+    "sub_positive": [
+      75,
+      219,
+      271,
+      310,
+      351,
+      446,
+      490,
+      506
+    ]
+  },
+  "flips": {
+    "count": 17,
+    "improved_question": 7,
+    "items": [
+      {
+        "concepts": [
+          "Feature Engineering",
+          "Summary Statistics"
+        ],
+        "id": 75,
+        "level": "medium",
+        "r1_ok": false,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "0/2",
+        "r1_validator_passed": true,
+        "r2_memory_hits": 3,
+        "r2_ok": true,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "2/2",
+        "r2_validator_passed": true,
+        "sub_delta": 2
+      },
+      {
+        "concepts": [
+          "Feature Engineering",
+          "Machine Learning"
+        ],
+        "id": 137,
+        "level": "hard",
+        "r1_ok": true,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "1/1",
+        "r1_validator_passed": true,
+        "r2_memory_hits": 3,
+        "r2_ok": false,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "0/1",
+        "r2_validator_passed": true,
+        "sub_delta": -1
+      },
+      {
+        "concepts": [
+          "Outlier Detection"
+        ],
+        "id": 219,
+        "level": "medium",
+        "r1_ok": false,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "0/2",
+        "r1_validator_passed": false,
+        "r2_memory_hits": 3,
+        "r2_ok": false,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "1/2",
+        "r2_validator_passed": true,
+        "sub_delta": 1
+      },
+      {
+        "concepts": [
+          "Outlier Detection"
+        ],
+        "id": 254,
+        "level": "medium",
+        "r1_ok": true,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "1/1",
+        "r1_validator_passed": false,
+        "r2_memory_hits": 3,
+        "r2_ok": false,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "0/1",
+        "r2_validator_passed": false,
+        "sub_delta": -1
+      },
+      {
+        "concepts": [
+          "Comprehensive Data Preprocessing"
+        ],
+        "id": 271,
+        "level": "hard",
+        "r1_ok": false,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "0/3",
+        "r1_validator_passed": true,
+        "r2_memory_hits": 3,
+        "r2_ok": true,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "3/3",
+        "r2_validator_passed": true,
+        "sub_delta": 3
+      },
+      {
+        "concepts": [
+          "Correlation Analysis"
+        ],
+        "id": 310,
+        "level": "hard",
+        "r1_ok": false,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "0/1",
+        "r1_validator_passed": true,
+        "r2_memory_hits": 3,
+        "r2_ok": true,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "1/1",
+        "r2_validator_passed": false,
+        "sub_delta": 1
+      },
+      {
+        "concepts": [
+          "Correlation Analysis"
+        ],
+        "id": 351,
+        "level": "easy",
+        "r1_ok": false,
+        "r1_runtime_errors": 1,
+        "r1_semantic_passed": false,
+        "r1_sub": "0/1",
+        "r1_validator_passed": false,
+        "r2_memory_hits": 3,
+        "r2_ok": true,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "1/1",
+        "r2_validator_passed": true,
+        "sub_delta": 1
+      },
+      {
+        "concepts": [
+          "Machine Learning",
+          "Feature Engineering"
+        ],
+        "id": 424,
+        "level": "hard",
+        "r1_ok": true,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "1/1",
+        "r1_validator_passed": true,
+        "r2_memory_hits": 3,
+        "r2_ok": false,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "0/1",
+        "r2_validator_passed": true,
+        "sub_delta": -1
+      },
+      {
+        "concepts": [
+          "Correlation Analysis",
+          "Comprehensive Data Preprocessing"
+        ],
+        "id": 431,
+        "level": "hard",
+        "r1_ok": false,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "1/3",
+        "r1_validator_passed": true,
+        "r2_memory_hits": 3,
+        "r2_ok": false,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "0/3",
+        "r2_validator_passed": true,
+        "sub_delta": -1
+      },
+      {
+        "concepts": [
+          "Summary Statistics"
+        ],
+        "id": 446,
+        "level": "easy",
+        "r1_ok": false,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "0/1",
+        "r1_validator_passed": true,
+        "r2_memory_hits": 3,
+        "r2_ok": true,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "1/1",
+        "r2_validator_passed": true,
+        "sub_delta": 1
+      },
+      {
+        "concepts": [
+          "Outlier Detection"
+        ],
+        "id": 473,
+        "level": "easy",
+        "r1_ok": true,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "1/1",
+        "r1_validator_passed": true,
+        "r2_memory_hits": 3,
+        "r2_ok": false,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "0/1",
+        "r2_validator_passed": true,
+        "sub_delta": -1
+      },
+      {
+        "concepts": [
+          "Summary Statistics"
+        ],
+        "id": 490,
+        "level": "easy",
+        "r1_ok": false,
+        "r1_runtime_errors": 1,
+        "r1_semantic_passed": false,
+        "r1_sub": "0/1",
+        "r1_validator_passed": false,
+        "r2_memory_hits": 3,
+        "r2_ok": true,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "1/1",
+        "r2_validator_passed": true,
+        "sub_delta": 1
+      },
+      {
+        "concepts": [
+          "Summary Statistics"
+        ],
+        "id": 506,
+        "level": "easy",
+        "r1_ok": false,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "0/1",
+        "r1_validator_passed": false,
+        "r2_memory_hits": 3,
+        "r2_ok": true,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "1/1",
+        "r2_validator_passed": true,
+        "sub_delta": 1
+      },
+      {
+        "concepts": [
+          "Machine Learning",
+          "Feature Engineering"
+        ],
+        "id": 521,
+        "level": "hard",
+        "r1_ok": true,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "1/1",
+        "r1_validator_passed": true,
+        "r2_memory_hits": 3,
+        "r2_ok": false,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "0/1",
+        "r2_validator_passed": true,
+        "sub_delta": -1
+      },
+      {
+        "concepts": [
+          "Summary Statistics"
+        ],
+        "id": 542,
+        "level": "easy",
+        "r1_ok": true,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "1/1",
+        "r1_validator_passed": true,
+        "r2_memory_hits": 3,
+        "r2_ok": false,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "0/1",
+        "r2_validator_passed": true,
+        "sub_delta": -1
+      },
+      {
+        "concepts": [
+          "Summary Statistics",
+          "Distribution Analysis"
+        ],
+        "id": 554,
+        "level": "easy",
+        "r1_ok": true,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "1/1",
+        "r1_validator_passed": false,
+        "r2_memory_hits": 3,
+        "r2_ok": false,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "0/1",
+        "r2_validator_passed": true,
+        "sub_delta": -1
+      },
+      {
+        "concepts": [
+          "Correlation Analysis"
+        ],
+        "id": 587,
+        "level": "medium",
+        "r1_ok": true,
+        "r1_runtime_errors": 0,
+        "r1_semantic_passed": true,
+        "r1_sub": "1/1",
+        "r1_validator_passed": true,
+        "r2_memory_hits": 3,
+        "r2_ok": false,
+        "r2_runtime_errors": 0,
+        "r2_semantic_passed": true,
+        "r2_sub": "0/1",
+        "r2_validator_passed": true,
+        "sub_delta": -1
+      }
+    ],
+    "regressed_question": 8,
+    "subquestion_negative": 9,
+    "subquestion_positive": 8
+  },
+  "r1": {
+    "by_level": {
+      "easy": {
+        "n": 82,
+        "question_accuracy": 0.878,
+        "sub_ok": 91,
+        "sub_total": 101,
+        "subquestion_accuracy": 0.901
+      },
+      "hard": {
+        "n": 88,
+        "question_accuracy": 0.8295,
+        "sub_ok": 182,
+        "sub_total": 203,
+        "subquestion_accuracy": 0.8966
+      },
+      "medium": {
+        "n": 87,
+        "question_accuracy": 0.908,
+        "sub_ok": 139,
+        "sub_total": 152,
+        "subquestion_accuracy": 0.9145
+      }
+    },
+    "raw_count": 257
+  },
+  "r2": {
+    "by_level": {
+      "easy": {
+        "n": 82,
+        "question_accuracy": 0.8902,
+        "sub_ok": 92,
+        "sub_total": 101,
+        "subquestion_accuracy": 0.9109
+      },
+      "hard": {
+        "n": 88,
+        "question_accuracy": 0.8182,
+        "sub_ok": 182,
+        "sub_total": 203,
+        "subquestion_accuracy": 0.8966
+      },
+      "medium": {
+        "n": 87,
+        "question_accuracy": 0.8966,
+        "sub_ok": 140,
+        "sub_total": 152,
+        "subquestion_accuracy": 0.9211
+      }
+    },
+    "raw_count": 257
+  },
+  "r2_memory": {
+    "avg_hits": 3.0,
+    "by_level": {
+      "easy": {
+        "avg_hits": 3.0,
+        "rows": 82,
+        "rows_with_hits": 82,
+        "total_hits": 246
+      },
+      "hard": {
+        "avg_hits": 3.0,
+        "rows": 88,
+        "rows_with_hits": 88,
+        "total_hits": 264
+      },
+      "medium": {
+        "avg_hits": 3.0,
+        "rows": 87,
+        "rows_with_hits": 87,
+        "total_hits": 261
+      }
+    },
+    "rows_with_hits": 257,
+    "total_hits": 771
+  }
+}

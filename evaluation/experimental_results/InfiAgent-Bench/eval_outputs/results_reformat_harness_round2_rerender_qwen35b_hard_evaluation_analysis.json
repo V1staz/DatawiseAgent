@@ -1,0 +1,33 @@
+{
+    "main_results": {
+        "Accuracy by Question": 0.7841,
+        "Accuracy Proportional by Sub-Question": 0.8475,
+        "Accuracy by Sub-Question": 0.8719
+    },
+    "concept_accuracy_analysis": {
+        "Machine Learning": 0.8421,
+        "Summary Statistics": 0.7188,
+        "Comprehensive Data Preprocessing": 0.7143,
+        "Feature Engineering": 0.7879,
+        "Distribution Analysis": 0.85,
+        "Correlation Analysis": 0.8,
+        "Outlier Detection": 0.7
+    },
+    "concept_count_accuracy_analysis": {
+        "1": 1.0,
+        "2": 0.7231,
+        "3": 0.875,
+        "4": 1.0
+    },
+    "two_or_more_concepts_accuracy": 0.7432,
+    "harness_metrics": {
+        "response_count": 88,
+        "evaluated_count": 88,
+        "format_error_count": 0,
+        "reformat_missing_count": 0,
+        "final_block_missing_count": 0,
+        "validator_failed_count": 0,
+        "recovery_event_count": 0,
+        "average_branch_count": 2.9659
+    }
+}

@@ -60,12 +60,23 @@ def evaluate_responses(labels, responses):
             (
                 resp
                 for resp in responses
-                if "id" in resp.keys() and resp["response"] and resp["id"] == label_id
+                if (
+                    "id" in resp.keys()
+                    and (
+                        "reformat_response" in resp
+                        or resp.get("response")
+                    )
+                    and resp["id"] == label_id
+                )
             ),
             None,
         )
         if corresponding_response:
-            answer_names, answers = extract_format(corresponding_response["response"])
+            if "reformat_response" in corresponding_response:
+                response_text = corresponding_response.get("reformat_response", "")
+            else:
+                response_text = corresponding_response.get("response", "")
+            answer_names, answers = extract_format(response_text)
             extracted_answers = dict(zip(answer_names, answers))
             correct_answers = {
                 ans_name: is_equal(
@@ -199,6 +210,53 @@ def evaluate_accuracy_proportional_by_sub_question_adjusted(results):
     return round(total_score / len(results), 4) if results else 0
 
 
+def analyze_harness_metrics(labels, responses, results):
+    response_by_id = {resp.get("id"): resp for resp in responses if "id" in resp}
+    result_by_id = {result.get("id"): result for result in results if "id" in result}
+    format_error_count = 0
+    for label in labels:
+        if label["id"] not in response_by_id:
+            continue
+        label_answers = {ans[0]: ans[1] for ans in label["common_answers"]}
+        result = result_by_id.get(label["id"], {})
+        predicted = result.get("predicted_answers", {})
+        if any(name not in predicted for name in label_answers):
+            format_error_count += 1
+
+    final_block_missing_count = 0
+    validator_failed_count = 0
+    branch_counts = []
+    recovery_count = 0
+    for response in responses:
+        final_block = response.get("final_block")
+        if response.get("final_block_missing") is True or final_block == {}:
+            final_block_missing_count += 1
+        validator_report = response.get("validator_report") or {}
+        if validator_report and not validator_report.get("passed", False):
+            validator_failed_count += 1
+        search_summary = response.get("search_summary") or {}
+        if "branch_count" in search_summary:
+            branch_counts.append(search_summary.get("branch_count") or 0)
+        recovery_count += len(response.get("recovery_events") or [])
+
+    reformat_missing_count = sum(
+        1 for response in responses if not response.get("reformat_response")
+    )
+    avg_branch_count = (
+        round(sum(branch_counts) / len(branch_counts), 4) if branch_counts else 0
+    )
+    return {
+        "response_count": len(responses),
+        "evaluated_count": len(results),
+        "format_error_count": format_error_count,
+        "reformat_missing_count": reformat_missing_count,
+        "final_block_missing_count": final_block_missing_count,
+        "validator_failed_count": validator_failed_count,
+        "recovery_event_count": recovery_count,
+        "average_branch_count": avg_branch_count,
+    }
+
+
 # Main function to run the evaluation
 def main():
     parser = argparse.ArgumentParser(
@@ -250,6 +308,8 @@ def main():
         evaluate_accuracy_proportional_by_sub_question_adjusted(results)
     )
 
+    harness_metrics = analyze_harness_metrics(labels, responses, results)
+
     # Print results
     print(f"Accuracy by Question: {accuracy_by_question:.2%}")
     print(
@@ -287,6 +347,10 @@ def main():
     else:
         print("\nNo data available for questions with >= 2 Concepts.")
 
+    print("\nHarness Metrics:")
+    for key, value in harness_metrics.items():
+        print(f"{key}: {value}")
+
     responses_file_name = os.path.splitext(os.path.basename(args.responses_file_path))[
         0
     ]
@@ -301,6 +365,7 @@ def main():
                 "concept_accuracy_analysis": concept_accuracy_analysis,
                 "concept_count_accuracy_analysis": concept_count_accuracy_analysis,
                 "two_or_more_concepts_accuracy": two_or_more_concepts_accuracy,
+                "harness_metrics": harness_metrics,
             },
             file,
             indent=4,

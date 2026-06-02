@@ -468,7 +468,7 @@ pd.options.display.notebook_repr_html = False
                         ]
                     )
 
-    def stop_session(self, session_id: uuid.UUID) -> uuid.UUID:
+    async def stop_session(self, session_id: uuid.UUID) -> uuid.UUID:
         """
         Stop a running session and release associated resources.
 
@@ -490,8 +490,11 @@ pd.options.display.notebook_repr_html = False
         if session_id in self.sessions:
             session = self.sessions[session_id]
             code_executor = session.code_executor
-            if isinstance(code_executor, JupyterCodeExecutor):
-                code_executor.stop()
+            try:
+                if isinstance(code_executor, JupyterCodeExecutor):
+                    await code_executor.stop()
+            finally:
+                self.sessions.pop(session_id, None)
         else:
             raise KeyError(f"Session ID {session_id} not found in active sessions.")
 

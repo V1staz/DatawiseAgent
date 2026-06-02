@@ -15,8 +15,9 @@ import json
 import os
 import uuid
 import argparse
+import traceback
 from pathlib import Path
-from chat_test_asyncio import create_session, create_user, chat, upload_file
+from chat_test_asyncio import create_session, create_user, chat, upload_file, stop_session
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
@@ -61,17 +62,28 @@ def extract_data_from_folder(folder_path):
 
 
 def _get_script_params():
-    try:
-        parser = argparse.ArgumentParser()
-        parser.add_argument("--note", help="note for running", required=False, type=str)
-
-        args = parser.parse_args()
-
-        return args
-    except Exception as e:
-        print("Failed to get script input arguments: {}".format(str(e)), exc_info=True)
-
-    return None
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--note", help="note for running", required=False, type=str)
+    parser.add_argument(
+        "--level",
+        help="optional difficulty filter: easy / medium / hard",
+        required=False,
+        type=str,
+        choices=["easy", "medium", "hard"],
+    )
+    parser.add_argument(
+        "--num_workers",
+        help="number of workers for concurrent mode",
+        required=False,
+        type=int,
+        default=1,
+    )
+    parser.add_argument(
+        "--concurrent",
+        help="run questions concurrently",
+        action="store_true",
+    )
+    return parser.parse_args()
 
 
 def process_question(user_id: uuid.UUID, q, table_path):
@@ -93,6 +105,7 @@ def process_question(user_id: uuid.UUID, q, table_path):
     phy_file_path = os.path.join(table_path, file_name)
     prompt = f"Question: {input_text}\n{constraints}\n"
 
+    session_id = None
     try:
         session_id = uuid.UUID(create_session(user_id=str(user_id), session_name=q_id))
         print(f"Created session: {session_id} for question {q_id}")
@@ -122,14 +135,44 @@ def process_question(user_id: uuid.UUID, q, table_path):
         return iteration_result
 
     except Exception as e:
-        import traceback
-
         print(f"Error processing question {q_id}: {e}")
         traceback.print_exc()
         return None  # 返回None以表示失败
+    finally:
+        if session_id is not None:
+            try:
+                stop_session(str(user_id), str(session_id))
+            except Exception as stop_exc:
+                print(f"Failed to stop session {session_id} for question {q_id}: {stop_exc}")
 
 
-def concurrent_main(user_id: uuid.UUID, num_workers: int = 4):
+def _filter_questions_by_level(questions, level: str | None):
+    if level is None:
+        return questions
+    return [q for q in questions if q.get("level") == level]
+
+
+def _load_run_inputs(args: argparse.Namespace):
+    questions = _filter_questions_by_level(
+        read_dicts_from_file("./InfiAgentBench/data/da-dev-questions.jsonl"),
+        getattr(args, "level", None),
+    )
+    table_path = "./InfiAgentBench/data/da-dev-tables"
+    results_path = "./experimental_results/InfiAgent-Bench/results_{}.jsonl".format(
+        getattr(args, "note", None)
+    )
+    Path(results_path).parent.mkdir(parents=True, exist_ok=True)
+    Path(results_path).touch(exist_ok=True)
+    existing_ids = {
+        item["id"]
+        for item in read_dicts_from_file(results_path)
+        if "id" in item
+    }
+    pending_questions = [q for q in questions if q["id"] not in existing_ids]
+    return pending_questions, table_path, results_path
+
+
+def concurrent_main(user_id: uuid.UUID, args: argparse.Namespace, num_workers: int = 4):
     """
     并发处理问题并返回结果列表。
 
@@ -144,34 +187,7 @@ def concurrent_main(user_id: uuid.UUID, num_workers: int = 4):
     # 创建一个线程锁，用于安全地写入文件
     write_lock = threading.Lock()
 
-    args = _get_script_params()
-    note_content = getattr(args, "note", None)
-    extracted_data = read_dicts_from_file(
-        "./InfiAgentBench/data/da-dev-questions.jsonl"
-    )
-    table_path = "./InfiAgentBench/data/da-dev-tables"
-
-    results_path = "./experimental_results/InfiAgent-Bench/results_{}.jsonl".format(
-        note_content
-    )
-    results = []
-    results_ids = []
-
-    if os.path.exists(results_path):
-        with open(results_path, "r", encoding="utf-8") as f:
-            for line in f:
-                item = json.loads(line)
-                results.append(item)
-                if "id" in item:
-                    results_ids.append(item["id"])
-    else:
-        Path(results_path).parent.mkdir(parents=True, exist_ok=True)
-        Path(results_path).touch(exist_ok=True)
-
-    pending_questions = []
-    for q_id, q in enumerate(extracted_data):
-        if q["id"] not in results_ids:
-            pending_questions.append(q)
+    pending_questions, table_path, results_path = _load_run_inputs(args)
 
     with ThreadPoolExecutor(max_workers=num_workers) as executor:
         # 提交所有任务
@@ -198,35 +214,10 @@ def concurrent_main(user_id: uuid.UUID, num_workers: int = 4):
                     print(f"Question {q['id']} generated an exception: {exc}")
 
 
-def main(user_id: uuid.UUID):
-    args = _get_script_params()
-    note_content = getattr(args, "note", None)
-    extracted_data = read_dicts_from_file(
-        "./InfiAgentBench/data/da-dev-questions.jsonl"
-    )
-    table_path = "./InfiAgentBench/data/da-dev-tables"
+def main(user_id: uuid.UUID, args: argparse.Namespace):
+    pending_questions, table_path, results_path = _load_run_inputs(args)
 
-    results_path = "./experimental_results/InfiAgent-Bench/results_{}.jsonl".format(
-        note_content
-    )
-    results = []
-    results_ids = []
-
-    if os.path.exists(results_path):
-        with open(results_path, "r", encoding="utf-8") as f:
-            for line in f:
-                item = json.loads(line)
-                results.append(item)
-                if "id" in item:
-                    results_ids.append(item["id"])
-    else:
-        Path(results_path).parent.mkdir(parents=True, exist_ok=True)
-        Path(results_path).touch(exist_ok=True)
-
-    for q_id, q in enumerate(extracted_data):
-
-        if q["id"] in results_ids:
-            continue
+    for q in pending_questions:
 
         input_text = q["question"]
         concepts = q["concepts"]
@@ -245,6 +236,7 @@ def main(user_id: uuid.UUID):
 
         prompt = f"Question: {input_text}\n{constraints}\n"
 
+        session_id = None
         try:
             session_id = uuid.UUID(
                 create_session(user_id=user_id, session_name=q["id"])
@@ -279,14 +271,26 @@ def main(user_id: uuid.UUID):
                 f.flush()
 
         except Exception as e:
-            import traceback
-
             traceback.print_exc()
-            pass
+            print(f"Question {q['id']} failed: {type(e).__name__}: {e}")
+        finally:
+            if session_id is not None:
+                try:
+                    stop_session(str(user_id), str(session_id))
+                except Exception as stop_exc:
+                    print(
+                        f"Failed to stop session {session_id} for question {q['id']}: {stop_exc}"
+                    )
 
 
 if __name__ == "__main__":
     # --note "datawise-test"
-    user_id = create_user(username="InfiAgentBench-datawise-test")
-
-    main(user_id)
+    args = _get_script_params()
+    user_name = args.note or "InfiAgentBench-datawise-test"
+    if args.level:
+        user_name = f"{user_name}-{args.level}"
+    user_id = create_user(username=user_name)
+    if args.concurrent:
+        concurrent_main(user_id, args, num_workers=args.num_workers)
+    else:
+        main(user_id, args)
