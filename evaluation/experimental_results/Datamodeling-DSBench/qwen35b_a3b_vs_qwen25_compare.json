@@ -1,0 +1,684 @@
+{
+  "summary": {
+    "qwen25": {
+      "rows": 74,
+      "complete": 68,
+      "avg_time": 760.2509452007912,
+      "performance": 0.4290243797872582
+    },
+    "qwen35b-a3b-full": {
+      "rows": 74,
+      "complete": 73,
+      "avg_time": 288.6023217639407,
+      "performance": 0.5317864714321332
+    }
+  },
+  "deltas": [
+    {
+      "delta": -0.033333333333333326,
+      "id": 0,
+      "name": "titanic",
+      "qwen25_score": 0.7,
+      "qwen35_score": 0.6666666666666666,
+      "qwen25_time": 727.5343387126923,
+      "qwen35_time": 34.56585645675659
+    },
+    {
+      "delta": 0.7403920583320431,
+      "id": 1,
+      "name": "santander-customer-transaction-prediction",
+      "qwen25_score": 0.00024408103490358712,
+      "qwen35_score": 0.7406361393669467,
+      "qwen25_time": 215.95896816253662,
+      "qwen35_time": 254.43660593032837
+    },
+    {
+      "delta": 0.08610437782779509,
+      "id": 2,
+      "name": "porto-seguro-safe-driver-prediction",
+      "qwen25_score": 0.18301942315536626,
+      "qwen35_score": 0.26912380098316135,
+      "qwen25_time": 626.1063594818115,
+      "qwen35_time": 179.50702381134033
+    },
+    {
+      "delta": 0.05424056916752673,
+      "id": 3,
+      "name": "santander-customer-satisfaction",
+      "qwen25_score": 0.5170689651086031,
+      "qwen35_score": 0.5713095342761298,
+      "qwen25_time": 155.71734023094177,
+      "qwen35_time": 175.3273310661316
+    },
+    {
+      "delta": -0.23462747999286407,
+      "id": 4,
+      "name": "santander-value-prediction-challenge",
+      "qwen25_score": 0.2894746417451173,
+      "qwen35_score": 0.054847161752253216,
+      "qwen25_time": 193.56216979026794,
+      "qwen35_time": 43.50840425491333
+    },
+    {
+      "delta": 0.0878376897823942,
+      "id": 5,
+      "name": "commonlitreadabilityprize",
+      "qwen25_score": 0.4049105920501296,
+      "qwen35_score": 0.4927482818325238,
+      "qwen25_time": 289.2973601818085,
+      "qwen35_time": 56.31174898147583
+    },
+    {
+      "delta": -0.13246568854217688,
+      "id": 6,
+      "name": "playground-series-s4e1",
+      "qwen25_score": 0.7494033445027215,
+      "qwen35_score": 0.6169376559605446,
+      "qwen25_time": 254.7305862903595,
+      "qwen35_time": 733.3582870960236
+    },
+    {
+      "delta": 0.009926262053318147,
+      "id": 7,
+      "name": "playground-series-s4e2",
+      "qwen25_score": 0.8615995462280205,
+      "qwen35_score": 0.8715258082813386,
+      "qwen25_time": 232.28251719474792,
+      "qwen35_time": 50.263221740722656
+    },
+    {
+      "delta": 0.10168958574920406,
+      "id": 8,
+      "name": "bike-sharing-demand",
+      "qwen25_score": 0.8121155521136836,
+      "qwen35_score": 0.9138051378628876,
+      "qwen25_time": 279.3472537994385,
+      "qwen35_time": 66.7904691696167
+    },
+    {
+      "delta": 0.1915776852931027,
+      "id": 9,
+      "name": "playground-series-s4e5",
+      "qwen25_score": 0.654488736092932,
+      "qwen35_score": 0.8460664213860347,
+      "qwen25_time": 314.9292058944702,
+      "qwen35_time": 180.8
+    },
+    {
+      "delta": 0.01655556425709942,
+      "id": 10,
+      "name": "feedback-prize-english-language-learning",
+      "qwen25_score": 0.12570299835586368,
+      "qwen35_score": 0.1422585626129631,
+      "qwen25_time": 344.7163779735565,
+      "qwen35_time": 115.38704538345337
+    },
+    {
+      "delta": 0.24048967746181757,
+      "id": 11,
+      "name": "liverpool-ion-switching",
+      "qwen25_score": 0.17291385601596956,
+      "qwen35_score": 0.41340353347778713,
+      "qwen25_time": 553.7413294315338,
+      "qwen35_time": 151.5899040699005
+    },
+    {
+      "delta": 0.474124745149268,
+      "id": 12,
+      "name": "playground-series-s4e4",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.474124745149268,
+      "qwen25_time": 279.3302323818207,
+      "qwen35_time": 106.15002465248108
+    },
+    {
+      "delta": 0.008873283159256729,
+      "id": 13,
+      "name": "ventilator-pressure-prediction",
+      "qwen25_score": 0.8089730108036409,
+      "qwen35_score": 0.8178462939628977,
+      "qwen25_time": 1408.9451851844788,
+      "qwen35_time": 943.5147976875305
+    },
+    {
+      "delta": -0.10975371590118721,
+      "id": 14,
+      "name": "microsoft-malware-prediction",
+      "qwen25_score": 0.3578377509681183,
+      "qwen35_score": 0.2480840350669311,
+      "qwen25_time": 719.9783263206482,
+      "qwen35_time": 527.9307196140289
+    },
+    {
+      "delta": 0.006833712984054774,
+      "id": 15,
+      "name": "spaceship-titanic",
+      "qwen25_score": 0.5717539863325739,
+      "qwen35_score": 0.5785876993166287,
+      "qwen25_time": 918.6028590202332,
+      "qwen35_time": 228.7265124320984
+    },
+    {
+      "delta": -0.31000000000000005,
+      "id": 16,
+      "name": "dont-overfit-ii",
+      "qwen25_score": 0.8,
+      "qwen35_score": 0.49,
+      "qwen25_time": 543.5257480144501,
+      "qwen35_time": 48.79662823677063
+    },
+    {
+      "delta": 0.0,
+      "id": 17,
+      "name": "tweet-sentiment-extraction",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.0,
+      "qwen25_time": 593.2191989421844,
+      "qwen35_time": 3600
+    },
+    {
+      "delta": 0.026738539481760748,
+      "id": 18,
+      "name": "playground-series-s4e3",
+      "qwen25_score": 0.7391312963115289,
+      "qwen35_score": 0.7658698357932896,
+      "qwen25_time": 234.88043427467346,
+      "qwen35_time": 51.86092972755432
+    },
+    {
+      "delta": 0.03212124974060049,
+      "id": 19,
+      "name": "learning-agency-lab-automated-essay-scoring-2",
+      "qwen25_score": 0.581252882215928,
+      "qwen35_score": 0.6133741319565285,
+      "qwen25_time": 1708.1031749248505,
+      "qwen35_time": 180.32346510887146
+    },
+    {
+      "delta": 0.21036313361984194,
+      "id": 20,
+      "name": "tabular-playground-series-sep-2021",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.21036313361984194,
+      "qwen25_time": 1219.9147641658783,
+      "qwen35_time": 300.5021240711212
+    },
+    {
+      "delta": -0.0032390469307035374,
+      "id": 21,
+      "name": "playground-series-s3e24",
+      "qwen25_score": 0.7040792120751165,
+      "qwen35_score": 0.7008401651444129,
+      "qwen25_time": 594.3454246520996,
+      "qwen35_time": 161.78273463249207
+    },
+    {
+      "delta": -0.13176850571414195,
+      "id": 22,
+      "name": "us-patent-phrase-to-phrase-matching",
+      "qwen25_score": 0.42759200931893593,
+      "qwen35_score": 0.295823503604794,
+      "qwen25_time": 1314.9307556152344,
+      "qwen35_time": 107.72876906394958
+    },
+    {
+      "delta": 0.0662405000923405,
+      "id": 23,
+      "name": "tabular-playground-series-aug-2022",
+      "qwen25_score": 0.11178427472898433,
+      "qwen35_score": 0.17802477482132484,
+      "qwen25_time": 286.188214302063,
+      "qwen35_time": 147.5
+    },
+    {
+      "delta": 0.6764846731492933,
+      "id": 24,
+      "name": "playground-series-s3e14",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.6764846731492933,
+      "qwen25_time": 391.5604736804962,
+      "qwen35_time": 210.33610844612122
+    },
+    {
+      "delta": 0.014860007454425839,
+      "id": 25,
+      "name": "instant-gratification",
+      "qwen25_score": 0.0422371242826336,
+      "qwen35_score": 0.05709713173705944,
+      "qwen25_time": 3600,
+      "qwen35_time": 239.49851274490356
+    },
+    {
+      "delta": 0.01211244962033925,
+      "id": 26,
+      "name": "tabular-playground-series-aug-2021",
+      "qwen25_score": 0.23522139570385708,
+      "qwen35_score": 0.24733384532419633,
+      "qwen25_time": 3151.8258562088013,
+      "qwen35_time": 284.10697889328003
+    },
+    {
+      "delta": 0.9049882047890081,
+      "id": 27,
+      "name": "tabular-playground-series-jan-2021",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.9049882047890081,
+      "qwen25_time": 1674.0824756622314,
+      "qwen35_time": 141.74238753318787
+    },
+    {
+      "delta": 0.039918722332936696,
+      "id": 28,
+      "name": "playground-series-s3e23",
+      "qwen25_score": 0.5326477204852098,
+      "qwen35_score": 0.5725664428181465,
+      "qwen25_time": 187.42414236068726,
+      "qwen35_time": 97.07088375091553
+    },
+    {
+      "delta": 0.23265126504578315,
+      "id": 29,
+      "name": "playground-series-s3e25",
+      "qwen25_score": 0.2812848429902086,
+      "qwen35_score": 0.5139361080359918,
+      "qwen25_time": 724.7250769138336,
+      "qwen35_time": 67.04496622085571
+    },
+    {
+      "delta": -0.04210870896200458,
+      "id": 30,
+      "name": "tabular-playground-series-jan-2022",
+      "qwen25_score": 0.9043705512884826,
+      "qwen35_score": 0.8622618423264781,
+      "qwen25_time": 440.5019586086273,
+      "qwen35_time": 126.82684540748596
+    },
+    {
+      "delta": 0.04135472339437907,
+      "id": 31,
+      "name": "google-quest-challenge",
+      "qwen25_score": 0.16868782512187816,
+      "qwen35_score": 0.21004254851625723,
+      "qwen25_time": 368.60096979141235,
+      "qwen35_time": 271.25274872779846
+    },
+    {
+      "delta": -0.04761904761904767,
+      "id": 32,
+      "name": "playground-series-s3e22",
+      "qwen25_score": 0.43650793650793646,
+      "qwen35_score": 0.3888888888888888,
+      "qwen25_time": 242.0700399875641,
+      "qwen35_time": 83.72766256332397
+    },
+    {
+      "delta": 0.032090772473209794,
+      "id": 33,
+      "name": "playground-series-s3e17",
+      "qwen25_score": 0.8962960260638615,
+      "qwen35_score": 0.9283867985370713,
+      "qwen25_time": 706.3079352378845,
+      "qwen35_time": 45.61594104766846
+    },
+    {
+      "delta": -0.00016055426598526878,
+      "id": 34,
+      "name": "tabular-playground-series-mar-2021",
+      "qwen25_score": 0.7777752570832914,
+      "qwen35_score": 0.7776147028173062,
+      "qwen25_time": 2283.378353834152,
+      "qwen35_time": 131.14554023742676
+    },
+    {
+      "delta": 0.5451467728874969,
+      "id": 35,
+      "name": "playground-series-s3e20",
+      "qwen25_score": 0.045500774849025594,
+      "qwen35_score": 0.5906475477365225,
+      "qwen25_time": 822.1648941040039,
+      "qwen35_time": 131.0677182674408
+    },
+    {
+      "delta": -0.000826058546680275,
+      "id": 36,
+      "name": "tabular-playground-series-feb-2021",
+      "qwen25_score": 0.8768611955018691,
+      "qwen35_score": 0.8760351369551889,
+      "qwen25_time": 296.03213119506836,
+      "qwen35_time": 197.4402756690979
+    },
+    {
+      "delta": 0.024948725388795667,
+      "id": 37,
+      "name": "playground-series-s3e16",
+      "qwen25_score": 0.37141832531612756,
+      "qwen35_score": 0.39636705070492323,
+      "qwen25_time": 347.67799615859985,
+      "qwen35_time": 48.300246477127075
+    },
+    {
+      "delta": 0.01614265340262888,
+      "id": 38,
+      "name": "tmdb-box-office-prediction",
+      "qwen25_score": 0.3321773995237667,
+      "qwen35_score": 0.34832005292639556,
+      "qwen25_time": 450.6949577331543,
+      "qwen35_time": 284.72192645072937
+    },
+    {
+      "delta": 0.008545831939190673,
+      "id": 39,
+      "name": "tabular-playground-series-sep-2022",
+      "qwen25_score": 0.914974306872858,
+      "qwen35_score": 0.9235201388120486,
+      "qwen25_time": 369.0432376861572,
+      "qwen35_time": 104.44169116020203
+    },
+    {
+      "delta": 0.07133704167488975,
+      "id": 40,
+      "name": "tabular-playground-series-nov-2021",
+      "qwen25_score": 0.40961882226519664,
+      "qwen35_score": 0.4809558639400864,
+      "qwen25_time": 933.9659402370453,
+      "qwen35_time": 193.65654683113098
+    },
+    {
+      "delta": 0.14554815161611367,
+      "id": 41,
+      "name": "cat-in-the-dat",
+      "qwen25_score": 0.37927764857937984,
+      "qwen35_score": 0.5248258001954935,
+      "qwen25_time": 2178.518618583679,
+      "qwen35_time": 276.1357755661011
+    },
+    {
+      "delta": 0.8197046769848331,
+      "id": 42,
+      "name": "tabular-playground-series-jul-2021",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.8197046769848331,
+      "qwen25_time": 732.2863671779633,
+      "qwen35_time": 124.83436894416809
+    },
+    {
+      "delta": 0.0028529723991507216,
+      "id": 43,
+      "name": "tabular-playground-series-feb-2022",
+      "qwen25_score": 0.9633757961783439,
+      "qwen35_score": 0.9662287685774946,
+      "qwen25_time": 179.0444676876068,
+      "qwen35_time": 136.88010549545288
+    },
+    {
+      "delta": 0.0012141184632729063,
+      "id": 44,
+      "name": "tabular-playground-series-apr-2021",
+      "qwen25_score": 0.6017691440464834,
+      "qwen35_score": 0.6029832625097563,
+      "qwen25_time": 1514.889851808548,
+      "qwen35_time": 57.764806509017944
+    },
+    {
+      "delta": -0.042234705071101275,
+      "id": 45,
+      "name": "tabular-playground-series-dec-2021",
+      "qwen25_score": 0.9015780790680666,
+      "qwen35_score": 0.8593433739969654,
+      "qwen25_time": 567.4029166698456,
+      "qwen35_time": 498.20991587638855
+    },
+    {
+      "delta": 0.03750434002724379,
+      "id": 46,
+      "name": "playground-series-s3e19",
+      "qwen25_score": 0.851210902440246,
+      "qwen35_score": 0.8887152424674898,
+      "qwen25_time": 452.23039507865906,
+      "qwen35_time": 222.6973021030426
+    },
+    {
+      "delta": 0.08555044717222682,
+      "id": 47,
+      "name": "cat-in-the-dat-ii",
+      "qwen25_score": 0.3165228241600153,
+      "qwen35_score": 0.40207327133224213,
+      "qwen25_time": 1683.6734220981598,
+      "qwen35_time": 267.36547327041626
+    },
+    {
+      "delta": 0.591146914402465,
+      "id": 48,
+      "name": "tabular-playground-series-may-2022",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.591146914402465,
+      "qwen25_time": 560.0057506561279,
+      "qwen35_time": 352.9902319908142
+    },
+    {
+      "delta": -0.007602339181286721,
+      "id": 49,
+      "name": "playground-series-s3e12",
+      "qwen25_score": 0.629824561403509,
+      "qwen35_score": 0.6222222222222222,
+      "qwen25_time": 269.646409034729,
+      "qwen35_time": 39.971142292022705
+    },
+    {
+      "delta": 0.0391857111834546,
+      "id": 50,
+      "name": "playground-series-s3e18",
+      "qwen25_score": 0.23259376385129538,
+      "qwen35_score": 0.27177947503475,
+      "qwen25_time": 225.36634063720703,
+      "qwen35_time": 77.74566221237183
+    },
+    {
+      "delta": -0.06248044940751907,
+      "id": 51,
+      "name": "tabular-playground-series-mar-2022",
+      "qwen25_score": 0.9672205213669626,
+      "qwen35_score": 0.9047400719594435,
+      "qwen25_time": 238.63690209388733,
+      "qwen35_time": 242.4345395565033
+    },
+    {
+      "delta": 0.022409052414823827,
+      "id": 52,
+      "name": "playground-series-s3e11",
+      "qwen25_score": 0.034281547941677114,
+      "qwen35_score": 0.05669060035650094,
+      "qwen25_time": 196.75976991653442,
+      "qwen35_time": 205.8919596672058
+    },
+    {
+      "delta": 0.3873239436619718,
+      "id": 53,
+      "name": "playground-series-s3e13",
+      "qwen25_score": 0.20422535211267606,
+      "qwen35_score": 0.5915492957746479,
+      "qwen25_time": 387.59428668022156,
+      "qwen35_time": 65.40537405014038
+    },
+    {
+      "delta": 0.5508544087491456,
+      "id": 54,
+      "name": "nlp-getting-started",
+      "qwen25_score": 0.18899521531100477,
+      "qwen35_score": 0.7398496240601504,
+      "qwen25_time": 409.9165987968445,
+      "qwen35_time": 66.92331433296204
+    },
+    {
+      "delta": -0.022007156443756948,
+      "id": 55,
+      "name": "playground-series-s3e5",
+      "qwen25_score": 0.41628375125815076,
+      "qwen35_score": 0.3942765948143938,
+      "qwen25_time": 208.71384692192078,
+      "qwen35_time": 232.3271017074585
+    },
+    {
+      "delta": 0.02865275959247715,
+      "id": 56,
+      "name": "playground-series-s3e10",
+      "qwen25_score": 0.8831930271270801,
+      "qwen35_score": 0.9118457867195573,
+      "qwen25_time": 189.35153007507324,
+      "qwen35_time": 210.29466032981873
+    },
+    {
+      "delta": -0.02144450568196743,
+      "id": 57,
+      "name": "playground-series-s3e2",
+      "qwen25_score": 0.7781539511324569,
+      "qwen35_score": 0.7567094454504895,
+      "qwen25_time": 514.9964485168457,
+      "qwen35_time": 119.83276987075806
+    },
+    {
+      "delta": -0.1144775619283582,
+      "id": 58,
+      "name": "playground-series-s3e9",
+      "qwen25_score": 0.24236480975200445,
+      "qwen35_score": 0.12788724782364624,
+      "qwen25_time": 185.8525812625885,
+      "qwen35_time": 224.97347855567932
+    },
+    {
+      "delta": 0.07381275674990562,
+      "id": 59,
+      "name": "playground-series-s3e8",
+      "qwen25_score": 0.7649280559698974,
+      "qwen35_score": 0.838740812719803,
+      "qwen25_time": 1168.5384228229523,
+      "qwen35_time": 167.28497457504272
+    },
+    {
+      "delta": -0.06103576244088216,
+      "id": 60,
+      "name": "playground-series-s3e6",
+      "qwen25_score": 0.9230508367574476,
+      "qwen35_score": 0.8620150743165654,
+      "qwen25_time": 860.864340543747,
+      "qwen35_time": 181.94410920143127
+    },
+    {
+      "delta": -0.01439980392749124,
+      "id": 61,
+      "name": "playground-series-s3e1",
+      "qwen25_score": 0.4725761172374621,
+      "qwen35_score": 0.4581763133099709,
+      "qwen25_time": 197.56208729743958,
+      "qwen35_time": 208.9932713508606
+    },
+    {
+      "delta": -0.018698850984234516,
+      "id": 62,
+      "name": "playground-series-s3e7",
+      "qwen25_score": 0.7438760725631661,
+      "qwen35_score": 0.7251772215789316,
+      "qwen25_time": 326.55257296562195,
+      "qwen35_time": 147.29445910453796
+    },
+    {
+      "delta": 0.0040473225404731306,
+      "id": 63,
+      "name": "playground-series-s3e3",
+      "qwen25_score": 0.5818804483188045,
+      "qwen35_score": 0.5859277708592776,
+      "qwen25_time": 546.8820602893829,
+      "qwen35_time": 243.32766938209534
+    },
+    {
+      "delta": 0.011793701815315805,
+      "id": 64,
+      "name": "playground-series-s3e4",
+      "qwen25_score": 0.5473434866446394,
+      "qwen35_score": 0.5591371884599552,
+      "qwen25_time": 549.4379420280457,
+      "qwen35_time": 176.5373179912567
+    },
+    {
+      "delta": 0.0099451042899504,
+      "id": 65,
+      "name": "lmsys-chatbot-arena",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.0099451042899504,
+      "qwen25_time": 811.5816168785095,
+      "qwen35_time": 161.24051523208618
+    },
+    {
+      "delta": 0.0,
+      "id": 66,
+      "name": "covid19-global-forecasting-week-1",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.0,
+      "qwen25_time": 599.5609741210938,
+      "qwen35_time": 298.6257061958313
+    },
+    {
+      "delta": -0.06257354562936579,
+      "id": 67,
+      "name": "see-click-predict-fix",
+      "qwen25_score": 0.616921721024059,
+      "qwen35_score": 0.5543481753946932,
+      "qwen25_time": 744.7483201026917,
+      "qwen35_time": 138.6305980682373
+    },
+    {
+      "delta": 0.3240051956959108,
+      "id": 68,
+      "name": "covid19-global-forecasting-week-4",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.3240051956959108,
+      "qwen25_time": 636.2857429981232,
+      "qwen35_time": 189.58623719215393
+    },
+    {
+      "delta": -0.22559587154920846,
+      "id": 69,
+      "name": "demand-forecasting-kernels-only",
+      "qwen25_score": 0.7074308069979416,
+      "qwen35_score": 0.4818349354487331,
+      "qwen25_time": 3600,
+      "qwen35_time": 199.8201916217804
+    },
+    {
+      "delta": 0.0,
+      "id": 70,
+      "name": "covid19-global-forecasting-week-3",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.0,
+      "qwen25_time": 449.6005425453186,
+      "qwen35_time": 939.6579384803772
+    },
+    {
+      "delta": 0.680546923555003,
+      "id": 71,
+      "name": "playground-series-s4e6",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.680546923555003,
+      "qwen25_time": 194.022807598114,
+      "qwen35_time": 127.22556948661804
+    },
+    {
+      "delta": 0.5120584947565008,
+      "id": 72,
+      "name": "covid19-global-forecasting-week-2",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.5120584947565008,
+      "qwen25_time": 1723.1204087734222,
+      "qwen35_time": 49.06568670272827
+    },
+    {
+      "delta": 0.0,
+      "id": 73,
+      "name": "conways-reverse-game-of-life-2020",
+      "qwen25_score": 0.0,
+      "qwen35_score": 0.0,
+      "qwen25_time": 2154.9810378551483,
+      "qwen35_time": 3600
+    }
+  ]
+}
