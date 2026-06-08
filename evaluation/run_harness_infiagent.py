@@ -207,6 +207,7 @@ def apply_llm_overrides(llm_config: dict[str, Any] | None, args: argparse.Namesp
     if llm_config is None and not any([args.model_name, args.temperature is not None, args.max_tokens is not None]):
         return None
     merged = dict(llm_config or {})
+    merged.setdefault("llm_type", "openai-chat")
     if args.model_name:
         merged["model"] = args.model_name
     if args.temperature is not None:
