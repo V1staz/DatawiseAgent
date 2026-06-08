@@ -34,9 +34,12 @@ def summarize_results(rows: list[dict[str, Any]]) -> dict[str, Any]:
     level_counts: dict[str, int] = {}
     concept_counts: dict[str, int] = {}
     concept_count_counts: dict[str, int] = {}
+    task_status_counts: dict[str, int] = {}
     for row in rows:
         level = row.get("level", "unknown")
         level_counts[level] = level_counts.get(level, 0) + 1
+        status = row.get("task_status", "unknown")
+        task_status_counts[status] = task_status_counts.get(status, 0) + 1
         concepts = row.get("concepts") or []
         concept_count_counts[str(len(concepts))] = concept_count_counts.get(str(len(concepts)), 0) + 1
         for concept in concepts:
@@ -52,21 +55,42 @@ def summarize_results(rows: list[dict[str, Any]]) -> dict[str, Any]:
         for row in rows
         if (row.get("runtime") or {}).get("seconds") is not None
     ]
+    artifact_counts = []
+    for row in rows:
+        artifact_counts.append(
+            sum(
+                1
+                for key in [
+                    "data_card_path",
+                    "trace_path",
+                    "validator_report_path",
+                    "semantic_report_path",
+                ]
+                if row.get(key)
+            )
+            + len(row.get("branch_results") or [])
+        )
+    metadata = rows[0].get("experiment_metadata", {}) if rows else {}
     return {
         "row_count": len(rows),
         "level_counts": level_counts,
         "concept_counts": concept_counts,
         "concept_count_counts": concept_count_counts,
+        "task_status_counts": task_status_counts,
         "final_block_missing_count": sum(1 for row in rows if row.get("final_block") == {} or row.get("final_block_missing") is True),
         "reformat_missing_count": sum(1 for row in rows if not row.get("reformat_response")),
+        "verifier_blocked_count": task_status_counts.get("verifier_blocked", 0),
         "validator_failed_count": sum(1 for row in rows if (row.get("validator_report") or {}).get("passed") is False),
         "semantic_oracle_failed_count": sum(1 for row in rows if (row.get("semantic_report") or {}).get("passed") is False),
         "semantic_oracle_warning_count": sum(len((row.get("semantic_report") or {}).get("warnings") or []) for row in rows),
         "average_rule_count": round(sum(len(row.get("rule_ids") or row.get("rules") or []) for row in rows) / len(rows), 4) if rows else 0,
         "average_oracle_count": round(sum(len(row.get("oracle_checks") or []) for row in rows) / len(rows), 4) if rows else 0,
+        "average_memory_hit_count": round(sum(len(row.get("memory_hits") or []) for row in rows) / len(rows), 4) if rows else 0,
+        "average_artifact_count": round(sum(artifact_counts) / len(artifact_counts), 4) if artifact_counts else 0,
         "recovery_event_count": sum(len(row.get("recovery_events") or []) for row in rows),
         "average_branch_count": round(sum(branch_counts) / len(branch_counts), 4) if branch_counts else 0,
         "average_seconds": round(sum(runtime_seconds) / len(runtime_seconds), 4) if runtime_seconds else 0,
+        "experiment_metadata": metadata,
     }
 
 

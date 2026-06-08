@@ -2,9 +2,9 @@ llm:
   llm_type: openai-chat
   # Change this to the exact model id exposed by your provider.
   # Common examples:
-  # model: qwen2.5-14b-instruct
-  # model: qwen2.5-32b-instruct
-  model: qwen2.5-72b-instruct
+  # Official DashScope OpenAI-compatible model ids include qwen-plus, qwen-max,
+  # qwen3.5-plus, and qwen3.5-flash. Keep this on a stable general model.
+  model: qwen3.5-flash
   temperature: 0
   top_p: 1
   frequency_penalty: 0.0
@@ -14,4 +14,3 @@ code_executor:
   use_docker: False
   use_proxy: False
   use_gpu: False
-

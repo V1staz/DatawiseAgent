@@ -51,3 +51,6 @@ paper_extracted.txt
 /evaluation/experimental_results/InfiAgent-Bench/run_logs/
 /evaluation/experimental_results/InfiAgent-Bench/harness_artifacts/
 /evaluation/experimental_results/InfiAgent-Bench/harness_memory/
+evaluation/InfiAgentBench/scripts/api_key.txt
+evaluation/InfiAgentBench/scripts/api_key.txt
+evaluation/InfiAgentBench/scripts/url.txt

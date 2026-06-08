@@ -227,7 +227,13 @@ def analyze_harness_metrics(labels, responses, results):
     validator_failed_count = 0
     branch_counts = []
     recovery_count = 0
+    task_status_counts = {}
+    runtime_seconds = []
+    memory_hit_counts = []
+    artifact_counts = []
     for response in responses:
+        status = response.get("task_status", "unknown")
+        task_status_counts[status] = task_status_counts.get(status, 0) + 1
         final_block = response.get("final_block")
         if response.get("final_block_missing") is True or final_block == {}:
             final_block_missing_count += 1
@@ -238,6 +244,23 @@ def analyze_harness_metrics(labels, responses, results):
         if "branch_count" in search_summary:
             branch_counts.append(search_summary.get("branch_count") or 0)
         recovery_count += len(response.get("recovery_events") or [])
+        runtime = response.get("runtime") or {}
+        if runtime.get("seconds") is not None:
+            runtime_seconds.append(runtime.get("seconds") or 0)
+        memory_hit_counts.append(len(response.get("memory_hits") or []))
+        artifact_counts.append(
+            sum(
+                1
+                for key in [
+                    "data_card_path",
+                    "trace_path",
+                    "validator_report_path",
+                    "semantic_report_path",
+                ]
+                if response.get(key)
+            )
+            + len(response.get("branch_results") or [])
+        )
 
     reformat_missing_count = sum(
         1 for response in responses if not response.get("reformat_response")
@@ -245,15 +268,35 @@ def analyze_harness_metrics(labels, responses, results):
     avg_branch_count = (
         round(sum(branch_counts) / len(branch_counts), 4) if branch_counts else 0
     )
+    avg_runtime = (
+        round(sum(runtime_seconds) / len(runtime_seconds), 4)
+        if runtime_seconds
+        else 0
+    )
+    avg_memory_hits = (
+        round(sum(memory_hit_counts) / len(memory_hit_counts), 4)
+        if memory_hit_counts
+        else 0
+    )
+    avg_artifacts = (
+        round(sum(artifact_counts) / len(artifact_counts), 4)
+        if artifact_counts
+        else 0
+    )
     return {
         "response_count": len(responses),
         "evaluated_count": len(results),
+        "task_status_counts": task_status_counts,
         "format_error_count": format_error_count,
         "reformat_missing_count": reformat_missing_count,
         "final_block_missing_count": final_block_missing_count,
+        "verifier_blocked_count": task_status_counts.get("verifier_blocked", 0),
         "validator_failed_count": validator_failed_count,
         "recovery_event_count": recovery_count,
         "average_branch_count": avg_branch_count,
+        "average_runtime": avg_runtime,
+        "average_memory_hit_count": avg_memory_hits,
+        "average_artifact_count": avg_artifacts,
     }
 
 

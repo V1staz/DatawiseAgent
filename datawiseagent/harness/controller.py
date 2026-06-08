@@ -57,6 +57,7 @@ class HarnessConfig:
     semantic_oracles: bool = True
     memory_retrieval: bool = True
     memory_recording: bool = True
+    disabled_capabilities: tuple[str, ...] = ()
 
 
 class HarnessController:
@@ -75,12 +76,19 @@ class HarnessController:
         self.search = SearchController(config.search_policy, config.max_search_branches)
 
     def enabled(self, capability: str) -> bool:
+        if capability in set(self.config.disabled_capabilities):
+            return False
         mode = self.config.mode
         if mode == "full":
             return True
         rank = _MODE_ORDER.get(mode, 0)
         required = _MODE_ORDER.get(capability, 0)
         return rank >= required
+
+    def finalizer_enabled(self) -> bool:
+        if "finalizer" in set(self.config.disabled_capabilities):
+            return False
+        return self.config.mode == "full" or self.enabled("verify")
 
     def prepare(self, question: dict[str, Any], table_root: str | Path) -> HarnessContext:
         qid = str(question.get("id", "unknown"))
@@ -179,6 +187,7 @@ class HarnessController:
         if self.enabled("verify"):
             prompt_parts.append(self._trace_and_verification_prompt())
             prompt_parts.append(self.recovery.prompt_instructions())
+        if self.finalizer_enabled():
             prompt_parts.append(self._final_block_prompt(question))
 
         context = HarnessContext(
@@ -206,22 +215,47 @@ class HarnessController:
     ) -> dict[str, Any]:
         artifacts = context.artifacts
         trace = TraceWriter(artifacts.trace_path if artifacts else None)
-        final_block = extract_final_answer_block(response_text)
+        final_block = None
         recovered_from_legacy = False
-        if final_block is None:
-            final_block = final_block_from_legacy_targets(response_text, context.contract)
-            recovered_from_legacy = final_block is not None
-        final_block = normalize_final_block_to_contract(final_block, context.contract)
-        validation = self.verifier.validate_final_block(
-            final_block, context.contract, response_text=response_text
-        )
-        if recovered_from_legacy:
-            validation.warnings.append("legacy_at_answer_recovered_as_final_block")
-        if final_block and validation.report_id:
-            final_block.validator_report_id = validation.report_id
+        if self.finalizer_enabled():
+            final_block = extract_final_answer_block(response_text)
+            if final_block is None:
+                final_block = final_block_from_legacy_targets(response_text, context.contract)
+                recovered_from_legacy = final_block is not None
+            final_block = normalize_final_block_to_contract(final_block, context.contract)
+
+        if not self.finalizer_enabled():
+            validation = ValidationResult(
+                True,
+                checks=["finalizer_disabled"],
+                warnings=["final_block_validation_skipped"],
+                score=1.0,
+            )
+        elif self.enabled("verify"):
+            validation = self.verifier.validate_final_block(
+                final_block, context.contract, response_text=response_text
+            )
+            if recovered_from_legacy:
+                validation.warnings.append("legacy_at_answer_recovered_as_final_block")
+            if final_block and validation.report_id:
+                final_block.validator_report_id = validation.report_id
+        else:
+            validation = ValidationResult(
+                True,
+                checks=["verifier_disabled"],
+                warnings=[] if self.finalizer_enabled() else ["finalizer_disabled"],
+                score=1.0,
+            )
 
         semantic_checks = [SemanticOracleCheck(**item) for item in (context.oracle_checks or [])]
-        semantic_validation = self.oracles.validate(final_block, semantic_checks, response_text=response_text)
+        if self.enabled("verify") and self.config.semantic_oracles and self.finalizer_enabled():
+            semantic_validation = self.oracles.validate(final_block, semantic_checks, response_text=response_text)
+        else:
+            semantic_validation = ValidationResult(
+                True,
+                checks=["semantic_oracles_disabled"],
+                score=1.0,
+            )
 
         if artifacts:
             artifacts.validator_report_path = str(

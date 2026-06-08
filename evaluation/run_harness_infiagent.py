@@ -24,6 +24,7 @@ import threading
 import time
 import uuid
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -56,6 +57,34 @@ TABLE_ROOT = EVALUATION_ROOT / "InfiAgentBench" / "data" / "da-dev-tables"
 DEFAULT_OUTPUT_ROOT = EVALUATION_ROOT / "experimental_results" / "InfiAgent-Bench"
 TOOLKIT_PATH = PROJECT_ROOT / "datawiseagent" / "harness" / "toolkit.py"
 
+ABLATION_CHOICES = [
+    "baseline",
+    "harness_full",
+    "no_datacard",
+    "no_contract",
+    "no_skills",
+    "no_oracle_or_verifier",
+    "no_finalizer",
+    "no_memory",
+    "no_search",
+]
+
+MODEL_API_ERROR_MARKERS = (
+    "api key",
+    "apikey",
+    "authentication",
+    "unauthorized",
+    "invalid token",
+    "无效的令牌",
+    "insufficient",
+    "arrearage",
+    "quota",
+    "rate limit",
+    "status=401",
+    "status=429",
+    "model_api_error",
+)
+
 
 def read_jsonl(path: str | Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
@@ -78,7 +107,12 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run InfiAgentBench with harness controls.")
     parser.add_argument("--note", type=str, default="harness")
     parser.add_argument("--level", type=str, choices=["easy", "medium", "hard", "full"], default="full")
+    parser.add_argument("--ablation", type=str, choices=ABLATION_CHOICES, default=None)
     parser.add_argument("--model-config", "--model_config", dest="model_config", type=str, default=None)
+    parser.add_argument("--model-name", "--model_name", dest="model_name", type=str, default=None)
+    parser.add_argument("--provider", type=str, default=None)
+    parser.add_argument("--temperature", type=float, default=None)
+    parser.add_argument("--max-tokens", "--max_tokens", dest="max_tokens", type=int, default=None)
     parser.add_argument(
         "--harness-mode",
         "--harness_mode",
@@ -97,6 +131,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--num-workers", "--num_workers", dest="num_workers", type=int, default=1)
     parser.add_argument("--limit", type=int, default=None, help="Optional smoke-test question limit.")
+    parser.add_argument("--max-tasks", "--max_tasks", dest="max_tasks", type=int, default=None)
+    parser.add_argument("--start-from-task-id", "--start_from_task_id", dest="start_from_task_id", type=int, default=None)
+    parser.add_argument("--skip-existing", "--skip_existing", dest="skip_existing", action="store_true", default=True)
+    parser.add_argument("--resume", action="store_true", help="Alias for the default skip-existing behavior.")
+    parser.add_argument("--continue-on-error", "--continue_on_error", dest="continue_on_error", action="store_true", default=True)
+    parser.add_argument("--stop-on-error", "--stop_on_error", dest="stop_on_error", action="store_true", default=False)
     parser.add_argument("--question-id", "--question_id", dest="question_id", type=str, default=None)
     parser.add_argument("--output-dir", "--output_dir", dest="output_dir", type=str, default=str(DEFAULT_OUTPUT_ROOT))
     parser.add_argument("--artifact-dir", "--artifact_dir", dest="artifact_dir", type=str, default=None)
@@ -105,9 +145,49 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--disable-semantic-oracles", action="store_true", help="Disable contract-derived semantic oracle planning/scoring.")
     parser.add_argument("--disable-memory-retrieval", action="store_true", help="Keep writing memory but do not inject retrieved memories into prompts.")
     parser.add_argument("--disable-memory-recording", action="store_true", help="Keep retrieval available but do not append new memory records.")
+    parser.add_argument(
+        "--disable-capability",
+        dest="disabled_capabilities",
+        action="append",
+        default=[],
+        choices=["datacard", "contract", "skills", "verify", "memory", "search", "finalizer"],
+        help="Disable one harness capability for ablation. Can be repeated.",
+    )
     parser.add_argument("--tool-mode", "--tool_mode", dest="tool_mode", type=str, default="default")
     parser.add_argument("--work-mode", "--work_mode", dest="work_mode", type=str, default="jupyter")
-    return parser.parse_args()
+    args = parser.parse_args()
+    apply_ablation(args)
+    return args
+
+
+def apply_ablation(args: argparse.Namespace) -> None:
+    if not args.ablation:
+        return
+    disabled = set(args.disabled_capabilities or [])
+    if args.ablation == "baseline":
+        args.harness_mode = "baseline"
+        args.search_policy = "off"
+    else:
+        args.harness_mode = "full"
+    if args.ablation == "no_datacard":
+        disabled.add("datacard")
+    elif args.ablation == "no_contract":
+        disabled.add("contract")
+    elif args.ablation == "no_skills":
+        disabled.add("skills")
+    elif args.ablation == "no_oracle_or_verifier":
+        disabled.add("verify")
+        args.disable_semantic_oracles = True
+    elif args.ablation == "no_finalizer":
+        disabled.add("finalizer")
+    elif args.ablation == "no_memory":
+        disabled.add("memory")
+        args.disable_memory_retrieval = True
+        args.disable_memory_recording = True
+    elif args.ablation == "no_search":
+        disabled.add("search")
+        args.search_policy = "off"
+    args.disabled_capabilities = sorted(disabled)
 
 
 def load_model_config(path: str | None) -> dict[str, Any] | None:
@@ -123,17 +203,101 @@ def load_model_config(path: str | None) -> dict[str, Any] | None:
     return payload.get("llm", payload)
 
 
+def apply_llm_overrides(llm_config: dict[str, Any] | None, args: argparse.Namespace) -> dict[str, Any] | None:
+    if llm_config is None and not any([args.model_name, args.temperature is not None, args.max_tokens is not None]):
+        return None
+    merged = dict(llm_config or {})
+    if args.model_name:
+        merged["model"] = args.model_name
+    if args.temperature is not None:
+        merged["temperature"] = args.temperature
+    if args.max_tokens is not None:
+        merged["max_tokens"] = args.max_tokens
+    return merged
+
+
+def infer_provider(args: argparse.Namespace) -> str:
+    if args.provider:
+        return args.provider
+    base_url = os.environ.get("OPENAI_BASE_URL", "")
+    url_file = EVALUATION_ROOT / "InfiAgentBench" / "scripts" / "url.txt"
+    if not base_url and url_file.exists():
+        base_url = url_file.read_text(encoding="utf-8").strip()
+    lowered = base_url.lower()
+    if "dashscope" in lowered or "aliyun" in lowered:
+        return "dashscope"
+    if "openai" in lowered:
+        return "openai"
+    if base_url:
+        return "openai_compatible"
+    return "unknown"
+
+
+def experiment_metadata(args: argparse.Namespace, llm_config: dict[str, Any] | None) -> dict[str, Any]:
+    llm_config = llm_config or {}
+    return {
+        "provider": infer_provider(args),
+        "model_name": llm_config.get("model"),
+        "run_date": datetime.now().isoformat(timespec="seconds"),
+        "temperature": llm_config.get("temperature"),
+        "max_tokens": llm_config.get("max_tokens"),
+        "ablation": args.ablation or args.harness_mode,
+        "harness_mode": args.harness_mode,
+        "search_policy": args.search_policy,
+        "disabled_capabilities": list(args.disabled_capabilities or []),
+        "memory_retrieval": not args.disable_memory_retrieval,
+        "memory_recording": not args.disable_memory_recording,
+        "semantic_oracles": not args.disable_semantic_oracles,
+    }
+
+
 def filter_questions(
-    questions: list[dict[str, Any]], level: str, question_id: str | None, limit: int | None
+    questions: list[dict[str, Any]],
+    level: str,
+    question_id: str | None,
+    limit: int | None,
+    max_tasks: int | None = None,
+    start_from_task_id: int | None = None,
 ) -> list[dict[str, Any]]:
     if level != "full":
         questions = [q for q in questions if q.get("level") == level]
     if question_id is not None:
         wanted = {part.strip() for part in question_id.split(",") if part.strip()}
         questions = [q for q in questions if str(q.get("id")) in wanted]
+    if start_from_task_id is not None:
+        questions = [q for q in questions if int(q.get("id", -1)) >= start_from_task_id]
     if limit is not None:
         questions = questions[:limit]
+    if max_tasks is not None:
+        questions = questions[:max_tasks]
     return questions
+
+
+def classify_runtime_error(runtime: dict[str, Any] | None) -> str | None:
+    runtime = runtime or {}
+    errors = runtime.get("errors")
+    if isinstance(errors, list):
+        text = "\n".join(str(item) for item in errors if item)
+    else:
+        text = str(runtime.get("error") or "")
+    if not text:
+        return None
+    lowered = text.lower()
+    if any(marker in lowered for marker in MODEL_API_ERROR_MARKERS):
+        return "model_api_error"
+    return "execution_error"
+
+
+def derive_task_status(result: dict[str, Any]) -> str:
+    runtime_status = classify_runtime_error(result.get("runtime"))
+    if runtime_status:
+        return runtime_status
+    validator_report = result.get("validator_report") or {}
+    if validator_report and not validator_report.get("passed", True):
+        return "verifier_blocked"
+    if result.get("reformat_response") == "" and result.get("harness_mode") != "baseline":
+        return "reformat_missing"
+    return "success"
 
 
 def original_prompt(question: dict[str, Any]) -> str:
@@ -234,6 +398,7 @@ def process_question(
     question: dict[str, Any],
     args: argparse.Namespace,
     llm_config: dict[str, Any] | None,
+    run_metadata: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     artifact_root = args.artifact_dir or str(Path(args.output_dir) / "harness_artifacts" / args.note)
     memory_path = args.memory_path or str(Path(args.output_dir) / "harness_memory" / f"{args.note}.jsonl")
@@ -247,6 +412,7 @@ def process_question(
             semantic_oracles=not args.disable_semantic_oracles,
             memory_retrieval=not args.disable_memory_retrieval,
             memory_recording=not args.disable_memory_recording,
+            disabled_capabilities=tuple(args.disabled_capabilities or ()),
         )
     )
 
@@ -263,7 +429,7 @@ def process_question(
             args.work_mode,
             "baseline",
         )
-        return {
+        result = {
             "id": question.get("id"),
             "input_text": prompt,
             "concepts": question.get("concepts", []),
@@ -284,7 +450,12 @@ def process_question(
             "oracle_checks": [],
             "recovery_events": [],
             "runtime": primary.get("runtime", {}),
+            "harness_mode": args.harness_mode,
+            "ablation": args.ablation or args.harness_mode,
+            "experiment_metadata": run_metadata or {},
         }
+        result["task_status"] = derive_task_status(result)
+        return result
 
     context = controller.prepare(question, TABLE_ROOT)
     branch_specs = controller.branch_prompts(context) if controller.should_search_before_primary(context) else [
@@ -310,7 +481,7 @@ def process_question(
     selected, search_summary = controller.select_branch(branch_results)
     runtime = merge_runtime([item.get("runtime", {}) for item in branch_results])
     artifacts = context.artifacts
-    return {
+    result = {
         "id": question.get("id"),
         "input_text": context.prompt,
         "concepts": question.get("concepts", []),
@@ -337,7 +508,47 @@ def process_question(
         "recovery_events": selected.get("recovery_events", []),
         "runtime": runtime,
         "branch_results": summarize_branch_results(branch_results),
+        "harness_mode": args.harness_mode,
+        "ablation": args.ablation or args.harness_mode,
+        "experiment_metadata": run_metadata or {},
     }
+    result["task_status"] = derive_task_status(result)
+    return result
+
+
+def error_result(
+    question: dict[str, Any],
+    args: argparse.Namespace,
+    exc: BaseException,
+    run_metadata: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    runtime = build_runtime(time.time(), error=f"{type(exc).__name__}: {exc}")
+    result = {
+        "id": question.get("id"),
+        "input_text": original_prompt(question),
+        "concepts": question.get("concepts", []),
+        "level": question.get("level"),
+        "file_path": str(TABLE_ROOT / str(question.get("file_name"))),
+        "response": "",
+        "reformat_response": "",
+        "format": question.get("format"),
+        "final_block": {},
+        "contract": {},
+        "data_card_path": None,
+        "trace_path": None,
+        "validator_report_path": None,
+        "search_summary": {},
+        "memory_hits": [],
+        "rule_ids": [],
+        "oracle_checks": [],
+        "recovery_events": [],
+        "runtime": runtime,
+        "harness_mode": args.harness_mode,
+        "ablation": args.ablation or args.harness_mode,
+        "experiment_metadata": run_metadata or {},
+    }
+    result["task_status"] = derive_task_status(result)
+    return result
 
 
 def summarize_branch_results(branch_results: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -375,7 +586,14 @@ def main() -> None:
     suffix = args.note if args.level == "full" else f"{args.note}_{args.level}"
     results_path = output_dir / f"results_{suffix}.jsonl"
 
-    questions = filter_questions(read_jsonl(QUESTION_PATH), args.level, args.question_id, args.limit)
+    questions = filter_questions(
+        read_jsonl(QUESTION_PATH),
+        args.level,
+        args.question_id,
+        args.limit,
+        max_tasks=args.max_tasks,
+        start_from_task_id=args.start_from_task_id,
+    )
     existing_ids: set[Any] = set()
     if results_path.exists():
         for row in read_jsonl(results_path):
@@ -384,8 +602,11 @@ def main() -> None:
     else:
         results_path.touch()
 
-    pending = [q for q in questions if q.get("id") not in existing_ids]
-    llm_config = load_model_config(args.model_config)
+    pending = [q for q in questions if not args.skip_existing or q.get("id") not in existing_ids]
+    llm_config = apply_llm_overrides(load_model_config(args.model_config), args)
+    run_metadata = experiment_metadata(args, llm_config)
+    metadata_path = output_dir / f"run_metadata_{suffix}.json"
+    metadata_path.write_text(json.dumps(run_metadata, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     user_name = f"{args.note}-{args.harness_mode}"
     if args.level != "full":
         user_name += f"-{args.level}"
@@ -393,7 +614,8 @@ def main() -> None:
     user_id = uuid.UUID(create_user_func(username=user_name))
 
     print(
-        f"Harness run: mode={args.harness_mode}, search={args.search_policy}, "
+        f"Harness run: mode={args.harness_mode}, ablation={args.ablation or args.harness_mode}, "
+        f"search={args.search_policy}, model={run_metadata.get('model_name')}, "
         f"questions={len(pending)}/{len(questions)}, output={results_path}"
     )
     write_lock = threading.Lock()
@@ -401,14 +623,21 @@ def main() -> None:
     if args.num_workers <= 1:
         for question in pending:
             print(f"Processing question {question.get('id')} ({question.get('level')})")
-            result = process_question(user_id, question, args, llm_config)
+            try:
+                result = process_question(user_id, question, args, llm_config, run_metadata=run_metadata)
+            except Exception as exc:
+                if args.stop_on_error:
+                    raise
+                result = error_result(question, args, exc, run_metadata=run_metadata)
             with write_lock:
                 append_jsonl(results_path, result)
             print(f"Written result for question {question.get('id')}")
+            if args.stop_on_error and result.get("task_status") != "success":
+                raise RuntimeError(f"Stopping after {result.get('task_status')} on question {question.get('id')}")
     else:
         with ThreadPoolExecutor(max_workers=args.num_workers) as executor:
             futures = {
-                executor.submit(process_question, user_id, question, args, llm_config): question
+                executor.submit(process_question, user_id, question, args, llm_config, run_metadata): question
                 for question in pending
             }
             for future in as_completed(futures):
@@ -418,7 +647,14 @@ def main() -> None:
                     with write_lock:
                         append_jsonl(results_path, result)
                     print(f"Written result for question {question.get('id')}")
+                    if args.stop_on_error and result.get("task_status") != "success":
+                        raise RuntimeError(f"Stopping after {result.get('task_status')} on question {question.get('id')}")
                 except Exception as exc:
+                    if args.stop_on_error:
+                        raise
+                    result = error_result(question, args, exc, run_metadata=run_metadata)
+                    with write_lock:
+                        append_jsonl(results_path, result)
                     print(f"Question {question.get('id')} failed: {type(exc).__name__}: {exc}")
 
 
