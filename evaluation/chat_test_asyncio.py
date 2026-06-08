@@ -65,18 +65,21 @@ def chat(
     session_id: str,
     query: str,
     work_mode: Literal["jupyter", "jupyter+script"] = "jupyter",
+    agent_config: Optional[dict] = None,
+    request_timeout: Optional[float] = 3600,
 ):
+    payload = {
+        "user_id": user_id,
+        "session_id": session_id,
+        "query": query,
+        "work_mode": work_mode,
+    }
+    if agent_config is not None:
+        payload["agent_config"] = agent_config
     response = httpx.post(
         f"{BASE_URL}/chat/",
-        json={
-            "user_id": user_id,
-            "session_id": session_id,
-            "query": query,
-            "work_mode": work_mode,
-            # optional parameters ignored
-            # "agent_config": {...},
-        },
-        timeout=3600,
+        json=payload,
+        timeout=request_timeout,
     )
     response_data = _json_or_raise(response, "chat")
     print("Chat Response:", response_data)

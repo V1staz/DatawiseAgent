@@ -1,0 +1,16 @@
+{
+  "ablation": "baseline",
+  "disabled_capabilities": [],
+  "force_finalizer": false,
+  "harness_mode": "baseline",
+  "max_tokens": null,
+  "memory_recording": true,
+  "memory_retrieval": true,
+  "model_name": "qwen3.5-flash",
+  "provider": "dashscope",
+  "request_timeout": 300.0,
+  "run_date": "2026-06-09T06:16:48",
+  "search_policy": "off",
+  "semantic_oracles": true,
+  "temperature": 0.0
+}

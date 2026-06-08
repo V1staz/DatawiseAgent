@@ -1,0 +1,14 @@
+{
+  "ablation": "harness_full",
+  "disabled_capabilities": [],
+  "harness_mode": "full",
+  "max_tokens": null,
+  "memory_recording": true,
+  "memory_retrieval": true,
+  "model_name": "qwen3.5-flash",
+  "provider": "dashscope",
+  "run_date": "2026-06-09T05:31:53",
+  "search_policy": "hard-only",
+  "semantic_oracles": true,
+  "temperature": 0.0
+}

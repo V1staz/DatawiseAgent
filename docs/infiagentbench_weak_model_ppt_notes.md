@@ -32,27 +32,41 @@ DataCard、Contract、Skill Checklist、Semantic Oracle、Verifier 和 FinalAnsw
 
 ## 4. 实验设置
 
-待运行。
+已完成第一轮 small_error_set live run。
 
-计划比较：
+实验对象：
 
-- strong baseline：已有 `qwen3.5-35b-a3b`
-- weak baseline：弱模型原始 DatawiseAgent
-- weak + harness：弱模型完整 harness
-- weak + harness ablation：逐步关闭 DataCard / Contract / Skills / Oracle+Verifier / Finalizer / Memory / Search
+- 47 道已知错题 small set：`runs/infiagent_improve/small_error_set.json`
+- weak model：`qwen3.5-flash`
+- temperature：0
+- provider：DashScope OpenAI-compatible
+- baseline：原始 DatawiseAgent + original reformat
+- harness：DataCard + Contract + Skills + Oracle/Verifier + FinalAnswerBlock
 
-候选弱模型：
+已完成：
 
-- `qwen3.5-flash`
-- `qwen3-30b-a3b`
-- `qwen3-32b`
-- 其他 API 可用的 Qwen3/Qwen3.5 小模型
+- baseline raw
+- baseline + original reformat
+- harness_full + final block reformat
+
+未完成：
+
+- full 257
+- 最小消融
+
+原因：harness_full small set 用时明显更高，且 task 733 出现 final block 被放入 Python cell 执行导致的调试循环。
 
 ## 5. Baseline vs Harness 结果
 
-待填弱模型结果。
+qwen3.5-flash small_error_set 结果：
 
-已有强模型参考：
+| 设置 | ABQ | PASQ | UASQ | hard ABQ | 备注 |
+| --- | ---: | ---: | ---: | ---: | --- |
+| baseline raw | 0.0000 | 0.0000 | 0.0000 | n/a | raw 长日志不能直接闭式评估 |
+| baseline + original reformat | 0.5957 | 0.6986 | 0.7273 | 0.5200 | 47/47 |
+| harness_full + final block | 0.6087 | 0.6812 | 0.7294 | 0.5417 | 46/47，733 卡死未写入 |
+
+已有强模型参考 full baseline：
 
 | 设置 | Q-Acc | Prop Sub-Q | Sub-Q |
 | --- | ---: | ---: | ---: |
@@ -62,21 +76,27 @@ DataCard、Contract、Skill Checklist、Semantic Oracle、Verifier 和 FinalAnsw
 | `qwen3.5-35b-a3b` hard baseline | 0.8182 | 0.8854 | 0.8916 |
 | `qwen3.5-35b-a3b` hard harness | 0.7841 | 0.8475 | 0.8719 |
 
+弱模型差距：
+
+- small set full ABQ gap：baseline 到强模型约 0.2681，harness 到强模型约 0.2551。
+- small set hard ABQ gap：baseline 到强模型约 0.2982，harness 到强模型约 0.2765。
+- 结论：harness 有小幅缩小 gap，但还远不能说 qwen3.5-flash 接近 qwen3.5-35b-a3b。
+
 ## 6. 消融结果
 
-待填。
+本轮未跑消融。
 
-计划展示：
+原因：
 
-- `baseline`
-- `harness_full`
-- `no_datacard`
-- `no_contract`
-- `no_skills`
-- `no_oracle_or_verifier`
+- small set harness_full 已出现 733 卡死；
+- verifier_blocked 和 reformat_missing 需要先归因；
+- full harness 平均 runtime 约 103.60，baseline 约 30.25，直接扩到 full 257 成本和时间都较高。
+
+下一轮最小消融建议只跑：
+
 - `no_finalizer`
-- `no_memory`
-- `no_search`
+- `no_oracle_or_verifier`
+- `no_skills`
 
 ## 7. 按难度分析
 
@@ -93,33 +113,61 @@ DataCard、Contract、Skill Checklist、Semantic Oracle、Verifier 和 FinalAnsw
 - no_search/no_memory 是否能减少 hard 退化；
 - finalizer 是否主要减少格式错误和 reformat missing。
 
+本轮 qwen3.5-flash small set 观察：
+
+- easy：baseline 与 harness ABQ 都是 0.6667。
+- medium：baseline 与 harness ABQ 都是 0.6923。
+- hard：baseline 0.5200，harness 0.5417，小幅提升。
+- hard 提升不是很大，且有 4 个 verifier_blocked 与 1 个 task 卡死，说明 hard 题仍受 finalizer/verifier 稳定性限制。
+
 ## 8. 典型修复案例
 
-待填。
+small set fixed 题：
 
-优先找这些类型：
+- `125`：ML/statistical protocol，harness 保留 split、target、metric 证据。
+- `219`：IQR outlier，harness skill 明确 outlier 方法和输出格式。
+- `273`：correlation + Z-score outlier，harness 约束 Pearson 与 Z-score 阈值。
+- `450`：weather 月均值，DataCard 帮助处理列名前导空格。
+- `496`：STEM feature engineering，contract 明确公式与 year filter。
+- `741`：ratio feature，final block 输出更稳定。
 
-- final block 修复 reformat 漏填；
-- correlation abs(r) / 符号保留；
-- p-value alpha 判断；
-- feature formula 回显与前 5 行检查；
-- ML random_state / split / metric 修复。
+这些案例支持的讲法：harness 在“字段/公式/方法/格式明确”的题上确实能减少弱模型自由发挥。
 
 ## 9. 典型退化案例
 
-待填。
+small set regressed 题：
 
-已有 memory-learning 对比中出现过 hard/ML/feature engineering 退化，如 137、424、521。后续弱模型实验需要确认是否由 memory、search、contract 误解析或 verifier 过松/过严导致。
+- `62`
+- `124`
+- `418`
+- `451`
+
+blocked / not-run：
+
+- verifier_blocked：`310, 550, 734, 743`
+- reformat_missing：`554`
+- stuck/not_run：`733`
+
+典型问题：
+
+- 733：模型把 JSON final block 放到 Python code cell 里执行，反复报 `NameError: false is not defined`，导致 runner 卡死。
+- 310/550/734/743：有些题存在可读答案，但 verifier 状态为 blocked，说明 verifier 与最终 eval 的关系还需要校准。
+- 418：空响应 execution_error，类似 baseline 的空 response 问题。
 
 ## 10. 结论
 
-待弱模型实验后填写。
+本轮 small set 不能支持“弱模型已经接近强模型”的结论。
 
-目标表述：
+可支持的结论：
 
-如果 weak+harness 接近 strong baseline，则说明结构化 harness 能用低成本模型弥补一部分数据分析 agent 的协议和格式缺陷。
+- 结构化 harness 对 qwen3.5-flash 有小幅正向作用：ABQ 从 0.5957 到 0.6087，hard ABQ 从 0.5200 到 0.5417。
+- final block 路径真实接入，raw baseline 不能直接闭式评估，baseline 依赖 original reformat。
+- harness 代价明显更高，平均 runtime 从 30.25 到 103.60。
+- 当前最大工程瓶颈不是 API，而是 final block/代码执行边界、verifier 阻断策略和多分支成本。
 
-如果 weak+harness 没接近 strong baseline，也可以说明当前 harness 更偏格式/约束收束，对 hard 题需要更强可执行验证和分支选择器。
+可用于 PPT 的保守表述：
+
+> 在 qwen3.5-flash small_error_set 上，harness 能小幅提升 ABQ 和 hard ABQ，但收益被 verifier/finalizer 不稳定与多分支成本抵消。弱模型增强路线可行，但当前版本还不足以替代强模型。
 
 ## 11. 局限
 
@@ -127,3 +175,5 @@ DataCard、Contract、Skill Checklist、Semantic Oracle、Verifier 和 FinalAnsw
 - harness 技能大多还是 prompt directive/checklist，不是完整确定性技能算子。
 - memory 必须区分自更新运行记忆和人工错题分析，不能把人工报告伪装成 agent memory。
 - DataModeling 更慢，暂不作为本轮主线。
+- 本轮 harness_full 是 46/47 partial，task 733 未写入结果。
+- small set 是已知错题集合，不代表全 257 题总体分布。

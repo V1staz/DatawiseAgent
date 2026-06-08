@@ -1,0 +1,2820 @@
+task_id,difficulty,concepts,known_error_type,weak_baseline_answer,weak_harness_answer,strong_baseline_answer,gold_answer,weak_baseline_correct,weak_harness_correct,strong_baseline_correct,status,suspected_module,failure_reason
+0,easy,Summary Statistics,,,,"\Format{{
+@mean_fare[mean_fare_value]
+where ""mean_fare_value"" is a floating-point number rounded to two decimal places.
+}}
+\Answer{{
+@mean_fare[34.65]   
+}}","{""mean_fare"": ""34.65""}",,,True,not_run,,
+5,medium,Feature Engineering|Correlation Analysis,,,,"\Answer{{
+@correlation_coefficient[0.21]   
+}}","{""correlation_coefficient"": ""0.21""}",,,True,not_run,,
+6,medium,Feature Engineering|Summary Statistics,,,,"\Format{{
+@mean_fare_child[mean_fare]
+@mean_fare_teenager[mean_fare]
+@mean_fare_adult[mean_fare]
+@mean_fare_elderly[mean_fare]
+where ""mean_fare"" is a float number rounded to 2 decimal places.
+}}
+\Answer{{
+@mean_fare_child[31.09]
+@mean_fare_teenager[31.98]
+@mean_fare_adult[35.17]
+@mean_fare_elderly[43.47]
+}}","{""mean_fare_adult"": ""35.17"", ""mean_fare_child"": ""31.09"", ""mean_fare_elderly"": ""43.47"", ""mean_fare_teenager"": ""31.98""}",,,True,not_run,,
+7,hard,Machine Learning,,"\Format{{
+@prediction_accuracy[accuracy], where ""accuracy"" is a float number rounded to 2 decimal places and has a range of 0.0 to 1.0.
+}}
+\Answer{{
+@prediction_accuracy[0.78]   
+}}",@prediction_accuracy[0.78],"\Answer{{
+@prediction_accuracy[0.78]   
+}}","{""prediction_accuracy"": ""0.78""}",True,True,True,both_correct,,
+8,medium,Distribution Analysis|Summary Statistics,,,,"\Format{{
+@mean_fare_class1[mean_fare]
+@median_fare_class1[median_fare]
+@std_dev_fare_class1[std_dev]
+@mean_fare_class2[mean_fare]
+@median_fare_class2[median_fare]
+@std_dev_fare_class2[std_dev]
+@mean_fare_class3[mean_fare]
+@median_fare_class3[median_fare]
+@std_dev_fare_class3[std_dev]
+}}
+\Answer{{
+@mean_fare_class1[87.96]
+@median_fare_class1[69.30]
+@std_dev_fare_class1[80.64]
+@mean_fare_class2[21.47]
+@median_fare_class2[15.05]
+@std_dev_fare_class2[13.15]
+@mean_fare_class3[13.23]
+@median_fare_class3[8.05]
+@std_dev_fare_class3[10.03]
+}}","{""mean_fare_class1"": ""87.96"", ""mean_fare_class2"": ""21.47"", ""mean_fare_class3"": ""13.23"", ""median_fare_class1"": ""69.30"", ""median_fare_class2"": ""15.05"", ""std_dev_fare_class1"": ""80.86"", ""std_dev_fare_class2"": ""13.19"", ""std_dev_fare_class3"": ""10.04""}",,,False,not_run,,
+9,easy,Summary Statistics,,,,"\Format{{
+@mean_close_price[mean_value], where ""mean_value"" is a float number rounded to two decimal places. This value should be between the highest and lowest ""Close Price"" given in the dataset.
+}}
+\Answer{{
+@mean_close_price[570.68]   
+}}","{""mean_close_price"": ""570.68""}",,,True,not_run,,
+10,easy,Distribution Analysis,,,,"\Answer{{
+@is_normal[no]
+}}","{""is_normal"": ""no""}",,,True,not_run,,
+11,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+@p_value[p_value]
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+@relationship_type[relationship_type]
+where ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient[0.99]
+@p_value[0.0000]
+@relationship_type[linear]
+}}","{""correlation_coefficient"": ""0.99"", ""relationship_type"": ""linear""}",,,True,not_run,,
+14,medium,Feature Engineering|Summary Statistics,,,,"\Format{{
+@price_range_mean[mean]: The mean should be a single real number rounded to two decimal places. 
+@price_range_median[median]: The median should be a single real number rounded to two decimal places. 
+@price_range_std_dev[std_dev]: The standard deviation should be a single real number rounded to two decimal places.
+}}
+\Answer{{
+@price_range_mean[16.65]
+@price_range_median[15.67]
+@price_range_std_dev[6.72]   
+}}","{""price_range_mean"": ""16.65"", ""price_range_median"": ""15.67"", ""price_range_std_dev"": ""6.72""}",,,True,not_run,,
+18,easy,Summary Statistics,,,,"\Format{{
+@mean_mar_2019[mean] @sd_mar_2019[sd], where ""mean"" and ""sd"" are numbers, rounded to two decimal places.
+}}
+\Answer{{
+@mean_mar_2019[171.44]
+@sd_mar_2019[188.25]   
+}}","{""mean_mar_2019"": ""171.44"", ""sd_mar_2019"": ""188.25""}",,,True,not_run,,
+19,easy,Distribution Analysis,,,,"\Format{{
+@is_normal[answer]
+where ""answer"" is a string value which can either be ""Yes"" or ""No"", depending on whether the skewness lies within the specified boundaries.
+}}
+\Answer{{
+@is_normal[No]   
+}}","{""is_normal"": ""No""}",,,True,not_run,,
+23,hard,Machine Learning|Summary Statistics,,"\Format{{
+@Mean_Squared_Error[MSE], where ""MSE"" is a number rounded to two decimal places.
+}}
+\Answer{{
+@Mean_Squared_Error[11439.60]
+}}",@Mean_Squared_Error[11439.60],"\Format{{
+@Mean_Squared_Error[MSE], where ""MSE"" is a number rounded to two decimal places.
+}}
+\Answer{{
+@Mean_Squared_Error[11439.60]   
+}}","{""Mean_Squared_Error"": ""11439.6""}",True,True,True,both_correct,,
+24,easy,Summary Statistics,,,,"\Format{{
+@mean_age[value]
+where ""value"" is a number between 0 and 100, rounded to two decimal places.
+}}
+\Answer{{
+@mean_age[39.21]   
+}}","{""mean_age"": ""39.21""}",,,True,not_run,,
+25,easy,Distribution Analysis,,,,"\Format{{
+@bmi_distribution[status]
+}}
+\Answer{{
+@bmi_distribution[normal]
+}}","{""bmi_distribution"": ""normal""}",,,True,not_run,,
+26,easy,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[value] where ""value"" is a number between -1 and 1, rounded to two decimal places.
+}}
+\Answer{{
+@correlation_coefficient[0.07]   
+}}","{""correlation_coefficient"": ""0.07""}",,,True,not_run,,
+27,medium,Outlier Detection,,,,"\Format{{
+@total_outliers[total_outliers] 
+@mean_charges_outliers[mean_charges_outliers] 
+@median_charges_outliers[median_charges_outliers] 
+where ""total_outliers"" is an integer, ""mean_charges_outliers"" and ""median_charges_outliers"" are floating-point numbers rounded to two decimal places.
+}}
+\Answer{{
+@total_outliers[139]
+@mean_charges_outliers[42103.95]
+@median_charges_outliers[40974.16]
+}}","{""mean_charges_outliers"": ""42103.95"", ""median_charges_outliers"": ""40974.16"", ""total_outliers"": ""139""}",,,True,not_run,,
+28,hard,Comprehensive Data Preprocessing,,,,"\Format{{
+@mean_age[mean_age]
+@mean_sex[mean_sex]
+@mean_bmi[mean_bmi]
+@mean_children[mean_children]
+@mean_smoker[mean_smoker]
+@mean_region[mean_region]
+@mean_charges[mean_charges]
+where ""mean_xxx"" are all floating-point numbers rounded to four decimal places.
+}}
+\Answer{{
+@mean_age[0.4610]
+@mean_sex[0.5052]
+@mean_bmi[0.3956]
+@mean_children[0.2190]
+@mean_smoker[0.2048]
+@mean_region[0.0000]
+@mean_charges[0.1939]   
+}}","{""mean_age"": ""0.4610"", ""mean_bmi"": ""0.3956"", ""mean_charges"": ""0.1939"", ""mean_children"": ""0.2190"", ""mean_sex"": ""0.5052"", ""mean_smoker"": ""0.2048""}",,,True,not_run,,
+30,hard,Machine Learning|Feature Engineering,,,,"\Format{{
+@model_rmse[RMSE_value]
+where ""RMSE_value"" is a positive number rounded to two decimal places.
+}}
+\Answer{{
+@model_rmse[11464.74]   
+}}","{""model_rmse"": ""11464.74""}",,,True,not_run,,
+32,easy,Summary Statistics,,,,"\Format{{
+@importance_score_mean[mean] @importance_score_std[std_dev]
+where ""mean"" and ""std_dev"" are non-negative numbers rounded to two decimal places.
+}}
+\Answer{{
+@importance_score_mean[0.00]
+@importance_score_std[0.01]
+}}","{""importance_score_mean"": ""0.0"", ""importance_score_std"": ""0.01""}",,,True,not_run,,
+33,easy,Distribution Analysis,,,,"\Format{{
+@ks_test_p_value[0.0000] @normality_decision[not normally distributed]
+}}
+\Answer{{
+@ks_test_p_value[0.0000] @normality_decision[not normally distributed]   
+}}","{""normality_decision"": ""not normally distributed""}",,,True,not_run,,
+34,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value] @p_value[p_value] @relationship_type[relationship_type] where ""r_value"" is a number between -1 and 1, rounded to two decimal places. ""p_value"" is a number between 0 and 1, rounded to four decimal places. ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient[-0.04] @p_value[0.4058] @relationship_type[none]   
+}}","{""correlation_coefficient"": ""-0.04"", ""p_value"": ""0.4058"", ""relationship_type"": ""none""}",,,True,not_run,,
+35,medium,Outlier Detection|Comprehensive Data Preprocessing,,,,"\Format{{
+@removed_outliers_count[count]
+}}
+\Answer{{
+@removed_outliers_count[0]
+}}","{""removed_outliers_count"": ""0""}",,,True,not_run,,
+39,hard,Distribution Analysis|Feature Engineering,,,,"\Format{{
+@is_normal[p_value]
+@transformed_importance_score_mean[mean]
+@transformed_importance_score_std[std]
+}}
+\Answer{{
+@is_normal[0.0000]
+@transformed_importance_score_mean[-7.30]
+@transformed_importance_score_std[2.63]   
+}}","{""is_normal"": ""0.0""}",,,True,not_run,,
+55,easy,Summary Statistics,,"\Format{
+@mean_cases[mean_value]
+where ""mean_value"" is a positive integer.
+}
+\Answer{
+@mean_cases[2081990]   
+}",@mean_cases[2.08199e+06],"\Format{{
+@mean_cases[mean_value]
+where ""mean_value"" is a positive integer representing the mean number of cases recorded across all countries and years.
+}}
+\Answer{{
+@mean_cases[2200]   
+}}","{""mean_cases"": ""2081990""}",True,True,False,both_correct,,
+56,easy,Distribution Analysis|Summary Statistics,,"\Format{{
+@max_deaths_country[country_name]
+where ""country_name"" is a string indicating the name of the country.
+@max_deaths_year[year]
+where ""year"" is an integer indicating the year in which the maximum deaths occurred.
+}}
+\Answer{{
+@max_deaths_country[Nigeria]
+@max_deaths_year[2010]
+}}","@max_deaths_country[Nigeria]
+@max_deaths_year[2010]","\Format{{
+@max_deaths_country[country_name]
+where ""country_name"" is a string indicating the name of the country.
+@max_deaths_year[year]
+where ""year"" is an integer indicating the year in which the maximum deaths occurred.
+}}
+\Answer{{
+@max_deaths_country[Nigeria]
+@max_deaths_year[2010]
+}}","{""max_deaths_country"": ""Nigeria"", ""max_deaths_year"": ""2010""}",True,True,True,both_correct,,
+57,easy,Correlation Analysis,,"\Format{{
+@correlation_coefficient[r_value]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+}}
+\Answer{{
+@correlation_coefficient[0.97]   
+}}",@correlation_coefficient[0.97],"\Format{{
+@correlation_coefficient[r_value] where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+}}
+\Answer{{
+@correlation_coefficient[0.52]   
+}}","{""correlation_coefficient"": ""0.97""}",True,True,False,both_correct,,
+58,easy,Comprehensive Data Preprocessing|Summary Statistics,,,,"\Format{{
+@percentage_cases_min[percentage]
+@percentage_deaths_max[percentage]
+where ""percentage"" is a number between 0 and 100, rounded to two decimal places.
+}}
+\Answer{{
+@percentage_cases_min[36.45]
+@percentage_deaths_max[38.79]
+}}","{""percentage_cases_min"": ""36.45"", ""percentage_deaths_max"": ""38.79""}",,,True,not_run,,
+59,easy,Distribution Analysis|Summary Statistics|Feature Engineering,,"\Answer{{
+@country_name[Congo]   
+}}",@country_name[Congo],"\Format{{
+@country_name[country]
+where ""country"" is a string representing the name of the country with the highest average number of cases.
+}}
+\Answer{{
+@country_name[Congo]   
+}}","{""country_name"": ""Congo""}",True,True,True,both_correct,,
+62,medium,Outlier Detection|Distribution Analysis,,"\Format{{
+@no_of_countries_with_outliers[number], @mean_no_of_deaths_with_outliers[original_mean], @mean_no_of_deaths_without_outliers[new_mean]
+where ""number"" is an integer representing the number of unique countries with outliers.
+where ""original_mean"" is a float rounded to two decimal places representing the mean before outlier removal.
+where ""new_mean"" is a float rounded to two decimal places representing the mean after outlier removal.
+}}
+\Answer{{
+@no_of_countries_with_outliers[5], @mean_no_of_deaths_with_outliers[10149.43], @mean_no_of_deaths_without_outliers[5949.08]   
+}}","@no_of_countries_with_outliers[18]
+@mean_no_of_deaths_with_outliers[10149.43]
+@mean_no_of_deaths_without_outliers[10244.28]","\Format{{
+@no_of_countries_with_outliers[5], @mean_no_of_deaths_with_outliers[10149.43], @mean_no_of_deaths_without_outliers[5949.08]
+}}
+\Answer{{
+@no_of_countries_with_outliers[5], @mean_no_of_deaths_with_outliers[10149.43], @mean_no_of_deaths_without_outliers[5949.08]
+}}","{""mean_no_of_deaths_with_outliers"": ""10149.43"", ""mean_no_of_deaths_without_outliers"": ""5949.08""}",True,False,True,regressed,,
+64,easy,Summary Statistics,,,,"\Format{{
+@mean_wage[mean_value] @std_wage[std_value] where ""mean_value"" and ""std_value"" are numbers with up to two decimal places.
+}}
+\Answer{{
+@mean_wage[6.31]
+@std_wage[4.66]   
+}}","{""mean_wage"": ""6.31"", ""std_wage"": ""4.66""}",,,True,not_run,,
+66,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@relationship_type[relationship_type]
+}}
+\Answer{{
+@correlation_coefficient[0.23]
+@p_value[0.0000]
+@relationship_type[nonlinear]
+}}","{""correlation_coefficient"": ""0.23"", ""relationship_type"": ""nonlinear""}",,,True,not_run,,
+69,medium,Feature Engineering|Correlation Analysis,,,,"\Format{{
+@correlation[correlation] where ""correlation"" is a number representing the correlation coefficient, rounded to three decimal places.
+}}
+\Answer{{
+@correlation[0.252]   
+}}","{""correlation"": ""0.252""}",,,True,not_run,,
+70,hard,Machine Learning|Summary Statistics,,,,"\Format{{
+@RMSE[RMSE_value] where ""RMSE_value"" is a number rounded to two decimal places.
+}}
+\Answer{{
+@RMSE[3.63]   
+}}","{""RMSE"": ""3.63""}",,,True,not_run,,
+71,easy,Summary Statistics,,,,"\Answer{
+@mean_volume[22607406.19]
+@std_dev_volume[8254791.71]
+}","{""mean_volume"": ""22607406.19"", ""std_dev_volume"": ""8254791.71""}",,,True,not_run,,
+72,easy,Distribution Analysis,,,,"\Format{{
+@normality_test_result[normality_test_result]
+}}
+\Answer{{
+@normality_test_result[Non-normal]
+}}","{""normality_test_result"": ""Non-normal""}",,,True,not_run,,
+73,easy,Correlation Analysis,,,,@correlation_coefficient[1.0],"{""correlation_coefficient"": ""1.0""}",,,True,not_run,,
+75,medium,Feature Engineering|Summary Statistics,,,,"\Answer{{
+@daily_return_mean[0.15]
+@daily_return_std[0.95]   
+}}","{""daily_return_mean"": ""-0.14"", ""daily_return_std"": ""0.94""}",,,False,not_run,,
+77,hard,Comprehensive Data Preprocessing|Summary Statistics,,,,"\Answer{{
+@Highest_Monthly_Average_Close_Price[1, 2018, 88.32]   
+}}","{""Highest_Monthly_Average_Close_Price"": ""1, 2018, 88.32""}",,,True,not_run,,
+105,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[corr_coeff] where ""corr_coeff"" is a number between -1 and 1, rounded to two decimal places and represents the Pearson correlation coefficient between ApplicantIncome and LoanAmount.
+}}
+\Answer{{
+@correlation_coefficient[0.49]   
+}}","{""correlation_coefficient"": ""0.49""}",,,True,not_run,,
+108,medium,Feature Engineering|Summary Statistics,,,,"\Answer{{
+@mean_total_income[6375.18]
+@std_dev_total_income[5199.42]
+}}","{""mean_total_income"": ""6375.18"", ""std_dev_total_income"": ""5199.42""}",,,True,not_run,,
+109,hard,Distribution Analysis|Feature Engineering,,,,"\Format{{
+@graduate_mean_loan[mean]
+@not_graduate_mean_loan[mean]
+@significance[significant/no significant]
+}}
+\Answer{{
+@graduate_mean_loan[141.36]
+@not_graduate_mean_loan[118.57]
+@significance[significant]
+}}","{""graduate_mean_loan"": ""141.36"", ""not_graduate_mean_loan"": ""118.57"", ""significance"": ""significant""}",,,True,not_run,,
+111,hard,Comprehensive Data Preprocessing|Summary Statistics,,,,"\Format{{
+@mean_loan[mean], @median_loan[median], @std_dev_loan[std_dev] where ""mean"", ""median"", and ""std_dev"" are numbers (float), rounded to two decimal places.
+}}
+\Answer{{
+@mean_loan[135.98], @median_loan[125.00], @std_dev_loan[60.96]   
+}}","{""std_dev_loan"": ""60.96""}",,,True,not_run,,
+114,easy,Summary Statistics,,,,@country_with_highest_score[Switzerland],"{""country_with_highest_score"": ""Switzerland""}",,,True,not_run,,
+116,medium,Outlier Detection,,,,"\Format{{
+@outlier_countries[country1,country2,...]
+}}
+\Answer{{
+@outlier_countries[]
+}}","{""outlier_countries"": """"}",,,True,not_run,,
+117,medium,Correlation Analysis,,"\Format{{
+@strongest_correlation_variable[variable_name] where ""variable_name"": the column name of the variable with the strongest correlation. 
+@correlation_type[positive/negative] where ""positive/negative"": if the correlation is positive or negative based on the sign of the correlation coefficient.
+}}
+\Answer{{
+@strongest_correlation_variable[Happiness Rank]
+@correlation_type[negative]   
+}}","@strongest_correlation_variable[Happiness Rank]
+@correlation_type[negative]","\Format{{
+@strongest_correlation_variable[variable_name] where ""variable_name"": the column name of the variable with the strongest correlation. 
+@correlation_type[positive/negative] where ""positive/negative"": if the correlation is positive or negative based on the sign of the correlation coefficient.
+}}
+\Answer{{
+@strongest_correlation_variable[Happiness Rank]
+@correlation_type[negative]   
+}}","{""correlation_type"": ""negative"", ""strongest_correlation_variable"": ""Happiness Rank""}",True,True,True,both_correct,,
+118,hard,Correlation Analysis|Machine Learning,,,,"\Format{{
+@coefficient_determination[R_square]
+where ""R_square"" is the value of the coefficient of determination rounded to two decimal places.
+@model_fit[model_fit]
+where ""model_fit"" is a string that is either ""good fit"" or ""poor fit"" based on the calculated R-squared value.
+}}
+\Answer{{
+@coefficient_determination[0.67]
+@model_fit[poor fit]   
+}}","{""coefficient_determination"": ""0.67"", ""model_fit"": ""poor fit""}",,,True,not_run,,
+123,easy,Summary Statistics|Distribution Analysis,,,,"\Format{{
+@country_with_highest_average_daily_vaccinations[country_name]
+Where ""country_name"" is a string.
+}}
+\Answer{{
+@country_with_highest_average_daily_vaccinations[Gibraltar]
+}}","{""country_with_highest_average_daily_vaccinations"": ""Gibraltar""}",,,True,not_run,,
+124,hard,Summary Statistics|Correlation Analysis,,"\Answer{{
+@significance_of_difference[no]
+@p_value[0.5432]   
+}}","@significance_of_difference[yes]
+@p_value[0.0043]","\Format{{
+@significance_of_difference[significance]
+@p_value[p_value]
+Where ""significance"" is a string that can either be ""yes"" or ""no"" based on the conditions specified in the constraints.
+Where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+}}
+\Answer{{
+@significance_of_difference[no]
+@p_value[0.2384]   
+}}","{""significance_of_difference"": ""no""}",True,False,True,regressed,,
+125,hard,Correlation Analysis|Machine Learning,,"\Format{{
+@significant_predictor[predictor_1,predictor_2]
+where ""predictor_1,predictor_2"" can be ""yes,yes"", ""yes,no"", ""no,yes"", or ""no,no"" based on the p-values of the predictors.
+@r_squared[r_squared_value]
+where ""r_squared_value"" is a number between 0 and 1, rounded to four decimal places.
+}}
+\Answer{{
+@significant_predictor[yes,yes]
+@r_squared[0.9999]   
+}}","@significant_predictor[yes,yes]
+@r_squared[0.6059]","\Format{{
+@significant_predictor[predictor_1,predictor_2]
+where ""predictor_1,predictor_2"" can be ""yes,yes"", ""yes,no"", ""no,yes"", or ""no,no"" based on the p-values of the predictors.
+@r_squared[r_squared_value]
+Where ""r_squared_value"" is a number between 0 and 1, rounded to four decimal places.
+}}
+\Answer{{
+@significant_predictor[yes,yes]
+@r_squared[0.6059]
+}}","{""r_squared"": ""0.6059"", ""significant_predictor"": ""yes,yes""}",False,True,True,fixed,,
+129,easy,Summary Statistics,,,,"\Format{{
+@mean_fare[mean_value] @std_dev_fare[std_dev_value] where ""mean_value"" and ""std_dev_value"" are decimal numbers rounded to two decimal places.
+}}
+\Answer{{
+@mean_fare[32.20]
+@std_dev_fare[49.67]
+}}","{""std_dev_fare"": ""49.67""}",,,True,not_run,,
+130,medium,Distribution Analysis,,,,"\Answer{{
+@norm_test_pvalue[0.0000]
+@is_normal[False]
+}}","{""is_normal"": ""False""}",,,True,not_run,,
+132,medium,Outlier Detection,,,,"\Format{{
+@outlier_count[count]
+where ""count"" is a positive integer or zero representing the total number of outliers found.
+}}
+\Answer{{
+@outlier_count[20]   
+}}","{""outlier_count"": ""20""}",,,True,not_run,,
+133,hard,Comprehensive Data Preprocessing,,"\Format{{
+@row_count[count]
+where ""count"" is a positive integer representing the total number of rows after deletion.
+@median_age[value]
+where ""value"" is a positive real number representing the median age used for imputation, rounded to one decimal place.
+}}
+\Answer{{
+@row_count[204]
+@median_age[28.0]
+}}","@row_count[204]
+@median_age[28.0]","\Answer{{
+@row_count[204]
+@median_age[28.0]
+}}","{""median_age"": ""36.0"", ""row_count"": ""204""}",False,False,False,unchanged_wrong,,
+136,medium,Distribution Analysis|Summary Statistics,,,,"\Answer{{
+@p_value_class_1[0.0000]
+@p_value_class_2[0.0000]
+@p_value_class_3[0.0000]
+}}","{""p_value_class_1"": ""0.0000"", ""p_value_class_2"": ""0.0000"", ""p_value_class_3"": ""0.0000""}",,,True,not_run,,
+137,hard,Feature Engineering|Machine Learning,,"\Format{{
+@model_score[model_accuracy] where 'model_accuracy' is a number between 0 and 1, rounded to 2 decimal places, representing the accuracy of the model on the test set.
+}}
+\Answer{{
+@model_score[0.61]   
+}}",@model_score[0.61],"\Format{{
+@model_score[model_accuracy] where 'model_accuracy' is a number between 0 and 1, rounded to 2 decimal places, representing the accuracy of the model on the test set.
+}}
+\Answer{{
+@model_score[0.61]   
+}}","{""model_score"": ""0.61""}",True,True,True,both_correct,,
+139,easy,Distribution Analysis,,,,"\Format{{
+@normality_status[status]
+}}
+\Answer{{
+@normality_status[not normal]
+}}","{""normality_status"": ""not normal""}",,,True,not_run,,
+140,medium,Correlation Analysis,,,,"\Answer{{
+@correlation_coefficient[0.828]
+@p_value[0.0000]
+@relationship_type[linear]
+}}","{""correlation_coefficient"": ""0.828"", ""relationship_type"": ""linear""}",,,True,not_run,,
+142,hard,Correlation Analysis,,"\Format{{
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@relationship_type[relationship_type]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+where ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient[0.02]
+@p_value[0.1704]
+@relationship_type[none]   
+}}","@correlation_coefficient[0.02]
+@p_value[0.1704]
+@relationship_type[none]","\Format{{
+@correlation_coefficient[r_value] @p_value[p_value] @relationship_type[relationship_type] where r_value is a number between -1 and 1, rounded to two decimal places. Where p_value is a number between 0 and 1, rounded to four decimal places. Where relationship_type is a string that can either be ""linear"", ""nonlinear"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient[0.02]
+@p_value[0.1704]
+@relationship_type[none]
+}}","{""correlation_coefficient"": ""0.02"", ""p_value"": ""0.1704"", ""relationship_type"": ""none""}",True,True,True,both_correct,,
+144,hard,Summary Statistics|Distribution Analysis,,,,"\Answer{{
+@mean_dem[0.32]
+@mean_gop[0.64]
+@std_dev_dem[0.153]
+@std_dev_gop[0.156]
+@dist_dem[Not Normal]
+@dist_gop[Not Normal]
+}}","{""mean_dem"": ""0.32"", ""mean_gop"": ""0.64"", ""std_dev_dem"": ""0.153"", ""std_dev_gop"": ""0.156""}",,,True,not_run,,
+174,easy,Distribution Analysis,,,,"\Format{{
+@fare_skewness[fare_skew_value] 
+where ""fare_skew_value"" is a floating-point number rounded to 2 decimal places.
+}}
+\Answer{{
+@fare_skewness[4.79]   
+}}","{""fare_skewness"": ""4.79""}",,,True,not_run,,
+175,medium,Outlier Detection,,,,"\Format{{
+@outliers_count[outliers_count] 
+where ""outliers_count"" is the number of outliers detected in the age of passengers. This should be an integer number.
+}}
+\Answer{{
+@outliers_count[2]
+}}","{""outliers_count"": ""2""}",,,True,not_run,,
+176,medium,Summary Statistics|Correlation Analysis,,,,"\Format{{
+@median_age[median_age]
+where ""median_age"" is a number rounded to two decimal places.
+}}
+\Answer{{
+@median_age[31.50]
+}}","{""median_age"": ""31.5""}",,,True,not_run,,
+177,hard,Distribution Analysis,,,,"\Answer{{
+@p_value[0.0000]
+@significance[Yes]
+}}","{""significance"": ""Yes""}",,,True,not_run,,
+178,hard,Comprehensive Data Preprocessing|Feature Engineering,,,,"\Format{{
+@sex_encoded_count[label_0_count, label_1_count]
+where ""label_0_count"" and ""label_1_count"" are numbers indicating the count of 0 and 1 in the encoded ""Sex"" column, respectively.
+@fare_after_scaling[min_fare, max_fare, mean_fare]
+where ""min_fare"", ""max_fare"", and ""mean_fare"" are the minimum, maximum, and mean of the ""Fare"" column after Min-Max scaling, respectively. ""min_fare"" and ""max_fare"" are rounded to two decimal places, while ""mean_fare"" is rounded to four decimal places.
+}}
+\Answer{{
+@sex_encoded_count[314, 577]
+@fare_after_scaling[0.00, 1.00, 0.0629]
+}}","{""fare_after_scaling"": ""0.00, 1.00, 0.0629"", ""sex_encoded_count"": ""314, 577""}",,,True,not_run,,
+179,medium,Summary Statistics|Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[c_value] where ""c_value"" is a number between -1 and 1, rounded to three decimal places.
+}}
+\Answer{{
+@correlation_coefficient[-0.123]   
+}}","{""correlation_coefficient"": ""-0.123""}",,,True,not_run,,
+180,medium,Outlier Detection,,,,"\Format{{
+@class1_outliers[o1_value]
+@class2_outliers[o2_value]
+@class3_outliers[o3_value]
+}}
+\Answer{{
+@class1_outliers[3]
+@class2_outliers[7]
+@class3_outliers[14]
+}}","{""class1_outliers"": ""3"", ""class2_outliers"": ""7"", ""class3_outliers"": ""14""}",,,True,not_run,,
+207,easy,Comprehensive Data Preprocessing,,,,"\Format{{
+@missing_columns_in_object_type[missing_column1, missing_column2,…]
+where 'missing_column1', 'missing_column2', etc. are string names of the columns with missing values. The answer should not contain any duplicates and should be sorted alphabetically for easy checking.
+}}
+\Answer{{
+@missing_columns_in_object_type[author, urlToImage]   
+}}","{""missing_columns_in_object_type"": ""author, urlToImage""}",,,True,not_run,,
+208,easy,Summary Statistics,,,,"@compound_mean[0.141]
+@compound_std[0.899]","{""compound_mean"": ""0.141"", ""compound_std"": ""0.899""}",,,True,not_run,,
+209,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value]
+where 'r_value' is a number between -1 and 1, rounded to two decimal places.
+}}
+\Answer{{
+@correlation_coefficient[-0.24]   
+}}","{""correlation_coefficient"": ""-0.24""}",,,True,not_run,,
+210,hard,Outlier Detection|Summary Statistics,,,,"\Format{{
+@mean_neg[mean]
+@std_dev_neg[std_dev]
+}}
+\Answer{{
+@mean_neg[0.07]
+@std_dev_neg[0.04]
+}}","{""mean_neg"": ""0.07"", ""std_dev_neg"": ""0.04""}",,,True,not_run,,
+214,hard,Correlation Analysis|Feature Engineering,,,,"\Format{{
+@neg_length_corr[neg_length_correlation]
+@neu_length_corr[neu_length_correlation]
+@pos_length_corr[pos_length_correlation]
+where ""neg_length_correlation"", ""neu_length_correlation"" and ""pos_length_correlation"" are decimal numbers between -1 and 1 (rounded to 2 decimal places) representing the strength of the correlation between the sentiment scores and the article length.
+}}
+\Answer{{
+@neg_length_corr[-0.10]
+@neu_length_corr[0.42]
+@pos_length_corr[-0.35]
+}}","{""neu_length_corr"": ""0.42"", ""pos_length_corr"": ""-0.35""}",,,True,not_run,,
+216,easy,Summary Statistics,,,,"\Answer{
+@mean[4.61]
+@std_dev[1.50]
+}","{""mean"": ""4.61"", ""std_dev"": ""1.50""}",,,True,not_run,,
+217,easy,Distribution Analysis,,,,"\Format{{
+@site_identifier[site_identifier]
+where ""site_identifier"" is a string from the 'site' column. If multiple site identifiers should be listed, return them as a single string separated by commas.
+}}
+\Answer{{
+@site_identifier[57]   
+}}","{""site_identifier"": ""57""}",,,True,not_run,,
+218,easy,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value]
+where ""r_value"" is a float number between -1 and 1, rounded to two decimal places.
+}}
+\Answer{{
+@correlation_coefficient[0.08]
+}}","{""correlation_coefficient"": ""0.08""}",,,True,not_run,,
+219,medium,Outlier Detection,,"\Answer{{
+@site_identifiers[(HA2)121,326] @outlier_values[9.03,9.00]   
+}}","@site_identifiers[(HA2)121,326]
+@outlier_values[9.03,9.0]","\Format{
+@site_identifiers[site_id1,site_id2,...]
+@outlier_values[value1,value2,...]
+}
+\Answer{
+@site_identifiers[(HA2)121,326]
+@outlier_values[9.03,9.00]
+}","{""outlier_values"": ""9.03,9.0"", ""site_identifiers"": ""(HA2)121,326""}",False,True,False,fixed,,
+220,hard,Comprehensive Data Preprocessing|Feature Engineering,,,,"\Answer{{
+@cleaned_dataset[site,abs_diffsel,positive_diffsel,negative_diffsel,max_diffsel,min_diffsel,diff_range
+(HA2)121,9.026365,4.147102,-4.879263,1.578739,-1.004167,2.582906
+326,9.002765,3.615601,-5.387164,0.716922,-1.218422,1.935344
+280,8.418638,5.146938,-3.271700,0.971071,-1.018267,1.989339
+9,8.185717,4.420441,-3.765276,1.000554,-0.847152,1.847706
+210,8.058663,5.824386,-2.234277,1.378964,-1.240547,2.619511
+192,8.015976,4.722876,-3.293100,1.263069,-1.027759,2.290828
+-12,7.975893,3.394141,-4.581752,0.678573,-1.262445,1.941018
+171,7.856855,3.190967,-4.665888,1.232293,-1.912831,3.145124
+(HA2)102,7.846329,3.484810,-4.361519,0.911508,-1.663801,2.575308
+312,7.823953,4.061787,-3.762166,1.320802,-1.421724,2.742525
+]
+@missing_values_handling[No missing values were found.]
+}}","{""missing_values_handling"": ""No missing values were found.""}",,,True,not_run,,
+222,hard,Distribution Analysis|Feature Engineering,,,,"\Format{{
+@skewness_value[float between -0.5 and 0.5, rounded to two decimal places]
+@kurtosis_value[float around 0, answer should be within range of -0.5 to 0.5, rounded to two decimal places]
+@distribution_conclusion[string message indicating normality]
+}}
+\Answer{{
+@skewness_value[0.14]
+@kurtosis_value[-0.29]
+@distribution_conclusion[The data is normally distributed.]
+}}","{""skewness_value"": ""0.14""}",,,True,not_run,,
+224,hard,Machine Learning|Distribution Analysis,,,,"\Format{{
+@accuracy_score[float between 0 and 1, inclusive, rounded to two decimal places]
+}}
+\Answer{{
+@accuracy_score[0.98]   
+}}","{""accuracy_score"": ""0.98""}",,,True,not_run,,
+234,easy,Summary Statistics,,,,"\Format{{
+@average_duration[days] where ""days"" is a whole number representing the average number of days of budget years across all departments, rounded to the nearest whole number.
+}}
+\Answer{{
+@average_duration[364]   
+}}","{""average_duration"": ""364""}",,,True,not_run,,
+243,easy,Summary Statistics,,,,"\Format{{
+@mean_batting_average[mean_batting_average] where ""mean_batting_average"" is a float between 0 and 1, rounded to three decimal places.
+}}
+\Answer{{
+@mean_batting_average[0.258]   
+}}","{""mean_batting_average"": ""0.258""}",,,True,not_run,,
+244,medium,Distribution Analysis,,,,@p_value[0.0000] @normality_test[not_normal],"{""normality_test"": ""not_normal""}",,,True,not_run,,
+247,medium,Summary Statistics,,,,"\Format{{
+@average_runs_by_eligible_for_free_agency[average_runs]
+@average_runs_by_not_eligible_for_free_agency[average_runs]
+where ""average_runs"" is a float rounded to two decimal places specifying the average number of runs scored by players who are eligible for free agency and players who are not eligible for free agency, respectively..
+}}
+\Answer{{
+@average_runs_by_eligible_for_free_agency[57.41]
+@average_runs_by_not_eligible_for_free_agency[39.63]   
+}}","{""average_runs_by_eligible_for_free_agency"": ""57.41"", ""average_runs_by_not_eligible_for_free_agency"": ""39.63""}",,,True,not_run,,
+249,hard,Correlation Analysis|Summary Statistics,,,,"\Answer{{
+@correlation_coefficient[0.58]
+@p_value[0.0000]   
+}}","{""correlation_coefficient"": ""0.58""}",,,True,not_run,,
+250,medium,Feature Engineering|Summary Statistics,,,,"\Format{{
+@mean[mean_value] @std_dev[std_dev_value] where ""mean_value"" is the mean of the new feature, and ""std_dev_value"" is the standard deviation of the new feature. Both should be rounded to two decimal places.
+}}
+\Answer{{
+@mean[-0.07]
+@std_dev[0.03]   
+}}","{""mean"": ""-0.07"", ""std_dev"": ""0.03""}",,,True,not_run,,
+252,medium,Distribution Analysis,,"\Answer{{
+@highest_skewness_country[Russia]   
+}}",@highest_skewness_country[Kuwait],"\Format{{
+@highest_skewness_country[country_name]
+}}
+\Answer{{
+@highest_skewness_country[Myanmar]
+}}","{""highest_skewness_country"": ""Afghanistan""}",False,False,False,unchanged_wrong,,
+254,medium,Outlier Detection,,,,"\Format{{
+@outlier_countries[list_of_strings]
+}}
+\Answer{{
+@outlier_countries[""Kuwait"", ""Saudi Arabia""]
+}}","{""outlier_countries"": ""Kuwait, Saudi Arabia""}",,,False,not_run,,
+255,easy,Summary Statistics,,,,"\Format{{
+@mean_gdp2007[float]
+@standard_deviation_gdp2007[float]
+where each float is a positive number rounded to two decimal places.
+}}
+\Answer{{
+@mean_gdp2007[12473.03]
+@standard_deviation_gdp2007[14154.94]
+}}","{""mean_gdp2007"": ""12473.03"", ""standard_deviation_gdp2007"": ""14154.94""}",,,True,not_run,,
+268,easy,Distribution Analysis,,,,"\Answer{{
+@normality_test_result[Not Normal]
+@p_value[0.000]
+}}","{""normality_test_result"": ""Not Normal""}",,,True,not_run,,
+269,medium,Correlation Analysis,,,,"\Format{{
+@correlation_type[A string that should be either ""Positive Correlation"", ""Negative Correlation"", ""No Correlation"", or ""No Significant Correlation""]
+@correlation_coefficient[The Pearson correlation coefficient, rounded to two decimal places]
+@p_value[The p-value of the correlation test, rounded to three decimal places]
+}}
+\Answer{{
+@correlation_type[Positive Correlation]
+@correlation_coefficient[0.99]
+@p_value[0.000]   
+}}","{""correlation_coefficient"": ""0.99"", ""correlation_type"": ""Positive Correlation"", ""p_value"": ""0.000""}",,,True,not_run,,
+271,hard,Comprehensive Data Preprocessing,,"\Format{{
+@clean_entries[number of entries after cleaning duplicates]
+@mean_USFLUX[Mean of the USFLUX column after filling missing values, rounded to two decimal places]
+@log_MEANJZH[First entry of transformed MEANJZH column, rounded to three decimal places]
+@norm_TOTUSJZ[First entry of normalized TOTUSJZ column, rounded to three decimal places]
+}}
+\Answer{{
+@clean_entries[1153]
+@mean_USFLUX[7.46e+21]
+@log_MEANJZH[-2.543]
+@norm_TOTUSJZ[0.107]
+}}","@clean_entries[1153]
+@mean_USFLUX[7463837954032957128704.00]
+@log_MEANJZH[-2.543]
+@norm_TOTUSJZ[0.107]","\Format{{
+@clean_entries[Number of entries after cleaning duplicates]
+@mean_USFLUX[Mean of the USFLUX column after filling missing values, rounded to two decimal places]
+@log_MEANJZH[First entry of transformed MEANJZH column, rounded to three decimal places]
+@norm_TOTUSJZ[First entry of normalized TOTUSJZ column, rounded to three decimal places]
+}}
+\Answer{{
+@clean_entries[1153]
+@mean_USFLUX[7463837954032957000000.00]
+@log_MEANJZH[-2.543]
+@norm_TOTUSJZ[0.107]
+}}","{""clean_entries"": ""1153"", ""log_MEANJZH"": ""-2.543"", ""norm_TOTUSJZ"": ""0.107""}",True,True,True,both_correct,,
+272,medium,Feature Engineering|Summary Statistics,,,,"\Format{{
+@mean_ratio[Mean of the TOTUSJZ_TOTUSJH_RATIO column, rounded to two decimal places]
+@stddev_ratio[Standard deviation of the TOTUSJZ_TOTUSJH_RATIO column, rounded to two decimal places]
+}}
+\Answer{{
+@mean_ratio[22756785531.29]
+@stddev_ratio[969133356.79]
+}}","{""mean_ratio"": ""22756785531.29"", ""stddev_ratio"": ""969133356.79""}",,,True,not_run,,
+273,hard,Correlation Analysis|Outlier Detection,,"\Format{{
+@correlation_coefficient[correlation_value]
+where ""correlation_value"" is a number between -1 and 1, rounded to 3 decimal places.
+@outlier_count[outlier_total]
+where ""outlier_total"" denotes the total number of identified outliers in the MEANGAM column.
+@outlier_list[outlier_values_list]
+where ""outlier_values_list"" is a list of the identified outlier values in MEANGAM column, rounded to 2 decimal places.
+}}
+\Answer{{
+@correlation_coefficient[0.922]
+@outlier_count[0]
+@outlier_list[]
+}}","@correlation_coefficient[0.922]
+@outlier_count[0]
+@outlier_list[[]]","\Format{{
+@correlation_coefficient[correlation_value]
+@outlier_count[outlier_total]
+@outlier_list[outlier_values_list]
+}}
+\Answer{{
+@correlation_coefficient[0.922]
+@outlier_count[0]
+@outlier_list[]
+}}","{""correlation_coefficient"": ""0.922"", ""outlier_count"": ""0"", ""outlier_list"": ""[""}",False,True,False,fixed,,
+275,hard,Comprehensive Data Preprocessing|Feature Engineering|Machine Learning,,"\Format{{
+@duplicate_count[duplicate_total]
+where ""duplicate_total"" should be an integer indicating the number of duplicate rows removed.
+@usflux_mean[mean_value]
+where ""mean_value"" should be a number rounded to 2 decimal places.
+@new_feature_mean[new_feature_mean]
+where ""new_feature_mean"" is the mean of the new feature ""MEANGAM_MEANGBZ_DIFF"", rounded to 2 decimal places.
+@model_accuracy[model_accuracy]
+where ""model_accuracy"" is the accuracy of the Random Forest Regressor model, should be a percentage rate between 0 and 100, rounded to 3 decimal places.
+}}
+\Answer{{
+@duplicate_count[0]
+@usflux_mean[7.46e+21]
+@new_feature_mean[-89.04]
+@model_accuracy[99.746]
+}}","@duplicate_count[0]
+@usflux_mean[7463837954032957128704.00]
+@new_feature_mean[-89.04]
+@model_accuracy[99.746]","\Format{{
+@duplicate_count[duplicate_total]
+where ""duplicate_total"" should be an integer indicating the number of duplicate rows removed.
+@usflux_mean[mean_value]
+where ""mean_value"" should be a number rounded to 2 decimal places.
+@new_feature_mean[new_feature_mean]
+where ""new_feature_mean"" is the mean of the new feature ""MEANGAM_MEANGBZ_DIFF"", rounded to 2 decimal places.
+@model_accuracy[model_accuracy]
+where ""model_accuracy"" is the accuracy of the Random Forest Regressor model, should be a percentage rate between 0 and 100, rounded to 3 decimal places.
+}}
+\Answer{{
+@duplicate_count[0]
+@usflux_mean[7.46e+21]
+@new_feature_mean[-68.08]
+@model_accuracy[99.750]
+}}","{""duplicate_count"": ""0"", ""new_feature_mean"": ""-89.04""}",True,True,False,both_correct,,
+277,medium,Correlation Analysis,,,,"\Answer{{
+@correlation_coefficient[0.7366]
+}}","{""correlation_coefficient"": ""0.7366""}",,,True,not_run,,
+278,easy,Outlier Detection,,,,"\Format{{
+@outliers_count[outliers_value]
+}}
+\Answer{{
+@outliers_count[0]
+}}","{""outliers_count"": ""0""}",,,True,not_run,,
+282,hard,Correlation Analysis|Distribution Analysis|Outlier Detection,,,,"\Answer{{
+@correlation_coefficient[-0.17]
+@number_of_outliers[0]
+}}","{""correlation_coefficient"": ""-0.17"", ""number_of_outliers"": ""0""}",,,True,not_run,,
+297,hard,Summary Statistics|Comprehensive Data Preprocessing,,"\Format{{
+@mean_with_tree_null[mean]
+@mean_with_tree_notnull[mean]
+@pvalue[p_value]
+where ""mean"" is a number rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+}}
+\Answer{{
+@mean_with_tree_null[4.26]
+@mean_with_tree_notnull[43.31]
+@pvalue[0.0000]
+}}","@mean_with_tree_null[4.26]
+@mean_with_tree_notnull[43.31]
+@pvalue[0.0000]","\Format{{
+@mean_with_tree_null[mean]
+@mean_with_tree_notnull[mean]
+@pvalue[p_value]
+where ""mean"" is a number rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+}}
+\Answer{{
+@mean_with_tree_null[4.26]
+@mean_with_tree_notnull[43.31]
+@pvalue[0.0000]   
+}}","{""mean_with_tree_notnull"": ""45.48"", ""mean_with_tree_null"": ""4.58""}",False,False,False,unchanged_wrong,,
+298,medium,Distribution Analysis,,"\Answer{
+@is_normal[no]
+@skewness[-2.37]
+@kurtosis[5.18]
+}","@is_normal[no]
+@skewness[-2.37]
+@kurtosis[5.16]","\Format{{
+@is_normal[is_normal]
+@skewness[skewness]
+@kurtosis[kurtosis]
+where ""is_normal"" is a string, either ""yes"" or ""no"" according to the normality test result.
+where ""skewness"" and ""kurtosis"" are numbers rounded to two decimal places.
+}}
+\Answer{{
+@is_normal[no]
+@skewness[-2.37]
+@kurtosis[5.16]   
+}}","{""is_normal"": ""yes""}",False,False,False,unchanged_wrong,,
+300,hard,Correlation Analysis|Comprehensive Data Preprocessing,,"\Answer{{
+@correlation_coefficient[0.00]
+@p_value[1.0000]
+@correlation[not correlated]
+}}","@correlation_coefficient[0.53]
+@p_value[0.0000]
+@correlation[correlated]","\Format{{
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@correlation[colleration]
+}}
+\Answer{{
+@correlation_coefficient[0.53]
+@p_value[0.0000]
+@correlation[correlated]
+}}","{""correlation"": ""correlated"", ""correlation_coefficient"": ""0.54""}",False,False,False,unchanged_wrong,,
+304,medium,Distribution Analysis,,,,"\Format{{
+@normality_test_result[normality_test_result]
+where ""normality_test_result"" is a boolean that denotes whether the fare variable follows a normal distribution (True) or not (False).
+}}
+\Answer{{
+@normality_test_result[False]   
+}}","{""normality_test_result"": ""False""}",,,True,not_run,,
+308,hard,Feature Engineering|Summary Statistics,,,,"\Answer{
+@average_fare_Mr[24.44], @average_fare_Mrs[45.14], @average_fare_Miss[43.80], @average_fare_Master[34.70]
+}","{""average_fare_Mr"": ""24.44"", ""average_fare_Mrs"": ""45.14""}",,,True,not_run,,
+309,hard,Distribution Analysis|Summary Statistics,,,,"\Format{{
+@age_skewness[skewness_value]
+@age_kurtosis[kurtosis_value]
+@age_values_within_one_stdev[number]
+@fare_skewness[skewness_value]
+@fare_kurtosis[kurtosis_value]
+@fare_values_within_one_stdev[number]
+}}
+\Answer{{
+@age_skewness[0.39]
+@age_kurtosis[0.17]
+@age_values_within_one_stdev[516]
+@fare_skewness[4.64]
+@fare_kurtosis[30.70]
+@fare_values_within_one_stdev[657]
+}}","{""age_kurtosis"": ""0.17"", ""age_skewness"": ""0.39"", ""age_values_within_one_stdev"": ""516"", ""fare_kurtosis"": ""33.20"", ""fare_skewness"": ""4.78"", ""fare_values_within_one_stdev"": ""818""}",,,False,not_run,,
+310,hard,Correlation Analysis,,"\Answer{{
+@strongest_correlation_pair[[""SibSp"", ""Parch""]]
+@strongest_correlation_coefficient[0.41]
+}}","@strongest_correlation_pair[SibSp, Parch]
+@strongest_correlation_coefficient[0.38]","\Answer{{
+@strongest_correlation_pair[['SibSp', 'Parch']]
+@strongest_correlation_coefficient[0.41]
+}}","{""strongest_correlation_coefficient"": ""0.41""}",True,False,True,verifier_blocked,,
+320,easy,Summary Statistics,,,,@mean_eventmsgtype[3.9777],"{""mean_eventmsgtype"": ""3.98""}",,,False,not_run,,
+321,easy,Outlier Detection,,,,@outlier_count[0],"{""outlier_count"": ""0""}",,,True,not_run,,
+324,easy,Comprehensive Data Preprocessing,,,,"\Format{{
+@max_missing_values[column_name]
+where ""column_name"" is a string containing the name of the column with the highest number of missing values.
+}}
+\Answer{{
+@max_missing_values[NEUTRALDESCRIPTION]   
+}}","{""max_missing_values"": ""NEUTRALDESCRIPTION""}",,,True,not_run,,
+326,hard,Feature Engineering|Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@relationship[relationship]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+where ""relationship"" is a string that can either be ""positive"", ""negative"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient[0.08]
+@p_value[0.0749]
+@relationship[none]   
+}}","{""correlation_coefficient"": ""0.08"", ""p_value"": ""0.0749"", ""relationship"": ""none""}",,,True,not_run,,
+337,medium,Distribution Analysis,,,,"\Format{{
+@skewness_coefficient[skewness_coefficient]
+@skewness_type[skewness_type]
+where ""skewness_coefficient"" is a number greater than or equal to -1 and less than or equal to 1, rounded to two decimal places.
+where ""skewness_type"" is a string that could be either ""Positive Skewness"", ""Negative Skewness"", or ""No Skewness"".
+}}
+\Answer{{
+@skewness_coefficient[0.08]
+@skewness_type[Positive Skewness]   
+}}","{""skewness_coefficient"": ""0.08"", ""skewness_type"": ""Positive Skewness""}",,,True,not_run,,
+338,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[correlation_coefficient]
+@correlation_type[correlation_type]
+}}
+\Answer{{
+@correlation_coefficient[0.178]
+@correlation_type[Positive Correlation]
+}}","{""correlation_coefficient"": ""0.178"", ""correlation_type"": ""Positive Correlation""}",,,True,not_run,,
+349,easy,Summary Statistics,,,,"\Format{{
+@mean_age[mean_age]
+where ""mean_age"" is a floating point number representing the calculated mean age, rounded to two decimal places.
+}}
+\Answer{{
+@mean_age[1.10]
+}}","{""mean_age"": ""1.1""}",,,True,not_run,,
+350,easy,Distribution Analysis,,,,"\Answer{{
+@is_normal[False]
+}}","{""is_normal"": ""False""}",,,True,not_run,,
+351,easy,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[correlation_coefficient]
+where ""correlation_coefficient"" is a floating point number representing the calculated correlation coefficient, rounded to two decimal places.
+}}
+\Answer{{
+@correlation_coefficient[0.32]
+}}","{""correlation_coefficient"": ""0.32""}",,,True,not_run,,
+352,easy,Outlier Detection,,,,"\Format{{
+@fare_outliers[outliers_list]
+where ""outliers_list"" is a list of integers sorted in ascending order.
+}}
+\Answer{{
+@fare_outliers[]   
+}}","{""fare_outliers"": """"}",,,True,not_run,,
+354,easy,Feature Engineering,,,,"\Answer{{
+@average_familysize[2.6]
+}}","{""average_familysize"": ""2.6""}",,,True,not_run,,
+355,hard,Correlation Analysis|Machine Learning,,,,"\Format{{
+@coef_age[coef_age]
+@coef_pclass[coef_pclass]
+@relationship_age[relationship_age]
+@relationship_pclass[relationship_pclass]
+where ""coef_age"" and ""coef_pclass"" are the regression coefficients for the variables Age and Pclass respectively, rounded to two decimal places.
+where ""relationship_age"" and ""relationship_pclass"" are strings that can either be ""significant"" or ""not significant"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@coef_age[-0.05]
+@coef_pclass[-0.98]
+@relationship_age[not significant]
+@relationship_pclass[significant]
+}}","{""coef_age"": ""-0.05"", ""coef_pclass"": ""-0.98"", ""relationship_age"": ""not significant"", ""relationship_pclass"": ""significant""}",,,True,not_run,,
+359,easy,Distribution Analysis,,"\Format{{
+@skewness_value[skew_value]
+@skewness_type[type_value]
+where ""skew_value"" is a float number rounded to 2 decimal places.
+where ""type_value"" is a string that can be either ""positive"", ""negative"", or ""symmetric"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@skewness_value[0.66]
+@skewness_type[positive]   
+}}","@skewness_value[0.75]
+@skewness_type[positive]","\Answer{{
+@skewness_value[0.66]
+@skewness_type[positive]
+}}","{""skewness_type"": ""positive"", ""skewness_value"": ""0.83""}",False,False,False,unchanged_wrong,,
+360,medium,Correlation Analysis,,,,"\Answer{{
+@correlation_coefficient[-0.64]
+@correlation_strength[moderate]
+}}","{""correlation_coefficient"": ""-0.64"", ""correlation_strength"": ""moderate""}",,,True,not_run,,
+361,medium,Outlier Detection|Comprehensive Data Preprocessing,,,,"\Answer{{
+@outlier_count[97]   
+}}","{""outlier_count"": ""0""}",,,False,not_run,,
+363,hard,Machine Learning,,,,"\Format{{
+@mean_squared_error[mse]
+where ""mse"" is a number rounded to 2 decimal places representing the mean squared error of the predictions.
+}}
+\Answer{{
+@mean_squared_error[1.18]   
+}}","{""mean_squared_error"": ""1.18""}",,,True,not_run,,
+372,easy,Summary Statistics,,,,@mean[21144.08] @median[19711.00],"{""mean"": ""21144.08""}",,,True,not_run,,
+375,medium,Distribution Analysis,,,,"@shapiro_w[0.9543], @p_value[0.0027], @skewness[0.1520], @kurtosis[-1.1336]","{""kurtosis"": ""-1.1336"", ""p_value"": ""0.0027"", ""shapiro_w"": ""0.9543"", ""skewness"": ""0.1520""}",,,True,not_run,,
+376,hard,Feature Engineering|Summary Statistics,,,,"\Format{{
+@trips_per_membership_mean[mean]
+where ""mean"" is a floating number representing the mean of the ""Trips per Membership"" column. Rounding off the answer to two decimal places.
+@trips_per_membership_median[median]
+where ""median"" is a floating number representing the median of the ""Trips per Membership"" column. Rounding off the answer to two decimal places.
+@trips_per_day_mean[mean]
+where ""mean"" is a floating number representing the mean of the ""Trips over the past 24-hours (midnight to 11:59pm)"" column. Rounding off the answer to two decimal places.
+@trips_per_day_median[median]
+where ""median"" is a floating number representing the median of the ""Trips over the past 24-hours (midnight to 11:59pm)"" column. Rounding off the answer to two decimal places.
+}}
+\Answer{{
+@trips_per_membership_mean[0.17]
+@trips_per_membership_median[0.16]
+@trips_per_day_mean[21144.08]
+@trips_per_day_median[19711.00]   
+}}","{""trips_per_day_mean"": ""21144.08"", ""trips_per_membership_mean"": ""0.17"", ""trips_per_membership_median"": ""0.16""}",,,True,not_run,,
+378,hard,Comprehensive Data Preprocessing|Distribution Analysis,,,,"\Answer{{
+@pre_mean[21144.08]
+@pre_median[19711.00]
+@pre_sd[9889.93]
+@pre_skewness[0.15]
+@pre_kurtosis[-1.13]
+@post_mean[21144.08]
+@post_median[19711.00]
+@post_sd[9889.93]
+@post_skewness[0.15]
+@post_kurtosis[-1.13]
+}}","{""post_kurtosis"": ""-1.13"", ""post_mean"": ""21144.08"", ""post_sd"": ""9889.93"", ""post_skewness"": ""0.15"", ""pre_kurtosis"": ""-1.13"", ""pre_mean"": ""21144.08"", ""pre_sd"": ""9889.93"", ""pre_skewness"": ""0.15""}",,,True,not_run,,
+408,medium,Correlation Analysis,,"\Format{{
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@relationship_type[relationship_type] 
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+where ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient[0.10]
+@p_value[0.0102]
+@relationship_type[nonlinear]
+}}","@correlation_coefficient[0.10]
+@p_value[0.0102]
+@relationship_type[nonlinear]","\Format{{
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@relationship_type[relationship_type] 
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+where ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient[0.10]
+@p_value[0.0102]
+@relationship_type[nonlinear]   
+}}","{""correlation_coefficient"": ""0.10"", ""p_value"": ""0.0102"", ""relationship_type"": ""nonlinear""}",True,True,True,both_correct,,
+409,easy,Comprehensive Data Preprocessing,,,,"\Format{{
+@missing_values[missing_values] where ""missing_values"" is an integer.
+}}
+\Answer{{
+@missing_values[687]   
+}}","{""missing_values"": ""687""}",,,True,not_run,,
+410,medium,Distribution Analysis,,,,"\Format{{
+@is_significantly_different[answer]
+}}
+\Answer{{
+@is_significantly_different[True]
+}}","{""is_significantly_different"": ""True""}",,,True,not_run,,
+411,medium,Outlier Detection,,,,"\Format{{
+@outlier_count[answer1]
+@outlier_range_low[answer2]
+@outlier_range_high[answer3]
+}}
+\Answer{{
+@outlier_count[116.00]
+@outlier_range_low[66.60]
+@outlier_range_high[512.33]
+}}","{""outlier_count"": ""116"", ""outlier_range_high"": ""512.33""}",,,True,not_run,,
+412,medium,Feature Engineering,,,,"\Format{{
+@mean_familysize_survived[answer1] @mean_familysize_did_not_survive[answer2] where ""answer1"" is the mean ""FamilySize"" for passengers who survived and ""answer2"" is the mean ""FamilySize"" for passengers who did not survive. Both results should be rounded to 2 decimal places.
+}}
+\Answer{{
+@mean_familysize_survived[0.94]
+@mean_familysize_did_not_survive[0.88]   
+}}","{""mean_familysize_did_not_survive"": ""0.88"", ""mean_familysize_survived"": ""0.94""}",,,True,not_run,,
+413,hard,Correlation Analysis|Comprehensive Data Preprocessing,,,,"\Format{{
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@relationship_significance[significance]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+where ""significance"" is a string that can either be ""significant"" or ""not significant"" based on the conditions specified in the constraints..
+}}
+\Answer{{
+@correlation_coefficient[-0.53]
+@p_value[0.0000]
+@relationship_significance[significant]
+}}","{""correlation_coefficient"": ""-0.53"", ""p_value"": ""0.0000"", ""relationship_significance"": ""significant""}",,,True,not_run,,
+414,medium,Summary Statistics|Comprehensive Data Preprocessing,,,,"\Answer{{
+@first_class_average_age[38.23]
+@second_class_average_age[29.88]
+@third_class_average_age[25.14]   
+}}","{""first_class_average_age"": ""38.23"", ""second_class_average_age"": ""29.88"", ""third_class_average_age"": ""25.14""}",,,True,not_run,,
+415,hard,Distribution Analysis|Comprehensive Data Preprocessing,,,,"\Format{{
+@survived_fare_mean[mean_survived]
+@survived_fare_std[std_survived]
+@not_survived_fare_mean[mean_not_survived]
+@not_survived_fare_std[std_not_survived]
+@fare_difference_significance[significance]
+where ""mean_survived"" is the mean fare of male passengers who survived, rounded to two decimal places.
+where ""std_survived"" is the standard deviation of fare of male passengers who survived, rounded to two decimal places.
+where ""mean_not_survived"" is the mean fare of male passengers who did not survive, rounded to two decimal places.
+where ""std_not_survived"" is the standard deviation of fare of male passengers who did not survive, rounded to two decimal places.
+where ""significance"" is a string that can either be ""significant"" or ""not significant"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@survived_fare_mean[40.82]
+@survived_fare_std[71.36]
+@not_survived_fare_mean[21.96]
+@not_survived_fare_std[32.41]
+@fare_difference_significance[significant]
+}}","{""fare_difference_significance"": ""significant"", ""not_survived_fare_mean"": ""21.96"", ""not_survived_fare_std"": ""32.41"", ""survived_fare_mean"": ""40.82"", ""survived_fare_std"": ""71.36""}",,,True,not_run,,
+418,medium,Outlier Detection,,"\Answer{{
+@outliers_count[1]
+}}",,"\Format{{
+@outliers_count[value]
+where 'value' is an integer, e.g @outliers_count[23].
+}}
+\Answer{{
+@outliers_count[1]
+}}","{""outliers_count"": ""1""}",True,False,True,regressed,,
+419,hard,Summary Statistics|Distribution Analysis,,,,"\Format{{
+@weekday_mean_price[weekday_mean_open_price] @weekend_mean_price[weekend_mean_open_price] @p_value[p_value] @significance[significant_or_not] where ""weekday_mean_open_price"" and ""weekend_mean_open_price"" are numbers rounded to two decimal places. ""p_value"" is a number between 0 and 1, rounded to four decimal places. ""significant_or_not"" is a string that can either be 'Yes' or 'No' depending on whether the p-value is less than 0.05.
+}}
+\Answer{{
+@weekday_mean_price[37.30]
+@weekend_mean_price[38.49]
+@p_value[0.8448]
+@significance[No]
+}}","{""p_value"": ""0.8463"", ""significance"": ""No"", ""weekday_mean_price"": ""37.30"", ""weekend_mean_price"": ""38.49""}",,,False,not_run,,
+421,medium,Comprehensive Data Preprocessing,,,,"\Format{{
+@mean_volume[mean_volume] @median_volume[median_volume]
+where ""mean_volume"" and ""median_volume"" are numbers. Round up to two decimal places. The domain of value depends on the actual data in the trading volume column, but it should be greater than or equal to zero.
+}}
+\Answer{{
+@mean_volume[2260508.04] @median_volume[808585.00]   
+}}","{""mean_volume"": ""2260508.04""}",,,True,not_run,,
+423,hard,Feature Engineering|Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[correlation_coefficient]
+where ""correlation_coefficient"" is a number between -1 and 1, rounded to two decimal places.
+@relationship_type[type]
+where ""type"" is a string that can be ""positive"", ""negative"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient[-0.09]
+@relationship_type[none]   
+}}","{""correlation_coefficient"": ""-0.09"", ""relationship_type"": ""none""}",,,True,not_run,,
+424,hard,Machine Learning|Feature Engineering,,,,"\Format{{
+@accuracy[accuracy]
+where ""accuracy"" is the model accuracy rounded to two decimal places.
+@feature1[feature_name]
+where ""feature_name"" is the name of the feature from the dataset, listed by the importance in descending order.
+@feature2[feature_name]
+where ""feature_name"" is the name of the feature from the dataset, listed by the importance in descending order.
+@feature3[feature_name]
+where ""feature_name"" is the name of the feature from the dataset, listed by the importance in descending order.
+}}
+\Answer{{
+@accuracy[0.97]
+@feature1[Open]
+@feature2[High]
+@feature3[Low]
+}}","{""feature2"": ""High""}",,,True,not_run,,
+425,easy,Comprehensive Data Preprocessing,,,,"\Answer{{
+@missing_values_count[24]   
+}}","{""missing_values_count"": ""24""}",,,True,not_run,,
+426,medium,Summary Statistics|Correlation Analysis,,,,"\Format{{
+@max_wind_speed[number]
+where ""number"" is a float with two decimal places indicating the highest wind speed recorded for the storm with the highest maximum storm category.
+}}
+\Answer{{
+@max_wind_speed[156.42]
+}}","{""max_wind_speed"": ""156.42""}",,,True,not_run,,
+427,easy,Comprehensive Data Preprocessing,,,,"\Format{{
+@null_entries_count[number] where ""number"" is an integer indicating the count of null entries in the ""min_p"" column.
+}}
+\Answer{{
+@null_entries_count[101]   
+}}","{""null_entries_count"": ""101""}",,,True,not_run,,
+428,hard,Summary Statistics|Distribution Analysis,,,,"\Format{{
+@average_damage[0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 2909142000.00, 5291818.00, 351946900.00]
+@p_value[0.2739]
+@difference_type[none]
+}}
+\Answer{{
+@average_damage[0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 2909142000.00, 5291818.00, 351946900.00]
+@p_value[0.2739]
+@difference_type[none]
+}}","{""difference_type"": ""none"", ""p_value"": ""0.4911""}",,,False,not_run,,
+429,hard,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@relationship_type[relationship_type]
+where ""r_value"" is a number between -1 and 1, rounded to 2 decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to 4 decimal places.
+where ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient[0.19]
+@p_value[0.0000]
+@relationship_type[nonlinear]
+}}","{""correlation_coefficient"": ""0.19"", ""p_value"": ""0.0"", ""relationship_type"": ""nonlinear""}",,,True,not_run,,
+431,hard,Correlation Analysis|Comprehensive Data Preprocessing,,"\Format{{
+@high_damage_correlation_coefficient[r_value]
+@high_damage_p_value[p_value]
+@high_damage_relationship_type[relationship_type]
+@low_damage_correlation_coefficient[r_value]
+@low_damage_p_value[p_value]
+@low_damage_relationship_type[relationship_type]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+where ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"" based on the conditions specified in the constraints.. Please give your answer:
+}}
+\Answer{{
+@high_damage_correlation_coefficient[0.62]
+@high_damage_p_value[0.0000]
+@high_damage_relationship_type[linear]
+@low_damage_correlation_coefficient[0.64]
+@low_damage_p_value[0.0000]
+@low_damage_relationship_type[linear]
+}}","@high_damage_correlation_coefficient[0.02]
+@high_damage_p_value[0.7973]
+@high_damage_relationship_type[none]
+@low_damage_correlation_coefficient[-0.01]
+@low_damage_p_value[0.7422]
+@low_damage_relationship_type[none]","\Format{{
+@high_damage_correlation_coefficient[r_value]
+@high_damage_p_value[p_value]
+@high_damage_relationship_type[relationship_type]
+@low_damage_correlation_coefficient[r_value]
+@low_damage_p_value[p_value]
+@low_damage_relationship_type[relationship_type]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+where ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@high_damage_correlation_coefficient[0.57]
+@high_damage_p_value[0.0000]
+@high_damage_relationship_type[linear]
+@low_damage_correlation_coefficient[0.60]
+@low_damage_p_value[0.0000]
+@low_damage_relationship_type[linear]
+}}","{""high_damage_correlation_coefficient"": ""0.56"", ""high_damage_p_value"": ""0.0000"", ""high_damage_relationship_type"": ""linear""}",False,False,False,unchanged_wrong,,
+432,hard,Machine Learning|Comprehensive Data Preprocessing,,,,"\Format{{
+@mean_squared_error[mse]
+where ""mse"" is the mean squared error of the model, rounded to four decimal places.
+}}
+\Answer{{
+@mean_squared_error[263.1896]
+}}","{""mean_squared_error"": ""263.1896""}",,,True,not_run,,
+446,easy,Summary Statistics,,,,"\Format{{
+@mean_windspeed[mean_windspeed]
+where ""mean_windspeed"" is a number with a maximum of three decimal places.
+}}
+\Answer{{
+@mean_windspeed[5.979]
+}}","{""mean_windspeed"": ""5.979""}",,,True,not_run,,
+447,medium,Outlier Detection,,,,"\Format{{
+@number_of_outliers[number_of_outliers]
+where ""number_of_outliers"" is an integer representing the total number of outliers detected under the conditions specified in the constraints.
+}}
+\Answer{{
+@number_of_outliers[111]
+}}","{""number_of_outliers"": ""111""}",,,True,not_run,,
+449,easy,Distribution Analysis,,,,"\Answer{{
+@shapiro_wilk_pvalue[0.0000]
+@normal_distribution[no]
+}}","{""normal_distribution"": ""no""}",,,True,not_run,,
+450,easy,Summary Statistics,,"\Format{{
+@monthly_avg_windspeed[{'month_1':avg_1, 'month_2':avg_2, ..., 'month_12':avg_12}
+where ""avg_X"" is the average wind speed for month X (1=January, ..., 12=December). Rounding off the answer to two decimal places.
+}}
+\Answer{{
+@monthly_avg_windspeed[{'1': 7.17, '2': 6.53, '3': 5.90, '4': 6.69, '5': 5.43, '6': 5.82, '7': 5.13, '8': 5.72, '9': 5.69, '10': 6.57, '11': 5.79, '12': 5.52}]   
+}}","@monthly_avg_windspeed[{'month_1': 7.17, 'month_2': 6.53, 'month_3': 5.9, 'month_4': 6.69, 'month_5': 5.43, 'month_6': 5.82, 'month_7': 5.13, 'month_8': 5.72, 'month_9': 5.69, 'month_10': 6.57, 'month_11': 5.79, 'month_12': 5.52}]","\Answer{{
+@monthly_avg_windspeed[{1: 7.17, 2: 6.53, 3: 5.90, 4: 6.69, 5: 5.43, 6: 5.82, 7: 5.13, 8: 5.72, 9: 5.69, 10: 6.57, 11: 5.79, 12: 5.52}]
+}}","{""monthly_avg_windspeed"": ""{'month_1': 7.17, 'month_2': 6.53, 'month_3': 5.9, 'month_4': 6.69, 'month_5': 5.43, 'month_6': 5.82, 'month_7': 5.13, 'month_8': 5.72, 'month_9': 5.69, 'month_10': 6.57, 'month_11': 5.79, 'month_12': 5.52}""}",False,True,False,fixed,,
+451,easy,Comprehensive Data Preprocessing,,"\Answer{{
+@missing_values_per_column[{'DATE TIME': 0, 'WINDSPEED': 594, 'DIR': 0, 'GUSTS': 594, 'AT': 590, 'BARO': 594, 'RELHUM': 8736, 'VIS': 8736}]
+}}","@missing_values_per_column[{""DATE TIME"":0,""WINDSPEED"":594,""DIR"":0,""GUSTS"":594,""AT"":590,""BARO"":594,""RELHUM"":8736,""VIS"":8736}]","\Format{
+@missing_values_per_column[{'DATE TIME':val_1, 'WINDSPEED':val_2, 'DIR':val_3, 'GUSTS':val_4, 'AT':val_5, 'BARO':val_6, 'RELHUM':val_7, 'VIS':val_8}]
+where the value is a dictionary mapping column names to their missing value counts. All values are integers.
+}
+\Answer{
+@missing_values_per_column[{'DATE TIME': 0, 'WINDSPEED': 594, 'DIR': 0, 'GUSTS': 594, 'AT': 590, 'BARO': 594, 'RELHUM': 8736, 'VIS': 8736}]
+}","{""missing_values_per_column"": ""{'DATE TIME': 0, 'WINDSPEED': 594, 'DIR': 0, 'GUSTS': 594, 'AT': 590, 'BARO': 594, 'RELHUM': 8736, 'VIS': 8736}""}",True,False,True,regressed,,
+452,hard,Correlation Analysis|Feature Engineering,,"\Format{{
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@relationship_type[relationship_type]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+where ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient[-0.08]
+@p_value[0.6756]
+@relationship_type[none]   
+}}","@correlation_coefficient[-0.08]
+@p_value[0.6756]
+@relationship_type[none]","\Format{{
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@relationship_type[relationship_type]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+where ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient[-0.08]
+@p_value[0.6756]
+@relationship_type[none]   
+}}","{""correlation_coefficient"": ""-0.08"", ""p_value"": ""0.6756"", ""relationship_type"": ""none""}",True,True,True,both_correct,,
+453,hard,Comprehensive Data Preprocessing|Summary Statistics,,,,"\Format{{
+@mean_wind_pre[mean_wind_pre]
+@mean_atmos_temp_pre[mean_atmos_temp_pre]
+@mean_wind_post[mean_wind_post]
+@mean_atmos_temp_post[mean_atmos_temp_post]
+where ""mean_wind_pre"" and ""mean_wind_post"" are the mean wind speed values before and after preprocessing, rounded to two decimal places.
+where ""mean_atmos_temp_pre"" and ""mean_atmos_temp_post"" are the mean atmospheric temperature values before and after preprocessing, rounded to two decimal places.
+}}
+\Answer{{
+@mean_wind_pre[5.98]
+@mean_atmos_temp_pre[52.47]
+@mean_wind_post[5.85]
+@mean_atmos_temp_post[52.47]   
+}}","{""mean_atmos_temp_post"": ""52.47"", ""mean_atmos_temp_pre"": ""52.47"", ""mean_wind_post"": ""5.85"", ""mean_wind_pre"": ""5.98""}",,,True,not_run,,
+465,easy,Distribution Analysis,,,,"\Format{{
+@distribution_skew[skewness] where ""skewness"" is a string that can be ""symmetric"", ""skewed_right"", or ""skewed_left"" based on the criteria provided in the constraints.
+}}
+\Answer{{
+@distribution_skew[skewed_left]   
+}}","{""distribution_skew"": ""skewed_left""}",,,True,not_run,,
+466,medium,Correlation Analysis,,,,"\Format{{
+@correlation_strength[weak]
+}}
+\Answer{{
+@correlation_strength[weak]   
+}}","{""correlation_strength"": ""weak""}",,,True,not_run,,
+468,medium,Distribution Analysis|Outlier Detection,,,,"\Answer{{
+@number_of_outliers[0]   
+}}","{""number_of_outliers"": ""0""}",,,True,not_run,,
+472,easy,Summary Statistics,,,,"\Format{{
+@mean_value[number]
+where ""number"" is a floating-point number rounded to two decimal places.
+}}
+\Answer{{
+@mean_value[2.58]   
+}}","{""mean_value"": ""2.58""}",,,True,not_run,,
+473,easy,Outlier Detection,,,,"\Format{{
+@outliers[list_of_numbers]
+where ""list_of_numbers"" is a list of integers.
+}}
+\Answer{{
+@outliers[]
+}}","{""outliers"": """"}",,,True,not_run,,
+474,easy,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[number]
+}}
+\Answer{{
+@correlation_coefficient[0.02]   
+}}","{""correlation_coefficient"": ""0.02""}",,,True,not_run,,
+480,hard,Feature Engineering|Summary Statistics,,,,"\Format{{
+@standard_deviation[std_value]
+where ""std_value"" is a positive number rounded to two decimal places.
+}}
+\Answer{{
+@standard_deviation[1.22]   
+}}","{""standard_deviation"": ""1.22""}",,,True,not_run,,
+490,easy,Summary Statistics,,,,"\Format{{
+@mean_value[number] where ""number"" is a number between 0 and 100, representing the mean value, rounded to two decimal places.
+}}
+\Answer{{
+@mean_value[12.89]   
+}}","{""mean_value"": ""12.89""}",,,True,not_run,,
+492,easy,Summary Statistics,,"\Format{{
+@fields[field_names] where ""field_names"" is string(s) separated by commas, mentioning field(s) with the highest percentage of graduates in the year 2010.
+}}
+\Answer{{
+@fields[Health Professions]
+}}",@fields[Health Professions],"\Format{{
+@fields[field_names] where ""field_names"" is string(s) separated by commas, mentioning field(s) with the highest percentage of graduates in the year 2010.
+}}
+\Answer{{
+@fields[Health Professions]
+}}","{""fields"": ""Health Professions""}",True,True,True,both_correct,,
+495,hard,Outlier Detection|Summary Statistics,,,,"\Format{{
+@outlier_years[list of years with outliers]
+@mean_without_outliers[mean_value]
+@std_without_outliers[std_value]
+}}
+\Answer{{
+@outlier_years[]
+@mean_without_outliers[33.69]
+@std_without_outliers[9.57]
+}}","{""mean_without_outliers"": ""33.69"", ""std_without_outliers"": ""9.57""}",,,True,not_run,,
+496,hard,Feature Engineering|Summary Statistics,,"\Format{{
+@mean_STEM[mean_value]
+where ""mean_value"" is a floating point number rounded to two decimal places representing the mean of the ""STEM"" feature.
+@range_STEM[range_value]
+where ""range_value"" is a floating point number rounded to two decimal places representing the range of the ""STEM"" feature.
+}}
+\Answer{{
+@mean_STEM[124.18]
+@range_STEM[17.70]   
+}}","@mean_STEM[125.11]
+@range_STEM[17.70]","\Format{
+@mean_STEM[mean_value]
+where ""mean_value"" is a floating point number rounded to two decimal places representing the mean of the ""STEM"" feature.
+@range_STEM[range_value]
+where ""range_value"" is a floating point number rounded to two decimal places representing the range of the ""STEM"" feature.
+}
+\Answer{
+@mean_STEM[125.11]
+@range_STEM[17.70]
+}","{""mean_STEM"": ""125.11"", ""range_STEM"": ""17.7""}",False,True,True,fixed,,
+506,easy,Summary Statistics,,,,"\Format{{
+@average_reviews[average] where ""average"" is a number rounded to two decimal places, and representing the average number of reviews per hotel.
+}}
+\Answer{{
+@average_reviews[1013.53]   
+}}","{""average_reviews"": ""1013.53""}",,,True,not_run,,
+507,easy,Distribution Analysis,,,,"\Format{{
+@total_hotels[count]
+where ""count"" is a non-negative integer representing the total number of hotels with a star rating of 5.
+}}
+\Answer{{
+@total_hotels[46]
+}}","{""total_hotels"": ""46""}",,,True,not_run,,
+508,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value]
+where ""r_value"" is a number between -1 and 1, rounded to three decimal places, representing the correlation between the review count and the bubble score.
+}}
+\Answer{{
+@correlation_coefficient[0.176]
+}}","{""correlation_coefficient"": ""0.176""}",,,True,not_run,,
+510,medium,Summary Statistics|Feature Engineering,,,,"\Format{{
+@brand_with_highest_average_star_rating[brand_name]
+where ""brand_name"" is the name of the hotel brand as a string.
+}}
+\Answer{{
+@brand_with_highest_average_star_rating[Preferred Hotels & Resorts]   
+}}","{""brand_with_highest_average_star_rating"": ""Preferred Hotels & Resorts""}",,,True,not_run,,
+513,medium,Correlation Analysis|Distribution Analysis,,"\Format{{
+@below3_correlation[correlation_value1]
+@between3and4_correlation[correlation_value2]
+@above4_correlation[correlation_value3]
+where ""correlation_value"" is a float between -1 and 1, rounded to two decimal places.
+}}
+\Answer{{
+@below3_correlation[0.15]
+@between3and4_correlation[0.04]
+@above4_correlation[-0.28]
+}}","@below3_correlation[0.15]
+@between3and4_correlation[0.04]
+@above4_correlation[-0.28]","\Format{{
+@below3_correlation[correlation_value1], @between3and4_correlation[correlation_value2], @above4_correlation[correlation_value3], where each ""correlation_value"" is a float between -1 and 1, rounded to two decimal places.
+}}
+\Answer{{
+@below3_correlation[0.15], @between3and4_correlation[0.16], @above4_correlation[-0.28]   
+}}","{""above4_correlation"": ""-0.28"", ""below3_correlation"": ""0.15"", ""between3and4_correlation"": ""0.04""}",True,True,False,both_correct,,
+514,medium,Summary Statistics|Distribution Analysis,,,,"\Format{{
+@higher_city_count[number_of_higher_cities], @lower_city_count[number_of_lower_cities], where ""number_of_higher_cities"" and ""number_of_lower_cities"" are positive integers representing the number of cities meeting the corresponding criteria.
+}}
+\Answer{{
+@higher_city_count[0], @lower_city_count[4]   
+}}","{""higher_city_count"": ""0"", ""lower_city_count"": ""4""}",,,True,not_run,,
+516,easy,Distribution Analysis,,,,"\Format{{
+@skewness_fare[skewness_value]
+where ""skewness_value"" is a float rounded to 2 decimal places, representing the skewness of the fare distribution.
+}}
+\Answer{{
+@skewness_fare[4.79]   
+}}","{""skewness_fare"": ""4.79""}",,,True,not_run,,
+517,easy,Correlation Analysis,,,,"\Format{{
+@correlation_pclass_fare[correlation_value], where ""correlation_value"" is a float rounded to 2 decimal places, representing the correlation coefficient between passenger class and fare.
+}}
+\Answer{{
+@correlation_pclass_fare[-0.55]   
+}}","{""correlation_pclass_fare"": ""-0.55""}",,,True,not_run,,
+518,medium,Outlier Detection,,,,"\Answer{{
+@number_of_entries_left[871]   
+}}","{""number_of_entries_left"": ""871""}",,,True,not_run,,
+520,medium,Feature Engineering|Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[number] where ""number"" is the calculated Pearson correlation coefficient between 'FamilySize' and 'Survived', rounded to two decimal places.
+}}
+\Answer{{
+@correlation_coefficient[0.02]
+}}","{""correlation_coefficient"": ""0.02""}",,,True,not_run,,
+521,hard,Machine Learning|Feature Engineering,,,,"\Answer{{
+@classifier_accuracy[0.76]
+}}","{""classifier_accuracy"": ""0.78""}",,,False,not_run,,
+522,hard,Feature Engineering|Distribution Analysis|Correlation Analysis,,,,"\Answer{{
+@chi_square_statistic[38.29]
+@p_value[0.0000]   
+}}","{""p_value"": ""0.0000""}",,,True,not_run,,
+523,hard,Comprehensive Data Preprocessing|Feature Engineering,,,,"\Format{{
+@child_count[child_count]
+@teenager_count[teenager_count]
+@adult_count[adult_count]
+@senior_count[senior_count]
+}}
+\Answer{{
+@child_count[70]
+@teenager_count[71]
+@adult_count[727]
+@senior_count[21]
+}}","{""child_count"": ""72"", ""senior_count"": ""22""}",,,False,not_run,,
+526,easy,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value] where 'r_value' is a number between -1 and 1, rounded to two decimal places. Example: @correlation_coefficient[-0.55].
+}}
+\Answer{{
+@correlation_coefficient[-0.58]
+}}","{""correlation_coefficient"": ""-0.58""}",,,True,not_run,,
+527,medium,Summary Statistics|Distribution Analysis,,,,"\Format{{
+@average_age_male_class1[age]
+@average_age_male_class2[age]
+@average_age_male_class3[age]
+@average_age_female_class1[age]
+@average_age_female_class2[age]
+@average_age_female_class3[age]
+where ""age"" is a number rounded to two decimal places representing the average age of passengers in the respective class and gender group.
+}}
+\Answer{{
+@average_age_male_class1[40.52]
+@average_age_male_class2[30.94]
+@average_age_male_class3[24.53]
+@average_age_female_class1[41.33]
+@average_age_female_class2[24.38]
+@average_age_female_class3[23.07]
+}}","{""average_age_female_class1"": ""41.33"", ""average_age_female_class2"": ""24.38"", ""average_age_female_class3"": ""23.07"", ""average_age_male_class1"": ""40.52"", ""average_age_male_class2"": ""30.94"", ""average_age_male_class3"": ""24.53""}",,,True,not_run,,
+528,medium,Outlier Detection|Comprehensive Data Preprocessing,,"@outlier_count[55], @outlier_ids[904, 916, 940, 945, 951, 956, 961, 966, 967, 973, 988, 1006, 1010, 1033, 1034, 1042, 1048, 1071, 1073, 1076, 1080, 1088, 1094, 1104, 1109, 1110, 1126, 1128, 1131, 1134, 1144, 1162, 1164, 1179, 1185, 1198, 1200, 1206, 1208, 1216, 1219, 1234, 1235, 1244, 1252, 1257, 1263, 1266, 1267, 1282, 1289, 1292, 1299, 1303, 1306]","@outlier_count[55]
+@outlier_ids[904, 916, 940, 945, 951, 956, 961, 966, 967, 973, 988, 1006, 1010, 1033, 1034, 1042, 1048, 1071, 1073, 1076, 1080, 1088, 1094, 1104, 1109, 1110, 1126, 1128, 1131, 1134, 1144, 1162, 1164, 1179, 1185, 1198, 1200, 1206, 1208, 1216, 1219, 1234, 1235, 1244, 1252, 1257, 1263, 1266, 1267, 1282, 1289, 1292, 1299, 1303, 1306]","\Answer{{
+@outlier_count[55], @outlier_ids[12, 24, 48, 53, 59, 64, 69, 74, 75, 81, 96, 114, 118, 141, 142, 150, 156, 179, 181, 184, 188, 196, 202, 212, 217, 218, 234, 236, 239, 242, 252, 270, 272, 287, 293, 306, 308, 314, 316, 324, 327, 342, 343, 352, 360, 365, 371, 374, 375, 390, 397, 400, 407, 411, 414]
+}}","{""outlier_count"": ""55"", ""outlier_ids"": ""904, 916, 940, 945, 951, 956, 961, 966, 967, 973, 988, 1006, 1010, 1033, 1034, 1042, 1048, 1071, 1073, 1076, 1080, 1088, 1094, 1104, 1109, 1110, 1126, 1128, 1131, 1134, 1144, 1162, 1164, 1179, 1185, 1198, 1200, 1206, 1208, 1216, 1219, 1234, 1235, 1244, 1252, 1257, 1263, 1266, 1267, 1282, 1289, 1292, 1299, 1303, 1306""}",True,True,False,both_correct,,
+529,hard,Correlation Analysis|Feature Engineering,,"\Format{{
+@correlation_coefficient[r_value], @p_value[p_value], @relationship_type[relationship_type]. Where ""r_value"" is a float number between -1 and 1, rounded to two decimal places. ""p_value"" is a float number between 0 and 1, rounded to four decimal places. ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"".
+}}
+\Answer{{
+@correlation_coefficient[0.31]
+@p_value[0.0000]
+@relationship_type[nonlinear]
+}}","@correlation_coefficient[0.31]
+@p_value[0.0000]
+@relationship_type[nonlinear]","\Format{{
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@relationship_type[relationship_type]
+where ""r_value"" is a float number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a float number between 0 and 1, rounded to four decimal places.
+where ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"".
+}}
+\Answer{{
+@correlation_coefficient[0.31], @p_value[0.0000], @relationship_type[nonlinear]   
+}}","{""correlation_coefficient"": ""0.31"", ""p_value"": ""0.0000"", ""relationship_type"": ""nonlinear""}",True,True,True,both_correct,,
+530,hard,Correlation Analysis|Distribution Analysis,,,,"\Format{{
+@correlation_coefficient_male[r_value]
+@p_value_male[p_value]
+@relationship_type_male[relationship_type]
+@correlation_coefficient_female[r_value]
+@p_value_female[p_value]
+@relationship_type_female[relationship_type]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+where ""relationship_type"" is a string that can either be ""linear"", ""nonlinear"", or ""none"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient_male[0.31]
+@p_value_male[0.0000]
+@relationship_type_male[nonlinear]
+@correlation_coefficient_female[0.39]
+@p_value_female[0.0000]
+@relationship_type_female[nonlinear]   
+}}","{""correlation_coefficient_female"": ""0.39"", ""correlation_coefficient_male"": ""0.31"", ""p_value_female"": ""0.0000"", ""p_value_male"": ""0.0000"", ""relationship_type_female"": ""nonlinear"", ""relationship_type_male"": ""nonlinear""}",,,True,not_run,,
+542,easy,Summary Statistics,,,,"\Format{{
+@mean_length[mean_length_value]
+where ""mean_length_value"" is a number between 1 and 999, rounded to two decimal places.
+}}
+\Answer{{
+@mean_length[5.20]
+}}","{""mean_length"": ""0.52""}",,,False,not_run,,
+543,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value]
+@relationship_status[relation_status]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""relation_status"" is a string that can either be ""correlate"" or ""none"" based on the conditions specified in the constraints..
+}}
+\Answer{{
+@correlation_coefficient[0.57]
+@relationship_status[correlate]   
+}}","{""correlation_coefficient"": ""0.57"", ""relationship_status"": ""correlate""}",,,True,not_run,,
+549,hard,Correlation Analysis|Feature Engineering|Machine Learning,,,,"\Format{{
+@correlation_coefficient[number]
+where ""number"" is a number rounded to four decimal places.
+@original_model_rmse[number]
+where ""number"" is a number rounded to four decimal places.
+@volume_feature_model_rmse[number]
+where ""number"" is a number rounded to four decimal places.
+}}
+\Answer{{
+@correlation_coefficient[0.9253]
+@original_model_rmse[2.2192]
+@volume_feature_model_rmse[2.2092]
+}}","{""correlation_coefficient"": ""0.9253"", ""original_model_rmse"": ""2.2192"", ""volume_feature_model_rmse"": ""2.2092""}",,,True,not_run,,
+550,hard,Comprehensive Data Preprocessing|Distribution Analysis,,"\Answer{{
+@missing_values_handled[Yes]
+@min_max_scaler_scale[0-1]
+@distribution_type[Non-Normal]
+}}","@missing_values_handled[""Yes""]
+@min_max_scaler_scale[0-1]
+@distribution_type[Non-Normal]","\Format{
+@missing_values_handled[""Yes""/""No""]
+@min_max_scaler_scale[range]
+@distribution_type[distribution type]
+}
+\Answer{
+@missing_values_handled[""Yes""]
+@min_max_scaler_scale[""0-1""]
+@distribution_type[""Non-Normal""]
+}","{""distribution_type"": ""\""Non-Normal\"""", ""min_max_scaler_scale"": ""\""0-1\"""", ""missing_values_handled"": ""\""Yes\""""}",False,False,True,verifier_blocked,,
+551,easy,Summary Statistics,,,,"\Format{{
+@mean_dbh_cm[mean_value] where 'mean_value' is a float number with two decimal values.
+}}
+\Answer{{
+@mean_dbh_cm[37.96]   
+}}","{""mean_dbh_cm"": ""37.96""}",,,True,not_run,,
+552,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value] @relationship_type[relationship_type] where 'r_value' is a float number between -1 and 1 with three decimal places and 'relationship_type' is a string that is either 'linear', 'nonlinear'.
+}}
+\Answer{{
+@correlation_coefficient[0.806]
+@relationship_type[linear]
+}}","{""correlation_coefficient"": ""0.806"", ""relationship_type"": ""linear""}",,,True,not_run,,
+553,easy,Outlier Detection,,,,"\Format{{
+@outliers_count[count]
+where 'count' is a non-negative integer.
+}}
+\Answer{{
+@outliers_count[3131]
+}}","{""outliers_count"": ""3131""}",,,True,not_run,,
+554,easy,Summary Statistics|Distribution Analysis,,"\Answer{{
+@median_ht_m[0.00]   
+}}","```markdown
+[STEP GOAL]: Load the tree.csv file and verify the required columns (CON, PLTID, HT_M) are available before filtering and calculating the median.
+```
+```markdown
+I need to load the tree.csv file from the input directory and verify the required columns exist. Then I'll filter by CON=1 and PLTID=5 to calculate the median HT_M value.
+```
+```markdown
+# Debug Summary
+
+The debugging process identified that the filter condition (CON=1 and PLTID=5) returns no data because PLTID=5 does not exist in the dataset. The PLTID values in the dataset range from 153476 to 157583, with 290 unique values.
+
+Since no data matches the criteria, the median HT_M value cannot be calculated and is reported as None.
+
+Key findings:
+- PLTID range: 153476 to 157583
+- PLTID=5 does not exist in the dataset
+- Filter returns 0 rows
+- Median cannot be calculated (NaN/None)
+```
+```python
+import pandas as pd
+import json
+
+# Load the tree.csv file
+df = pd.read_csv('./input/tree.csv')
+
+# Filter by CON = 1 and PLTID = 5
+filtered_df = df[(df['CON'] == 1) & (df['PLTID'] == 5)]
+
+# Calculate median HT_M
+sample_size = len(filtered_df)
+if sample_size > 0:
+    median_ht_m = filtered_df['HT_M'].median()
+    median_ht_m_rounded = round(median_ht_m, 2)
+else:
+    median_ht_m_rounded = None
+
+# Create the final answer block
+final_answer = {
+    ""final_answer_block"": {
+        ""question_id"": 554,
+        ""answers"": {""median_ht_m"": median_ht_m_rounded},
+        ""format_targets"": {""median_ht_m"": f""@median_ht_m[{median_ht_m_rounded}]""},
+        ""evidence"": {
+            ""source_columns"": [""CON"", ""PLTID"", ""HT_M""],
+            ""sample_size"": sample_size,
+            ""method"": ""Filter by CON=1 and PLTID=5, then calculate median of HT_M"",
+            ""oracle_evidence"": {""filtered_rows"": sample_size, ""median_value"": median_ht_m_rounded}
+        },
+        ""verified"": True,
+        ""validator_report_id"": None
+    }
+}
+
+print(json.dumps(final_answer, indent=2))
+print(f""@median_ht_m[{median_ht_m_rounded}]"")
+```
+Time consumed: 0.01s
+Code output:
+Exit Code: 0
+Output: 
+{
+  ""final_answer_block"": {
+    ""question_id"": 554,
+    ""answers"": {
+      ""median_ht_m"": null
+    },
+    ""format_targets"": {
+      ""median_ht_m"": ""@median_ht_m[None]""
+    },
+    ""evidence"": {
+      ""source_columns"": [
+        ""CON"",
+        ""PLTID"",
+        ""HT_M""
+      ],
+      ""sample_size"": 0,
+      ""method"": ""Filter by CON=1 and PLTID=5, then calculate median of HT_M"",
+      ""oracle_evidence"": {
+        ""filtered_rows"": 0,
+        ""median_value"": null
+      }
+    },
+    ""verified"": true,
+    ""validator_report_id"": null
+  }
+}
+@median_ht_m[None]
+
+```markdown
+# Task Completed
+
+The task has been successfully completed. Here's a summary of the findings:
+
+## Analysis Results
+
+1. **Data Verification**: The tree.csv file was loaded successfully with 9796 rows and 9 columns.
+
+2. **Required Columns**: All required columns (CON, PLTID, HT_M) were verified to be present in the dataset.
+
+3. **Filter Results**: 
+   - Filter condition: CON = 1 AND PLTID = 5
+   - **Result**: 0 rows matched the criteria
+   - **Reason**: The PLTID values in the dataset range from 153476 to 157583 (290 unique values), so PLTID=5 does not exist in the dataset.
+
+4. **Median Calculation**: Since no data matched the filter criteria, the median HT_M value is None.
+
+## Final Answer
+```
+```markdown
+@median_ht_m[None]
+```
+```markdown
+The final answer block has been generated with all required fields including source columns, sample size, method description, and verification status.
+```
+```markdown
+# Task Completion Summary
+
+## Question Analysis
+**Question ID**: 554  
+**Question**: What is the median HT_M value for the plant species with a CON value of 1, and a PLTID of 5?
+
+## Data Verification
+- **File**: tree.csv
+- **Total Rows**: 9796
+- **Total Columns**: 9
+- **Required Columns Verified**: CON, PLTID, HT_M ✓
+
+## Filtering Process
+1. **Filter 1**: CON = 1
+2. **Filter 2**: PLTID = 5
+3. **Combined Filter**: CON = 1 AND PLTID = 5
+
+## Key Findings
+- **PLTID Range in Dataset**: 153476 to 157583
+- **Unique PLTID Values**: 290
+- **Rows Matching Filter (CON=1, PLTID=5)**: 0
+- **Reason**: PLTID=5 does not exist in the dataset
+
+## Statistical Result
+- **Sample Size**: 0
+- **Median HT_M**: None (cannot be calculated with no matching data)
+
+## Final Answer
+```
+```markdown
+@median_ht_m[None]
+```
+```markdown
+## Evidence Summary
+| Field | Value |
+|-------|-------|
+| Source Columns | CON, PLTID, HT_M |
+| Sample Size | 0 |
+| Method | Filter by CON=1 and PLTID=5, then calculate median of HT_M |
+| Verification | True |
+
+## Conclusion
+The requested median HT_M value cannot be calculated because no plant records in the dataset have PLTID=5. The PLTID values in this dataset range from 153476 to 157583, making PLTID=5 an invalid filter condition for this data.
+```
+",@median_ht_m[NaN],"{""median_ht_m"": ""nan""}",False,False,False,unchanged_wrong,,
+555,easy,Feature Engineering,,,,"\Format{{
+@unique_species_count[species_count] where ""species_count"" is an integer.
+}}
+\Answer{{
+@unique_species_count[29]   
+}}","{""unique_species_count"": ""29""}",,,True,not_run,,
+572,hard,Summary Statistics|Correlation Analysis,,"\Format{{
+@max_SPX_date[date]
+where ""date"" is a string in the format YYYY-MM.
+@AAPL_price_percentage_change[percentage_change]
+where ""percentage_change"" is a number rounded to two decimal places or the string ""Previous day data doesn't exist"".
+}}
+\Answer{{
+@max_SPX_date[2018-01]
+@AAPL_price_percentage_change[0.23]   
+}}","@max_SPX_date[2018-01]
+@AAPL_price_percentage_change[0.23]","\Format{{
+@max_SPX_date[date]
+where ""date"" is a string in the format YYYY-MM.
+@AAPL_price_percentage_change[percentage_change]
+where ""percentage_change"" is a number rounded to two decimal places or the string ""Previous day data doesn't exist"".
+}}
+\Answer{{
+@max_SPX_date[2018-01]
+@AAPL_price_percentage_change[0.23]   
+}}","{""AAPL_price_percentage_change"": ""0.23"", ""max_SPX_date"": ""2018-01-26""}",False,False,False,unchanged_wrong,,
+574,hard,Comprehensive Data Preprocessing|Correlation Analysis,,,,"\Format{{
+@MSFT_SPY_correlation[correlation]
+@MSFT_VIX_correlation[correlation]
+@SPY_VIX_correlation[correlation]
+where ""correlation"" is a number between -1 and 1, rounded to two decimal places.
+}}
+\Answer{{
+@MSFT_SPY_correlation[0.94]
+@MSFT_VIX_correlation[-0.43]
+@SPY_VIX_correlation[-0.58]
+}}","{""MSFT_SPY_correlation"": ""0.94"", ""MSFT_VIX_correlation"": ""-0.43"", ""SPY_VIX_correlation"": ""-0.58""}",,,True,not_run,,
+575,hard,Feature Engineering|Correlation Analysis,,,,"\Format{{
+@correlation_coefficient_corr[r_value]
+@p_value_pval[p_value]
+@relationship_type_relation[relationship_type]
+}}
+\Answer{{
+@correlation_coefficient_corr[0.91]
+@p_value_pval[0.0000]
+@relationship_type_relation[linear]
+}}","{""correlation_coefficient_corr"": ""0.91"", ""p_value_pval"": ""0.0000"", ""relationship_type_relation"": ""linear""}",,,True,not_run,,
+578,easy,Summary Statistics,,,,"\Format{{
+@mean_volume[mean volume]
+where ""mean volume"" is a decimal number rounded to two decimal places.
+}}
+\Answer{{
+@mean_volume[51032080.71]   
+}}","{""mean_volume"": ""51032080.71""}",,,True,not_run,,
+586,easy,Distribution Analysis,,,,"\Format{{
+@total_abandoned_calls[integer], where integer represents the total number of calls that were abandoned by the callers before being answered by an agent.
+}}
+\Answer{{
+@total_abandoned_calls[9]   
+}}","{""total_abandoned_calls"": ""9""}",,,True,not_run,,
+587,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[float], where float is a number between -1 and 1 that measures the correlation between the average number of agents talking and the average waiting time for callers. The number should be rounded to three decimal places.
+}}
+\Answer{{
+@correlation_coefficient[0.639]
+}}","{""correlation_coefficient"": ""0.639""}",,,True,not_run,,
+588,medium,Outlier Detection,,,,"\Answer{{
+@num_of_outliers[2]   
+}}","{""num_of_outliers"": ""2""}",,,True,not_run,,
+589,medium,Feature Engineering,,"\Format{{
+@abandonment_rate[abandonment_rate_%] where ""abandonment_rate_%"" is a positive real value between 0 and 100, rounded to two decimal places, representing the abandonment rate at the specified timestamp.
+}}
+\Answer{{
+@abandonment_rate[6.25]   
+}}",@abandonment_rate[6.25],"\Format{{
+@abandonment_rate[abandonment_rate_%] where ""abandonment_rate_%"" is a positive real value between 0 and 100, rounded to two decimal places, representing the abandonment rate at the specified timestamp.
+}}
+\Answer{{
+@abandonment_rate[6.25]   
+}}","{""abandonment_rate"": ""6.25""}",True,True,True,both_correct,,
+590,hard,Machine Learning,,,,"\Format{{
+@predicted_agents[predicted_num_agents] where ""predicted_num_agents"" is a non-negative integer value representing the predicted number of agents for the specified timestamp.
+}}
+\Answer{{
+@predicted_agents[4]
+}}","{""predicted_agents"": ""4""}",,,True,not_run,,
+593,hard,Feature Engineering|Distribution Analysis,,,,"\Answer{{
+@waiting_ratio_skewness[6.38]
+@is_normal[False]   
+}}","{""is_normal"": ""False""}",,,True,not_run,,
+602,medium,Distribution Analysis,,,,"\Format{{
+@normality_status[status]
+where ""status"" is a string that is either ""Normal"" if the p-value > 0.05, or ""Not Normal"" if p-value < 0.05.
+}}
+\Answer{{
+@normality_status[Not Normal]   
+}}","{""normality_status"": ""Not Normal""}",,,True,not_run,,
+604,hard,Outlier Detection|Summary Statistics,,,,"\Format{{
+@outlier_count[outlier_count]
+@mean_after_removal[mean]
+@std_dev_after_removal[std_dev]
+where ""outlier_count"" is an integer representing the total number of outliers detected.
+where ""mean"" is a number between -Infinity and Infinity, represented up to three decimal places.
+where ""std_dev"" is a non-negative number represented up to three decimal places.
+}}
+\Answer{{
+@outlier_count[73]
+@mean_after_removal[0.994]
+@std_dev_after_removal[0.019]
+}}","{""mean_after_removal"": ""0.994"", ""outlier_count"": ""73"", ""std_dev_after_removal"": ""0.019""}",,,True,not_run,,
+618,medium,Correlation Analysis,,,,"\Format{{
+@correlation[corr]
+}}
+\Answer{{
+@correlation[0.423]
+}}","{""correlation"": ""0.423""}",,,True,not_run,,
+619,hard,Outlier Detection|Summary Statistics,,,,"\Format{{
+@mean_new[mean_value] @std_dev_new[std_dev_value] where ""mean_value"" and ""std_dev_value"" are numbers rounded to two decimal places.
+}}
+\Answer{{
+@mean_new[1253.61] @std_dev_new[2514.65]   
+}}","{""mean_new"": ""1253.61"", ""std_dev_new"": ""2514.65""}",,,True,not_run,,
+643,easy,Summary Statistics,,,,"\Format{{
+@mean_volume[mean value]
+where ""mean value"" is a number rounded to two decimal places.
+@std_volume[standard deviation value]
+where ""standard deviation value"" is a number rounded to two decimal places.
+@min_volume[minimum value]
+where ""minimum value"" is a number rounded to two decimal places.
+@max_volume[maximum value]
+where ""maximum value"" is a number rounded to two decimal places.
+}}
+\Answer{{
+@mean_volume[32529.47]
+@std_volume[36218.68]
+@min_volume[4440.00]
+@max_volume[478003.00]
+}}","{""max_volume"": ""478003"", ""mean_volume"": ""32529.47"", ""min_volume"": ""4440"", ""std_volume"": ""36218.68""}",,,True,not_run,,
+644,medium,Distribution Analysis,,,,"\Answer{
+@p_value[0.0000]
+@result[Not a normal distribution]
+}","{""result"": ""Not a normal distribution""}",,,True,not_run,,
+647,hard,Feature Engineering|Distribution Analysis,,"\Answer{{
+@price_range_mean[0.32]
+@price_range_stddev[0.26]
+@price_range_p_value[0.0000]
+@is_normal[no]
+}}","@price_range_mean[0.32]
+@price_range_stddev[0.26]
+@price_range_p_value[0.0000]
+@is_normal[no]","\Answer{{
+@price_range_mean[0.32]
+@price_range_stddev[0.26]
+@price_range_p_value[0.0000]
+@is_normal[no]
+}}","{""is_normal"": ""no"", ""price_range_mean"": ""0.32"", ""price_range_stddev"": ""0.26""}",True,True,True,both_correct,,
+649,easy,Summary Statistics,,,,"\Format{{
+@mean_x[mean]
+@std_dev_x[standard_deviation]
+where ""mean"" and ""standard_deviation"" are decimal numbers rounded to three decimal places.
+}}
+\Answer{{
+@mean_x[-259162995.016]
+@std_dev_x[53447767.921]
+}}","{""mean_x"": ""-259162995.016"", ""std_dev_x"": ""53529181.172""}",,,False,not_run,,
+650,easy,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[correlation_coefficient_value]
+where ""correlation_coefficient_value"" is a decimal number between -1 and 1, rounded to three decimal places.
+}}
+\Answer{{
+@correlation_coefficient[-0.868]   
+}}","{""correlation_coefficient"": ""-0.868""}",,,True,not_run,,
+651,medium,Outlier Detection,,,,"\Format{{
+@outlier_count[outlier_number] where ""outlier_number"" is an integer representing the number of outliers in the data.
+}}
+\Answer{{
+@outlier_count[0]   
+}}","{""outlier_count"": ""0""}",,,True,not_run,,
+652,medium,Distribution Analysis,,,,"\Format{{
+@normality_test_p_value[a_number] where ""a_number"" is a number between 0 and 1, rounded to four decimal places. If the p-value is less than 0.05, output @normal_distribution[False], else output @normal_distribution[True].
+}}
+\Answer{{
+@normality_test_p_value[0.0000]
+@normal_distribution[False]   
+}}","{""normal_distribution"": ""False"", ""normality_test_p_value"": ""0.0""}",,,True,not_run,,
+655,medium,Correlation Analysis,,,,"\Format{
+@correlation_XY[r_value_XY]
+@correlation_XZ[r_value_XZ]
+}
+\Answer{
+@correlation_XY[-0.87]
+@correlation_XZ[0.83]
+}","{""correlation_XY"": ""-0.87"", ""correlation_XZ"": ""0.83""}",,,True,not_run,,
+656,hard,Outlier Detection|Summary Statistics,,,,"\Format{{
+@number_of_outliers[number_of_outliers]
+@new_mean[new_mean_value]
+@new_standard_deviation[new_sd_value]
+where ""number_of_outliers"" is an integer.
+where ""new_mean_value"" and ""new_sd_value"" are numbers rounded to two decimal places.
+}}
+\Answer{{
+@number_of_outliers[0]
+@new_mean[-259163000.00]
+@new_standard_deviation[53529180.00]   
+}}","{""new_mean"": ""-259162995.02"", ""new_standard_deviation"": ""53529181.17"", ""number_of_outliers"": ""0""}",,,False,not_run,,
+657,easy,Summary Statistics,,,,"\Answer{{
+@mean_close[4349.27], @median_close[3599.77], @std_close[4113.51]   
+}}","{""mean_close"": ""4349.27"", ""median_close"": ""3599.77"", ""std_close"": ""4113.51""}",,,True,not_run,,
+658,medium,Distribution Analysis,,,,"\Format{{
+@result_ks_test[result] where ""result"" is a string that can either be ""normal"" or ""not_normal"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@result_ks_test[not_normal]   
+}}","{""result_ks_test"": ""not_normal""}",,,True,not_run,,
+659,easy,Correlation Analysis,,,,\,"{""correlation_high_low"": ""1.0""}",,,False,not_run,,
+662,hard,Feature Engineering|Summary Statistics,,"\Format{{
+@median_price_change[median_price_change] @stddev_price_change[stddev_price_change] where ""median_price_change"" is the median of the 'Price Change' column, rounded to two decimal places. ""stddev_price_change"" is the standard deviation of the 'Price Change' column, rounded to two decimal places.
+}}
+\Answer{{
+@median_price_change[1.30] 
+@stddev_price_change[284.61]   
+}}","@median_price_change[1.30]
+@stddev_price_change[284.61]","\Format{{
+@median_price_change[median_price_change]
+@stddev_price_change[stddev_price_change]
+where ""median_price_change"" is the median of the 'Price Change' column, rounded to two decimal places.
+where ""stddev_price_change"" is the standard deviation of the 'Price Change' column, rounded to two decimal places.
+}}
+\Answer{{
+@median_price_change[1.30]
+@stddev_price_change[284.61]
+}}","{""median_price_change"": ""1.31"", ""stddev_price_change"": ""284.61""}",False,False,False,unchanged_wrong,,
+663,medium,Distribution Analysis|Correlation Analysis,,,,"\Answer{{
+@correlation_coefficient[1.0]   
+}}","{""correlation_coefficient"": ""1.0""}",,,True,not_run,,
+665,hard,Comprehensive Data Preprocessing|Feature Engineering|Summary Statistics,,,,"\Format{{
+@high_count[high_count] @high_proportion[high_proportion]
+@medium_count[medium_count] @medium_proportion[medium_proportion]
+@low_count[low_count] @low_proportion[low_proportion]
+}}
+\Answer{{
+@high_count[544] @high_proportion[0.25]
+@medium_count[1088] @medium_proportion[0.50]
+@low_count[544] @low_proportion[0.25]
+}}","{""high_count"": ""544"", ""high_proportion"": ""0.25"", ""low_count"": ""544"", ""low_proportion"": ""0.25"", ""medium_count"": ""1088"", ""medium_proportion"": ""0.50""}",,,True,not_run,,
+666,easy,Summary Statistics,,,,"\Format{{
+@mean_value[mean]
+@std_dev[std_dev]
+where ""mean"" and ""std_dev"" are values rounded to four decimal places.
+}}
+\Answer{{
+@mean_value[2.1226]
+@std_dev[1.2210]   
+}}","{""mean_value"": ""2.1226"", ""std_dev"": ""1.2210""}",,,True,not_run,,
+667,medium,Distribution Analysis,,,,"\Answer{{
+@p_value[0.0000]
+@distribution_type[not normal]
+}}","{""distribution_type"": ""not normal""}",,,True,not_run,,
+668,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value], @p_value[p_value], @significant_correlation[significant_correlation] where ""r_value"" is a number between -1 and 1, rounded to two decimal places; ""p_value"" is a number between 0 and 1, rounded to four decimal places; ""significant_correlation"" is a boolean value indicating whether there is a significant correlation (true) or not (false) based on the conditions specified in the constraints.
+}}
+\Answer{{
+@correlation_coefficient[0.13], @p_value[0.0324], @significant_correlation[true]   
+}}","{""correlation_coefficient"": ""0.13"", ""p_value"": ""0.0324"", ""significant_correlation"": ""true""}",,,True,not_run,,
+669,hard,Outlier Detection|Summary Statistics,,,,"\Answer{{
+@mean[3.73]
+@standard_deviation[1.54]   
+}}","{""mean"": ""3.73"", ""standard_deviation"": ""1.54""}",,,True,not_run,,
+671,hard,Machine Learning,,,,"\Format{{
+@mse[mse_value]
+where ""mse_value"" is a float rounded to three decimal places.
+}}
+\Answer{{
+@mse[0.653]   
+}}","{""mse"": ""0.653""}",,,True,not_run,,
+673,hard,Comprehensive Data Preprocessing|Feature Engineering|Correlation Analysis|Summary Statistics,,,,"\Answer{
+@mean_value[2.1226]
+@standard_deviation[1.2210]
+@pearson_coefficient[0.0382]
+}","{""mean_value"": ""2.1226"", ""pearson_coefficient"": ""0.0382""}",,,True,not_run,,
+674,hard,Machine Learning|Comprehensive Data Preprocessing|Correlation Analysis,,,,"\Format{{
+@mean_absolute_error[mae_value] 
+@pearson_coefficient[correlation_coefficient] where ""mae_value"" is a float representing the MAE on the testing set rounded to four decimal places, and ""correlation_coefficient"" is a float rounded to four decimal places representing the correlation coefficient between predicted and actual MedianHouseValue values on the testing set.
+}}
+\Answer{{
+@mean_absolute_error[0.6426]
+@pearson_coefficient[0.6419]   
+}}","{""mean_absolute_error"": ""0.6426"", ""pearson_coefficient"": ""0.6419""}",,,True,not_run,,
+683,easy,Summary Statistics,,,,"\Answer{
+@mean_temperature[29.14]
+}","{""mean_temperature"": ""29.14""}",,,True,not_run,,
+684,medium,Distribution Analysis,,@shapiro_p_value[0.9166] @distribution_type[normal],"@shapiro_p_value[0.9166]
+@distribution_type[normal]","\Answer{{
+@shapiro_p_value[0.9166] 
+@distribution_type[normal]   
+}}","{""distribution_type"": ""normal"", ""shapiro_p_value"": ""0.9166""}",True,True,True,both_correct,,
+685,hard,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+@p_value[value]
+where ""value"" is a number representing the p-value from the correlation test, rounded to four decimal places.
+@relationship_significance[significance]
+where ""significance"" is a string that can either be ""significant"" or ""not significant"" based on the p-value.
+}}
+\Answer{{
+@correlation_coefficient[0.34]
+@p_value[0.1023]
+@relationship_significance[not significant]
+}}","{""correlation_coefficient"": ""0.34"", ""p_value"": ""0.1023"", ""relationship_significance"": ""not significant""}",,,True,not_run,,
+688,medium,Feature Engineering,,,,"\Format{{
+@morning[integer]
+where ""integer"" represents the count of records categorized as morning (6:00 to 11:59).
+@afternoon[integer]
+where ""integer"" represents the count of records categorized as afternoon (12:00 to 17:59).
+@evening[integer]
+where ""integer"" represents the count of records categorized as evening (18:00 to 23:59).
+@night[integer]
+where ""integer"" represents the count of records categorized as night (0:00 to 5:59).
+}}
+\Answer{{
+@morning[6]
+@afternoon[6]
+@evening[6]
+@night[6]
+}}","{""afternoon"": ""6"", ""morning"": ""6""}",,,True,not_run,,
+690,hard,Outlier Detection|Summary Statistics,,,,"\Format{{
+@number_of_outliers[integer]
+where ""integer"" is an integer representing the number of outliers detected in the wind speed column using Z-scores.
+@mean_wind_speed[number, rounded to 2 decimal places]
+where ""number"" is the mean of the wind speed column after removing outliers, rounded to 2 decimal places.
+@std_deviation_wind_speed[number, rounded to 2 decimal places]
+where ""number"" is the standard deviation of the wind speed column after removing outliers, rounded to 2 decimal places.
+}}
+\Answer{{
+@number_of_outliers[0]
+@mean_wind_speed[2.29]
+@std_deviation_wind_speed[1.15]
+}}","{""mean_wind_speed"": ""2.29"", ""number_of_outliers"": ""0"", ""std_deviation_wind_speed"": ""1.15""}",,,True,not_run,,
+710,easy,Summary Statistics,,,,@mean_wins[2.6],"{""mean_wins"": ""2.6""}",,,True,not_run,,
+715,easy,Comprehensive Data Preprocessing,,,,"\Format{{
+@missing_percentage[percentage], where ""percentage"" is a number between 0 and 100, representing the percentage of missing values in the column, rounded to two decimal places.
+}}
+\Answer{{
+@missing_percentage[95.12]   
+}}","{""missing_percentage"": ""95.12""}",,,True,not_run,,
+716,medium,Summary Statistics|Comprehensive Data Preprocessing,,,,"\Format{{
+@mean_wins[mean_wins]
+@stddev_wins[stddev_wins]
+where ""mean_wins"" and ""stddev_wins"" are numeric values rounded off to two decimal places.
+}}
+\Answer{{
+@mean_wins[2.60]
+@stddev_wins[1.17]   
+}}","{""stddev_wins"": ""1.17""}",,,True,not_run,,
+719,easy,Summary Statistics,,,,"\Answer{{
+@mean_mpg[23.45]
+@median_mpg[22.75]
+}}","{""mean_mpg"": ""23.45"", ""median_mpg"": ""22.75""}",,,True,not_run,,
+721,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value] where 'r_value' is a number between -1 and 1, rounded to two decimal places.
+}}
+\Answer{{
+@correlation_coefficient[-0.83]   
+}}","{""correlation_coefficient"": ""-0.83""}",,,True,not_run,,
+722,hard,Summary Statistics|Comprehensive Data Preprocessing,,"\Format{{
+@highest_horsepower_vehicle[vehicle_model_year]
+@average_horsepower[same_year_avg_horsepower]
+@standard_deviation[same_year_horsepower_std]
+where ""vehicle_model_year"" is an integer from 1900 to the current year. ""same_year_avg_horsepower"" and ""same_year_horsepower_std"" are numbers rounded to two decimal places.
+}}
+\Answer{{
+@highest_horsepower_vehicle[1973]
+@average_horsepower[130.48]
+@standard_deviation[45.83]   
+}}","@highest_horsepower_vehicle[1973]
+@average_horsepower[130.48]
+@standard_deviation[45.83]","\Answer{{
+@highest_horsepower_vehicle[1973]
+@average_horsepower[130.48]
+@standard_deviation[45.83]
+}}","{""average_horsepower"": ""130.48"", ""highest_horsepower_vehicle"": ""1973"", ""standard_deviation"": ""45.83""}",True,True,True,both_correct,,
+723,hard,Feature Engineering|Summary Statistics,,,,"\Format{
+@mean_ratio[avg_power_weight_ratio]
+@std_ratio[power_weight_ratio_std]
+where ""avg_power_weight_ratio"" and ""power_weight_ratio_std"" are numbers rounded to two decimal places.
+}
+\Answer{
+@mean_ratio[0.03]
+@std_ratio[0.01]
+}","{""mean_ratio"": ""0.03"", ""std_ratio"": ""0.01""}",,,True,not_run,,
+724,hard,Outlier Detection|Summary Statistics|Comprehensive Data Preprocessing,,,,"\Format{{
+@mean_acceleration[avg_acceleration]
+@std_acceleration[acceleration_std]
+where ""avg_acceleration"" and ""acceleration_std"" are numbers rounded to two decimal places.
+}}
+\Answer{{
+@mean_acceleration[15.49]
+@std_acceleration[2.68]   
+}}","{""mean_acceleration"": ""15.49"", ""std_acceleration"": ""2.68""}",,,True,not_run,,
+725,hard,Distribution Analysis|Correlation Analysis,,,,"\Answer{{
+@mean1[28.73], @median1[28.00]
+@mean2[15.03], @median2[13.50]
+@mean3[31.42], @median3[30.50]
+}}","{""mean1"": ""28.73"", ""median1"": ""28.0""}",,,True,not_run,,
+726,hard,Comprehensive Data Preprocessing|Feature Engineering|Summary Statistics,,,,"\Format{{
+@mean_transformed_horsepower[mean_transformed_horsepower]
+@stddev_transformed_horsepower[stddev_transformed_horsepower]
+}}
+\Answer{{
+@mean_transformed_horsepower[4.59]
+@stddev_transformed_horsepower[0.34]
+}}","{""mean_transformed_horsepower"": ""4.59"", ""stddev_transformed_horsepower"": ""0.34""}",,,True,not_run,,
+727,hard,Machine Learning|Correlation Analysis,,,,"\Format{{
+@test_mse[test_mse]
+where ""test_mse"" is the mean squared error of the testing set. The value should be a float, rounded to two decimal places.
+}}
+\Answer{{
+@test_mse[17.66]
+}}","{""test_mse"": ""17.66""}",,,True,not_run,,
+729,easy,Distribution Analysis,,,,"\Format{{
+@distribution_normality[distribution_type] where ""distribution_type"" is a string which is either ""normal"" if condition is met or ""not normal"" if otherwise.
+}}
+\Answer{{
+@distribution_normality[not normal]
+}}","{""distribution_normality"": ""not normal""}",,,True,not_run,,
+730,medium,Correlation Analysis,,"\Answer{{
+@correlation_coefficient[-0.03]
+@p_value[0.2909]   
+}}","@correlation_coefficient[-0.03]
+@p_value[0.2909]","\Format{{
+@correlation_coefficient[r_value]
+@p_value[p_value]
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+}}
+\Answer{{
+@correlation_coefficient[-0.03]
+@p_value[0.2909]   
+}}","{""correlation_coefficient"": ""-0.03"", ""p_value"": ""0.2909""}",True,True,True,both_correct,,
+732,hard,Comprehensive Data Preprocessing,,,,"\Answer{{
+@number_of_missing_values_in_lifeexp_before[94]
+@number_of_missing_values_in_lifeexp_after[0]   
+}}","{""number_of_missing_values_in_lifeexp_after"": ""0""}",,,True,not_run,,
+733,hard,Feature Engineering,,"\Format{
+@has_nan_values_in_new_feature[boolean]
+where ""boolean"" is True or False, indicating whether there are NaN values in the newly created feature.
+@new_feature_mean[mean]
+where ""mean"" is a number (rounded to 2 decimal places) representing the mean of the newly created feature.
+@new_feature_std[std]
+where ""std"" is a number (rounded to 2 decimal places) representing the standard deviation of the newly created feature.
+}
+\Answer{
+@has_nan_values_in_new_feature[False]
+@new_feature_mean[3.54]
+@new_feature_std[0.54]
+}",,"\Format{{
+@has_nan_values_in_new_feature[boolean]
+@new_feature_mean[mean]
+@new_feature_std[std]
+where ""boolean"" is True or False, indicating whether there are NaN values in the newly created feature.
+where ""mean"" is a number (rounded to 2 decimal places) representing the mean of the newly created feature.
+where ""std"" is a number (rounded to 2 decimal places) representing the standard deviation of the newly created feature.
+}}
+\Answer{{
+@has_nan_values_in_new_feature[False]
+@new_feature_mean[3.54]
+@new_feature_std[0.54]   
+}}","{""has_nan_values_in_new_feature"": ""False"", ""new_feature_mean"": ""3.54"", ""new_feature_std"": ""0.54""}",True,,True,not_run,,
+734,hard,Correlation Analysis|Comprehensive Data Preprocessing,,"\Format{{
+For each continent:
+@continent_name[name]
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@correlation_significance[significance]
+where ""name"" is the name of the continent.
+where ""r_value"" is a number between -1 and 1, rounded to two decimal places.
+where ""p_value"" is a number between 0 and 1, rounded to four decimal places.
+where ""significance"" is a string that can either be ""significant"" or ""non-significant"" based on the conditions specified in the constraints.
+}}
+\Answer{{
+@continent_name[Asia]
+@correlation_coefficient[0.38]
+@p_value[0.0000]
+@correlation_significance[non-significant]
+@continent_name[Europe]
+@correlation_coefficient[0.78]
+@p_value[0.0000]
+@correlation_significance[significant]
+@continent_name[Africa]
+@correlation_coefficient[0.43]
+@p_value[0.0000]
+@correlation_significance[non-significant]
+@continent_name[Americas]
+@correlation_coefficient[0.56]
+@p_value[0.0000]
+@correlation_significance[significant]
+@continent_name[Oceania]
+@correlation_coefficient[0.96]
+@p_value[0.0000]
+@correlation_significance[significant]
+}}","```markdown
+[STEP GOAL]: Load the gapminder_cleaned.csv data and perform Pearson correlation analysis between life expectancy (lifeexp) and GDP per capita (gdppercap) for each continent separately. Calculate correlation coefficients, p-values, and determine significance based on the specified criteria.
+```
+```markdown
+# Data Loading and Initial Exploration
+I will load the dataset and verify the required columns are present before performing the correlation analysis.
+```
+```python
+import pandas as pd
+from scipy.stats import pearsonr
+
+# Load the dataset
+df = pd.read_csv('./input/gapminder_cleaned.csv')
+
+# Display basic info about the dataframe
+print(""Dataset shape:"", df.shape)
+print(""\nColumn names:"", df.columns.tolist())
+print(""\nFirst few rows:"")
+print(df.head())
+print(""\nContinents in the dataset:"")
+print(df['continent'].unique())
+```
+```markdown
+# Correlation Analysis Plan
+Now I will perform Pearson correlation analysis for each continent separately. The analysis will:
+1. Group data by continent
+2. Calculate Pearson correlation coefficient (r) between lifeexp and gdppercap
+3. Calculate p-value for each correlation
+4. Determine significance based on: p-value < 0.05 AND |r| >= 0.5
+```
+```python
+# Perform correlation analysis for each continent
+results = []
+
+for continent in df['continent'].unique():
+    # Filter data for the current continent
+    continent_data = df[df['continent'] == continent]
+    
+    # Get the relevant columns
+    lifeexp = continent_data['lifeexp']
+    gdppercap = continent_data['gdppercap']
+    
+    # Calculate Pearson correlation coefficient and p-value
+    r, p_value = pearsonr(lifeexp, gdppercap)
+    
+    # Determine significance
+    # Significant if p-value < 0.05 AND |r| >= 0.5
+    if p_value < 0.05 and abs(r) >= 0.5:
+        significance = ""significant""
+    else:
+        significance = ""non-significant""
+    
+    # Store results
+    results.append({
+        'continent': continent,
+        'r_value': round(r, 2),
+        'p_value': round(p_value, 4),
+        'significance': significance,
+        'sample_size': len(continent_data)
+    })
+
+# Create results dataframe
+results_df = pd.DataFrame(results)
+print(""Correlation Analysis Results by Continent:"")
+print(results_df.to_string(index=False))
+```
+```markdown
+# Results Summary
+The correlation analysis has been completed for each continent. Now I will prepare the final output in the required format and create the FinalAnswerBlock.
+```
+```python
+# Prepare the final answer block
+final_answers = {}
+format_targets = {}
+
+for result in results:
+    continent = result['continent']
+    r_value = result['r_value']
+    p_value = result['p_value']
+    significance = result['significance']
+    
+    # Store answers
+    final_answers[f'continent_name_{continent}'] = continent
+    final_answers[f'correlation_coefficient_{continent}'] = r_value
+    final_answers[f'p_value_{continent}'] = p_value
+    final_answers[f'correlation_significance_{continent}'] = significance
+    
+    # Store format targets
+    format_targets[f'continent_name_{continent}'] = f""@continent_name[{continent}]""
+    format_targets[f'correlation_coefficient_{continent}'] = f""@correlation_coefficient[{r_value}]""
+    format_targets[f'p_value_{continent}'] = f""@p_value[{p_value}]""
+    format_targets[f'correlation_significance_{continent}'] = f""@correlation_significance[{significance}]""
+
+# Print the formatted output
+print(""\nFormatted Output:"")
+for result in results:
+    print(f""@continent_name[{result['continent']}]"")
+    print(f""@correlation_coefficient[{result['r_value']}]"")
+    print(f""@p_value[{result['p_value']}]"")
+    print(f""@correlation_significance[{result['significance']}]"")
+    print()
+```
+```markdown
+# Final Answer Block
+Now I will create the FinalAnswerBlock with all the required information.
+```
+```python
+import json
+
+# Create the FinalAnswerBlock
+final_answer_block = {
+    ""final_answer_block"": {
+        ""question_id"": 734,
+        ""answers"": final_answers,
+        ""format_targets"": format_targets,
+        ""evidence"": {
+            ""source_columns"": [""lifeexp"", ""gdppercap"", ""continent""],
+            ""sample_size"": len(df),
+            ""method"": ""Pearson correlation analysis for each continent"",
+            ""oracle_evidence"": {
+                ""feature_columns"": [""gdppercap""],
+                ""target"": ""lifeexp"",
+                ""split"": ""grouped by continent"",
+                ""random_state"": ""N/A (correlation analysis)"",
+                ""metric"": ""Pearson correlation coefficient (r)""
+            }
+        },
+        ""verified"": True,
+        ""validator_report_id"": None
+    }
+}
+
+# Print the FinalAnswerBlock
+print(json.dumps(final_answer_block, indent=2))
+```
+Time consumed: 0.34s
+Code output:
+Exit Code: 0
+Output: 
+Dataset shape: (1704, 6)
+
+Column names: ['year', 'pop', 'lifeexp', 'gdppercap', 'country', 'continent']
+
+First few rows:
+   year       pop  lifeexp   gdppercap      country continent
+0  1952   8425333   28.801  779.445314  afghanistan      asia
+1  1957   9240934   30.332  820.853030  afghanistan      asia
+2  1962  10267083   31.997  853.100710  afghanistan      asia
+3  1967  11537966   34.020  836.197138  afghanistan      asia
+4  1972  13079460   36.088  739.981106  afghanistan      asia
+
+Continents in the dataset:
+['asia' 'europe' 'africa' 'americas' 'oceania']
+
+Time consumed: 0.01s
+Code output:
+Exit Code: 0
+Output: 
+Correlation Analysis Results by Continent:
+continent  r_value  p_value    significance  sample_size
+     asia     0.38      0.0 non-significant          396
+   europe     0.78      0.0     significant          360
+   africa     0.43      0.0 non-significant          624
+ americas     0.56      0.0     significant          300
+  oceania     0.96      0.0     significant           24
+
+Time consumed: 0.00s
+Code output:
+Exit Code: 0
+Output: 
+
+Formatted Output:
+@continent_name[asia]
+@correlation_coefficient[0.38]
+@p_value[0.0]
+@correlation_significance[non-significant]
+
+@continent_name[europe]
+@correlation_coefficient[0.78]
+@p_value[0.0]
+@correlation_significance[significant]
+
+@continent_name[africa]
+@correlation_coefficient[0.43]
+@p_value[0.0]
+@correlation_significance[non-significant]
+
+@continent_name[americas]
+@correlation_coefficient[0.56]
+@p_value[0.0]
+@correlation_significance[significant]
+
+@continent_name[oceania]
+@correlation_coefficient[0.96]
+@p_value[0.0]
+@correlation_significance[significant]
+
+
+Time consumed: 0.00s
+Code output:
+Exit Code: 0
+Output: 
+{
+  ""final_answer_block"": {
+    ""question_id"": 734,
+    ""answers"": {
+      ""continent_name_asia"": ""asia"",
+      ""correlation_coefficient_asia"": 0.38,
+      ""p_value_asia"": 0.0,
+      ""correlation_significance_asia"": ""non-significant"",
+      ""continent_name_europe"": ""europe"",
+      ""correlation_coefficient_europe"": 0.78,
+      ""p_value_europe"": 0.0,
+      ""correlation_significance_europe"": ""significant"",
+      ""continent_name_africa"": ""africa"",
+      ""correlation_coefficient_africa"": 0.43,
+      ""p_value_africa"": 0.0,
+      ""correlation_significance_africa"": ""non-significant"",
+      ""continent_name_americas"": ""americas"",
+      ""correlation_coefficient_americas"": 0.56,
+      ""p_value_americas"": 0.0,
+      ""correlation_significance_americas"": ""significant"",
+      ""continent_name_oceania"": ""oceania"",
+      ""correlation_coefficient_oceania"": 0.96,
+      ""p_value_oceania"": 0.0,
+      ""correlation_significance_oceania"": ""significant""
+    },
+    ""format_targets"": {
+      ""continent_name_asia"": ""@continent_name[asia]"",
+      ""correlation_coefficient_asia"": ""@correlation_coefficient[0.38]"",
+      ""p_value_asia"": ""@p_value[0.0]"",
+      ""correlation_significance_asia"": ""@correlation_significance[non-significant]"",
+      ""continent_name_europe"": ""@continent_name[europe]"",
+      ""correlation_coefficient_europe"": ""@correlation_coefficient[0.78]"",
+      ""p_value_europe"": ""@p_value[0.0]"",
+      ""correlation_significance_europe"": ""@correlation_significance[significant]"",
+      ""continent_name_africa"": ""@continent_name[africa]"",
+      ""correlation_coefficient_africa"": ""@correlation_coefficient[0.43]"",
+      ""p_value_africa"": ""@p_value[0.0]"",
+      ""correlation_significance_africa"": ""@correlation_significance[non-significant]"",
+      ""continent_name_americas"": ""@continent_name[americas]"",
+      ""correlation_coefficient_americas"": ""@correlation_coefficient[0.56]"",
+      ""p_value_americas"": ""@p_value[0.0]"",
+      ""correlation_significance_americas"": ""@correlation_significance[significant]"",
+      ""continent_name_oceania"": ""@continent_name[oceania]"",
+      ""correlation_coefficient_oceania"": ""@correlation_coefficient[0.96]"",
+      ""p_value_oceania"": ""@p_value[0.0]"",
+      ""correlation_significance_oceania"": ""@correlation_significance[significant]""
+    },
+    ""evidence"": {
+      ""source_columns"": [
+        ""lifeexp"",
+        ""gdppercap"",
+        ""continent""
+      ],
+      ""sample_size"": 1704,
+      ""method"": ""Pearson correlation analysis for each continent"",
+      ""oracle_evidence"": {
+        ""feature_columns"": [
+          ""gdppercap""
+        ],
+        ""target"": ""lifeexp"",
+        ""split"": ""grouped by continent"",
+        ""random_state"": ""N/A (correlation analysis)"",
+        ""metric"": ""Pearson correlation coefficient (r)""
+      }
+    },
+    ""verified"": true,
+    ""validator_report_id"": null
+  }
+}
+
+```markdown
+# Step Completed: Correlation Analysis
+
+The Pearson correlation analysis between life expectancy (lifeexp) and GDP per capita (gdppercap) has been completed for each continent. Here's a summary of the findings:
+
+| Continent | Correlation Coefficient (r) | P-value | Significance |
+|-----------|----------------------------|---------|--------------|
+| Asia | 0.38 | 0.0000 | non-significant |
+| Europe | 0.78 | 0.0000 | significant |
+| Africa | 0.43 | 0.0000 | non-significant |
+| Americas | 0.56 | 0.0000 | significant |
+| Oceania | 0.96 | 0.0000 | significant |
+
+**Key Findings:**
+- **Significant correlations** (p < 0.05 AND |r| >= 0.5): Europe, Americas, Oceania
+- **Non-significant correlations** (|r| < 0.5): Asia, Africa
+
+The FinalAnswerBlock has been created with all required fields including:
+- Question ID: 734
+- All answer values for each continent
+- Format targets in the required @answer_name[value] format
+- Evidence including source columns, sample size, method, and oracle evidence
+- Verified: true
+```
+```markdown
+# Correlation Analysis Complete
+
+I have successfully completed the Pearson correlation analysis between life expectancy (lifeexp) and GDP per capita (gdppercap) for each continent. Here are the results:
+
+## Results Summary
+
+| Continent | Correlation Coefficient (r) | P-value | Significance |
+|-----------|----------------------------|---------|--------------|
+| Asia | 0.38 | 0.0000 | non-significant |
+| Europe | 0.78 | 0.0000 | significant |
+| Africa | 0.43 | 0.0000 | non-significant |
+| Americas | 0.56 | 0.0000 | significant |
+| Oceania | 0.96 | 0.0000 | significant |
+
+## Key Findings
+
+**Significant Correlations** (p < 0.05 AND |r| >= 0.5):
+- **Europe**: Strong positive correlation (r = 0.78)
+- **Americas**: Moderate positive correlation (r = 0.56)
+- **Oceania**: Very strong positive correlation (r = 0.96)
+
+**Non-Significant Correlations** (|r| < 0.5):
+- **Asia**: Weak positive correlation (r = 0.38)
+- **Africa**: Weak positive correlation (r = 0.43)
+
+## Methodology
+
+1. **Data Source**: gapminder_cleaned.csv (1704 rows, 6 columns)
+2. **Required Columns**: lifeexp, gdppercap, continent
+3. **Statistical Method**: Pearson correlation coefficient with two-tailed test
+4. **Significance Criteria**: p-value < 0.05 AND |r| >= 0.5
+5. **Sample Sizes**: Asia (396), Europe (360), Africa (624), Americas (300), Oceania (24)
+
+## Final Answer Block
+
+The complete analysis results have been formatted according to the contract requirements and stored in the FinalAnswerBlock with:
+- All continent names and their corresponding correlation coefficients, p-values, and significance status
+- Evidence including source columns, sample size, method description, and oracle evidence
+- Verified: true
+
+The task has been completed successfully with all required outputs in the specified format.
+```
+","\Format{{
+@continent_name[name]
+@correlation_coefficient[r_value]
+@p_value[p_value]
+@correlation_significance[significance]
+}}
+\Answer{{
+@continent_name[Africa]
+@correlation_coefficient[0.43]
+@p_value[0.0000]
+@correlation_significance[non-significant]
+@continent_name[Americas]
+@correlation_coefficient[0.56]
+@p_value[0.0000]
+@correlation_significance[significant]
+@continent_name[Asia]
+@correlation_coefficient[0.38]
+@p_value[0.0000]
+@correlation_significance[non-significant]
+@continent_name[Europe]
+@correlation_coefficient[0.78]
+@p_value[0.0000]
+@correlation_significance[significant]
+@continent_name[Oceania]
+@correlation_coefficient[0.96]
+@p_value[0.0000]
+@correlation_significance[significant]
+}}","{""correlation_coefficient"": ""0.56"", ""correlation_significance"": ""non-significant""}",False,False,False,verifier_blocked,,
+736,hard,Feature Engineering|Distribution Analysis,,,,"\Format{{
+@is_normal[is_normal]
+where ""is_normal"" is a string that can be either ""yes"" or ""no"", indicating whether the normalized feature follows a normal distribution.. Please give your answer:
+}}
+\Answer{{
+@is_normal[no]
+}}","{""is_normal"": ""no""}",,,True,not_run,,
+737,easy,Summary Statistics,,,,"\Format{{
+@mean_income[mean_value], @std_dev_income[std_dev_value] where ""mean_value"" and ""std_dev_value"" are the calculated mean and standard deviation of the ""Income"" column, respectively. Both should be rounded to two decimal places.
+}}
+\Answer{{
+@mean_income[45.22]
+@std_dev_income[35.24]   
+}}","{""mean_income"": ""45.22"", ""std_dev_income"": ""35.24""}",,,True,not_run,,
+738,medium,Distribution Analysis,,,,"\Answer{{
+@is_normal[Not Normal]   
+}}","{""is_normal"": ""Not Normal""}",,,True,not_run,,
+739,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[correlation_value] where ""correlation_value"" is the calculated Pearson correlation coefficient between ""Limit"" and ""Balance"", rounded to two decimal places.
+}}
+\Answer{{
+@correlation_coefficient[0.86]   
+}}","{""correlation_coefficient"": ""0.86""}",,,True,not_run,,
+740,medium,Outlier Detection|Comprehensive Data Preprocessing,,,,"\Format{{
+@outliers[outliers_count]
+}}
+\Answer{{
+@outliers[1]   
+}}","{""outliers"": ""1""}",,,True,not_run,,
+741,medium,Feature Engineering|Comprehensive Data Preprocessing,,"\Format{{
+@addedfeature[ratio]
+where ""ratio"" refers to the newly created column containing the ratio of balance to limit for each individual, with a precision of two decimal places for each individual's ratio data.
+}}
+\Answer{{
+@addedfeature[0.09]   
+}}",@addedfeature[ratio],"\Format{{
+@addedfeature[ratio], where ""ratio"" refers to the newly created column containing the ratio of balance to limit for each individual, with a precision of two decimal places for each individual's ratio data.
+}}
+\Answer{{
+@addedfeature[0.09, 0.14, 0.08, 0.10, 0.07, 0.14, 0.06, 0.12, 0.08, 0.20, 0.11, 0.09, 0.13, 0.08, 0.15, 0.07, 0.12, 0.09, 0.11, 0.14, 0.08, 0.10, 0.13, 0.07, 0.11, 0.09, 0.12, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.13, 0.08, 0.10, 0.12, 0.07, 0.11, 0.09, 0.13, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.12, 0.08, 0.10, 0.13, 0.07, 0.11, 0.09, 0.12, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.13, 0.08, 0.10, 0.12, 0.07, 0.11, 0.09, 0.13, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.12, 0.08, 0.10, 0.13, 0.07, 0.11, 0.09, 0.12, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.13, 0.08, 0.10, 0.12, 0.07, 0.11, 0.09, 0.13, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.12, 0.08, 0.10, 0.13, 0.07, 0.11, 0.09, 0.12, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.13, 0.08, 0.10, 0.12, 0.07, 0.11, 0.09, 0.13, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.12, 0.08, 0.10, 0.13, 0.07, 0.11, 0.09, 0.12, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.13, 0.08, 0.10, 0.12, 0.07, 0.11, 0.09, 0.13, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.12, 0.08, 0.10, 0.13, 0.07, 0.11, 0.09, 0.12, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.13, 0.08, 0.10, 0.12, 0.07, 0.11, 0.09, 0.13, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.12, 0.08, 0.10, 0.13, 0.07, 0.11, 0.09, 0.12, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.13, 0.08, 0.10, 0.12, 0.07, 0.11, 0.09, 0.13, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.12, 0.08, 0.10, 0.13, 0.07, 0.11, 0.09, 0.12, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.13, 0.08, 0.10, 0.12, 0.07, 0.11, 0.09, 0.13, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.12, 0.08, 0.10, 0.13, 0.07, 0.11, 0.09, 0.12, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.13, 0.08, 0.10, 0.12, 0.07, 0.11, 0.09, 0.13, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.12, 0.08, 0.10, 0.13, 0.07, 0.11, 0.09, 0.12, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.13, 0.08, 0.10, 0.12, 0.07, 0.11, 0.09, 0.13, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.12, 0.08, 0.10, 0.13, 0.07, 0.11, 0.09, 0.12, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.13, 0.08, 0.10, 0.12, 0.07, 0.11, 0.09, 0.13, 0.08, 0.10, 0.14, 0.06, 0.11, 0.09, 0.12, 0.08, 0.10, 0.13, 0.07,","{""addedfeature"": ""ratio""}",False,True,True,fixed,,
+743,hard,Comprehensive Data Preprocessing|Feature Engineering,,"\Format{{
+@education_mode[education_mode]
+@income_normalization[income_min_val, income_max_val, income_normalized_file_path]
+@balance_normalization[balance_min_val, balance_max_val, balance_normalized_file_path]
+}}
+\Answer{{
+@education_mode[16]
+@income_normalization[10.35, 186.63, ./working/Credit_preprocessed.csv]
+@balance_normalization[0.00, 1999.00, ./working/Credit_preprocessed.csv]
+}}","@education_mode[16]
+@income_normalization[10.35, 186.63, ./working/income_normalized.csv]
+@balance_normalization[0.00, 1999.00, ./working/balance_normalized.csv]","\Format{{
+@education_mode[education_mode]
+@income_normalization[income_min_val, income_max_val, income_normalized_file_path]
+@balance_normalization[balance_min_val, balance_max_val, balance_normalized_file_path]
+}}
+\Answer{{
+@education_mode[16]
+@income_normalization[10.35, 186.63, ./working/Credit_preprocessed.csv]
+@balance_normalization[0.00, 1999.00, ./working/Credit_preprocessed.csv]
+}}","{""income_normalization"": ""10.35, 186.63, /mnt/data/Credit_Income_Normalized.csv""}",False,False,False,verifier_blocked,,
+755,easy,Summary Statistics,,,,"\Format{{
+@mean_TMAX_F[mean_temperature] where ""mean_temperature"" is a positive number rounded to two decimal places.
+}}
+\Answer{{
+@mean_TMAX_F[56.38]   
+}}","{""mean_TMAX_F"": ""56.38""}",,,True,not_run,,
+756,medium,Correlation Analysis,,,,"\Format{{
+@correlation_coefficient[r_value] @p_value[p_value] where ""r_value"" is a number between -1 and 1, rounded to two decimal places; ""p_value"" is a number between 0 and 1, rounded to four decimal places. If there is no significant correlation, please simply output @correlation_status[""No significant correlation""]. Please give your answer:
+}}
+\Answer{{
+@correlation_coefficient[1.00] @p_value[0.0000]   
+}}","{""correlation_coefficient"": ""1.00"", ""p_value"": ""0.0000""}",,,True,not_run,,
+757,medium,Outlier Detection,,,,@outlier_count[25],"{""outlier_count"": ""25""}",,,True,not_run,,
+759,hard,Summary Statistics|Distribution Analysis,,,,"\Format{{
+@@median_tmax[""median_TMAX""]
+@median_tmin[""median_TMIN""]
+@range_tmax[""range_TMAX""]
+@range_tmin[""range_TMIN""]
+
+where ""median_TMAX"" and ""median_TMIN"" are the median temperatures for TMAX and TMIN observation types, respectively. They are numbers between -100 and 100, rounded to two decimal places.
+where ""range_TMAX"" and ""range_TMIN"" are the range of temperatures for TMAX and TMIN observation types, respectively. They are numbers greater than 0.
+}}
+\Answer{{
+@@median_tmax[58.64]
+@median_tmin[0.00]
+@range_tmax[125.82]
+@range_tmin[0.00]
+}}","{""median_tmax"": ""58.64"", ""range_tmax"": ""125.82""}",,,True,not_run,,
+760,medium,Comprehensive Data Preprocessing,,,,"\Format{{
+@most_missing_station_name[""station_name""]
+@most_missing_station_count[num_missing_obs]
+}}
+\Answer{{
+@most_missing_station_name[""None""]
+@most_missing_station_count[0]   
+}}","{""most_missing_station_count"": ""0"", ""most_missing_station_name"": ""\""AGE00135039\""""}",,,False,not_run,,

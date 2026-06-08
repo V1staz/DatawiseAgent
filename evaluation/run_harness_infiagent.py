@@ -59,6 +59,7 @@ TOOLKIT_PATH = PROJECT_ROOT / "datawiseagent" / "harness" / "toolkit.py"
 
 ABLATION_CHOICES = [
     "baseline",
+    "harness_light",
     "harness_full",
     "no_datacard",
     "no_contract",
@@ -142,6 +143,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--artifact-dir", "--artifact_dir", dest="artifact_dir", type=str, default=None)
     parser.add_argument("--memory-path", "--memory_path", dest="memory_path", type=str, default=None)
     parser.add_argument("--rulebook-path", "--rulebook_path", dest="rulebook_path", type=str, default=None)
+    parser.add_argument(
+        "--request-timeout",
+        "--request_timeout",
+        dest="request_timeout",
+        type=float,
+        default=900.0,
+        help="Per agent chat request timeout in seconds.",
+    )
     parser.add_argument("--disable-semantic-oracles", action="store_true", help="Disable contract-derived semantic oracle planning/scoring.")
     parser.add_argument("--disable-memory-retrieval", action="store_true", help="Keep writing memory but do not inject retrieved memories into prompts.")
     parser.add_argument("--disable-memory-recording", action="store_true", help="Keep retrieval available but do not append new memory records.")
@@ -167,6 +176,12 @@ def apply_ablation(args: argparse.Namespace) -> None:
     if args.ablation == "baseline":
         args.harness_mode = "baseline"
         args.search_policy = "off"
+    elif args.ablation == "harness_light":
+        args.harness_mode = "skills"
+        args.search_policy = "off"
+        args.disable_semantic_oracles = True
+        args.disable_memory_retrieval = True
+        args.disable_memory_recording = True
     else:
         args.harness_mode = "full"
     if args.ablation == "no_datacard":
@@ -249,6 +264,8 @@ def experiment_metadata(args: argparse.Namespace, llm_config: dict[str, Any] | N
         "memory_retrieval": not args.disable_memory_retrieval,
         "memory_recording": not args.disable_memory_recording,
         "semantic_oracles": not args.disable_semantic_oracles,
+        "force_finalizer": args.ablation == "harness_light",
+        "request_timeout": args.request_timeout,
     }
 
 
@@ -319,6 +336,7 @@ def run_agent_once(
     work_mode: str,
     branch_name: str,
     upload_harness_tools: bool = False,
+    request_timeout: float | None = 900.0,
 ) -> dict[str, Any]:
     start = time.time()
     session_id: uuid.UUID | None = None
@@ -343,7 +361,13 @@ def run_agent_once(
                 file_path=str(TOOLKIT_PATH),
                 filename_to_save="harness_tools.py",
             )
-        response = chat_func(str(user_id), str(session_id), query=prompt, work_mode=work_mode)
+        response = chat_func(
+            str(user_id),
+            str(session_id),
+            query=prompt,
+            work_mode=work_mode,
+            request_timeout=request_timeout,
+        )
         return {
             "response": response.get("response_content", ""),
             "user_content": response.get("user_content", ""),
@@ -384,6 +408,7 @@ def run_harness_branch(
         args.work_mode,
         branch["name"],
         upload_harness_tools=True,
+        request_timeout=args.request_timeout,
     )
     return controller.postprocess(
         context,
@@ -414,6 +439,7 @@ def process_question(
             memory_retrieval=not args.disable_memory_retrieval,
             memory_recording=not args.disable_memory_recording,
             disabled_capabilities=tuple(args.disabled_capabilities or ()),
+            force_finalizer=args.ablation == "harness_light",
         )
     )
 
@@ -429,6 +455,7 @@ def process_question(
             args.tool_mode,
             args.work_mode,
             "baseline",
+            request_timeout=args.request_timeout,
         )
         result = {
             "id": question.get("id"),

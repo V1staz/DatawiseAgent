@@ -15,6 +15,36 @@ from datawiseagent.coding.code_utils import (
 from datawiseagent.coding import CodeResult, CodeBlock
 from datawiseagent.prompts.datawise import STEP_GOAL, USER_NOUN_TAG
 
+
+_FINAL_BLOCK_KEYS = (
+    "final_answer_block",
+    "FinalAnswerBlock",
+    "FINAL_ANSWER_BLOCK",
+    "format_targets",
+    "validator_report_id",
+)
+
+
+def _looks_like_non_executable_final_block(content: str) -> bool:
+    """Detect final-answer JSON that a model mislabeled as executable Python."""
+
+    text = str(content or "").strip()
+    if not text:
+        return False
+    if not any(key in text for key in _FINAL_BLOCK_KEYS):
+        return False
+
+    # A bare JSON object or a one-line assignment to a final block should be
+    # preserved for downstream extraction, not executed in the notebook kernel.
+    if text.startswith("{") and text.endswith("}"):
+        return True
+    if re.match(r"(?is)^(?:final_answer_block|FinalAnswerBlock|FINAL_ANSWER_BLOCK)\s*=", text):
+        return True
+
+    # JSON literals are valid inside JSON but cause NameError in Python when
+    # the block was mislabeled as python.
+    return bool(re.search(r"(?<![A-Za-z0-9_])(?:false|true|null)(?![A-Za-z0-9_])", text))
+
 class FormatType(Enum):
     PRESENT_CELLS = "present cells"
     PRESENT_PLAIN_TEXT = "display_text"
@@ -122,13 +152,22 @@ class NotebookCell(BaseModel, ABC):
                         )
 
                 elif cell_type == "python":
-                    cells.append(
-                        CodeCell(
-                            content=cell_content,
-                            role=llm_result.role,
-                            name="Datawise_Agent",
+                    if _looks_like_non_executable_final_block(cell_content):
+                        cells.append(
+                            MarkdownCell(
+                                content=cell_content,
+                                role=llm_result.role,
+                                name="Datawise_Agent",
+                            )
                         )
-                    )
+                    else:
+                        cells.append(
+                            CodeCell(
+                                content=cell_content,
+                                role=llm_result.role,
+                                name="Datawise_Agent",
+                            )
+                        )
                 elif cell_type == "output":
                     pass
             return cells

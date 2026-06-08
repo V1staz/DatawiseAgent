@@ -58,6 +58,7 @@ class HarnessConfig:
     memory_retrieval: bool = True
     memory_recording: bool = True
     disabled_capabilities: tuple[str, ...] = ()
+    force_finalizer: bool = False
 
 
 class HarnessController:
@@ -88,7 +89,7 @@ class HarnessController:
     def finalizer_enabled(self) -> bool:
         if "finalizer" in set(self.config.disabled_capabilities):
             return False
-        return self.config.mode == "full" or self.enabled("verify")
+        return self.config.force_finalizer or self.config.mode == "full" or self.enabled("verify")
 
     def prepare(self, question: dict[str, Any], table_root: str | Path) -> HarnessContext:
         qid = str(question.get("id", "unknown"))
@@ -399,7 +400,8 @@ Do not finalize until required columns, sample sizes, formulas/statistical metho
     def _final_block_prompt(self, question: dict[str, Any]) -> str:
         qid = json.dumps(question.get("id", ""), ensure_ascii=False)
         return f"""# FinalAnswerBlock Requirement
-When the task is complete, end with exactly one fenced JSON object using this schema and no extra @answer lines outside the JSON:
+When the task is complete, end with exactly one fenced JSON object using this schema and no extra @answer lines outside the JSON.
+This block is a final markdown answer artifact only. Do not put it in a python/code cell, do not assign it to a Python variable, and do not execute it in the notebook.
 ```json
 {{
   "final_answer_block": {{

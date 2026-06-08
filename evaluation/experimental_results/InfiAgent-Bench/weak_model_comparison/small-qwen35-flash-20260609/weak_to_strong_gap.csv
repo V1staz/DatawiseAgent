@@ -1,0 +1,5 @@
+weak_model,setting,strong_reference,difficulty,weak_score,strong_score,gap,gap_reduction_from_harness
+qwen3.5-flash,harness_full,qwen3.5-35b-a3b,easy,0.6667,0.8902,0.2235,0.0
+qwen3.5-flash,harness_full,qwen3.5-35b-a3b,medium,0.6923,0.8851,0.1928,0.0
+qwen3.5-flash,harness_full,qwen3.5-35b-a3b,hard,0.5417,0.8182,0.2765,0.0217
+qwen3.5-flash,harness_full,qwen3.5-35b-a3b,full,0.6087,0.8638,0.2551,0.013
