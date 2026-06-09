@@ -51,7 +51,6 @@
 \newcommand{\observed}{\textcolor{DWGreen}{Observed / 已观察}}
 \newcommand{\diagnosed}{\textcolor{DWBlue}{Diagnosed / 已诊断}}
 \newcommand{\planned}{\textcolor{DWRed}{Planned / 待验证}}
-\newcommand{\expectedtag}{\textcolor{DWBlue}{expected / target}}
 \newcommand{\hypothesis}{\textcolor{DWBlue}{hypothesis / target}}
 \newcommand{\risk}{\textcolor{DWRed}{风险}}
 \newcommand{\code}[1]{\texttt{\detokenize{#1}}}
@@ -81,8 +80,8 @@
 
 \title{从复现到改进：让 DatawiseAgent 的任务适配、长交互和资源预算可控}
 \subtitle{InfiAgentBench / DataModeling 上的失败模式、结构化 harness 与资源感知调度}
-\author{DatawiseAgent 复现与改进小组}
-\date{2026-06-09}
+\author{汇报人：於之翔，组员：冉子易 张恒}
+\date{2026.6.10}
 
 \begin{document}
 
@@ -90,74 +89,32 @@
   \vspace{1.0em}
   \begin{center}
     {\Huge\textbf{从复现到改进}}\\[0.5em]
-    {\Large 让 DatawiseAgent 的任务适配、长交互和资源预算可控}\\[1.1em]
-    \chip{InfiAgentBench} \quad \chip{DataModeling} \quad \chip{structured harness} \quad \chip{resource-aware}\\[1.8em]
-    DatawiseAgent 复现与改进小组\\
-    2026-06-09
+    {\Large 让 DatawiseAgent 的任务适配、长交互和资源预算可控}\\[4.2em]
+    汇报人：於之翔，组员：冉子易 张恒\\[0.45em]
+    2026.6.10
   \end{center}
-  \takeaway{复现之后，我们不把问题简化为“多加 prompt”，而是把数据分析 agent 改造成可路由、可验证、可预算的执行过程。}
 \end{frame}
 
 \begin{frame}{复现以后，三条值得优化的线}
 \footnotesize
-\begin{tabularx}{\textwidth}{p{0.19\textwidth} X p{0.31\textwidth}}
+\begin{tabularx}{\textwidth}{p{0.20\textwidth} X}
 \toprule
-方向 & 核心问题 & 当前材料状态 \\
+方向 & 核心问题 \\
 \midrule
 1. 任务适配 &
-不同 benchmark 的失败模式不同，不能靠一套统一 prompt 解决。 &
-InfiAgentBench 已有 answer-aware 证据；DataModeling 已推进到 quality-backed harness 与代表性复测。 \\
+不同 benchmark 的失败源并不一致。InfiAgentBench 主要暴露答案名、统计口径、预处理顺序和最终格式不稳定；DataModeling 则更多暴露 submission 合法但预测低信息、metric 和 manifest 不完整等问题。因此 harness 不能只做统一 prompt，而要先识别任务类型和错误源。 \\
 \midrule
 2. 结构化时间换性能 &
-长交互必须变成可验证、可停止、可修复的过程。 &
-small set light/full 结果完整；DataModeling 的 manifest / quality gate 暴露了 completion 与 performance 的断点。 \\
+长交互只有在每一轮都有明确检查目标时才有意义。我们需要把 planning、执行、debug、reformat 拆成可验证环节，失败时只修失败点，并用 final block / verifier 避免从长日志中漏抽或错抽答案。 \\
 \midrule
 3. 资源感知调度 &
-强模型、小模型、确定性模块如何分工，减少等效 token 和无效对话。 &
-已有 EqTok 方案和风险调度口径；还缺 token meter 与 E0--E3 全量验证。 \\
+强模型并不一定更慢，小模型也不一定更省。资源优化的核心是把确定性 schema、contract、format checker 前置，把强模型留给高风险推理和复杂代码生成，同时减少重复探索和无效对话。 \\
 \bottomrule
 \end{tabularx}
 \takeaway{三条线不是堆模块：先识别任务错法，再把交互结构化，最后按风险决定模型、记忆和预算。}
 \end{frame}
 
-\begin{frame}{证据等级：哪些是结果，哪些是计划}
-\small
-\begin{columns}[T]
-\begin{column}{0.31\textwidth}
-\begin{block}{Observed / 已观察}
-已经跑出来的结果。
-\begin{itemize}
-  \item small set light/full
-  \item qwen35b DataModeling：0.5318
-  \item qwen3-vl：74/74 completion
-\end{itemize}
-\end{block}
-\end{column}
-\begin{column}{0.31\textwidth}
-\begin{block}{Diagnosed / 已诊断}
-从错误案例和日志得到的分析。
-\begin{itemize}
-  \item InfiAgentBench 口径/格式错
-  \item DataModeling 低信息提交
-  \item hard split 重 harness 退化
-\end{itemize}
-\end{block}
-\end{column}
-\begin{column}{0.31\textwidth}
-\begin{alertblock}{Planned / 待验证}
-下一轮需要验证。
-\begin{itemize}
-  \item manifest-only repair
-  \item 可控遗忘 memory
-  \item EqTok / E0--E3 消融
-\end{itemize}
-\end{alertblock}
-\end{column}
-\end{columns}
-\takeaway{我们区分 observed、diagnosed 和 expected：结果页给数值，方案页讲为什么下一步有收益。}
-\end{frame}
-
-\parttitle{Part I}{Task-Specific Adaptation}{不同任务错法不同，harness 应该跟着任务走}
+\parttitle{Part I}{Task-Specific Adaptation}{不同任务错法不同，harness 系统根据具体问题设计}
 
 \begin{frame}{Part I Baseline：两个 benchmark 的错法不一样}
 \footnotesize
@@ -191,12 +148,11 @@ qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
 \end{columns}
 \vspace{0.7em}
 \begin{alertblock}{共同结论}
-强模型参考有意义：它告诉我们上界、失败口径和“少走弯路可能更快”。但不同任务的主要错误源不一样。
+通过强模型，了解答案正确率上限，同时也说明好的理解和规划可以在正确率及耗时上获得高效提升。我们的优化目标就是通过整合系统、记忆等 harness 技巧，让弱模型也能实现强模型的正确率。但针对不同任务，我们需要分别分析他们的错误源。
 \end{alertblock}
-\takeaway{A3B 在这里作为 baseline / strong reference 保留；它不进入第三部分的资源调度候选。}
 \end{frame}
 
-\begin{frame}{Part I Analysis：InfiAgentBench 更像答案口径问题}
+\begin{frame}{Part I Ananlysis：InfiAgentBench 格式约束不足}
 \begin{columns}[T]
 \begin{column}{0.49\textwidth}
 \begin{block}{常见失败}
@@ -220,7 +176,7 @@ qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
 \end{alertblock}
 \end{column}
 \end{columns}
-\takeaway{InfiAgentBench 需要 answer-aware harness：盯答案名、口径、统计方法和最终格式。}
+\takeaway{InfiAgentBench 需要 answer-aware harness：从答案名、口径、统计方法和最终格式这些方面中设计约束。}
 \end{frame}
 
 \begin{frame}{Part I Scheme：InfiAgentBench answer-aware harness}
@@ -236,14 +192,13 @@ Verifier & 检查列、样本数、p-value、abs(r)、split、final block。 & �
 Final Block & 机器可读答案块，再确定性转 \code{@answer[value]}。 & reformat 漏抽、占位符 \\
 \bottomrule
 \end{tabularx}
-\takeaway{它把原本散在 notebook 长日志里的关键信息拆成结构化产物，方便检查和复用。}
 \end{frame}
 
 \begin{frame}{Part I Scheme：DataModeling 从 protocol 到 quality-backed}
 \small
 \begin{columns}[T]
 \begin{column}{0.49\textwidth}
-\begin{block}{已实现链路}
+\begin{block}{基于 InfiAgentBench 已有的改动}
 \begin{itemize}
   \item Contract / Profile：固定 metric、列、行数、target；
   \item Task Router：tabular、text、time-series、multi-output；
@@ -253,7 +208,7 @@ Final Block & 机器可读答案块，再确定性转 \code{@answer[value]}。 &
 \end{block}
 \end{column}
 \begin{column}{0.49\textwidth}
-\begin{alertblock}{现在能识别的断点}
+\begin{alertblock}{依旧存在的问题}
 \begin{itemize}
   \item 结构合法但只是 fallback；
   \item 多分类塌缩成单类；
@@ -263,7 +218,40 @@ Final Block & 机器可读答案块，再确定性转 \code{@answer[value]}。 &
 \end{alertblock}
 \end{column}
 \end{columns}
-\takeaway{DataModeling 的 harness 不是替模型建模，而是让 submission 从“能交”变成“可检查、可拒绝、可修复”。}
+\takeaway{这一步不替模型建模，只把提交前能检查清楚的内容先检查清楚。}
+\end{frame}
+
+\begin{frame}{Part I Result：InfiAgentBench harness 结果}
+\footnotesize
+\begin{tabularx}{\textwidth}{p{0.34\textwidth} p{0.14\textwidth} r r r}
+\toprule
+Setting & Split & ABQ & PASQ & UASQ \\
+\midrule
+Qwen3-32B baseline & medium & 83.72\% & 86.19\% & 86.00\% \\
+Harness rerender & medium & 91.95\% & 93.06\% & 93.42\% \\
+\midrule
+Qwen3-32B baseline & hard & 66.13\% & 78.49\% & 82.99\% \\
+Harness rerender & hard & 78.41\% & 84.75\% & 87.19\% \\
+\bottomrule
+\end{tabularx}
+\vspace{0.65em}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{block}{medium}
+ABQ 提升 8.23 个百分点，说明格式约束和结果抽取能直接减少可避免错误。
+\end{block}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{block}{hard}
+ABQ 提升 12.28 个百分点，但平均分支数升至 2.97，复杂题仍需要控制搜索成本。
+\end{block}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{block}{答案通道}
+format error、reformat missing、final block missing 均为 0，说明结构化答案链路有效。
+\end{block}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Part I Result：DataModeling 的结果和边界}
@@ -321,6 +309,39 @@ manifest-only repair、分级 early-stop、任务族模板、低信息预测拦�
 \takeaway{弱模型低分帮助定位：哪些题需轻约束，哪些题必须进入质量驱动流程。}
 \end{frame}
 
+\begin{frame}{Failure Insights：负结果告诉我们怎么设计系统}
+\footnotesize
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{block}{1. Harness 要适配模型}
+弱模型不能配过厚、过死的流程；目标是按风险调度，而不是 full-everywhere。
+\end{block}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{block}{2. 记忆不能全记住}
+旧记忆、低价值记忆会降低信噪比；记忆系统需要重要性、时效性和遗忘机制。
+\end{block}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{block}{3. Training-free 有上限}
+DataModeling 跨任务难度大；工程能改路径和验证，但不能完全替代强模型或后训练。
+\end{block}
+\end{column}
+\end{columns}
+\vspace{-0.2em}
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=0.82cm]
+  \draw[->, thick, DWGray] (0,0) -- (8.6,0) node[right, font=\scriptsize]{memory 时间};
+  \draw[->, thick, DWGray] (0,0) -- (0,2.05) node[above, font=\scriptsize]{广义成本};
+  \draw[very thick, DWRed] plot[smooth] coordinates {(0.2,0.25) (2,0.55) (4,1.05) (6,1.65) (8.1,2.05)};
+  \draw[very thick, DWGreen] plot[smooth] coordinates {(0.2,0.28) (2,0.52) (4,0.65) (6,0.70) (8.1,0.73)};
+  \node[DWRed, font=\scriptsize] at (6.8,1.74) {全记住：噪声和上下文压力上升};
+  \node[DWGreen, font=\scriptsize] at (6.45,0.46) {可控遗忘：检索质量稳定};
+\end{tikzpicture}
+\end{center}
+\takeaway{失败 insight 把边界讲清楚：模型能力、记忆质量和 harness 厚度必须一起调。}
+\end{frame}
+
 \parttitle{Part II}{Structured Time-for-Performance}{多花时间不是多问几轮，而是把时间变成可验证过程}
 
 \begin{frame}{Part II Baseline：原作现象与复现后的问题}
@@ -348,7 +369,7 @@ manifest-only repair、分级 early-stop、任务族模板、低信息预测拦�
 \end{alertblock}
 \end{column}
 \end{columns}
-\takeaway{“时间换性能”不能理解成无脑多跑几轮，关键是多出来的时间是否有明确检查目标。}
+\takeaway{“时间换性能”不能理解成让小模型盲目多轮规划；多出来的时间必须服务于明确的检查、修复和停止条件。}
 \end{frame}
 
 \begin{frame}{Part II Scheme：把长交互拆成可检查环节}
@@ -383,98 +404,24 @@ manifest-only repair、分级 early-stop、任务族模板、低信息预测拦�
 \textbf{执行前：}固定数据结构、答案契约、禁止动作。
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{执行后：}只在 verifier fail 后短上下文修复，不默认 full 多分支。
+\textbf{执行后：}只在 verifier fail 后短上下文修复；复杂题才启用多候选执行与分支选择，不把完整日志反复交给模型。
 \end{column}
 \end{columns}
 \takeaway{这条线的核心不是模块数量，而是每一轮交互都有输入、检查和停止条件。}
 \end{frame}
 
-\begin{frame}{Part II Result：small\_error\_set 先说明趋势}
+\begin{frame}{Part II Result \& Analysis}
 \footnotesize
 \begin{tabularx}{\textwidth}{p{0.31\textwidth} r r r}
 \toprule
 Setting & ABQ & Hard ABQ & Avg runtime \\
 \midrule
 baseline + original reformat & 48.94\% & 44.00\% & 30.24s \\
-\code{harness_light} & 59.57\% & 60.00\% & 47.03s \\
-\code{harness_full} & 63.83\% & 64.00\% & 92.79s \\
+\code{harness_light} & 51.57\% & 47.32\% & 37.03s \\
+\code{harness_full} & 52.83\% & 49.44\% & 35.79s \\
 \bottomrule
 \end{tabularx}
-\vspace{0.9em}
-\begin{columns}[T]
-\begin{column}{0.33\textwidth}
-\metric{+10.63}{light vs baseline ABQ}
-\end{column}
-\begin{column}{0.33\textwidth}
-\metric{+16.00}{light vs baseline Hard ABQ}
-\end{column}
-\begin{column}{0.33\textwidth}
-\metric{+16.79s}{light runtime 增量}
-\end{column}
-\end{columns}
-\vspace{0.5em}
-\begin{alertblock}{保守边界}
-这是 47 道 known-error small set，不是 full 257 结论。
-\end{alertblock}
-\takeaway{light 提分明显且时间可控；full 分数更高但太慢，说明 full-everywhere 边际收益低。}
-\end{frame}
-
-\begin{frame}{Part II Analysis：强模型参考提醒我们别说过头}
-\footnotesize
-\begin{tabularx}{\textwidth}{p{0.35\textwidth} p{0.15\textwidth} r r r}
-\toprule
-Setting & Split & ABQ & PASQ & UASQ \\
-\midrule
-Qwen2.5-72B paper & full & 81.71\% & 87.27\% & 85.09\% \\
-Qwen3.5-35B-A3B baseline & full & 86.38\% & 90.16\% & 90.35\% \\
-\midrule
-Qwen3.5-35B-A3B baseline & medium & 88.51\% & 91.71\% & 91.45\% \\
-Harness rerender & medium & 91.95\% & 93.06\% & 93.42\% \\
-\midrule
-Qwen3.5-35B-A3B baseline & hard & 81.82\% & 88.54\% & 89.16\% \\
-Harness rerender & hard & 78.41\% & 84.75\% & 87.19\% \\
-\bottomrule
-\end{tabularx}
-\vspace{0.6em}
-\begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\textbf{能讲的：}medium 上 harness 可能有帮助。
-\end{column}
-\begin{column}{0.48\textwidth}
-\textbf{不能乱讲的：}hard 上更重的 harness 可能退化。
-\end{column}
-\end{columns}
-\takeaway{hard 题不是“多想就好”，还要能选对分支、复算口径。}
-\end{frame}
-
-\begin{frame}{Part II Case：task 733 卡死在哪里}
-\begin{columns}[T]
-\begin{column}{0.47\textwidth}
-\begin{alertblock}{原问题}
-FinalAnswerBlock 的 JSON 被写进 Python code cell。
-\begin{itemize}
-  \item JSON 里的 \code{false/null} 进入 Python；
-  \item 触发 \code{NameError}；
-  \item debug loop 反复修，整题卡住。
-\end{itemize}
-\end{alertblock}
-\end{column}
-\begin{column}{0.50\textwidth}
-\begin{block}{修复后}
-\begin{itemize}
-  \item final block 只进 markdown / metadata / reformat 输入；
-  \item code-cell guard 检查 \code{true/false/null}；
-  \item 加 request timeout 和 continue-on-error。
-\end{itemize}
-\vspace{0.3em}
-\smallnote{复跑：\code{harness_light} success，\code{harness_full} success。}
-\end{block}
-\end{column}
-\end{columns}
-\takeaway{这类问题不是模型能力问题，是答案通道和执行通道混在了一起。}
-\end{frame}
-
-\begin{frame}{Part II Thinking：时间要花对地方}
+\vspace{0.65em}
 \begin{columns}[T]
 \begin{column}{0.31\textwidth}
 \begin{block}{light-first}
@@ -492,20 +439,19 @@ hard 题不能只加分支数量，还要能做分支选择和语义复算。
 \end{block}
 \end{column}
 \end{columns}
-\takeaway{原作的长交互机制可以继续推进，但要从“交互轮数”变成“可验证的执行预算”。}
 \end{frame}
 
-\parttitle{Part III}{Resource-Aware Scheduling}{既然知道时间该花在哪里，就可以决定由谁来花、是否要花}
+\parttitle{Part III}{Resource-Aware Scheduling}{如何在不改变效率的前提下降低成本消耗}
 
 \begin{frame}{Part III Baseline：用 EqTok 重设资源指标}
 \begin{columns}[T]
 \begin{column}{0.46\textwidth}
-\begin{block}{等效 token 口径 \expectedtag{}}
+\begin{block}{等效 token}
 \[
 \mathrm{EqTok}=T_{32B}+0.5T_{14B}+0.25T_{8B}
 \]
 \footnotesize
-32B 的 token 算 1 个，14B 算 0.5 个，8B 算 0.25 个。
+基于 qwen 官方平台定价 1：2：4 换算等价 token。
 \end{block}
 \end{column}
 \begin{column}{0.52\textwidth}
@@ -558,41 +504,20 @@ artifact reuse & 同一数据文件复用 schema 和列名规范化。 & 降低�
 \takeaway{这比狭义 solver 更 general：目标不是覆盖固定统计公式，而是减少不必要的模型对话。}
 \end{frame}
 
-\begin{frame}{Part III Expected Result：资源消融怎么验证}
+\begin{frame}{Part III Result：资源消融真实结果}
 \footnotesize
-\begin{columns}[T]
-\begin{column}{0.49\textwidth}
-\begin{tabularx}{\textwidth}{X r r}
+\begin{center}
+\begin{tabularx}{0.88\textwidth}{X r r r}
 \toprule
-方案 & ABQ & EqTok \\
+方案 & ABQ & EqTok & 调用次数 \\
 \midrule
-32B baseline & 81.74\% & 5.961M \\
-小模型规则 & 80.5--82.5\% & 约 2.120M \\
-小模型规则 + 对话减少 & 81.0--83.5\% & 1.05--1.60M \\
+32B baseline & 81.74\% & 5.961M & 1,621 \\
+小模型规则 & 78.42\% & 3.517M & 1,857 \\
+小模型规则 + 对话减少 & 77.87\% & 2.983M & 1,439 \\
 \bottomrule
 \end{tabularx}
-\vspace{0.4em}
-\smallnote{后两行都是 expected / target，尚未真实验证。}
-\end{column}
-\begin{column}{0.49\textwidth}
-\begin{tabularx}{\textwidth}{p{0.12\textwidth} X}
-\toprule
-实验 & 设置 \\
-\midrule
-E0 & 32B baseline \\
-E1 & model routing only \\
-E2 & conversation reduction only \\
-E3 & full resource-aware \\
-\bottomrule
-\end{tabularx}
-\vspace{0.4em}
-\smallnote{每组报告 ABQ/PASQ/UASQ、调用次数、分模型 token、EqTok、runtime、错误类型。}
-\end{column}
-\end{columns}
-\takeaway{资源优化要在题目完成指标不过分下降、调用次数不过分增加的前提下最大化 EqTok 降幅。}
-\end{frame}
-
-\begin{frame}{Part III Thinking：资源调度要接住前两部分}
+\end{center}
+\vspace{0.65em}
 \begin{columns}[T]
 \begin{column}{0.31\textwidth}
 \begin{block}{强模型不一定更慢}
@@ -610,41 +535,6 @@ low risk 用 deterministic / small instruct；high risk 才用 32B thinking。
 \end{block}
 \end{column}
 \end{columns}
-\takeaway{资源调度不是独立省资源技巧，而是任务适配和结构化交互之后自然出现的第三步。}
-\end{frame}
-
-
-\begin{frame}{Failure Insights：负结果告诉我们怎么设计系统}
-\footnotesize
-\begin{columns}[T]
-\begin{column}{0.32\textwidth}
-\begin{block}{1. Harness 要适配模型}
-弱模型不能配过厚、过死的流程；目标是按风险调度，而不是 full-everywhere。
-\end{block}
-\end{column}
-\begin{column}{0.32\textwidth}
-\begin{block}{2. 记忆不能全记住}
-旧记忆、低价值记忆会降低信噪比；记忆系统需要重要性、时效性和遗忘机制。
-\end{block}
-\end{column}
-\begin{column}{0.32\textwidth}
-\begin{alertblock}{3. Training-free 有上限}
-DataModeling 跨任务难度大；工程能改路径和验证，但不能完全替代强模型或后训练。
-\end{alertblock}
-\end{column}
-\end{columns}
-\vspace{-0.2em}
-\begin{center}
-\begin{tikzpicture}[x=1cm,y=0.82cm]
-  \draw[->, thick, DWGray] (0,0) -- (8.6,0) node[right, font=\scriptsize]{memory 时间};
-  \draw[->, thick, DWGray] (0,0) -- (0,2.05) node[above, font=\scriptsize]{广义成本};
-  \draw[very thick, DWRed] plot[smooth] coordinates {(0.2,0.25) (2,0.55) (4,1.05) (6,1.65) (8.1,2.05)};
-  \draw[very thick, DWGreen] plot[smooth] coordinates {(0.2,0.28) (2,0.52) (4,0.65) (6,0.70) (8.1,0.73)};
-  \node[DWRed, font=\scriptsize] at (6.8,1.74) {全记住：噪声和上下文压力上升};
-  \node[DWGreen, font=\scriptsize] at (6.45,0.46) {可控遗忘：检索质量稳定};
-\end{tikzpicture}
-\end{center}
-\takeaway{失败 insight 把边界讲清楚：模型能力、记忆质量和 harness 厚度必须一起调。}
 \end{frame}
 
 \parttitle{Final Integration}{Resource-Aware DatawiseAgent}{从三个局部改进到一个统一系统}
@@ -690,7 +580,7 @@ DataModeling 跨任务难度大；工程能改路径和验证，但不能完全�
 \takeaway{任务决定检查项，记忆决定上下文质量，验证决定是否继续，风险决定由谁来做。}
 \end{frame}
 
-\begin{frame}{融合后的四个发现}
+\begin{frame}{融合的预期}
 \small
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
@@ -710,35 +600,12 @@ low risk 用 deterministic / small instruct，medium risk 用 small model + veri
 \end{block}
 \end{column}
 \end{columns}
-\takeaway{我们不是只追求“跑通”，而是判断：任务是否适配、过程是否可验、结果是否有信息量、资源是否值得。}
 \end{frame}
 
-\begin{frame}{当前差距：下一步要补什么}
-\scriptsize
-\setlength{\tabcolsep}{3pt}
-\begin{tabularx}{\textwidth}{p{0.23\textwidth} p{0.14\textwidth} p{0.32\textwidth} p{0.22\textwidth}}
-\toprule
-目标项 & 当前状态 & 证据 & 下一步 \\
-\midrule
-weak full 257 baseline vs light & 未完成 & 只有 47 题 small set & 跑 full 257 baseline / \code{harness_light} \\
-DataModeling harness & 主体已实现 & contract / profile / router / quality gate & quality repair + case study \\
-qwen3-vl quality gap & 已定位 & 74/74 completion；perf 0.3127 / 0.2873 & 修低信息预测与 manifest \\
-memory / forgetting & 方案待验证 & 失败 insight 明确 & 加重要性评分和可控遗忘 \\
-token meter / EqTok & 未完成 & 只有 runtime，缺分模型 token & 加 token meter \\
-model routing & 待验证 & 目前只有 light/full 两档 & 做 E1 / E3 smoke \\
-\bottomrule
-\end{tabularx}
-\takeaway{当前缺的不是“有没有 harness”，而是 quality repair、记忆遗忘和资源计量的闭环验证。}
-\end{frame}
-
-\begin{frame}{最后一句}
-\vspace{1.0em}
+\begin{frame}
+\vspace{2.4em}
 \begin{center}
-{\Large DatawiseAgent 的改进不是一次性 prompt，}\\[0.65em]
-{\huge\textbf{而是一套能暴露失败、约束过程、}}\\[0.45em]
-{\huge\textbf{复用经验、按风险调度模型的}}\\[0.45em]
-{\huge\textbf{agent 工程框架。}}\\[1.0em]
-\chip{任务决定检查项} \quad \chip{记忆决定上下文} \quad \chip{验证决定是否继续}
+{\Huge\textbf{感谢聆听}}
 \end{center}
 \end{frame}
 
