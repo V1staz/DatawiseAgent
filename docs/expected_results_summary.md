@@ -2,19 +2,35 @@
 
 更新时间：2026-06-09
 
+## 当前 PPT 版式口径
+
+`docs/expected_results_beamer.tex` 已压缩成 21 页课程汇报版。当前 PPT 不再逐页展开 9 个困难点，而是把内容合并成：
+
+- 复现后看到的问题；
+- 时间到底花在哪里；
+- InfiAgentBench answer-aware harness；
+- qwen3.5-flash small set 真实结果；
+- DataModeling protocol-aware 动机；
+- equivalent token / model routing / conversation reduction 成本计划；
+- 当前差距和下一步。
+
+汇报时优先讲具体错法、具体结果和当前没做完的地方，避免把 expected / target 讲成真实结果。
+
 ## 核心主线
 
-本项目不是简单给 DatawiseAgent 加 prompt / harness / verifier，而是延续原文最重要的思想：弱模型可以通过 notebook-style 多轮规划、执行、调试和反馈，用更多结构化交互时间弥补模型能力差距。我们的进一步问题是：
+本项目不是简单给 DatawiseAgent 加 prompt / harness / verifier，而是围绕原文中的一个重要现象继续推进：弱模型可以通过 notebook-style 多轮规划、执行、调试和修复，在更长、更结构化的交互过程中获得更好的鲁棒性。我们的进一步问题是：
 
 > 时间应该花在哪里、由谁来花、什么时候停止？
+
+这里的“时间换性能”是我们对该现象的概括性表述，不是原文直接提出的术语。原文依据是弱模型通过更多 planning / execution / debugging / repair 来提升任务完成稳定性。
 
 因此当前故事分为三层：
 
 1. **任务适配**：不同 benchmark 的失败模式不同。InfiAgentBench 需要 answer-aware harness；DataModeling 需要 protocol-aware harness。
-2. **时间换性能**：额外时间必须转化为结构化检查和修正，而不是无脑多跑几轮。
-3. **预算控制与模型分工**：light / full harness、sub-agent、verifier-gated fallback 用于控制推理预算。
+2. **时间换性能**：额外交互时间必须转化为结构化检查、修正和答案收束，而不是无脑多跑几轮。
+3. **成本控制与模型分工**：这是主线之后的延伸。当我们知道哪些阶段需要强模型、哪些阶段可由小模型或规则完成后，再做 model routing、verifier-gated fallback 和 equivalent token 优化。
 
-新加入的成本控制计划把这条主线进一步形式化：不是只看 runtime 或花费金额，而是用 equivalent token 统一比较 32B / 14B / 8B 等不同模型规模的资源消耗，并研究在 ABQ 不明显下降、调用次数不明显增加的前提下如何减少资源使用。
+新加入的成本控制计划不是把“时间换性能”等同于“降低成本”，而是在结构化交互有效之后，进一步把推理预算形式化为可度量、可调度的资源问题。
 
 ## 当前已观察结果
 
@@ -31,8 +47,9 @@
 
 已观察结论：
 
-- light harness 明显提升，且成本可控。
-- full harness 分数更高，但 runtime 明显增加，并出现 verifier blocked。
+- harness_light 是当前最有性价比的方案。
+- harness_full 分数更高，但 runtime 明显增加，并出现 verifier blocked。
+- 这说明额外结构化交互时间确实可能换来性能，但需要预算控制，不能无限堆推理轮次。
 - task 733 的 FinalAnswerBlock JSON 进入 Python code cell 问题已修复。
 - 当前只跑了 known-error small set，不能外推为 full 257 结论。
 
@@ -44,7 +61,7 @@
 - 强模型 medium harness：ABQ 88.51% -> 91.95%。
 - 强模型 hard harness：ABQ 81.82% -> 78.41%，说明 hard 题 full harness 可能因分支选择、口径漂移或 verifier 过度干预退化。
 
-### DataModeling 初步观察
+### DataModeling 初步观察：协议错误比模型能力更突出
 
 已有对比：
 
@@ -56,21 +73,23 @@
 可用于故事线的观察：
 
 - 强 / thinking 风格模型并不一定更慢，少走弯路可能显著降低总时间。
-- DataModeling 的主要改进方向不是 answer format，而是 protocol correctness：submission 文件、列名、行数、metric、performance parser、评估接口。
+- DataModeling 当前更突出的失败模式是 protocol correctness，而不是单纯模型能力。
+- 典型错误包括：submission / performance 文件未生成、评估格式不匹配、metric 类型错配、jaccard 文本指标收到数值列。
+- 目前主要作为 protocol-aware harness 的动机，尚未完成系统消融和稳定提分验证。
 
 ## 合理预期目标
 
-以下都是 expected / 待验证，不是已完成实验结论。
+以下都是 expected / hypothesis / target，不是已完成实验结论。这些区间主要基于 small set 趋势和工程预期外推，只作为后续实验目标，不作为已观察结论。
 
 | 档位 | InfiAgentBench full 257 预期 | DataModeling 预期 | 解释 |
 | --- | --- | --- | --- |
-| Conservative | weak + light 在 full 257 上稳定优于 weak baseline，ABQ 提升约 2--4 个百分点 | protocol checker 减少无效 submission / performance 缺失 | 证明方向有效，但收益主要来自格式和协议修复 |
-| Target | weak + light 提升约 5--8 个百分点，hard 提升更明显；full 进一步提升但 runtime 高 | complete rate 明显提升，部分任务 performance 小幅上升 | 支撑“结构化时间换性能”主结论 |
-| Optimistic | weak + full 或 gated harness 提升约 8--12 个百分点，并缩小 weak-to-strong gap | protocol-aware harness 将错误从 silent failure 转为可恢复失败 | 支撑后续 sub-agent / verifier-gated routing |
+| Conservative | weak + light 在 full 257 上稳定优于 weak baseline，ABQ 提升约 2--4 个百分点 | protocol checker 减少无效 submission / performance 缺失 | 提示方向有效，但收益主要来自格式和协议修复 |
+| Target | weak + light 提升约 5--8 个百分点，hard 提升更明显；full 进一步提升但 runtime 高 | complete rate 预期改善，部分任务 performance 可能小幅上升 | 支撑“结构化时间换性能”主结论 |
+| Optimistic | weak + full 或 gated harness 提升约 8--12 个百分点，并缩小 weak-to-strong gap | protocol-aware harness 将错误从 silent failure 转为可恢复失败 | 支撑后续 sub-agent / verifier-gated routing，但仍需验证 |
 
 ## 成本控制参考目标
 
-以下来自 `InfiAgentBench_Cost_Reduction_Plan.pdf` 的 Resource-Aware DatawiseAgent 计划，均为 expected / target，不是当前已完成实验结果。
+以下来自 `InfiAgentBench_Cost_Reduction_Plan.pdf` 的 Resource-Aware DatawiseAgent 计划，均为 expected / target，不是当前已完成实验结果。成本控制是主线之后的延伸：当结构化交互告诉我们哪些阶段需要强模型、哪些阶段可由小模型或规则完成后，再统一衡量资源消耗。
 
 资源指标：
 
@@ -111,7 +130,7 @@ equivalent_tokens = tokens_32b + 0.5 * tokens_14b + 0.25 * tokens_8b
 | harness_full 全量收益 | 未完成 | small set full 最高但 92.79s/题 | 成本高，可能 hard 退化 | light 稳定后再跑 full |
 | 最小消融 | 未完成 | no_finalizer / no_skills / no_oracle_or_verifier 尚未跑 | 不能归因各模块贡献 | 只跑 47 题 small set 消融 |
 | weak-to-strong gap | 待验证 | strong full baseline 已有，weak full 未跑 | small set gap 不能外推 | 生成 full gap 表 |
-| DataModeling protocol-aware harness | 初步观察 | qwen35b 比 qwen25 更高更快；有 tweet sentiment 协议失败案例 | 缺系统 protocol failure 统计 | 做 failure taxonomy + case study |
+| DataModeling protocol-aware harness | 初步观察 | 仅有模型对比和 tweet sentiment 等协议失败案例 | 缺系统 protocol failure 统计 | 做 failure taxonomy + case study |
 | sub-agent / 难度路由 | 未完成 | 目前只有 light/full 两档 | 还没有模型分工实验 | 先做离线设计，再跑 gated fallback smoke |
 | resource-aware token_meter | 未完成 | 目前主要记录 runtime，未稳定记录分模型 token / stage / EqTok | 无法验证资源计划 | 给 LLM 调用链路加 token_meter |
 | model routing | 未完成 | 目前没有 stage-level 模型分工 | 无法验证小模型路由收益 | 配置 model_role_map 并跑 E1 |
@@ -146,8 +165,11 @@ equivalent_tokens = tokens_32b + 0.5 * tokens_14b + 0.25 * tokens_8b
 
 ## PPT 可用总结
 
-- 当前 small set 结果证明：弱模型可以通过额外结构化交互获得明显提升。
+- 当前 small set 结果显示：弱模型可以通过额外结构化交互获得明显提升。
 - light harness 是目前最有性价比的方向。
-- full harness 说明更多时间还能换性能，但边际成本高，必须预算控制。
+- full harness 提示更多时间可能继续换性能，但边际成本高，必须预算控制。
 - Resource-Aware 计划把预算控制量化为 equivalent token，但目前仍是 expected，需要 token_meter 和 E0/E1/E2/E3 真实验证。
-- 后续目标是把 DatawiseAgent 的“时间换性能”推进为“任务感知、预算可控、资源可量化、模型分工”的系统设计。
+- 后续目标是把原文中弱模型依靠长交互弥补能力的现象，推进为一个可设计、可度量、可调度的推理预算问题。
+- 任务适配：决定时间花在哪里。
+- 结构化 harness：决定时间如何转化为检查、修正和收束。
+- model routing / verifier-gated fallback：决定由谁花时间、什么时候停止。
