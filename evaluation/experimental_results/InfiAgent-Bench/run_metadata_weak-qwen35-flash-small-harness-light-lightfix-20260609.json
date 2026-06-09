@@ -1,0 +1,16 @@
+{
+  "ablation": "harness_light",
+  "disabled_capabilities": [],
+  "force_finalizer": true,
+  "harness_mode": "skills",
+  "max_tokens": null,
+  "memory_recording": false,
+  "memory_retrieval": false,
+  "model_name": "qwen3.5-flash",
+  "provider": "dashscope",
+  "request_timeout": 300.0,
+  "run_date": "2026-06-09T06:44:11",
+  "search_policy": "off",
+  "semantic_oracles": false,
+  "temperature": 0.0
+}
