@@ -315,6 +315,90 @@ harness\_light vs full & 验证更多时间的边际收益和成本 & ABQ gain /
 \end{block}
 \end{frame}
 
+\section{资源成本优化}
+
+\begin{frame}{成本控制：从 runtime 到 equivalent token}
+\begin{block}{Resource-Aware DatawiseAgent \expectedtag{}}
+下一阶段不只比较花费金额，而是用统一的等效 token 衡量不同模型规模的资源消耗：
+\[
+\mathrm{EqTok}=T_{32B}+0.5T_{14B}+0.25T_{8B}
+\]
+\end{block}
+
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.25\textwidth} r r r r}
+\toprule
+参考运行 & ABQ & PASQ & UASQ & EqTok \\
+\midrule
+Qwen3-32B full baseline & 81.74\% & 86.21\% & 86.43\% & 5.961M \\
+\bottomrule
+\end{tabularx}
+\vspace{0.8em}
+\begin{itemize}
+  \item \expectedtag{} 这里的目标是：ABQ 不明显低于 32B baseline、调用次数不明显增加，同时降低 EqTok。
+  \item \expectedtag{} token 权重和预期数值来自 \code{InfiAgentBench_Cost_Reduction_Plan.pdf}，仍需 token\_meter 与真实实验验证。
+\end{itemize}
+\end{frame}
+
+\begin{frame}{成本控制参考目标 \expectedtag{}}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.28\textwidth} r r r r}
+\toprule
+方案 & ABQ & 调用次数 & Raw Token & EqTok \\
+\midrule
+32B baseline & 81.74\% & 1,621 & 5.961M & 5.961M \\
+\midrule
+小模型路由 & 80.5\%--82.5\% & 约 1,115 & 2.702M & 约 2.120M \\
+\midrule
+小模型路由 + 对话减少 & 81.0\%--83.5\% & 约 700--900 & 约 1.35M--1.90M & 约 1.05M--1.60M \\
+\bottomrule
+\end{tabularx}
+\vspace{0.8em}
+\begin{alertblock}{边界}
+以上是 expected / target，不是已完成结果。它们用于定义后续实验参考目标。
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Resource-Aware 方法框架 \expectedtag{}}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.16\textwidth} p{0.26\textwidth} X}
+\toprule
+任务层级 & 默认资源 & 策略 \\
+\midrule
+easy & 规则 / 小 instruct / finalizer & schema、格式、列名、final block 确定性处理；低风险题 one-shot 或 0 次 LLM。 \\
+\midrule
+medium & 14B 或弱模型 + contract + verifier & 用 Contract 固定约束，用 verifier-gated retry 只修失败点。 \\
+\midrule
+hard & 32B / thinking 模型 + search + fallback & 复杂推理和多候选选择交给强模型，但只在高风险或校验失败时启用。 \\
+\midrule
+verifier fail & 升级模型或 targeted repair & 不重启完整 notebook，只给错误点和必要上下文。 \\
+\midrule
+finalization & deterministic & Final Block 到 \code{@answer[value]} 完全由程序渲染，去掉 reformat 对话。 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\begin{frame}{E0/E1/E2/E3：资源消融设计 \expectedtag{}}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.12\textwidth} p{0.34\textwidth} X}
+\toprule
+实验 & 设置 & 目的 \\
+\midrule
+E0 & 32B baseline：所有角色使用 Qwen3-32B & 建立 ABQ、调用次数、EqTok 参考点。 \\
+\midrule
+E1 & model routing only：只启用小模型使用规则 & 验证模型分工是否能降低 EqTok。 \\
+\midrule
+E2 & conversation reduction only：仍以 32B 为主，但减少不必要对话 & 验证少对话本身是否有效。 \\
+\midrule
+E3 & full resource-aware agent：小模型路由 + 对话减少 & 主结果，观察 ABQ / EqTok / runtime 的综合收益。 \\
+\bottomrule
+\end{tabularx}
+\vspace{0.6em}
+\begin{block}{报告指标}
+ABQ / PASQ / UASQ、总调用次数、分模型 raw token、EqTok、EqTok 降幅、deterministic coverage、one-shot coverage、retry / escalation rate、平均运行时间、错误类型统计。
+\end{block}
+\end{frame}
+
 \section{困难与迭代}
 
 \begin{frame}{困难 1：full harness runtime 过高}
@@ -437,6 +521,21 @@ harness\_light vs full & 验证更多时间的边际收益和成本 & ABQ gain /
 \end{tabularx}
 \end{frame}
 
+\begin{frame}{困难 9：成本计划仍是预期}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.16\textwidth} X}
+\toprule
+现象 & Resource-Aware 计划已有 EqTok 公式、目标数值和 E0--E3 实验设计，但 token\_meter、model routing、conversation reduction 尚未系统实现和跑全量。 \\
+\midrule
+风险 & 只能说“预期降低资源消耗”，不能声称已经把 5.961M EqTok 降到 2.120M 或 1.05M--1.60M。 \\
+\midrule
+应对 & 先增加 token\_meter，记录每次 LLM 调用的 model、stage、tokens；再跑 30 题 stratified smoke，最后跑 full 257 E0--E3。 \\
+\midrule
+是否影响 PPT & 不影响主线，但必须明确标注 expected / target；它是下一阶段奋斗方向，不是当前结果。 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
 \section{当前差距}
 
 \begin{frame}{合理预期目标 vs 当前进度}
@@ -460,6 +559,25 @@ sub-agent / 难度路由 & 未完成 & 目前只有 light/full 两档 & 做离�
 \end{tabularx}
 \end{frame}
 
+\begin{frame}{当前差距：资源预算相关}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.19\textwidth} p{0.16\textwidth} X p{0.20\textwidth}}
+\toprule
+目标项 & 当前状态 & 证据 & 下一步 \\
+\midrule
+resource-aware token\_meter & 未完成 & 当前 runtime 有记录，但未稳定记录分模型 token / stage / EqTok & 给 LLM 调用链路增加 token\_meter \\
+\midrule
+model routing & 未完成 & 目前只有 harness light/full，不是 stage-level 模型分工 & 配置 model\_role\_map.yaml，先离线 smoke \\
+\midrule
+conversation reduction & 未完成 & Finalizer 已确定性化，但 contract-to-operation、one-shot、targeted retry 未系统接入 & 增加 resource\_policy 并做 E2 \\
+\midrule
+E0/E1/E2/E3 & 未完成 & PDF 中是实验计划，不是结果 & 先 30 题 stratified smoke，再 full 257 \\
+\midrule
+EqTok 目标 & 待验证 & 2.120M、1.05M--1.60M 均为 expected & 用 token\_meter 生成真实 EqTok 表 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
 \begin{frame}{当前距离目标有多远}
 \begin{itemize}
   \item \textbf{已经有趋势证据}：small set 上 weak + harness 有显著提升，light 性价比清楚。
@@ -467,6 +585,7 @@ sub-agent / 难度路由 & 未完成 & 目前只有 light/full 两档 & 做离�
   \item \textbf{还缺归因证据}：最小消融尚未跑，不能严格说明 finalizer、skills、verifier 各自贡献。
   \item \textbf{还缺第二 benchmark 证据}：DataModeling 目前更适合讲 protocol-aware 设计和失败分析，而不是完整 harness 分数。
   \item \textbf{还缺系统化预算控制}：sub-agent / difficulty-aware routing 仍是下一阶段方案。
+  \item \textbf{还缺资源指标}：equivalent token 目前是计划指标，尚未由 token\_meter 在真实运行中采集。
 \end{itemize}
 \end{frame}
 
@@ -477,6 +596,8 @@ sub-agent / 难度路由 & 未完成 & 目前只有 light/full 两档 & 做离�
   \item 跑 \code{qwen3.5-flash} full 257：baseline + original reformat vs harness\_light。
   \item 若 light 结果稳定，再跑 harness\_full，重点看 hard 和 runtime。
   \item 做最小消融：no\_finalizer / no\_skills / no\_oracle\_or\_verifier。
+  \item 增加 token\_meter，记录 model、stage、raw tokens、EqTok、LLM calls。
+  \item 做 E0/E1/E2/E3：32B baseline、model routing only、conversation reduction only、full resource-aware。
   \item 做 weak-to-strong gap 表：weak baseline、weak light、weak full、strong baseline。
   \item DataModeling 先做 protocol failure case study。
   \item 最后再考虑 difficulty-aware sub-agent / verifier-gated fallback。
@@ -495,9 +616,11 @@ sub-agent / 难度路由 & 未完成 & 目前只有 light/full 两档 & 做离�
 \midrule
 阶段 3 & small set 最小消融 & 模块贡献归因 \\
 \midrule
-阶段 4 & DataModeling protocol failure case study & protocol-aware harness 设计和典型案例 \\
+阶段 4 & token\_meter + E0/E1/E2/E3 resource-aware smoke & EqTok、调用次数、资源降幅 \\
 \midrule
-阶段 5 & verifier-gated fallback smoke & sub-agent / 模型分工原型 \\
+阶段 5 & DataModeling protocol failure case study & protocol-aware harness 设计和典型案例 \\
+\midrule
+阶段 6 & verifier-gated fallback smoke & sub-agent / 模型分工原型 \\
 \bottomrule
 \end{tabularx}
 \end{frame}
@@ -538,10 +661,11 @@ light harness 保留 DataCard、Contract、basic skills、Finalizer，关闭 sea
   \item \textbf{任务感知}：InfiAgentBench 用 answer-aware harness，DataModeling 用 protocol-aware harness。
   \item \textbf{预算可控}：light / full / fallback 根据难度和 verifier 状态启用。
   \item \textbf{模型分工}：小模型做局部明确检查，弱模型做中等任务，强 thinking 模型处理复杂推理和失败兜底。
+  \item \textbf{资源可量化}：用 EqTok 把不同模型规模、调用次数和对话长度统一到一个资源指标中。
 \end{itemize}
 \vspace{0.5em}
 \begin{center}
-\Large 时间换性能 $\Rightarrow$ 时间花对地方
+\Large 时间换性能 $\Rightarrow$ 时间花对地方，资源花在刀刃上
 \end{center}
 \end{frame}
 

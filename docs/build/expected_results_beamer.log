@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.25)  9 JUN 2026 16:56
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.25)  9 JUN 2026 17:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1375,10 +1375,20 @@ LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
 [14
 
 ]
+Underfull \hbox (badness 10000) in alignment at lines 341--341
+[][][][][] 
+ []
+
+
 
 [15
 
 ]
+Underfull \hbox (badness 10000) in alignment at lines 360--360
+[][][][][] 
+ []
+
+
 
 [16
 
@@ -1407,36 +1417,6 @@ LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
 [22
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 461--461
-[]|\TU/STXihei(0)/m/n/8 先 跑 \TU/lmss/m/n/8 qwen3.5-flash
- []
-
-
-Underfull \hbox (badness 3386) in paragraph at lines 461--461
-\TU/lmss/m/n/8 full 257 baseline /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 461--461
-[]|\TU/lmss/m/n/8 no_finalizer / no_skills /
- []
-
-
-Underfull \hbox (badness 1616) in paragraph at lines 461--461
-[]|\TU/lmss/m/n/8 DataModeling proto-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 461--461
-[]|\TU/STXihei(0)/m/n/8 做 \TU/lmss/m/n/8 protocol failure
- []
-
-
-Underfull \hbox (badness 3536) in paragraph at lines 461--461
-[]|\TU/STXihei(0)/m/n/8 做 离 线 设 计 和 \TU/lmss/m/n/8 gated
- []
-
-
 
 [23
 
@@ -1449,12 +1429,6 @@ Underfull \hbox (badness 3536) in paragraph at lines 461--461
 [25
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 503--503
-[]|\TU/STXihei(0)/m/n/8 主 结 果 表、| \TU/lmss/m/n/8 runtime \TU/STXihei(0)/m/n/8 表
-、|
- []
-
-
 
 [26
 
@@ -1463,16 +1437,71 @@ Underfull \hbox (badness 10000) in paragraph at lines 503--503
 [27
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 560--560
+[]|\TU/STXihei(0)/m/n/8 先 跑 \TU/lmss/m/n/8 qwen3.5-flash
+ []
+
+
+Underfull \hbox (badness 3386) in paragraph at lines 560--560
+\TU/lmss/m/n/8 full 257 baseline /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 560--560
+[]|\TU/lmss/m/n/8 no_finalizer / no_skills /
+ []
+
+
+Underfull \hbox (badness 1616) in paragraph at lines 560--560
+[]|\TU/lmss/m/n/8 DataModeling proto-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 560--560
+[]|\TU/STXihei(0)/m/n/8 做 \TU/lmss/m/n/8 protocol failure
+ []
+
+
+Underfull \hbox (badness 3536) in paragraph at lines 560--560
+[]|\TU/STXihei(0)/m/n/8 做 离 线 设 计 和 \TU/lmss/m/n/8 gated
+ []
+
+
 
 [28
 
 ]
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <14.4> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 546.
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 546.
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <7> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 546.
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+[]|\TU/lmss/m/n/8 resource-aware to-
+ []
+
+
+Underfull \hbox (badness 1117) in paragraph at lines 579--579
+[]|\TU/STXihei(0)/m/n/8 给 \TU/lmss/m/n/8 LLM \TU/STXihei(0)/m/n/8 调 用 链 路 增 加
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+[]|\TU/STXihei(0)/m/n/8 配 置
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+\TU/lmss/m/n/8 model_role_map.yaml\TU/STXihei(0)/m/n/8 ，|
+ []
+
+
+Underfull \hbox (badness 4479) in paragraph at lines 579--579
+[]|\TU/lmss/m/n/8 Finalizer \TU/STXihei(0)/m/n/8 已 确 定 性 化，|  但 \TU/lmss/m/n/8 
+contract-to-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+[]|\TU/STXihei(0)/m/n/8 先 \TU/lmss/m/n/8 30 \TU/STXihei(0)/m/n/8 题 \TU/lmss/m/n
+/8 stratified
+ []
+
 
 
 [29
@@ -1480,6 +1509,43 @@ LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <7> not available
 ]
 
 [30
+
+]
+
+[31
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 626--626
+[]|\TU/STXihei(0)/m/n/8 主 结 果 表、| \TU/lmss/m/n/8 runtime \TU/STXihei(0)/m/n/8 表
+、|
+ []
+
+
+
+[32
+
+]
+
+[33
+
+]
+
+[34
+
+]
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <14.4> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 670.
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 670.
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <7> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 670.
+
+
+[35
+
+]
+
+[36
 
 ]
 \tf@nav=\write6
@@ -1498,15 +1564,15 @@ L3 programming layer <2022/07/14>
  ***********
 Package rerunfilecheck Info: File `expected_results_beamer.out' has not changed
 .
-(rerunfilecheck)             Checksum: E4A4E2B1C1591F88C145DDFE0F11F7BB;620.
+(rerunfilecheck)             Checksum: C4290C3BB720C7CAEBBF8956D06A26B3;711.
  ) 
 Here is how much of TeX's memory you used:
- 31577 strings out of 473832
- 717024 string characters out of 5729481
- 1082298 words of memory out of 5000000
- 53982 multiletter control sequences out of 15000+600000
+ 31610 strings out of 473832
+ 717935 string characters out of 5729481
+ 1082727 words of memory out of 5000000
+ 54015 multiletter control sequences out of 15000+600000
  569139 words of font info for 122 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  142i,11n,137p,472b,804s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on docs/build/expected_results_beamer.pdf (30 pages).
+Output written on docs/build/expected_results_beamer.pdf (36 pages).
