@@ -1,34 +1,28 @@
 \documentclass[aspectratio=169,UTF8]{ctexbeamer}
 
 \usefonttheme{professionalfonts}
-\usepackage{iftex}
-\ifPDFTeX\else
-  \usepackage{fontspec}
-  \IfFontExistsTF{Noto Sans CJK SC}{%
-    \setmainfont{Noto Sans CJK SC}
-    \setsansfont{Noto Sans CJK SC}
-    \setCJKmainfont{Noto Sans CJK SC}
-    \setCJKsansfont{Noto Sans CJK SC}
-  }{%
-    \IfFontExistsTF{Microsoft YaHei}{%
-      \setmainfont{Microsoft YaHei}
-      \setsansfont{Microsoft YaHei}
-      \setCJKmainfont{Microsoft YaHei}
-      \setCJKsansfont{Microsoft YaHei}
-    }{}%
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{
+  \leavevmode
+  \hbox{%
+    \begin{beamercolorbox}[wd=.74\paperwidth,ht=2.4ex,dp=1ex,leftskip=1em]{footline}%
+      DatawiseAgent 复现与改进
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.26\paperwidth,ht=2.4ex,dp=1ex,rightskip=1em plus 1fil]{footline}%
+      \insertframenumber/\inserttotalframenumber
+    \end{beamercolorbox}%
   }
-  \IfFontExistsTF{DejaVu Sans Mono}{%
-    \setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase]
-  }{%
-    \IfFontExistsTF{Consolas}{%
-      \setmonofont{Consolas}[Scale=MatchLowercase]
-    }{}%
-  }
-\fi
+}
+\setbeamertemplate{frametitle}{
+  \vspace{0.4em}
+  \begin{beamercolorbox}[wd=\paperwidth,ht=3.2ex,dp=1.1ex,leftskip=1em]{frametitle}
+    \insertframetitle
+  \end{beamercolorbox}
+}
+
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{array}
-\usepackage{colortbl}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,shapes.geometric}
 
@@ -39,80 +33,20 @@
 \definecolor{DWGreen}{HTML}{2E7D32}
 \definecolor{DWRed}{HTML}{B23A48}
 \definecolor{DWGray}{HTML}{444444}
-\definecolor{DWInk}{HTML}{1E293B}
-\definecolor{DWLine}{HTML}{C7D7EA}
 
 \setbeamercolor{background canvas}{bg=DWPale}
 \setbeamercolor{frametitle}{fg=white,bg=DWBlue}
 \setbeamercolor{footline}{fg=white,bg=DWBlue}
-\setbeamercolor{footline pale}{fg=DWBlue,bg=DWLight}
 \setbeamercolor{block title}{fg=white,bg=DWBlue}
-\setbeamercolor{block body}{fg=DWInk,bg=white}
+\setbeamercolor{block body}{fg=black,bg=white}
 \setbeamercolor{alertblock title}{fg=white,bg=DWRed}
-\setbeamercolor{alertblock body}{fg=DWInk,bg=DWRed!7}
-\setbeamercolor{takeaway}{fg=DWInk,bg=DWGold!22}
+\setbeamercolor{alertblock body}{fg=black,bg=DWRed!8}
+\setbeamercolor{takeaway}{fg=black,bg=DWGold!25}
 \setbeamercolor{chip}{fg=DWBlue,bg=DWBlue!10}
-\setbeamercolor{normal text}{fg=DWInk,bg=DWPale}
-\setbeamercolor{item}{fg=DWBlue}
-\setbeamercolor{subitem}{fg=DWBlue}
-\setbeamercolor{enumerate item}{fg=white,bg=DWBlue}
 
-\renewcommand{\familydefault}{\sfdefault}
-\setbeamerfont{normal text}{family=\sffamily}
-\setbeamerfont{frametitle}{family=\sffamily,series=\bfseries,size=\normalsize}
-\setbeamerfont{title}{family=\sffamily,series=\bfseries}
-\setbeamerfont{subtitle}{family=\sffamily}
-\setbeamerfont{block title}{family=\sffamily,series=\bfseries,size=\small}
-\setbeamerfont{block body}{family=\sffamily}
-\setbeamerfont{footline}{family=\sffamily,size=\scriptsize}
-
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{blocks}[rounded][shadow=false]
-\setbeamertemplate{itemize item}{%
-  \raisebox{0.18ex}{\tikz\fill[DWBlue] (0,0) -- (0.50ex,0.30ex) -- (0,0.60ex) -- cycle;}%
-}
-\setbeamertemplate{itemize subitem}{%
-  \raisebox{0.18ex}{\tikz\fill[DWBlue!75] (0,0) -- (0.42ex,0.25ex) -- (0,0.50ex) -- cycle;}%
-}
-\setbeamertemplate{enumerate item}{%
-  \begingroup
-  \setlength{\fboxsep}{1.4pt}%
-  \colorbox{DWBlue}{\scriptsize\textcolor{white}{\insertenumlabel}}%
-  \endgroup
-}
-\setbeamertemplate{frametitle}{%
-  \nointerlineskip
-  \vbox{%
-  \begin{beamercolorbox}[wd=\paperwidth,ht=3.35ex,dp=0.95ex,leftskip=1em,rightskip=1em]{frametitle}
-      \usebeamerfont{frametitle}\insertframetitle
-    \end{beamercolorbox}%
-    \nointerlineskip
-    \hbox to \paperwidth{\color{DWGold}\leaders\hrule height 0.45pt\hfill}%
-  }%
-}
-\setbeamertemplate{footline}{%
-  \leavevmode%
-  \vbox{%
-    \hbox to \paperwidth{\color{DWGold}\leaders\hrule height 0.35ex\hfill}%
-    \hbox{%
-      \begin{beamercolorbox}[wd=.72\paperwidth,ht=2.1ex,dp=0.75ex,leftskip=1em]{footline}%
-        \usebeamerfont{footline}DatawiseAgent 复现与改进%
-      \end{beamercolorbox}%
-      \begin{beamercolorbox}[wd=.28\paperwidth,ht=2.1ex,dp=0.75ex,rightskip=1em plus 1fil]{footline}%
-        \usebeamerfont{footline}\insertframenumber/\inserttotalframenumber%
-      \end{beamercolorbox}%
-    }%
-  }%
-}
-
-\setbeamersize{text margin left=8.5mm,text margin right=8.5mm}
-\setlength{\parskip}{0.16em}
-\renewcommand{\arraystretch}{1.14}
-\setlength{\tabcolsep}{5pt}
-\setlength{\heavyrulewidth}{0.95pt}
-\setlength{\lightrulewidth}{0.45pt}
-\setlength{\cmidrulewidth}{0.45pt}
-\arrayrulecolor{DWLine}
+\setbeamersize{text margin left=8mm,text margin right=8mm}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.12}
 
 \newcommand{\observed}{\textcolor{DWGreen}{Observed / 已观察}}
 \newcommand{\diagnosed}{\textcolor{DWBlue}{Diagnosed / 已诊断}}
@@ -121,48 +55,32 @@
 \newcommand{\risk}{\textcolor{DWRed}{风险}}
 \newcommand{\code}[1]{\texttt{\detokenize{#1}}}
 \newcommand{\smallnote}[1]{{\scriptsize\textcolor{DWGray}{#1}}}
-\newcommand{\chip}[1]{%
-  \tikz[baseline=(x.base)]\node[
-    rounded corners=2pt,
-    fill=DWBlue!10,
-    draw=DWBlue!18,
-    inner xsep=4pt,
-    inner ysep=1.7pt,
-    font=\scriptsize\bfseries,
-    text=DWBlue
-  ] (x) {#1};%
-}
+\newcommand{\chip}[1]{\begingroup\setlength{\fboxsep}{2pt}\colorbox{DWBlue!10}{\scriptsize\textcolor{DWBlue}{#1}}\endgroup}
 \newcommand{\takeaway}[1]{%
-  \vspace{0.18em}
-  \begin{beamercolorbox}[wd=\textwidth,sep=0.42ex,rounded=true,leftskip=0.75em,rightskip=0.75em]{takeaway}
-    \scriptsize\textbf{\textcolor{DWBlue}{Takeaway：}}#1
+  \vspace{0.35em}
+  \begin{beamercolorbox}[wd=\textwidth,sep=0.75ex,rounded=true]{takeaway}
+    \textbf{Takeaway：}#1
   \end{beamercolorbox}
 }
 \newcommand{\metric}[2]{%
-  \begin{beamercolorbox}[wd=.92\linewidth,sep=0.95ex,rounded=true,center]{chip}
-    {\Large\textbf{\textcolor{DWBlue}{#1}}}\\[-0.2em]{\scriptsize\textcolor{DWGray}{#2}}
+  \begin{beamercolorbox}[wd=.92\linewidth,sep=0.8ex,rounded=true,center]{chip}
+    {\Large\textbf{#1}}\\[-0.2em]{\scriptsize #2}
   \end{beamercolorbox}
 }
 \newcommand{\parttitle}[3]{%
   \begin{frame}[plain]
-    \begin{tikzpicture}[remember picture,overlay]
-      \fill[DWBlue] (current page.north west) rectangle ([xshift=0.82cm]current page.south west);
-      \fill[DWGold] ([xshift=0.82cm]current page.north west) rectangle ([xshift=0.88cm]current page.south west);
-      \fill[DWBlue!6] ([xshift=0.88cm]current page.north west) rectangle (current page.south east);
-    \end{tikzpicture}
-    \vspace{1.05em}
+    \vspace{1.4em}
     \begin{center}
-      \chip{#1}\\[0.95em]
-      {\Huge\textbf{\textcolor{DWBlue}{#2}}}\\[0.55em]
-      {\large\textcolor{DWGray}{#3}}\\[0.9em]
-      {\color{DWGold}\rule{0.42\textwidth}{0.8pt}}
+      \chip{#1}\\[1.0em]
+      {\Huge\textbf{#2}}\\[0.7em]
+      {\large #3}
     \end{center}
   \end{frame}
 }
 
 \title{从复现到改进：让 DatawiseAgent 的任务适配、长交互和资源预算可控}
 \subtitle{InfiAgentBench / DataModeling 上的失败模式、结构化 harness 与资源感知调度}
-\author{汇报人：於之翔，组员：冉子易、张恒}
+\author{汇报人：於之翔，组员：冉子易 张恒}
 \date{2026.6.10}
 
 \begin{document}
@@ -172,7 +90,7 @@
   \begin{center}
     {\Huge\textbf{从复现到改进}}\\[0.5em]
     {\Large 让 DatawiseAgent 的任务适配、长交互和资源预算可控}\\[4.2em]
-    汇报人：於之翔，组员：冉子易、张恒\\[0.45em]
+    汇报人：於之翔，组员：冉子易 张恒\\[0.45em]
     2026.6.10
   \end{center}
 \end{frame}
@@ -184,13 +102,13 @@
 方向 & 核心问题 \\
 \midrule
 1. 任务适配 &
-不同 benchmark 的失败源并不一致。InfiAgentBench 主要暴露答案名、统计定义、预处理顺序和最终格式不稳定；DataModeling 则更多暴露 submission 合法但预测低信息、metric 和 manifest 不完整等问题。因此 harness 不能只做统一 prompt，而要先识别任务类型和错误源。 \\
+不同 benchmark 的失败源并不一致。InfiAgentBench 主要暴露答案名、统计口径、预处理顺序和最终格式不稳定；DataModeling 则更多暴露 submission 合法但预测低信息、metric 和 manifest 不完整等问题。因此 harness 不能只做统一 prompt，而要先识别任务类型和错误源。 \\
 \midrule
 2. 结构化时间换性能 &
 长交互只有在每一轮都有明确检查目标时才有意义。我们需要把 planning、执行、debug、reformat 拆成可验证环节，失败时只修失败点，并用 final block / verifier 避免从长日志中漏抽或错抽答案。 \\
 \midrule
 3. 资源感知调度 &
-强模型并不一定更慢，小模型也不一定更省。资源优化的核心是把确定性 schema、Answer Spec、format checker 前置，把强模型留给高风险推理和复杂代码生成，同时减少重复探索和无效对话。 \\
+强模型并不一定更慢，小模型也不一定更省。资源优化的核心是把确定性 schema、contract、format checker 前置，把强模型留给高风险推理和复杂代码生成，同时减少重复探索和无效对话。 \\
 \bottomrule
 \end{tabularx}
 \takeaway{三条线不是堆模块：先识别任务错法，再把交互结构化，最后按风险决定模型、记忆和预算。}
@@ -234,79 +152,46 @@ qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
 \end{alertblock}
 \end{frame}
 
-\begin{frame}{Part I Analysis：任务分类分层路由解决计算规则漂移}
-\small
+\begin{frame}{Part I Ananlysis：InfiAgentBench 格式约束不足}
 \begin{columns}[T]
-\begin{column}{0.42\textwidth}
-\begin{alertblock}{核心问题}
-\Large\textbf{代码能跑，\newline 但答案计算规则不稳定}
-\vspace{0.55em}
-
-\normalsize
-同一张表、同一个问题，模型可能在过滤条件、统计方法、小数位或最终格式上发生轻微漂移；这些错误不一定报错，但会直接影响闭式评分。
-\end{alertblock}
-\end{column}
-\begin{column}{0.55\textwidth}
-\begin{block}{Task-Aware harness}
-\begin{enumerate}
-  \item 先用 \textbf{level / concepts / keywords / format} 识别题型；
-  \item 不同题型路由到对应 \textbf{Harness Spec}；
-  \item 规范约束执行，并要求可复现证据；
-  \item verifier 检查输出是否符合任务规范。
-\end{enumerate}
-\end{block}
-\end{column}
-\end{columns}
-\vspace{0.45em}
-\begin{center}
-\begin{tikzpicture}[node distance=0.14cm]
-  \node[draw=DWBlue, fill=DWBlue!8, rounded corners, inner xsep=8pt, inner ysep=5pt, font=\footnotesize\bfseries] (a) {answer name};
-  \node[draw=DWBlue, fill=DWBlue!8, rounded corners, inner xsep=8pt, inner ysep=5pt, font=\footnotesize\bfseries, right=of a] (b) {filter};
-  \node[draw=DWBlue, fill=DWBlue!8, rounded corners, inner xsep=8pt, inner ysep=5pt, font=\footnotesize\bfseries, right=of b] (c) {rounding};
-  \node[draw=DWBlue, fill=DWBlue!8, rounded corners, inner xsep=8pt, inner ysep=5pt, font=\footnotesize\bfseries, right=of c] (d) {statistical method};
-  \node[draw=DWBlue, fill=DWBlue!8, rounded corners, inner xsep=8pt, inner ysep=5pt, font=\footnotesize\bfseries, right=of d] (e) {final format};
-\end{tikzpicture}
-\end{center}
-\takeaway{重点不是让模型“知道答案”，而是把题目要求显式化为 Answer Spec：任务决定规范，规范约束执行，验证决定能否输出。}
-\end{frame}
-
-
-\begin{frame}{Part I Scheme：Task Router $\rightarrow$ Harness Specs}
-\footnotesize
-\begin{columns}[T]
-\begin{column}{0.34\textwidth}
-\begin{block}{路由信号}
+\begin{column}{0.49\textwidth}
+\begin{block}{常见失败}
 \begin{itemize}
-  \item level：easy / medium / hard
-  \item concepts：统计、相关性、特征、ML
-  \item question keywords
-  \item expected format
+  \item 最终答案格式、小数位、引号、dict/list 格式错误；
+  \item 预处理顺序、子集口径、缺失值处理错误；
+  \item 相关性、显著性、正态性、异常值判断错误；
+  \item 特征工程公式理解错误；
+  \item reformat 从长日志中漏抽、错抽。
 \end{itemize}
 \end{block}
-\vspace{0.2em}
-\begin{alertblock}{收束目标}
-\textbf{不是统一大 prompt，}\newline
-而是让不同题型进入不同协议，再由 verifier 和 Final Block 收束到稳定答案通道。
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{alertblock}{关键判断}
+很多题不是“代码完全不会写”，而是：
+\begin{itemize}
+  \item 题目约束没有提前固定；
+  \item 统计语义没有过程校验；
+  \item 最终答案通道不稳定。
+\end{itemize}
 \end{alertblock}
 \end{column}
-\begin{column}{0.63\textwidth}
-\begin{center}
-\resizebox{0.96\linewidth}{!}{%
-\begin{tikzpicture}[x=1cm,y=1cm]
-  \draw[rounded corners=8pt, draw=DWBlue!45, very thick, dashed, fill=DWBlue!3] (0,0) rectangle (8.0,3.55);
-  \node[align=center, text=DWGray, font=\Large\bfseries] at (4.0,2.15) {Illustration Placeholder};
-  \node[align=center, text=DWGray, font=\small] at (4.0,1.65) {Task Router $\rightarrow$ Protocol Cards $\rightarrow$ Verification Gate};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (1.0,0.62) {Stats};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (2.5,0.62) {Corr};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (4.0,0.62) {Feature};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (5.5,0.62) {ML};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (7.0,0.62) {Format};
-\end{tikzpicture}}
-\end{center}
-\end{column}
 \end{columns}
-\vspace{-0.15em}
-\takeaway{后续替换为 GPT-image；核心逻辑：分类路由 $\rightarrow$ 协议约束 $\rightarrow$ 验证收束。}
+\takeaway{InfiAgentBench 需要 answer-aware harness：从答案名、口径、统计方法和最终格式这些方面中设计约束。}
+\end{frame}
+
+\begin{frame}{Part I Scheme：InfiAgentBench answer-aware harness}
+\footnotesize
+\begin{tabularx}{\textwidth}{p{0.20\textwidth} X p{0.27\textwidth}}
+\toprule
+模块 & 作用 & 对应错误 \\
+\midrule
+DataCard & 固定 CSV 结构，记录列名、dtype、缺失值、范围、类别样例。 & 列选择、缺失值、类型误判 \\
+Contract & 抽取 answer name、列、过滤条件、操作、小数位、输出容器。 & 口径、格式、额外清洗 \\
+Skill checklist & 针对 correlation、outlier、ML、format 等题型给检查清单。 & 统计方法、ML 协议 \\
+Verifier & 检查列、样本数、p-value、abs(r)、split、final block。 & 代码能跑但语义错 \\
+Final Block & 机器可读答案块，再确定性转 \code{@answer[value]}。 & reformat 漏抽、占位符 \\
+\bottomrule
+\end{tabularx}
 \end{frame}
 
 \begin{frame}{Part I Scheme：DataModeling 从 protocol 到 quality-backed}
@@ -315,7 +200,7 @@ qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
 \begin{column}{0.49\textwidth}
 \begin{block}{基于 InfiAgentBench 已有的改动}
 \begin{itemize}
-  \item Answer Spec / Profile：固定 metric、列、行数、target；
+  \item Contract / Profile：固定 metric、列、行数、target；
   \item Task Router：tabular、text、time-series、multi-output；
   \item Submission Validator：schema、ID、概率范围、sample copy；
   \item Quality Gate：manifest、fallback、常数预测、低信息 final。
@@ -336,34 +221,34 @@ qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
 \takeaway{这一步不替模型建模，只把提交前能检查清楚的内容先检查清楚。}
 \end{frame}
 
-\begin{frame}{Part I Result：Task-Aware harness 带来的直接收益}
+\begin{frame}{Part I Result：InfiAgentBench harness 结果}
 \footnotesize
 \begin{tabularx}{\textwidth}{p{0.34\textwidth} p{0.14\textwidth} r r r}
 \toprule
 Setting & Split & ABQ & PASQ & UASQ \\
 \midrule
 Qwen3-32B baseline & medium & 83.72\% & 86.19\% & 86.00\% \\
-\textbf{Harness rerender} & medium & \textbf{91.95\%} & \textbf{93.06\%} & \textbf{93.42\%} \\
+Harness rerender & medium & 91.95\% & 93.06\% & 93.42\% \\
 \midrule
 Qwen3-32B baseline & hard & 66.13\% & 78.49\% & 82.99\% \\
-\textbf{Harness rerender} & hard & \textbf{78.41\%} & \textbf{84.75\%} & \textbf{87.19\%} \\
+Harness rerender & hard & 78.41\% & 84.75\% & 87.19\% \\
 \bottomrule
 \end{tabularx}
 \vspace{0.65em}
 \begin{columns}[T]
 \begin{column}{0.32\textwidth}
 \begin{block}{medium}
-ABQ 提升 \textbf{\textcolor{DWBlue}{8.23 个百分点}}，说明格式约束和结果抽取能直接减少可避免错误。
+ABQ 提升 8.23 个百分点，说明格式约束和结果抽取能直接减少可避免错误。
 \end{block}
 \end{column}
 \begin{column}{0.32\textwidth}
 \begin{block}{hard}
-ABQ 提升 \textbf{\textcolor{DWBlue}{12.28 个百分点}}，但平均分支数升至 \textbf{2.97}，复杂题仍需要控制搜索成本。
+ABQ 提升 12.28 个百分点，但平均分支数升至 2.97，复杂题仍需要控制搜索成本。
 \end{block}
 \end{column}
 \begin{column}{0.32\textwidth}
 \begin{block}{答案通道}
-\textbf{format error / reformat missing / final block missing = 0}，说明结构化答案链路有效。
+format error、reformat missing、final block missing 均为 0，说明结构化答案链路有效。
 \end{block}
 \end{column}
 \end{columns}
@@ -397,7 +282,7 @@ qwen3-vl-32b old harness & 74/74 & 0.2873 & 297.49s \\
 \begin{columns}[T]
 \begin{column}{0.32\textwidth}
 \begin{block}{有逻辑可循的任务}
-Titanic、Santander 这类 schema / metric 清晰的 tabular 任务，Answer Spec 与 validator 能帮助模型走到有效路径。
+Titanic、Santander 这类 schema / metric 清晰的 tabular 任务，contract 与 validator 能帮助模型走到有效路径。
 \end{block}
 \end{column}
 \begin{column}{0.32\textwidth}
@@ -460,57 +345,31 @@ DataModeling 跨任务难度大；工程能改路径和验证，但不能完全�
 \parttitle{Part II}{Structured Time-for-Performance}{多花时间不是多问几轮，而是把时间变成可验证过程}
 
 \begin{frame}{Part II Baseline：原作现象与复现后的问题}
-\small
 \begin{columns}[T]
 \begin{column}{0.49\textwidth}
 \begin{block}{原作里有用的现象}
-弱模型可以靠 notebook-style 长交互补一部分能力，但有效部分不是“多聊天”，而是：
+弱模型可以靠 notebook-style 长交互补一部分能力：
 \begin{itemize}
-  \item 先形成可执行计划；
-  \item 用代码把隐含统计定义落到数据上；
-  \item 从错误和中间结果中定位失败点；
-  \item repair 后继续推进，而不是重启整题。
+  \item planning；
+  \item code execution；
+  \item debugging；
+  \item repair 后继续推进。
 \end{itemize}
 \end{block}
 \end{column}
 \begin{column}{0.49\textwidth}
 \begin{alertblock}{复现后看到的问题}
 \begin{itemize}
-  \item 上下文越长，越容易把旧日志、旧变量和最终答案混在一起；
-  \item full harness 并非单调收益：会引入 verifier blocked、重复 debug 和分支选择错误；
-  \item 多分支搜索如果没有选择准则，只是把错误候选变多；
-  \item final block 若进入 code cell，会把答案格式机制反过来卡住 debug loop。
+  \item 长交互不一定更好；
+  \item full harness 在 hard split 上可能退化；
+  \item 多分支搜索可能选错；
+  \item verifier 可能过度阻断；
+  \item final block 混进 code cell 会卡住 debug loop。
 \end{itemize}
 \end{alertblock}
 \end{column}
 \end{columns}
 \takeaway{“时间换性能”不能理解成让小模型盲目多轮规划；多出来的时间必须服务于明确的检查、修复和停止条件。}
-\end{frame}
-
-\begin{frame}{Part II Definitions：两档结构化方案}
-\scriptsize
-\begin{tabularx}{\textwidth}{p{0.22\textwidth} X p{0.30\textwidth}}
-\toprule
-实验名 & 打开的机制 & 作用和风险 \\
-\midrule
-\code{harness_light} &
-DataCard / schema；Answer Spec；基础技能清单；Final Block；程序化格式器；默认关闭重搜索和重 verifier。 &
-轻量结构化约束：先稳住列名、计算规则和输出格式。 \\
-\midrule
-\code{harness_full} &
-在 light 基础上增加语义 oracle / verifier，检查统计方法、预处理顺序和格式；必要时 targeted retry。 &
-完整语义校验：适合高风险题，但会增加通信、阻断和分支选择成本。 \\
-\midrule
-hard-aware &
-调度原则，不是独立实验名；根据 Answer Spec、Verifier 失败类型和中间结果决定是否重算、换分支或升级模型。 &
-hard 题不是简单加厚 prompt，而是要能选择和复算。 \\
-\bottomrule
-\end{tabularx}
-\vspace{0.55em}
-\begin{block}{关键词}
-DataCard 固定数据结构；Answer Spec 固定答案定义、计算规则和输出格式；Verifier 检查统计语义；Final Block 收束输出格式。light / full 不是模型大小，也不是 easy / hard split，而是同一 agent 上不同结构化强度的开关组合。
-\end{block}
-\takeaway{第二部分比较的是结构化约束强度如何影响准确率、通信和失败风险。}
 \end{frame}
 
 \begin{frame}{Part II Scheme：把长交互拆成可检查环节}
@@ -524,7 +383,7 @@ DataCard 固定数据结构；Answer Spec 固定答案定义、计算规则和�
 ]
 \node[emph] (q) {Question\\+ Data};
 \node[box, right=of q] (data) {DataCard\\schema};
-\node[box, right=of data] (contract) {Answer Spec\\rules + format};
+\node[box, right=of data] (contract) {Contract\\answer spec};
 \node[box, right=of contract] (skill) {Skill\\checklist};
 \node[box, right=of skill] (exec) {Notebook\\execution};
 \node[box, right=of exec] (verify) {Verifier\\checks};
@@ -542,40 +401,13 @@ DataCard 固定数据结构；Answer Spec 固定答案定义、计算规则和�
 \vspace{0.5em}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{执行前：}固定数据结构、答案规格、禁止动作。
+\textbf{执行前：}固定数据结构、答案契约、禁止动作。
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{执行后：}只在 verifier fail 后短上下文修复；复杂题才启用多候选执行与分支选择，不把完整日志反复交给模型。
 \end{column}
 \end{columns}
 \takeaway{这条线的核心不是模块数量，而是每一轮交互都有输入、检查和停止条件。}
-\end{frame}
-
-\begin{frame}{Part II Link to Part III：结构化时间也是通信控制}
-\scriptsize
-\begin{tabularx}{\textwidth}{p{0.21\textwidth} p{0.32\textwidth} X}
-\toprule
-Part II 工件 & 后续阶段需要的信号 & 对 Part III 的意义 \\
-\midrule
-DataCard / schema &
-列名、类型、缺失值、候选日期列、ID 列 &
-同一 CSV 可复用，减少反复读表探索。 \\
-Answer Spec &
-答案名、过滤、分组、统计方法、小数位、禁止动作 &
-把长 prompt 压成短规范，低风险题可一次完成。 \\
-Verifier report &
-失败检查项、失败位置、是否必须 retry &
-retry 只传失败点，不回传完整 notebook 日志。 \\
-Final Block &
-原始值、格式检查、来源变量 &
-reformat 不再自由抽取答案，可用程序化格式器。 \\
-\bottomrule
-\end{tabularx}
-\vspace{0.35em}
-\begin{block}{和第三部分的关系}
-Part II 决定“哪些信息值得在轮次之间通信”；Part III 决定“这次通信该由规则程序、8B/14B 还是 32B 处理”。资源优化不是单独换小模型，而是先把交互内容压成可检查工件。
-\end{block}
-\takeaway{结构化时间把 notebook 长交互变成短 artifact 传递，这是后面 EqTok 和调用次数优化的前提。}
 \end{frame}
 
 \begin{frame}{Part II Result \& Analysis}
@@ -586,30 +418,27 @@ Setting & ABQ & Hard ABQ & Avg runtime \\
 \midrule
 baseline + original reformat & 48.94\% & 44.00\% & 30.24s \\
 \code{harness_light} & 51.57\% & 47.32\% & 37.03s \\
-\code{harness_full} & 52.83\% & 49.44\% & 43.79s \\
+\code{harness_full} & 52.83\% & 49.44\% & 35.79s \\
 \bottomrule
 \end{tabularx}
-\vspace{0.25em}
-\smallnote{Setting 名称保留实验脚本名：\code{harness_light}=轻量结构化约束，\code{harness_full}=完整语义校验。}
 \vspace{0.65em}
 \begin{columns}[T]
 \begin{column}{0.31\textwidth}
 \begin{block}{light-first}
-默认只加最关键的结构化约束和格式器，让大多数题先稳定完成。
+默认只加最关键的结构化约束和 finalizer，让大多数题先稳定完成。
 \end{block}
 \end{column}
 \begin{column}{0.31\textwidth}
 \begin{block}{targeted retry}
-只有 verifier fail 或高风险题，才追加修复、搜索或升级模型；retry 输入是失败检查项，不是整段日志。
+只有 verifier fail 或高风险题，才追加修复、搜索或升级模型。
 \end{block}
 \end{column}
 \begin{column}{0.31\textwidth}
 \begin{block}{hard-aware}
-hard 题不能只加分支数量，还要能做分支选择、语义复算和必要的模型升级。
+hard 题不能只加分支数量，还要能做分支选择和语义复算。
 \end{block}
 \end{column}
 \end{columns}
-\takeaway{结果支持“结构化约束有效”；但 full 是否划算要看通信、阻断和重试成本，这正引出第三部分的资源调度。}
 \end{frame}
 
 \parttitle{Part III}{Resource-Aware Scheduling}{如何在不改变效率的前提下降低成本消耗}
@@ -634,7 +463,7 @@ hard 题不能只加分支数量，还要能做分支选择、语义复算和必
 ABQ & 81.74\% \\
 PASQ & 86.21\% \\
 UASQ & 86.43\% \\
-调用次数 & 1,621 \\
+调用次数 & 约 1,621 \\
 EqTok & 5.961M \\
 \bottomrule
 \end{tabularx}
@@ -643,47 +472,36 @@ EqTok & 5.961M \\
 \takeaway{这一部分只讨论 32B / 14B / 8B 的资源方案，避免把强模型参考和资源路由候选混在一起。}
 \end{frame}
 
-\begin{frame}{Part III 方案 A：分阶段资源使用规则}
-\scriptsize
-{\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.12}
-\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.18\textwidth} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{0.30\textwidth}}
+\begin{frame}{Part III Scheme A：小模型使用规则}
+\footnotesize
+\begin{tabularx}{\textwidth}{p{0.20\textwidth} p{0.22\textwidth} X}
 \toprule
-角色 / 阶段 & 实际任务 & 推荐处理 \\
+阶段 & 默认资源 & 使用原则 \\
 \midrule
-数据结构画像 & 读取数据表文件、列名、数据类型、缺失值、数值范围 & 确定性程序处理 \\
-答案规格解析 & 抽取答案名、列名、格式、小数位、禁止操作 & 规则优先；有歧义时用 8B / 14B \\
-任务路由 & 判断概念、难度、风险等级 & 规则优先；有歧义时用 8B / 14B \\
-步骤规划 & 拆分步骤、决定处理顺序 & 简单题用模板 / 8B；中等题用 14B；困难题用 32B \\
-代码生成 & 编写数据处理、统计检验和机器学习代码 & 简单题用 14B；中等 / 困难题用 32B \\
-调试执行 & 修复运行错误、列名错误、导入错误 & 简单题用 8B / 14B；中等题用 14B；困难题用 32B \\
-调试后清理 & 清理错误单元，保留可运行路径 & 确定性程序处理 \\
-过程校验 & 检查列、样本数、方法规则、最终答案块 & 确定性程序处理 \\
-最终格式化 & 渲染规定答题格式 & 确定性程序处理 \\
+Schema / Contract / Verifier / Finalizer & deterministic 优先 & 能程序化就不问模型；同一 CSV 的 schema 和列映射复用。 \\
+Easy planning / routing & 8B / 14B / template & 短上下文、低风险、格式化强的子任务交给小模型或模板。 \\
+Medium planning/debug & 14B & 用契约固定口径，verifier fail 后只修失败点。 \\
+Medium/hard code generation & 32B & 代码生成和复杂统计口径仍保持强模型主导。 \\
+Hard reasoning / fallback & 32B thinking & 只有高风险或多次校验失败才启用。 \\
 \bottomrule
 \end{tabularx}
-}
-\vfill
 \takeaway{模型路由不是为了全程用小模型，而是把强模型留给真的需要强推理的阶段。}
 \end{frame}
 
-\begin{frame}{Part III 方案 B：减少模型对话发生}
-\small
-\begin{tabularx}{\textwidth}{p{0.30\textwidth} X p{0.21\textwidth}}
+\begin{frame}{Part III Scheme B：减少模型对话发生}
+\footnotesize
+\begin{tabularx}{\textwidth}{p{0.26\textwidth} X p{0.25\textwidth}}
 \toprule
 机制 & 作用 & 影响 \\
 \midrule
-确定性工件 & 数据结构画像、答案规格、最终格式化尽量程序化，不反复询问模型。 & 降低调用次数 \\
-规格到操作路径 & 从答案规格直接生成操作计划，减少自由探索。 & 降低资源消耗和偏题 \\
-一次性执行 & 低风险题一次模型调用完成。 & 降低时间 \\
-校验触发重试 & 失败才短上下文修复，不把完整日志再喂回去。 & 控制重试成本 \\
-工件复用 & 同一数据文件复用数据结构画像和列名规范化。 & 降低重复探索 \\
+deterministic artifacts & schema、contract、finalizer 尽量程序化，不反复询问模型。 & 降低调用次数 \\
+contract-to-operation path & 从答案契约直接生成操作计划，减少自由探索。 & 降低 token 和偏题 \\
+one-shot execution & 低风险题一次模型调用完成。 & 降低时间 \\
+verifier-gated retry & 失败才短上下文修复，不把完整日志再喂回去。 & 控制 retry 成本 \\
+artifact reuse & 同一数据文件复用 schema 和列名规范化。 & 降低重复探索 \\
 \bottomrule
 \end{tabularx}
-\vspace{0.35em}
-{\scriptsize\textcolor{DWGray}{注：第一行与上一页“数据结构画像 / 答案规格解析 / 过程校验 / 最终格式化”的确定性处理本质相同；这里强调它对减少模型对话的作用。}}
-\vfill
-\takeaway{这比狭义解题器更通用：目标不是覆盖固定统计公式，而是减少不必要的模型对话。}
+\takeaway{这比狭义 solver 更 general：目标不是覆盖固定统计公式，而是减少不必要的模型对话。}
 \end{frame}
 
 \begin{frame}{Part III Result：资源消融真实结果}
@@ -693,9 +511,9 @@ EqTok & 5.961M \\
 \toprule
 方案 & ABQ & EqTok & 调用次数 \\
 \midrule
-32B baseline & 81.74\% & 5.960M & 1,621 \\
-小模型规则 & 78.42\% & 3.517M & 1,956 \\
-小模型规则 + 对话减少 & 78.63\% & 3.298M & 1,874 \\
+32B baseline & 81.74\% & 5.961M & 1,621 \\
+小模型规则 & 78.42\% & 3.517M & 1,857 \\
+小模型规则 + 对话减少 & 77.87\% & 2.983M & 1,439 \\
 \bottomrule
 \end{tabularx}
 \end{center}
@@ -733,7 +551,7 @@ low risk 用 deterministic / small instruct；high risk 才用 32B thinking。
 ]
 \node[emph] (q) {Question\\+ Data};
 \node[box, right=of q] (router) {Task / Protocol\\Router};
-\node[box, right=of router] (spec) {Answer Spec / Profile\\Quality Spec};
+\node[box, right=of router] (spec) {Contract / Profile\\Quality Spec};
 \node[box, right=of spec] (mem) {Memory\\Filter};
 \node[box, right=of mem] (risk) {Risk\\Estimator};
 \node[box, right=of risk] (exec) {Execution\\Notebook};
@@ -767,7 +585,7 @@ low risk 用 deterministic / small instruct；high risk 才用 32B thinking。
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \begin{block}{1. 失败模式不是统一的}
-InfiAgentBench 错在答案定义、统计规则和输出格式；DataModeling 错在 submission、metric、manifest 和低信息预测。
+InfiAgentBench 错在答案口径和统计协议；DataModeling 错在 submission、metric、manifest 和低信息预测。
 \end{block}
 \begin{block}{2. Completion \(\neq\) Performance}
 qwen3-vl 能做到 74/74 结构完成，但 performance 低，说明合法 CSV 还必须经过 quality gate。
