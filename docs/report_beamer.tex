@@ -152,6 +152,7 @@ qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
 \end{alertblock}
 \end{frame}
 
+<<<<<<< HEAD:docs/report_beamer.tex
 \begin{frame}{口径漂移}
 \small
 \begin{columns}[T]
@@ -194,37 +195,48 @@ qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
 \begin{columns}[T]
 \begin{column}{0.34\textwidth}
 \begin{block}{路由信号}
+=======
+\begin{frame}{Part I Ananlysis：InfiAgentBench 格式约束不足}
+\begin{columns}[T]
+\begin{column}{0.49\textwidth}
+\begin{block}{常见失败}
+>>>>>>> parent of 9d26969 (Refine Beamer task-aware harness narrative):docs/expected_results_beamer.tex
 \begin{itemize}
-  \item level：easy / medium / hard
-  \item concepts：统计、相关性、特征、ML
-  \item question keywords
-  \item expected format
+  \item 最终答案格式、小数位、引号、dict/list 格式错误；
+  \item 预处理顺序、子集口径、缺失值处理错误；
+  \item 相关性、显著性、正态性、异常值判断错误；
+  \item 特征工程公式理解错误；
+  \item reformat 从长日志中漏抽、错抽。
 \end{itemize}
 \end{block}
-\vspace{0.2em}
-\begin{alertblock}{收束目标}
-\textbf{不是统一大 prompt，}\newline
-而是让不同题型进入不同协议，再由 verifier 和 Final Block 收束到稳定答案通道。
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{alertblock}{关键判断}
+很多题不是“代码完全不会写”，而是：
+\begin{itemize}
+  \item 题目约束没有提前固定；
+  \item 统计语义没有过程校验；
+  \item 最终答案通道不稳定。
+\end{itemize}
 \end{alertblock}
 \end{column}
-\begin{column}{0.63\textwidth}
-\begin{center}
-\resizebox{0.96\linewidth}{!}{%
-\begin{tikzpicture}[x=1cm,y=1cm]
-  \draw[rounded corners=8pt, draw=DWBlue!45, very thick, dashed, fill=DWBlue!3] (0,0) rectangle (8.0,3.55);
-  \node[align=center, text=DWGray, font=\Large\bfseries] at (4.0,2.15) {Illustration Placeholder};
-  \node[align=center, text=DWGray, font=\small] at (4.0,1.65) {Task Router $\rightarrow$ Protocol Cards $\rightarrow$ Verification Gate};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (1.0,0.62) {Stats};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (2.5,0.62) {Corr};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (4.0,0.62) {Feature};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (5.5,0.62) {ML};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (7.0,0.62) {Format};
-\end{tikzpicture}}
-\end{center}
-\end{column}
 \end{columns}
-\vspace{-0.15em}
-\takeaway{后续替换为 GPT-image；核心逻辑：分类路由 $\rightarrow$ 协议约束 $\rightarrow$ 验证收束。}
+\takeaway{InfiAgentBench 需要 answer-aware harness：从答案名、口径、统计方法和最终格式这些方面中设计约束。}
+\end{frame}
+
+\begin{frame}{Part I Scheme：InfiAgentBench answer-aware harness}
+\footnotesize
+\begin{tabularx}{\textwidth}{p{0.20\textwidth} X p{0.27\textwidth}}
+\toprule
+模块 & 作用 & 对应错误 \\
+\midrule
+DataCard & 固定 CSV 结构，记录列名、dtype、缺失值、范围、类别样例。 & 列选择、缺失值、类型误判 \\
+Contract & 抽取 answer name、列、过滤条件、操作、小数位、输出容器。 & 口径、格式、额外清洗 \\
+Skill checklist & 针对 correlation、outlier、ML、format 等题型给检查清单。 & 统计方法、ML 协议 \\
+Verifier & 检查列、样本数、p-value、abs(r)、split、final block。 & 代码能跑但语义错 \\
+Final Block & 机器可读答案块，再确定性转 \code{@answer[value]}。 & reformat 漏抽、占位符 \\
+\bottomrule
+\end{tabularx}
 \end{frame}
 
 \begin{frame}{DataModeling Protocol}
@@ -254,34 +266,38 @@ qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
 \takeaway{这一步不替模型建模，只把提交前能检查清楚的内容先检查清楚。}
 \end{frame}
 
+<<<<<<< HEAD:docs/report_beamer.tex
 \begin{frame}{Harness 收益}
+=======
+\begin{frame}{Part I Result：InfiAgentBench harness 结果}
+>>>>>>> parent of 9d26969 (Refine Beamer task-aware harness narrative):docs/expected_results_beamer.tex
 \footnotesize
 \begin{tabularx}{\textwidth}{p{0.34\textwidth} p{0.14\textwidth} r r r}
 \toprule
 Setting & Split & ABQ & PASQ & UASQ \\
 \midrule
 Qwen3-32B baseline & medium & 83.72\% & 86.19\% & 86.00\% \\
-\textbf{Harness rerender} & medium & \textbf{91.95\%} & \textbf{93.06\%} & \textbf{93.42\%} \\
+Harness rerender & medium & 91.95\% & 93.06\% & 93.42\% \\
 \midrule
 Qwen3-32B baseline & hard & 66.13\% & 78.49\% & 82.99\% \\
-\textbf{Harness rerender} & hard & \textbf{78.41\%} & \textbf{84.75\%} & \textbf{87.19\%} \\
+Harness rerender & hard & 78.41\% & 84.75\% & 87.19\% \\
 \bottomrule
 \end{tabularx}
 \vspace{0.65em}
 \begin{columns}[T]
 \begin{column}{0.32\textwidth}
 \begin{block}{medium}
-ABQ 提升 \textbf{\textcolor{DWBlue}{8.23 个百分点}}，说明格式约束和结果抽取能直接减少可避免错误。
+ABQ 提升 8.23 个百分点，说明格式约束和结果抽取能直接减少可避免错误。
 \end{block}
 \end{column}
 \begin{column}{0.32\textwidth}
 \begin{block}{hard}
-ABQ 提升 \textbf{\textcolor{DWBlue}{12.28 个百分点}}，但平均分支数升至 \textbf{2.97}，复杂题仍需要控制搜索成本。
+ABQ 提升 12.28 个百分点，但平均分支数升至 2.97，复杂题仍需要控制搜索成本。
 \end{block}
 \end{column}
 \begin{column}{0.32\textwidth}
 \begin{block}{答案通道}
-\textbf{format error / reformat missing / final block missing = 0}，说明结构化答案链路有效。
+format error、reformat missing、final block missing 均为 0，说明结构化答案链路有效。
 \end{block}
 \end{column}
 \end{columns}
