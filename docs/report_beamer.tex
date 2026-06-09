@@ -375,40 +375,12 @@ DataModeling 跨任务难度大；工程能改路径和验证，但不能完全�
 \takeaway{失败 insight 把边界讲清楚：模型能力、记忆质量和 harness 厚度必须一起调。}
 \end{frame}
 
-\parttitle{Part II}{Structured Time-for-Performance}{多花时间不是多问几轮，而是把时间变成可验证过程}
+\parttitle{Part II}{Weak Model + Harness}{不是多问几轮，而是把多出来的时间花在检查上}
 
-\begin{frame}{Part II Motivation：为什么要做弱模型 + harness}
-\begin{columns}[T]
-\begin{column}{0.49\textwidth}
-\begin{block}{原作里真正有用的现象}
-弱模型不是一次回答就结束，而是在 notebook 里反复推进：
-\begin{itemize}
-  \item 先拆步骤；
-  \item 写代码并执行；
-  \item 根据报错修；
-  \item repair 后继续算。
-\end{itemize}
-\end{block}
-\end{column}
-\begin{column}{0.49\textwidth}
-\begin{alertblock}{复现后我们发现}
-\begin{itemize}
-  \item 多跑几轮不一定更好；
-  \item 有些题只是格式和答案名错；
-  \item 有些题是统计口径错；
-  \item hard 题多分支搜索后还会选错；
-  \item verifier 太重时会阻断可解析答案。
-\end{itemize}
-\end{alertblock}
-\end{column}
-\end{columns}
-\takeaway{所以我们不是给弱模型“多问几轮”，而是研究多出来的时间到底花在哪里，怎么检查，什么时候停。}
-\end{frame}
-
-\begin{frame}{Part II Setup：三个 setting 先说清楚}
+\begin{frame}{Part II Setup：先把实验口径说清楚}
 \scriptsize
 \renewcommand{\arraystretch}{1.08}
-\begin{tabularx}{\textwidth}{p{0.20\textwidth} X X}
+\begin{tabularx}{\textwidth}{p{0.22\textwidth} X X}
 \toprule
 Setting & 实际做了什么 & 这组实验里怎么理解 \\
 \midrule
@@ -417,12 +389,12 @@ qwen3.5-flash 按原始 DatawiseAgent 流程输出长日志，再走原始 refor
 弱模型原始能力 + 原始答案抽取。 \\
 \midrule
 \code{harness_light} &
-只加轻量增强：DataCard、Contract、基础 skill、Final Block 收束；关闭 search、memory、heavy oracle / verifier。 &
-目标是低成本提稳，先修格式、列名、题目约束和答案通道。 \\
+轻量检查版：DataCard、题目要求、基础检查清单、Final Block 收束；关闭 search、memory、heavy oracle / verifier。 &
+目标是先修低级但致命的错：列名、格式、小数位、答案名和最终输出通道。 \\
 \midrule
 \code{harness_full} &
-启用更完整的 verifier / oracle / 检查与修复，必要时多候选、多分支。 &
-目标是继续提分，但可能更慢，也可能被 verifier 阻断。 \\
+重检查版：加入更多中间结果检查、候选检查和失败处理。 &
+目标是继续提分，但代价是更慢；检查太严时也可能阻断可解析答案。 \\
 \midrule
 \code{small\_error\_set} &
 从错题分析里挑出的 47 道错误样本。 &
@@ -430,45 +402,7 @@ qwen3.5-flash 按原始 DatawiseAgent 流程输出长日志，再走原始 refor
 \bottomrule
 \end{tabularx}
 \renewcommand{\arraystretch}{1.0}
-\takeaway{这一页先把口径固定住：baseline、light、full 比的是同一个 47 题 known-error small set。}
-\end{frame}
-
-\begin{frame}{Part II Scheme：把长交互拆成可检查环节}
-\begin{center}
-\resizebox{\textwidth}{!}{%
-\begin{tikzpicture}[
-  node distance=0.52cm and 0.38cm,
-  box/.style={draw=DWBlue, fill=white, rounded corners, align=center, minimum width=1.9cm, minimum height=0.74cm, font=\scriptsize},
-  emph/.style={draw=DWBlue, fill=DWBlue!9, rounded corners, align=center, minimum width=1.9cm, minimum height=0.74cm, font=\scriptsize\bfseries},
-  arrow/.style={-{Latex[length=2mm]}, thick, draw=DWBlue}
-]
-\node[emph] (q) {Question\\+ Data};
-\node[box, right=of q] (data) {DataCard\\schema};
-\node[box, right=of data] (contract) {Contract\\answer spec};
-\node[box, right=of contract] (skill) {Skill\\checklist};
-\node[box, right=of skill] (exec) {Notebook\\execution};
-\node[box, right=of exec] (verify) {Verifier\\checks};
-\node[emph, right=of verify] (final) {Final Block\\reformat};
-\draw[arrow] (q) -- (data);
-\draw[arrow] (data) -- (contract);
-\draw[arrow] (contract) -- (skill);
-\draw[arrow] (skill) -- (exec);
-\draw[arrow] (exec) -- (verify);
-\draw[arrow] (verify) -- (final);
-\draw[arrow, dashed] (verify.south) to[out=-80,in=-100] node[below, font=\scriptsize, text=DWRed]{fail 才 targeted retry} (exec.south);
-\end{tikzpicture}
-}
-\end{center}
-\vspace{0.5em}
-\begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\textbf{执行前：}固定数据结构、答案契约、基础 skill，减少每题重复摸索。
-\end{column}
-\begin{column}{0.48\textwidth}
-\textbf{执行后：}用 verifier / final block 收束答案；失败时只给错误点做短上下文修复。
-\end{column}
-\end{columns}
-\takeaway{这条线的核心不是模块数量，而是让每一轮交互都有输入、检查和停止条件。}
+\takeaway{先把比较对象固定住：这里比的是同一个 47 题错题小集，不是全量 benchmark。}
 \end{frame}
 
 \begin{frame}{Part II Result：small\_error\_set 上的真实结果}
@@ -498,251 +432,324 @@ baseline + original reformat & 48.94\% & 44.00\% & 30.24s \\
 \begin{alertblock}{边界}
 当前只是 47 道 \code{small\_error\_set}。full 257 和完整消融还没验证，不能说弱模型已经接近强模型。
 \end{alertblock}
-\takeaway{light 提分明显，时间增加可控；full 分数最高，但 runtime 几乎翻倍。}
+\takeaway{light 提分明显，额外时间还能接受；full 分数最高，但 runtime 变得很重。}
 \end{frame}
 
-\begin{frame}{Part II Analysis：light 和 full 的取舍}
-\scriptsize
-\begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\begin{block}{\code{harness_light} 更像默认方案}
-\begin{itemize}
-  \item ABQ +10.63，hard ABQ +16.00；
-  \item runtime 从 30.24s 到 47.03s；
-  \item 先把格式、约束、final block 做稳。
-\end{itemize}
-\end{block}
-\end{column}
-\begin{column}{0.48\textwidth}
-\begin{alertblock}{\code{harness_full} 不是默认全开}
-\begin{itemize}
-  \item ABQ 最高：63.83\%，hard ABQ 64.00\%；
-  \item runtime 到 92.79s；
-  \item 有 4 个 verifier\_blocked；
-  \item 适合 hard 或 light 失败后升级。
-\end{itemize}
-\end{alertblock}
-\end{column}
-\end{columns}
-\vspace{0.15em}
-\renewcommand{\arraystretch}{1.08}
-\begin{tabularx}{\textwidth}{p{0.20\textwidth} X X}
-\toprule
-结论 & 能说明什么 & 不能说明什么 \\
-\midrule
-弱模型 + 结构化交互有收益 & 额外时间如果花在 contract、skill、final block、verifier 上，确实能提升 small set 表现。 & 不能外推到 full 257，也不能证明 full harness 一定适合 hard 全量。 \\
-\midrule
-full 更高但更慢 & 继续加检查和修复可能换来更高分。 & 不能无限堆轮次；否则 runtime、通信和阻断都会上升。 \\
-\bottomrule
-\end{tabularx}
-\renewcommand{\arraystretch}{1.0}
-\takeaway{“时间换性能”成立的前提是时间被预算化：先 light，失败或高风险再 full。}
-\end{frame}
-
-\begin{frame}{Part II Bridge：自然引到成本 / 通信 / sub-agent}
+\begin{frame}{Part II Analysis：这个实验为什么有意义}
 \footnotesize
 \begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\begin{block}{从结果得到的新问题}
-既然 light / full 说明多花一点结构化时间能提分，下一步就不是继续堆 prompt，而是问：
+\begin{column}{0.50\textwidth}
+\begin{block}{弱模型主要不是“完全不会”}
 \begin{itemize}
-  \item 哪些检查可以规则化？
-  \item 哪些子任务用小模型就够？
-  \item 哪些失败必须交给强 thinking 模型？
+  \item 会写代码，但容易漏题目要求；
+  \item 会算结果，但小数位、答案名、容器格式不稳；
+  \item 会跑统计，但可能漏筛选条件或比较口径。
 \end{itemize}
 \end{block}
 \end{column}
-\begin{column}{0.48\textwidth}
-\begin{alertblock}{第三部分要解决的事}
+\begin{column}{0.46\textwidth}
+\begin{alertblock}{检查带来的收益和代价}
 \begin{itemize}
-  \item 简单明确的子任务：规则 / 小模型；
-  \item 复杂决策和失败兜底：强模型；
-  \item 通信时间不能忽略，但子任务足够明确时额外通信可以很短；
-  \item 用 EqTok / 调用次数 / runtime 统一比较。
+  \item light 修了很多低级但致命的错；
+  \item full 还能再修一点，但时间成本上升；
+  \item 所以不是越重越好，而是看题目风险。
 \end{itemize}
 \end{alertblock}
 \end{column}
 \end{columns}
-\vspace{0.25em}
+\vspace{0.35em}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.22\textwidth} X X}
+\toprule
+常见错法 & 轻量检查能做什么 & 重检查什么时候再上 \\
+\midrule
+格式 / 答案名错 & 用 Final Block 和程序化 reformat 收束。 & final block 缺失或格式不合法时。 \\
+\midrule
+列名 / 筛选漏掉 & 先给 DataCard 和题目要求列表。 & 中间结果样本数异常时。 \\
+\midrule
+统计口径不稳 & 给相关性、异常值、预处理顺序检查清单。 & hard 题、分支结果冲突或多次失败时。 \\
+\bottomrule
+\end{tabularx}
+\takeaway{这个结果的价值是说明：弱模型的额外时间如果花在检查上，比单纯多问几轮更有效。}
+\end{frame}
+
+\begin{frame}{Part II Scheme：多出来的时间具体花在哪里}
+\footnotesize
 \begin{center}
-\resizebox{0.92\textwidth}{!}{%
+\resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[
-  node distance=0.62cm,
-  box/.style={draw=DWBlue, fill=white, rounded corners, align=center, minimum width=2.25cm, minimum height=0.75cm, font=\scriptsize},
+  node distance=0.55cm and 0.40cm,
+  box/.style={draw=DWBlue, fill=white, rounded corners, align=center, minimum width=1.9cm, minimum height=0.72cm, font=\scriptsize},
+  emph/.style={draw=DWBlue, fill=DWBlue!9, rounded corners, align=center, minimum width=1.9cm, minimum height=0.72cm, font=\scriptsize\bfseries},
   arrow/.style={-{Latex[length=2mm]}, thick, draw=DWBlue}
 ]
-\node[box] (a) {light-first\\低成本提稳};
-\node[box, right=of a] (b) {verifier fail\\短修复};
-\node[box, right=of b] (c) {hard / high risk\\强模型兜底};
-\node[box, right=of c] (d) {Part III\\model routing};
+\node[emph] (q) {Question\\+ CSV};
+\node[box, right=of q] (data) {DataCard\\列名/缺失};
+\node[box, right=of data] (req) {题目要求\\答案格式};
+\node[box, right=of req] (skill) {检查清单\\统计/格式};
+\node[box, right=of skill] (exec) {Notebook\\执行};
+\node[box, right=of exec] (check) {中间结果\\检查};
+\node[emph, right=of check] (final) {Final Block\\程序化输出};
+\draw[arrow] (q) -- (data);
+\draw[arrow] (data) -- (req);
+\draw[arrow] (req) -- (skill);
+\draw[arrow] (skill) -- (exec);
+\draw[arrow] (exec) -- (check);
+\draw[arrow] (check) -- (final);
+\draw[arrow, dashed] (check.south) to[out=-80,in=-100] node[below, font=\scriptsize, text=DWRed]{检查不过才短修复} (exec.south);
+\end{tikzpicture}
+}
+\end{center}
+\vspace{0.45em}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{block}{程序能直接判断的}
+\begin{itemize}
+  \item 列是否存在，筛选后是否为空；
+  \item final block 是否是合法 JSON；
+  \item 小数位、列表 / 字典、\code{@answer} 是否匹配。
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{alertblock}{模型还需要判断的}
+\begin{itemize}
+  \item 题目到底要哪个统计口径；
+  \item 多个候选结果哪个更可信；
+  \item 检查失败后应修代码还是修答案。
+\end{itemize}
+\end{alertblock}
+\end{column}
+\end{columns}
+\takeaway{关键不是把所有事都交给模型，而是能程序检查的先程序检查，复杂判断再交给模型。}
+\end{frame}
+
+\begin{frame}{Part II Bridge：自然引到第三部分}
+\footnotesize
+\begin{columns}[T]
+\begin{column}{0.50\textwidth}
+\begin{block}{从 small set 得到的结论}
+\begin{itemize}
+  \item 弱模型加轻量检查能明显提分；
+  \item 重检查继续提分，但 runtime 从 47.03s 到 92.79s；
+  \item 所以下一步不是继续加模块，而是判断什么时候值得多花时间。
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.46\textwidth}
+\begin{alertblock}{第三部分要回答}
+\begin{itemize}
+  \item 简单步骤能不能规则化？
+  \item 明确子任务能不能交给小模型？
+  \item 复杂规划、候选选择、失败兜底何时上强 thinking 模型？
+  \item sub-agent 通信会不会抵消收益？
+\end{itemize}
+\end{alertblock}
+\end{column}
+\end{columns}
+\vspace{0.4em}
+\begin{center}
+\resizebox{0.88\textwidth}{!}{%
+\begin{tikzpicture}[
+  node distance=0.70cm,
+  box/.style={draw=DWBlue, fill=white, rounded corners, align=center, minimum width=2.35cm, minimum height=0.72cm, font=\scriptsize},
+  arrow/.style={-{Latex[length=2mm]}, thick, draw=DWBlue}
+]
+\node[box] (a) {light-first\\先少折腾};
+\node[box, right=of a] (b) {检查不过\\短修复};
+\node[box, right=of b] (c) {高风险\\强模型兜底};
+\node[box, right=of c] (d) {记录成本\\EqTok/runtime};
 \draw[arrow] (a) -- (b);
 \draw[arrow] (b) -- (c);
 \draw[arrow] (c) -- (d);
 \end{tikzpicture}
 }
 \end{center}
-\takeaway{Part II 证明“时间要花对地方”；Part III 继续问“由谁来花、通信多久、成本怎么算”。}
+\takeaway{Part II 讲清楚“时间花在哪里”；Part III 继续讨论“由谁来花、哪些调用可以省”。}
 \end{frame}
 
-\parttitle{Part III}{Resource-Aware Scheduling}{如何在不改变效率的前提下降低成本消耗}
+\parttitle{Part III}{Resource-Aware Plan}{把时间分给合适的模型；能不问模型就不问}
 
-\begin{frame}{Part III Baseline：用 EqTok 重设资源指标}
+\begin{frame}{Part III Boundary：这部分先作为后续方案}
+\footnotesize
 \begin{columns}[T]
 \begin{column}{0.46\textwidth}
-\begin{block}{等效 token}
+\begin{block}{先说边界}
+\begin{itemize}
+  \item resource-aware / sub-agent 还没完整验证；
+  \item 这里主要讲后续实验设计；
+  \item 指标用 EqTok、调用次数、runtime 一起看。
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.52\textwidth}
+\begin{alertblock}{等效 token}
 \[
 \mathrm{EqTok}=T_{32B}+0.5T_{14B}+0.25T_{8B}
 \]
 \footnotesize
-基于 qwen 官方平台定价 1：2：4 换算等价 token。
-\end{block}
-\end{column}
-\begin{column}{0.52\textwidth}
-\footnotesize
-\begin{tabularx}{\textwidth}{X r}
-\toprule
-32B baseline 指标 & 数值 \\
-\midrule
-ABQ & 81.74\% \\
-PASQ & 86.21\% \\
-UASQ & 86.43\% \\
-调用次数 & 约 1,621 \\
-EqTok & 5.961M \\
-\bottomrule
-\end{tabularx}
+把 32B / 14B / 8B 的消耗放到同一把尺上；路由收益仍是 expected / 待验证。
+\end{alertblock}
 \end{column}
 \end{columns}
-\takeaway{这一部分只讨论 32B / 14B / 8B 的资源方案，避免把强模型参考和资源路由候选混在一起。}
-\end{frame}
-
-\begin{frame}{Part III Scheme A：小模型使用规则}
-\footnotesize
-\begin{tabularx}{\textwidth}{p{0.20\textwidth} p{0.22\textwidth} X}
+\vspace{0.15em}
+\scriptsize
+\renewcommand{\arraystretch}{1.04}
+\begin{tabularx}{\textwidth}{p{0.32\textwidth} r r r}
 \toprule
-阶段 & 默认资源 & 使用原则 \\
+参考线 / 预期项 & ABQ & EqTok & 状态 \\
 \midrule
-Schema / Contract / Verifier / Finalizer & deterministic 优先 & 能程序化就不问模型；同一 CSV 的 schema 和列映射复用。 \\
-Easy planning / routing & 8B / 14B / template & 短上下文、低风险、格式化强的子任务交给小模型或模板。 \\
-Medium planning/debug & 14B & 用契约固定口径，verifier fail 后只修失败点。 \\
-Medium/hard code generation & 32B & 代码生成和复杂统计口径仍保持强模型主导。 \\
-Hard reasoning / fallback & 32B thinking & 只有高风险或多次校验失败才启用。 \\
+Qwen3-32B full baseline & 81.74\% & 5.961M & 参考线 \\
+小模型路由 & 80.5--82.5\% & 约 2.120M & expected \\
+路由 + 减少对话 & 81.0--83.5\% & 1.05--1.60M & target / 待验证 \\
 \bottomrule
 \end{tabularx}
-\takeaway{模型路由不是为了全程用小模型，而是把强模型留给真的需要强推理的阶段。}
+\renewcommand{\arraystretch}{1.0}
+\takeaway{这页不是说已经省下成本，而是给后续实验一个清楚的资源账本。}
 \end{frame}
 
-\begin{frame}{Part III Scheme B：减少模型对话发生}
-\footnotesize
-\begin{tabularx}{\textwidth}{p{0.26\textwidth} X p{0.25\textwidth}}
+\begin{frame}{Part III Plan：资源优化的两个抓手}
+\scriptsize
+\renewcommand{\arraystretch}{1.04}
+\begin{tabularx}{\textwidth}{p{0.24\textwidth} X X}
 \toprule
-机制 & 作用 & 影响 \\
+抓手 & 做法 & 答辩时怎么解释 \\
 \midrule
-deterministic artifacts & schema、contract、finalizer 尽量程序化，不反复询问模型。 & 降低调用次数 \\
-contract-to-operation path & 从答案契约直接生成操作计划，减少自由探索。 & 降低 token 和偏题 \\
-one-shot execution & 低风险题一次模型调用完成。 & 降低时间 \\
-verifier-gated retry & 失败才短上下文修复，不把完整日志再喂回去。 & 控制 retry 成本 \\
-artifact reuse & 同一数据文件复用 schema 和列名规范化。 & 降低重复探索 \\
+换小模型 / 规则 & 固定数据检查、答案格式、列名匹配、final answer 渲染尽量程序化；普通统计题走弱模型 + light。 & 输入短、标准明确，不需要强模型全流程参与。 \\
+\midrule
+直接省掉调用 & 同一 CSV 的 DataCard 复用；低风险题不反复 planning；检查通过就不再回传完整日志。 & 省掉重复确认和长日志回传，不省必要推理。 \\
+\midrule
+失败后再升级 & 多次检查不过、候选冲突、复杂统计口径不确定时，再交给强 thinking 模型。 & 32B-thinking 可以做主 Agent，但全流程使用成本高。 \\
 \bottomrule
 \end{tabularx}
-\takeaway{这比狭义 solver 更 general：目标不是覆盖固定统计公式，而是减少不必要的模型对话。}
+\renewcommand{\arraystretch}{1.0}
+\vspace{0.25em}
+\begin{alertblock}{一句话回答 planning 问题}
+planning 仍然重要；我们只是把 schema、格式渲染、列名检查、固定统计这类不需要重新规划的步骤拿出来，减少无意义 planning 调用。
+\end{alertblock}
+\takeaway{总方案不是“换成小模型”，而是少让大模型做无必要的事。}
 \end{frame}
 
-\begin{frame}{Part III Result：资源消融真实结果}
+\begin{frame}{Part III Path：可能的执行路径}
 \footnotesize
-\begin{center}
-\begin{tabularx}{0.88\textwidth}{X r r r}
-\toprule
-方案 & ABQ & EqTok & 调用次数 \\
-\midrule
-32B baseline & 81.74\% & 5.961M & 1,621 \\
-小模型规则 & 78.42\% & 3.517M & 1,857 \\
-小模型规则 + 对话减少 & 77.87\% & 2.983M & 1,439 \\
-\bottomrule
-\end{tabularx}
-\end{center}
-\vspace{0.65em}
-\begin{columns}[T]
-\begin{column}{0.31\textwidth}
-\begin{block}{强模型不一定更慢}
-强模型可能减少 debug / repair 轮数，所以总时间可能接近甚至更短。
-\end{block}
-\end{column}
-\begin{column}{0.31\textwidth}
-\begin{block}{小模型不一定更划算}
-小模型只有在简单、明确、短上下文子任务上才适合。
-\end{block}
-\end{column}
-\begin{column}{0.31\textwidth}
-\begin{block}{核心是风险调度}
-low risk 用 deterministic / small instruct；high risk 才用 32B thinking。
-\end{block}
-\end{column}
-\end{columns}
-\end{frame}
-
-\parttitle{Final Integration}{Resource-Aware DatawiseAgent}{从三个局部改进到一个统一系统}
-
-\begin{frame}{融合架构：任务、时间、记忆和资源在同一条链上}
 \begin{center}
 \resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[
-  node distance=0.44cm and 0.30cm,
-  box/.style={draw=DWBlue, fill=white, rounded corners, align=center, minimum width=1.70cm, minimum height=0.68cm, font=\scriptsize},
-  emph/.style={draw=DWBlue, fill=DWBlue!9, rounded corners, align=center, minimum width=1.70cm, minimum height=0.68cm, font=\scriptsize\bfseries},
-  lowbox/.style={draw=DWBlue, fill=white, rounded corners, align=center, minimum width=1.65cm, minimum height=0.55cm, font=\tiny},
+  node distance=0.70cm and 0.48cm,
+  box/.style={draw=DWBlue, fill=white, rounded corners, align=center, minimum width=2.0cm, minimum height=0.70cm, font=\scriptsize},
+  emph/.style={draw=DWBlue, fill=DWBlue!9, rounded corners, align=center, minimum width=2.0cm, minimum height=0.70cm, font=\scriptsize\bfseries},
   arrow/.style={-{Latex[length=2mm]}, thick, draw=DWBlue}
 ]
-\node[emph] (q) {Question\\+ Data};
-\node[box, right=of q] (router) {Task / Protocol\\Router};
-\node[box, right=of router] (spec) {Contract / Profile\\Quality Spec};
-\node[box, right=of spec] (mem) {Memory\\Filter};
-\node[box, right=of mem] (risk) {Risk\\Estimator};
-\node[box, right=of risk] (exec) {Execution\\Notebook};
-\node[box, right=of exec] (check) {Validator /\\Quality Gate};
-\node[emph, right=of check] (out) {Final Block /\\Submission};
-\draw[arrow] (q) -- (router);
-\draw[arrow] (router) -- (spec);
-\draw[arrow] (spec) -- (mem);
-\draw[arrow] (mem) -- (risk);
-\draw[arrow] (risk) -- (exec);
-\draw[arrow] (exec) -- (check);
-\draw[arrow] (check) -- (out);
-\node[lowbox, below=0.62cm of router] (path1) {answer path};
-\node[lowbox, below=0.62cm of spec] (path2) {quality path};
-\node[lowbox, below=0.62cm of mem] (forget) {retrieve / forget};
-\node[lowbox, below=0.62cm of risk, minimum width=2.0cm] (levels) {low / medium / high};
-\node[lowbox, below=0.62cm of check, minimum width=2.0cm] (report) {EqTok + errors};
-\draw[arrow, dashed] (router) -- (path1);
-\draw[arrow, dashed] (spec) -- (path2);
-\draw[arrow, dashed] (mem) -- (forget);
-\draw[arrow, dashed] (risk) -- (levels);
-\draw[arrow, dashed] (check) -- (report);
+\node[emph] (rule) {规则检查\\schema/format};
+\node[box, right=of rule] (weak) {弱模型 + light\\普通统计题};
+\node[box, right=of weak] (gate) {检查门\\通过?};
+\node[box, right=of gate] (strong) {强模型\\复杂/兜底};
+\node[emph, right=of strong] (final) {程序化\\final answer};
+\draw[arrow] (rule) -- (weak);
+\draw[arrow] (weak) -- (gate);
+\draw[arrow] (gate) -- node[above, font=\scriptsize]{不过 / 高风险} (strong);
+\draw[arrow] (strong) -- (final);
+\draw[arrow, bend right=22] (gate.south) to node[below, font=\scriptsize]{通过} (final.south);
 \end{tikzpicture}
 }
 \end{center}
-\takeaway{任务决定检查项，记忆决定上下文质量，验证决定是否继续，风险决定由谁来做。}
-\end{frame}
-
-\begin{frame}{融合的预期}
-\small
+\vspace{0.45em}
 \begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\begin{block}{1. 失败模式不是统一的}
-InfiAgentBench 错在答案口径和统计协议；DataModeling 错在 submission、metric、manifest 和低信息预测。
-\end{block}
-\begin{block}{2. Completion \(\neq\) Performance}
-qwen3-vl 能做到 74/74 结构完成，但 performance 低，说明合法 CSV 还必须经过 quality gate。
+\begin{column}{0.32\textwidth}
+\begin{block}{强模型用在哪}
+复杂规划、候选选择、失败兜底；不是所有格式和固定检查都交给它。
 \end{block}
 \end{column}
-\begin{column}{0.48\textwidth}
-\begin{block}{3. 记忆和 harness 都要有选择}
-全记住会降低检索信噪比；full harness 也会让弱模型负担过重。关键是保留高价值上下文。
+\begin{column}{0.32\textwidth}
+\begin{block}{sub-agent 怎么拆}
+只拆短、局部、结构化任务；否则通信轮次会抵消收益。
 \end{block}
-\begin{block}{4. 最终系统应该做风险调度}
-low risk 用 deterministic / small instruct，medium risk 用 small model + verifier，high risk 用 strong model + targeted fallback。
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{block}{怎么验证}
+记录 EqTok、调用次数、runtime、ABQ；先小集，再 full 257。
 \end{block}
 \end{column}
 \end{columns}
+\takeaway{第三部分的重点是后续实验路线：简单题少折腾，难题再多花时间。}
+\end{frame}
+
+\begin{frame}{Part III Expected：下一步怎么跑才有说服力}
+\scriptsize
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\textwidth}{p{0.25\textwidth} X X}
+\toprule
+实验 & 要回答的问题 & 状态 \\
+\midrule
+full 257 baseline vs \code{harness_light} & small set 提升是否能外推到全量。 & 待验证 \\
+\midrule
+最小消融 & final block、检查清单、重检查分别贡献多少。 & 待验证 \\
+\midrule
+EqTok token meter & 成本是否真的下降，还是只把调用拆碎。 & 待实现 / 待验证 \\
+\midrule
+model routing & 什么时候用弱模型，什么时候强模型兜底。 & 后续方案 \\
+\bottomrule
+\end{tabularx}
+\renewcommand{\arraystretch}{1.0}
+\vspace{0.25em}
+\begin{alertblock}{不要说满}
+resource-aware、sub-agent、full 257、完整消融目前都不能当已完成结论；最多作为下一步路线和预期目标。
+\end{alertblock}
+\takeaway{第三部分最稳的讲法：我们已经看到检查能提分，下一步要证明怎么少花冤枉钱。}
+\end{frame}
+
+\parttitle{Takeaway}{What We Can Safely Claim}{已经看到的现象 + 下一步要补的实验}
+
+\begin{frame}{最后怎么收束：哪些已经能说，哪些还不能}
+\small
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{block}{能说的}
+\begin{itemize}
+  \item InfiAgentBench 错题小集上，light harness 明显提升；
+  \item full 版本分数更高，但时间成本也明显更高；
+  \item DataModeling 初步看，协议错误比单纯模型能力更突出。
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{alertblock}{不能说满的}
+\begin{itemize}
+  \item full 257 还没有系统结论；
+  \item resource-aware 和 sub-agent 还没有完整实验；
+  \item DataModeling 还只是 protocol-aware 的动机，不是稳定提分验证。
+\end{itemize}
+\end{alertblock}
+\end{column}
+\end{columns}
+\takeaway{当前最稳的结论是：轻量检查能帮助弱模型，但继续加重检查必须看时间成本和失败风险。}
+\end{frame}
+
+\begin{frame}{下一步：简单步骤程序化，困难步骤再升级}
+\small
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{block}{实验优先级}
+\begin{enumerate}
+  \item qwen3.5-flash full 257：baseline vs light；
+  \item 最小消融：no finalizer / no skills / no heavy check；
+  \item 加 token meter：EqTok、调用次数、runtime；
+  \item 再做 model routing / fallback。
+\end{enumerate}
+\end{block}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{alertblock}{汇报主线}
+\begin{itemize}
+  \item 简单题少折腾；
+  \item 中等题用弱模型 + light 检查；
+  \item 难题、失败题再多花时间；
+  \item 强模型保留给复杂规划、候选选择和兜底。
+\end{itemize}
+\end{alertblock}
+\end{column}
+\end{columns}
+\takeaway{我们不是说已经完成一个最优系统，而是把“长交互为什么有用”拆成了可以继续验证的实验问题。}
 \end{frame}
 
 \begin{frame}
