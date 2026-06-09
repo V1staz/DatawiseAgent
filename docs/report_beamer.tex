@@ -95,7 +95,7 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{复现以后，三条值得优化的线}
+\begin{frame}{三条优化线}
 \footnotesize
 \begin{tabularx}{\textwidth}{p{0.20\textwidth} X}
 \toprule
@@ -116,7 +116,7 @@
 
 \parttitle{Part I}{Task-Specific Adaptation}{不同任务错法不同，harness 系统根据具体问题设计}
 
-\begin{frame}{Part I Baseline：两个 benchmark 的错法不一样}
+\begin{frame}{两个 Benchmark}
 \footnotesize
 \begin{columns}[T]
 \begin{column}{0.49\textwidth}
@@ -152,7 +152,7 @@ qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
 \end{alertblock}
 \end{frame}
 
-\begin{frame}{Part I Analysis：任务分类分层路由解决口径漂移}
+\begin{frame}{口径漂移}
 \small
 \begin{columns}[T]
 \begin{column}{0.42\textwidth}
@@ -189,7 +189,7 @@ qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
 \end{frame}
 
 
-\begin{frame}{Part I Scheme：Task Router $\rightarrow$ Harness Protocols}
+\begin{frame}{Task Router}
 \footnotesize
 \begin{columns}[T]
 \begin{column}{0.34\textwidth}
@@ -227,7 +227,7 @@ qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
 \takeaway{后续替换为 GPT-image；核心逻辑：分类路由 $\rightarrow$ 协议约束 $\rightarrow$ 验证收束。}
 \end{frame}
 
-\begin{frame}{Part I Scheme：DataModeling 从 protocol 到 quality-backed}
+\begin{frame}{DataModeling Protocol}
 \small
 \begin{columns}[T]
 \begin{column}{0.49\textwidth}
@@ -254,7 +254,7 @@ qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
 \takeaway{这一步不替模型建模，只把提交前能检查清楚的内容先检查清楚。}
 \end{frame}
 
-\begin{frame}{Part I Result：Task-Aware harness 带来的直接收益}
+\begin{frame}{Harness 收益}
 \footnotesize
 \begin{tabularx}{\textwidth}{p{0.34\textwidth} p{0.14\textwidth} r r r}
 \toprule
@@ -287,7 +287,7 @@ ABQ 提升 \textbf{\textcolor{DWBlue}{12.28 个百分点}}，但平均分支数�
 \end{columns}
 \end{frame}
 
-\begin{frame}{Part I Result：DataModeling 的结果和边界}
+\begin{frame}{DataModeling 结果}
 \footnotesize
 \begin{tabularx}{\textwidth}{p{0.37\textwidth} r r r}
 \toprule
@@ -310,7 +310,7 @@ qwen3-vl-32b old harness & 74/74 & 0.2873 & 297.49s \\
 \takeaway{DataModeling 已经证明强模型与工程约束有收益；弱模型暴露的是 completion 到 performance 的关键断点。}
 \end{frame}
 
-\begin{frame}{Part I Insight：DataModeling 不是单一难度任务}
+\begin{frame}{难度分层}
 \footnotesize
 \begin{columns}[T]
 \begin{column}{0.32\textwidth}
@@ -342,7 +342,7 @@ manifest-only repair、分级 early-stop、任务族模板、低信息预测拦�
 \takeaway{弱模型低分帮助定位：哪些题需轻约束，哪些题必须进入质量驱动流程。}
 \end{frame}
 
-\begin{frame}{Failure Insights：负结果告诉我们怎么设计系统}
+\begin{frame}{负结果}
 \footnotesize
 \begin{columns}[T]
 \begin{column}{0.32\textwidth}
@@ -377,7 +377,7 @@ DataModeling 跨任务难度大；工程能改路径和验证，但不能完全�
 
 \parttitle{Part II}{Weak Model + Harness}{不是多问几轮，而是把多出来的时间花在检查上}
 
-\begin{frame}{Part II Setup：先把实验口径说清楚}
+\begin{frame}{实验口径}
 \scriptsize
 \renewcommand{\arraystretch}{1.08}
 \begin{tabularx}{\textwidth}{p{0.22\textwidth} X X}
@@ -405,7 +405,7 @@ qwen3.5-flash 按原始 DatawiseAgent 流程输出长日志，再走原始 refor
 \takeaway{先把比较对象固定住：这里比的是同一个 47 题错题小集，不是全量 benchmark。}
 \end{frame}
 
-\begin{frame}{Part II Result：small\_error\_set 上的真实结果}
+\begin{frame}{小集结果}
 \footnotesize
 \begin{tabularx}{\textwidth}{p{0.31\textwidth} r r r}
 \toprule
@@ -435,7 +435,7 @@ baseline + original reformat & 48.94\% & 44.00\% & 30.24s \\
 \takeaway{light 提分明显，额外时间还能接受；full 分数最高，但 runtime 变得很重。}
 \end{frame}
 
-\begin{frame}{Part II Analysis：这个实验为什么有意义}
+\begin{frame}{实验意义}
 \footnotesize
 \begin{columns}[T]
 \begin{column}{0.50\textwidth}
@@ -473,7 +473,7 @@ baseline + original reformat & 48.94\% & 44.00\% & 30.24s \\
 \takeaway{这个结果的价值是说明：弱模型的额外时间如果花在检查上，比单纯多问几轮更有效。}
 \end{frame}
 
-\begin{frame}{Part II Scheme：多出来的时间具体花在哪里}
+\begin{frame}{时间花在哪}
 \footnotesize
 \begin{center}
 \resizebox{\textwidth}{!}{%
@@ -524,7 +524,7 @@ baseline + original reformat & 48.94\% & 44.00\% & 30.24s \\
 \takeaway{关键不是把所有事都交给模型，而是能程序检查的先程序检查，复杂判断再交给模型。}
 \end{frame}
 
-\begin{frame}{Part II Bridge：自然引到第三部分}
+\begin{frame}{过渡}
 \footnotesize
 \begin{columns}[T]
 \begin{column}{0.50\textwidth}
@@ -570,7 +570,7 @@ baseline + original reformat & 48.94\% & 44.00\% & 30.24s \\
 
 \parttitle{Part III}{Resource-Aware Plan}{把时间分给合适的模型；能不问模型就不问}
 
-\begin{frame}{Part III Boundary：这部分先作为后续方案}
+\begin{frame}{方案边界}
 \footnotesize
 \begin{columns}[T]
 \begin{column}{0.46\textwidth}
@@ -608,7 +608,7 @@ Qwen3-32B full baseline & 81.74\% & 5.961M & 参考线 \\
 \takeaway{这页不是说已经省下成本，而是给后续实验一个清楚的资源账本。}
 \end{frame}
 
-\begin{frame}{Part III Plan：资源优化的两个抓手}
+\begin{frame}{两个抓手}
 \scriptsize
 \renewcommand{\arraystretch}{1.04}
 \begin{tabularx}{\textwidth}{p{0.24\textwidth} X X}
@@ -630,7 +630,7 @@ planning 仍然重要；我们只是把 schema、格式渲染、列名检查、�
 \takeaway{总方案不是“换成小模型”，而是少让大模型做无必要的事。}
 \end{frame}
 
-\begin{frame}{Part III Path：可能的执行路径}
+\begin{frame}{执行路径}
 \footnotesize
 \begin{center}
 \resizebox{\textwidth}{!}{%
@@ -674,7 +674,7 @@ planning 仍然重要；我们只是把 schema、格式渲染、列名检查、�
 \takeaway{第三部分的重点是后续实验路线：简单题少折腾，难题再多花时间。}
 \end{frame}
 
-\begin{frame}{Part III Expected：下一步怎么跑才有说服力}
+\begin{frame}{待验证实验}
 \scriptsize
 \renewcommand{\arraystretch}{1.05}
 \begin{tabularx}{\textwidth}{p{0.25\textwidth} X X}
@@ -700,7 +700,7 @@ resource-aware、sub-agent、full 257、完整消融目前都不能当已完成�
 
 \parttitle{Takeaway}{What We Can Safely Claim}{已经看到的现象 + 下一步要补的实验}
 
-\begin{frame}{最后怎么收束：哪些已经能说，哪些还不能}
+\begin{frame}{结论边界}
 \small
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
@@ -725,7 +725,7 @@ resource-aware、sub-agent、full 257、完整消融目前都不能当已完成�
 \takeaway{当前最稳的结论是：轻量检查能帮助弱模型，但继续加重检查必须看时间成本和失败风险。}
 \end{frame}
 
-\begin{frame}{下一步：简单步骤程序化，困难步骤再升级}
+\begin{frame}{下一步}
 \small
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
