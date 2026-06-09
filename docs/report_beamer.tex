@@ -378,31 +378,57 @@ DataModeling 跨任务难度大；工程能改路径和验证，但不能完全�
 \parttitle{Part II}{Structured Time-for-Performance}{多花时间不是多问几轮，而是把时间变成可验证过程}
 
 \begin{frame}{Part II Baseline：原作现象与复现后的问题}
+\small
 \begin{columns}[T]
 \begin{column}{0.49\textwidth}
 \begin{block}{原作里有用的现象}
-弱模型可以靠 notebook-style 长交互补一部分能力：
+弱模型可以靠 notebook-style 长交互补一部分能力，但有效部分不是“多聊天”，而是：
 \begin{itemize}
-  \item planning；
-  \item code execution；
-  \item debugging；
-  \item repair 后继续推进。
+  \item 先形成可执行计划；
+  \item 用代码把隐含统计口径落到数据上；
+  \item 从错误和中间结果中定位失败点；
+  \item repair 后继续推进，而不是重启整题。
 \end{itemize}
 \end{block}
 \end{column}
 \begin{column}{0.49\textwidth}
 \begin{alertblock}{复现后看到的问题}
 \begin{itemize}
-  \item 长交互不一定更好；
-  \item full harness 在 hard split 上可能退化；
-  \item 多分支搜索可能选错；
-  \item verifier 可能过度阻断；
-  \item final block 混进 code cell 会卡住 debug loop。
+  \item 上下文越长，越容易把旧日志、旧变量和最终答案混在一起；
+  \item full harness 并非单调收益：会引入 verifier blocked、重复 debug 和分支选择错误；
+  \item 多分支搜索如果没有选择准则，只是把错误候选变多；
+  \item final block 若进入 code cell，会把答案格式机制反过来卡住 debug loop。
 \end{itemize}
 \end{alertblock}
 \end{column}
 \end{columns}
 \takeaway{“时间换性能”不能理解成让小模型盲目多轮规划；多出来的时间必须服务于明确的检查、修复和停止条件。}
+\end{frame}
+
+\begin{frame}{Part II Definitions：两档结构化方案}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.22\textwidth} X p{0.30\textwidth}}
+\toprule
+实验名 & 打开的机制 & 作用和风险 \\
+\midrule
+\code{harness_light} &
+DataCard / schema；Answer Contract；基础技能清单；Final Block；程序化格式器；默认关闭重搜索和重 verifier。 &
+轻量结构化约束：先稳住列名、口径和输出格式。 \\
+\midrule
+\code{harness_full} &
+在 light 基础上增加语义 oracle / verifier，检查统计方法、预处理顺序和格式；必要时 targeted retry。 &
+完整语义校验：适合高风险题，但会增加通信、阻断和分支选择成本。 \\
+\midrule
+hard-aware &
+调度原则，不是独立实验名；根据 Contract、Verifier 失败类型和中间结果决定是否重算、换分支或升级模型。 &
+hard 题不是简单加厚 prompt，而是要能选择和复算。 \\
+\bottomrule
+\end{tabularx}
+\vspace{0.55em}
+\begin{block}{关键词}
+DataCard 固定数据结构；Contract 固定答案口径；Verifier 检查统计语义；Final Block 收束输出格式。light / full 不是模型大小，也不是 easy / hard split，而是同一 agent 上不同结构化强度的开关组合。
+\end{block}
+\takeaway{第二部分比较的是结构化约束强度如何影响准确率、通信和失败风险。}
 \end{frame}
 
 \begin{frame}{Part II Scheme：把长交互拆成可检查环节}
@@ -443,6 +469,33 @@ DataModeling 跨任务难度大；工程能改路径和验证，但不能完全�
 \takeaway{这条线的核心不是模块数量，而是每一轮交互都有输入、检查和停止条件。}
 \end{frame}
 
+\begin{frame}{Part II Link to Part III：结构化时间也是通信控制}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.21\textwidth} p{0.32\textwidth} X}
+\toprule
+Part II 工件 & 后续阶段需要的信号 & 对 Part III 的意义 \\
+\midrule
+DataCard / schema &
+列名、类型、缺失值、候选日期列、ID 列 &
+同一 CSV 可复用，减少反复读表探索。 \\
+Answer Contract &
+答案名、过滤、分组、统计方法、小数位、禁止动作 &
+把长 prompt 压成短规范，低风险题可一次完成。 \\
+Verifier report &
+失败检查项、失败位置、是否必须 retry &
+retry 只传失败点，不回传完整 notebook 日志。 \\
+Final Block &
+原始值、格式检查、来源变量 &
+reformat 不再自由抽取答案，可用程序化格式器。 \\
+\bottomrule
+\end{tabularx}
+\vspace{0.35em}
+\begin{block}{和第三部分的关系}
+Part II 决定“哪些信息值得在轮次之间通信”；Part III 决定“这次通信该由规则程序、8B/14B 还是 32B 处理”。资源优化不是单独换小模型，而是先把交互内容压成可检查工件。
+\end{block}
+\takeaway{结构化时间把 notebook 长交互变成短 artifact 传递，这是后面 EqTok 和调用次数优化的前提。}
+\end{frame}
+
 \begin{frame}{Part II Result \& Analysis}
 \footnotesize
 \begin{tabularx}{\textwidth}{p{0.31\textwidth} r r r}
@@ -454,24 +507,27 @@ baseline + original reformat & 48.94\% & 44.00\% & 30.24s \\
 \code{harness_full} & 52.83\% & 49.44\% & 35.79s \\
 \bottomrule
 \end{tabularx}
+\vspace{0.25em}
+\smallnote{Setting 名称保留实验脚本名：\code{harness_light}=轻量结构化约束，\code{harness_full}=完整语义校验。}
 \vspace{0.65em}
 \begin{columns}[T]
 \begin{column}{0.31\textwidth}
 \begin{block}{light-first}
-默认只加最关键的结构化约束和 finalizer，让大多数题先稳定完成。
+默认只加最关键的结构化约束和格式器，让大多数题先稳定完成。
 \end{block}
 \end{column}
 \begin{column}{0.31\textwidth}
 \begin{block}{targeted retry}
-只有 verifier fail 或高风险题，才追加修复、搜索或升级模型。
+只有 verifier fail 或高风险题，才追加修复、搜索或升级模型；retry 输入是失败检查项，不是整段日志。
 \end{block}
 \end{column}
 \begin{column}{0.31\textwidth}
 \begin{block}{hard-aware}
-hard 题不能只加分支数量，还要能做分支选择和语义复算。
+hard 题不能只加分支数量，还要能做分支选择、语义复算和必要的模型升级。
 \end{block}
 \end{column}
 \end{columns}
+\takeaway{结果支持“结构化约束有效”；但 full 是否划算要看通信、阻断和重试成本，这正引出第三部分的资源调度。}
 \end{frame}
 
 \parttitle{Part III}{Resource-Aware Scheduling}{如何在不改变效率的前提下降低成本消耗}
