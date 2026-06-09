@@ -377,32 +377,60 @@ DataModeling 跨任务难度大；工程能改路径和验证，但不能完全�
 
 \parttitle{Part II}{Structured Time-for-Performance}{多花时间不是多问几轮，而是把时间变成可验证过程}
 
-\begin{frame}{Part II Baseline：原作现象与复现后的问题}
+\begin{frame}{Part II Motivation：为什么要做弱模型 + harness}
 \begin{columns}[T]
 \begin{column}{0.49\textwidth}
-\begin{block}{原作里有用的现象}
-弱模型可以靠 notebook-style 长交互补一部分能力：
+\begin{block}{原作里真正有用的现象}
+弱模型不是一次回答就结束，而是在 notebook 里反复推进：
 \begin{itemize}
-  \item planning；
-  \item code execution；
-  \item debugging；
-  \item repair 后继续推进。
+  \item 先拆步骤；
+  \item 写代码并执行；
+  \item 根据报错修；
+  \item repair 后继续算。
 \end{itemize}
 \end{block}
 \end{column}
 \begin{column}{0.49\textwidth}
-\begin{alertblock}{复现后看到的问题}
+\begin{alertblock}{复现后我们发现}
 \begin{itemize}
-  \item 长交互不一定更好；
-  \item full harness 在 hard split 上可能退化；
-  \item 多分支搜索可能选错；
-  \item verifier 可能过度阻断；
-  \item final block 混进 code cell 会卡住 debug loop。
+  \item 多跑几轮不一定更好；
+  \item 有些题只是格式和答案名错；
+  \item 有些题是统计口径错；
+  \item hard 题多分支搜索后还会选错；
+  \item verifier 太重时会阻断可解析答案。
 \end{itemize}
 \end{alertblock}
 \end{column}
 \end{columns}
-\takeaway{“时间换性能”不能理解成让小模型盲目多轮规划；多出来的时间必须服务于明确的检查、修复和停止条件。}
+\takeaway{所以我们不是给弱模型“多问几轮”，而是研究多出来的时间到底花在哪里，怎么检查，什么时候停。}
+\end{frame}
+
+\begin{frame}{Part II Setup：三个 setting 先说清楚}
+\scriptsize
+\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\textwidth}{p{0.20\textwidth} X X}
+\toprule
+Setting & 实际做了什么 & 这组实验里怎么理解 \\
+\midrule
+baseline + reformat &
+qwen3.5-flash 按原始 DatawiseAgent 流程输出长日志，再走原始 reformat 抽取闭式答案。 &
+弱模型原始能力 + 原始答案抽取。 \\
+\midrule
+\code{harness_light} &
+只加轻量增强：DataCard、Contract、基础 skill、Final Block 收束；关闭 search、memory、heavy oracle / verifier。 &
+目标是低成本提稳，先修格式、列名、题目约束和答案通道。 \\
+\midrule
+\code{harness_full} &
+启用更完整的 verifier / oracle / 检查与修复，必要时多候选、多分支。 &
+目标是继续提分，但可能更慢，也可能被 verifier 阻断。 \\
+\midrule
+\code{small\_error\_set} &
+从错题分析里挑出的 47 道错误样本。 &
+\textbf{不是 full 257}，只能看趋势和错误类型，不能当全量结论。 \\
+\bottomrule
+\end{tabularx}
+\renewcommand{\arraystretch}{1.0}
+\takeaway{这一页先把口径固定住：baseline、light、full 比的是同一个 47 题 known-error small set。}
 \end{frame}
 
 \begin{frame}{Part II Scheme：把长交互拆成可检查环节}
@@ -434,44 +462,126 @@ DataModeling 跨任务难度大；工程能改路径和验证，但不能完全�
 \vspace{0.5em}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{执行前：}固定数据结构、答案契约、禁止动作。
+\textbf{执行前：}固定数据结构、答案契约、基础 skill，减少每题重复摸索。
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{执行后：}只在 verifier fail 后短上下文修复；复杂题才启用多候选执行与分支选择，不把完整日志反复交给模型。
+\textbf{执行后：}用 verifier / final block 收束答案；失败时只给错误点做短上下文修复。
 \end{column}
 \end{columns}
-\takeaway{这条线的核心不是模块数量，而是每一轮交互都有输入、检查和停止条件。}
+\takeaway{这条线的核心不是模块数量，而是让每一轮交互都有输入、检查和停止条件。}
 \end{frame}
 
-\begin{frame}{Part II Result \& Analysis}
+\begin{frame}{Part II Result：small\_error\_set 上的真实结果}
 \footnotesize
 \begin{tabularx}{\textwidth}{p{0.31\textwidth} r r r}
 \toprule
 Setting & ABQ & Hard ABQ & Avg runtime \\
 \midrule
 baseline + original reformat & 48.94\% & 44.00\% & 30.24s \\
-\code{harness_light} & 51.57\% & 47.32\% & 37.03s \\
-\code{harness_full} & 52.83\% & 49.44\% & 35.79s \\
+\code{harness_light} & 59.57\% & 60.00\% & 47.03s \\
+\code{harness_full} & 63.83\% & 64.00\% & 92.79s \\
 \bottomrule
 \end{tabularx}
 \vspace{0.65em}
 \begin{columns}[T]
 \begin{column}{0.31\textwidth}
-\begin{block}{light-first}
-默认只加最关键的结构化约束和 finalizer，让大多数题先稳定完成。
-\end{block}
+\metric{+10.63}{light vs baseline ABQ}
 \end{column}
 \begin{column}{0.31\textwidth}
-\begin{block}{targeted retry}
-只有 verifier fail 或高风险题，才追加修复、搜索或升级模型。
-\end{block}
+\metric{+16.00}{light vs baseline hard ABQ}
 \end{column}
 \begin{column}{0.31\textwidth}
-\begin{block}{hard-aware}
-hard 题不能只加分支数量，还要能做分支选择和语义复算。
-\end{block}
+\metric{+16.79s}{light runtime 增量}
 \end{column}
 \end{columns}
+\vspace{0.45em}
+\begin{alertblock}{边界}
+当前只是 47 道 \code{small\_error\_set}。full 257 和完整消融还没验证，不能说弱模型已经接近强模型。
+\end{alertblock}
+\takeaway{light 提分明显，时间增加可控；full 分数最高，但 runtime 几乎翻倍。}
+\end{frame}
+
+\begin{frame}{Part II Analysis：light 和 full 的取舍}
+\scriptsize
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{block}{\code{harness_light} 更像默认方案}
+\begin{itemize}
+  \item ABQ +10.63，hard ABQ +16.00；
+  \item runtime 从 30.24s 到 47.03s；
+  \item 先把格式、约束、final block 做稳。
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{alertblock}{\code{harness_full} 不是默认全开}
+\begin{itemize}
+  \item ABQ 最高：63.83\%，hard ABQ 64.00\%；
+  \item runtime 到 92.79s；
+  \item 有 4 个 verifier\_blocked；
+  \item 适合 hard 或 light 失败后升级。
+\end{itemize}
+\end{alertblock}
+\end{column}
+\end{columns}
+\vspace{0.15em}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\textwidth}{p{0.20\textwidth} X X}
+\toprule
+结论 & 能说明什么 & 不能说明什么 \\
+\midrule
+弱模型 + 结构化交互有收益 & 额外时间如果花在 contract、skill、final block、verifier 上，确实能提升 small set 表现。 & 不能外推到 full 257，也不能证明 full harness 一定适合 hard 全量。 \\
+\midrule
+full 更高但更慢 & 继续加检查和修复可能换来更高分。 & 不能无限堆轮次；否则 runtime、通信和阻断都会上升。 \\
+\bottomrule
+\end{tabularx}
+\renewcommand{\arraystretch}{1.0}
+\takeaway{“时间换性能”成立的前提是时间被预算化：先 light，失败或高风险再 full。}
+\end{frame}
+
+\begin{frame}{Part II Bridge：自然引到成本 / 通信 / sub-agent}
+\footnotesize
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{block}{从结果得到的新问题}
+既然 light / full 说明多花一点结构化时间能提分，下一步就不是继续堆 prompt，而是问：
+\begin{itemize}
+  \item 哪些检查可以规则化？
+  \item 哪些子任务用小模型就够？
+  \item 哪些失败必须交给强 thinking 模型？
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{alertblock}{第三部分要解决的事}
+\begin{itemize}
+  \item 简单明确的子任务：规则 / 小模型；
+  \item 复杂决策和失败兜底：强模型；
+  \item 通信时间不能忽略，但子任务足够明确时额外通信可以很短；
+  \item 用 EqTok / 调用次数 / runtime 统一比较。
+\end{itemize}
+\end{alertblock}
+\end{column}
+\end{columns}
+\vspace{0.25em}
+\begin{center}
+\resizebox{0.92\textwidth}{!}{%
+\begin{tikzpicture}[
+  node distance=0.62cm,
+  box/.style={draw=DWBlue, fill=white, rounded corners, align=center, minimum width=2.25cm, minimum height=0.75cm, font=\scriptsize},
+  arrow/.style={-{Latex[length=2mm]}, thick, draw=DWBlue}
+]
+\node[box] (a) {light-first\\低成本提稳};
+\node[box, right=of a] (b) {verifier fail\\短修复};
+\node[box, right=of b] (c) {hard / high risk\\强模型兜底};
+\node[box, right=of c] (d) {Part III\\model routing};
+\draw[arrow] (a) -- (b);
+\draw[arrow] (b) -- (c);
+\draw[arrow] (c) -- (d);
+\end{tikzpicture}
+}
+\end{center}
+\takeaway{Part II 证明“时间要花对地方”；Part III 继续问“由谁来花、通信多久、成本怎么算”。}
 \end{frame}
 
 \parttitle{Part III}{Resource-Aware Scheduling}{如何在不改变效率的前提下降低成本消耗}
