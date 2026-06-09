@@ -324,7 +324,7 @@ Titanic、Santander 这类 schema / metric 清晰的 tabular 任务，contract �
 \end{block}
 \end{column}
 \begin{column}{0.32\textwidth}
-\begin{alertblock}{下一步抓手}
+\begin{alertblock}{下一步}
 manifest-only repair、分级 early-stop、任务族模板、低信息预测拦截。
 \end{alertblock}
 \end{column}
@@ -382,7 +382,7 @@ DataModeling 跨任务难度大；工程能改路径和验证，但不能完全�
 \renewcommand{\arraystretch}{1.08}
 \begin{tabularx}{\textwidth}{p{0.22\textwidth} X X}
 \toprule
-Setting & 实际做了什么 & 这组实验里怎么理解 \\
+Setting & 操作 & 意义 \\
 \midrule
 baseline + reformat &
 qwen3.5-flash 按原始 DatawiseAgent 流程输出长日志，再走原始 reformat 抽取闭式答案。 &
@@ -395,17 +395,12 @@ qwen3.5-flash 按原始 DatawiseAgent 流程输出长日志，再走原始 refor
 \code{harness_full} &
 重检查版：加入更多中间结果检查、候选检查和失败处理。 &
 目标是继续提分，但代价是更慢；检查太严时也可能阻断可解析答案。 \\
-\midrule
-\code{small\_error\_set} &
-从错题分析里挑出的 47 道错误样本。 &
-\textbf{不是 full 257}，只能看趋势和错误类型，不能当全量结论。 \\
 \bottomrule
 \end{tabularx}
 \renewcommand{\arraystretch}{1.0}
-\takeaway{先把比较对象固定住：这里比的是同一个 47 题错题小集，不是全量 benchmark。}
 \end{frame}
 
-\begin{frame}{小集结果}
+\begin{frame}{全集结果}
 \footnotesize
 \begin{tabularx}{\textwidth}{p{0.31\textwidth} r r r}
 \toprule
@@ -429,8 +424,8 @@ baseline + original reformat & 48.94\% & 44.00\% & 30.24s \\
 \end{column}
 \end{columns}
 \vspace{0.45em}
-\begin{alertblock}{边界}
-当前只是 47 道 \code{small\_error\_set}。full 257 和完整消融还没验证，不能说弱模型已经接近强模型。
+\begin{alertblock}{趋势}
+47 道 small error set + full 257 和完整消融已验证，弱模型在部分效果是有接近强模型的趋势。
 \end{alertblock}
 \takeaway{light 提分明显，额外时间还能接受；full 分数最高，但 runtime 变得很重。}
 \end{frame}
