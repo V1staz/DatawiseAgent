@@ -1,0 +1,557 @@
+\documentclass[aspectratio=169,UTF8]{ctexbeamer}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric}
+
+\newcommand{\measured}{\textcolor{green!45!black}{已观察}}
+\newcommand{\expectedtag}{\textcolor{blue!70!black}{expected / 待验证}}
+\newcommand{\risk}{\textcolor{red!70!black}{风险}}
+\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
+\newcommand{\smallnote}[1]{{\scriptsize\textcolor{gray!70!black}{#1}}}
+
+\title{从时间换性能到可控推理预算}
+\subtitle{DatawiseAgent 改进的合理预期与当前差距}
+\author{DatawiseAgent 复现与改进小组}
+\date{2026-06-09}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{报告目的}
+\begin{block}{这份报告回答什么}
+我们现在缺少一个“参考目标”。本报告用于说明：
+\begin{itemize}
+  \item 如果后续工作推进顺利，合理预期结果应该是什么；
+  \item 中间可能遇到哪些困难；
+  \item 当前进度离目标还有多远；
+  \item 下一步应该优先做什么。
+\end{itemize}
+\end{block}
+\begin{alertblock}{边界}
+所有未完成实验都会标注为 \expectedtag{}。预期结果不是当前真实结果，也不是承诺。
+\end{alertblock}
+\end{frame}
+
+\section{背景与故事线}
+
+\begin{frame}{DatawiseAgent 原文核心：时间换性能}
+\begin{block}{核心思想}
+弱模型本身能力不足，但可以通过 notebook-style 多轮规划、执行、调试、反馈，用更多时间弥补能力差距，逐步接近强模型表现。
+\end{block}
+\vspace{0.4em}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{原始机制}
+\begin{itemize}
+  \item 规划下一步；
+  \item 写代码并执行；
+  \item 根据报错修复；
+  \item 在 notebook 中积累中间状态。
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{我们的延伸问题}
+\begin{itemize}
+  \item 时间应该花在哪里？
+  \item 由哪个模块 / 模型来花？
+  \item 什么时候应该停止或升级？
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{我们的故事线：不是简单加 Prompt}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.5cm,
+  box/.style={draw, rounded corners, align=center, minimum width=3.2cm, minimum height=1cm, fill=blue!6},
+  arrow/.style={-{Latex[length=2.2mm]}, thick}
+]
+\node[box] (a) {任务适配\\ \scriptsize 不同 benchmark 错法不同};
+\node[box, right=of a] (b) {时间换性能\\ \scriptsize 结构化检查与修正};
+\node[box, right=of b] (c) {预算控制\\ \scriptsize light/full, sub-agent, fallback};
+\draw[arrow] (a) -- (b);
+\draw[arrow] (b) -- (c);
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.8em}
+\begin{itemize}
+  \item \textbf{任务适配}：InfiAgentBench 做 answer-aware harness；DataModeling 做 protocol-aware harness。
+  \item \textbf{弱模型增强}：让弱模型用 DataCard / Contract / Skill / Verifier / Final Block 提升表现。
+  \item \textbf{预算控制}：避免无效长推理，把额外时间分配给真正容易错的环节。
+\end{itemize}
+\end{frame}
+
+\begin{frame}{两类 Benchmark 的失败模式不同}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.18\textwidth} X X}
+\toprule
+Benchmark & 主要失败模式 & 适合的 Harness 方向 \\
+\midrule
+InfiAgentBench &
+格式、小数位、引号、统计口径、预处理顺序、特征工程定义、最终答案抽取 &
+\textbf{answer-aware harness}: DataCard, Contract, Skill checklist, Verifier, Final Block \\
+\midrule
+DataModeling &
+submission 未生成、列名/行数不匹配、performance 格式错误、metric 类型错配、jaccard 文本指标拿到数值列 &
+\textbf{protocol-aware harness}: submission checker, metric checker, performance parser, evaluation adapter \\
+\bottomrule
+\end{tabularx}
+\vspace{0.8em}
+\begin{block}{表达重点}
+我们不是让模型“多想一会儿”，而是让额外推理时间花在每类任务真正容易错的地方。
+\end{block}
+\end{frame}
+
+\begin{frame}{当前系统骨架}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.23\textwidth} X X}
+\toprule
+模块 & 当前作用 & 当前状态 \\
+\midrule
+DataCard & 固定预分析 CSV：列名、shape、dtype、missing、range、类别/日期/ID hints & 已接入 \code{datawiseagent/harness} \\
+Contract & 解析 answer names、rounding、required columns、methods、format & 已接入，规则启发式 \\
+Skill / Rules & 按 concepts/keywords 路由统计、相关性、异常值、预处理、ML、final format 规则卡 & 已接入，多为 checklist / directive \\
+Verifier / Oracle & 校验 final block、格式、部分统计和 ML protocol 证据 & 已接入，覆盖仍有限 \\
+Final Block & 让 reformat 从机器可读块生成 \code{@answer[value]} & 已接入，task 733 问题已修复 \\
+Search / Memory & hard 多分支、运行时自更新记忆 & 已接入，但收益不稳定 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\section{当前已观察结果}
+
+\begin{frame}{InfiAgentBench：qwen3.5-flash small set 真实结果}
+\scriptsize
+\begin{tabular}{lrrrrr}
+\toprule
+Setting & ABQ & PASQ & UASQ & Hard ABQ & Avg Runtime \\
+\midrule
+baseline raw & 0.00\% & 0.00\% & 0.00\% & 0.00\% & 30.24s \\
+baseline + original reformat & 48.94\% & 63.83\% & 67.05\% & 44.00\% & 30.24s \\
+harness\_light & 59.57\% & 65.25\% & 69.32\% & 60.00\% & 47.03s \\
+harness\_full & 63.83\% & 69.50\% & 72.73\% & 64.00\% & 92.79s \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.8em}
+\begin{itemize}
+  \item 实验对象：47 道 known-error small set，模型为 \code{qwen3.5-flash}，temperature=0。
+  \item \measured{} light 明显提分且成本可控。
+  \item \measured{} full 分数更高，但 runtime 明显增加。
+  \item \risk{} 当前只跑 small set，不代表 full 257 结论。
+\end{itemize}
+\end{frame}
+
+\begin{frame}{结果解释：时间换性能成立，但不能无脑堆时间}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{从 baseline 到 light}
+\begin{itemize}
+  \item ABQ: 48.94\% $\rightarrow$ 59.57\%
+  \item Hard ABQ: 44.00\% $\rightarrow$ 60.00\%
+  \item Runtime: 30.24s $\rightarrow$ 47.03s
+\end{itemize}
+\vspace{0.5em}
+\textbf{解释}
+\begin{itemize}
+  \item DataCard / Contract / Finalizer 把时间花在题目约束和答案收束上；
+  \item 性价比最好。
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{从 light 到 full}
+\begin{itemize}
+  \item ABQ: 59.57\% $\rightarrow$ 63.83\%
+  \item Hard ABQ: 60.00\% $\rightarrow$ 64.00\%
+  \item Runtime: 47.03s $\rightarrow$ 92.79s
+\end{itemize}
+\vspace{0.5em}
+\textbf{解释}
+\begin{itemize}
+  \item 更多 oracle / search / memory 还能提升；
+  \item 但边际收益下降，且有 verifier blocked。
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{task 733：一次工程迭代案例}
+\begin{block}{历史现象}
+模型把 FinalAnswerBlock JSON 放入 Python code cell，JSON 里的 \code{false/null} 被 Python 执行，导致 \code{NameError} 和长时间 debug loop。
+\end{block}
+\begin{block}{修复}
+FinalAnswerBlock / JSON 只能进入 markdown / metadata / reformat 输入；增加 code-cell guard 与 request timeout。
+\end{block}
+\begin{block}{本轮结果}
+\begin{itemize}
+  \item \code{harness_light}: success，约 30.75s。
+  \item \code{harness_full}: success，约 75.60s。
+  \item 不再出现 JSON 被 Python 执行导致的循环。
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{强模型与已有参考结果}
+\scriptsize
+\begin{tabular}{llrrr}
+\toprule
+Setting & Difficulty & ABQ & PASQ & UASQ \\
+\midrule
+Qwen2.5-72B paper & full & 81.71\% & 87.27\% & 85.09\% \\
+Qwen3.5-35B-A3B baseline & full & 86.38\% & 90.16\% & 90.35\% \\
+\midrule
+Qwen3.5-35B-A3B baseline & medium & 88.51\% & 91.71\% & 91.45\% \\
+Harness rerender & medium & 91.95\% & 93.06\% & 93.42\% \\
+\midrule
+Qwen3.5-35B-A3B baseline & hard & 81.82\% & 88.54\% & 89.16\% \\
+Harness rerender & hard & 78.41\% & 84.75\% & 87.19\% \\
+\bottomrule
+\end{tabular}
+\vspace{0.8em}
+\begin{itemize}
+  \item 强模型 medium harness 有收益。
+  \item hard harness 曾退化，说明 hard 题关键不是“多想”，而是“选对分支并验证口径”。
+\end{itemize}
+\end{frame}
+
+\begin{frame}{DataModeling 初步观察}
+\scriptsize
+\begin{tabular}{lrrr}
+\toprule
+Run & Complete & Performance & Avg Time \\
+\midrule
+qwen25 & 68/74 & 0.4290 & 760.25s \\
+qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
+\bottomrule
+\end{tabular}
+\vspace{1em}
+\begin{itemize}
+  \item \measured{} 更强 / thinking 风格模型不一定更慢：少走弯路反而能降低总时间。
+  \item DataModeling 的瓶颈更像 protocol correctness：是否生成 submission、列名/行数是否匹配、metric 和 performance 是否可评估。
+  \item \risk{} 当前只是初步观察；protocol-aware harness 仍需 case study 和 smoke 实验。
+\end{itemize}
+\end{frame}
+
+\section{合理预期目标}
+
+\begin{frame}{合理预期：三档目标}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.16\textwidth} X X}
+\toprule
+档位 & InfiAgentBench full 257 \expectedtag{} & DataModeling \expectedtag{} \\
+\midrule
+Conservative &
+weak + light 稳定优于 weak baseline，ABQ 提升约 2--4 个百分点 &
+protocol checker 减少无效 submission、performance 缺失、列名/行数错误 \\
+\midrule
+Target &
+weak + light 提升约 5--8 个百分点；hard 提升更明显；full 进一步提升但 runtime 高 &
+complete rate 明显提升，部分任务 performance 小幅上升 \\
+\midrule
+Optimistic &
+weak + full 或 gated harness 提升约 8--12 个百分点，并缩小 weak-to-strong gap &
+protocol-aware harness 将 silent failure 转为可恢复失败，形成稳定工程收益 \\
+\bottomrule
+\end{tabularx}
+\vspace{0.8em}
+\begin{alertblock}{注意}
+这些是合理预期，不是真实结果。真实结论必须由 full 257 和消融确认。
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{为什么预期 light 是主方案}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{当前 small set 证据}
+\begin{itemize}
+  \item light: +10.63 ABQ，+16.79s；
+  \item full: 比 light 再 +4.26 ABQ，但 +45.76s；
+  \item full 有 4 个 verifier blocked。
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{合理推断}
+\begin{itemize}
+  \item light 把时间花在结构化输入和输出收束；
+  \item full 把更多时间花在搜索、oracle、memory；
+  \item full 适合 hard 或 verifier fail 后升级，不适合所有题默认启用。
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.6em}
+\begin{block}{目标表述}
+主推路线不是“越重越好”，而是 light-first + verifier-gated fallback。
+\end{block}
+\end{frame}
+
+\begin{frame}{预期的完整消融应该证明什么}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.24\textwidth} X X}
+\toprule
+消融 & 预期贡献 \expectedtag{} & 需要观察的指标 \\
+\midrule
+no\_finalizer & 验证 final block 是否主要减少 format / reformat missing & format error、reformat missing、ABQ \\
+no\_skills & 验证 skill checklist 对统计口径、outlier、ML protocol 是否有帮助 & hard ABQ、statistical error、ML error \\
+no\_oracle\_or\_verifier & 验证 verifier 是否带来净收益或过度阻断 & verifier blocked、regressed、runtime \\
+harness\_light vs full & 验证更多时间的边际收益和成本 & ABQ gain / runtime gain \\
+\bottomrule
+\end{tabularx}
+\vspace{0.8em}
+\begin{block}{目前差距}
+这些消融尚未完成。当前只有 small set 的 baseline / light / full 对比。
+\end{block}
+\end{frame}
+
+\section{困难与迭代}
+
+\begin{frame}{困难 1：full harness runtime 过高}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.16\textwidth} X}
+\toprule
+现象 & small set full 平均 92.79s/题，light 为 47.03s/题，baseline 为 30.24s/题。 \\
+\midrule
+风险 & 直接跑 full 257 成本和时间高；多分支会放大 API 波动和 notebook 执行失败。 \\
+\midrule
+应对 & 先跑 light full 257；full 只在 hard、verifier fail、低置信任务上启用；记录 runtime / branch count。 \\
+\midrule
+是否影响 PPT & 不影响，反而支撑“时间不能无脑堆，需要预算控制”的主线。 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\begin{frame}{困难 2：verifier 过严或阻断不准}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.16\textwidth} X}
+\toprule
+现象 & small set full 有 4 个 verifier\_blocked：219、310、550、734。部分题有可解析答案但被阻断。 \\
+\midrule
+风险 & 分数下降或 runtime 增加；报告中容易被质疑“校验器比模型还不可靠”。 \\
+\midrule
+应对 & 区分 hard fail 和 soft warning；可解析答案先保存，verifier fail 触发 rerun / escalate，而不是直接丢弃。 \\
+\midrule
+是否影响 PPT & 不影响趋势，但说明系统仍是半成品，需要作为当前差距说明。 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\begin{frame}{困难 3：hard 题多分支搜索后可能选错}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.16\textwidth} X}
+\toprule
+现象 & 强模型 hard harness 曾从 81.82\% 下降到 78.41\%；small set full 出现 task 408 退化。 \\
+\midrule
+风险 & 更多候选不等于更好；弱模型可能生成多个近似错误答案，selector 选错。 \\
+\midrule
+应对 & 加独立复算型 verifier；对 correlation、p-value、IQR/Z-score、ML split/metric 做可执行复算；branch score 不能只看格式。 \\
+\midrule
+是否影响 PPT & 不影响，正好说明“时间应该花在哪里”是核心研究问题。 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\begin{frame}{困难 4：Final Block 与执行通道混淆}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.16\textwidth} X}
+\toprule
+现象 & task 733 曾把 JSON final block 放入 Python code cell，\code{false/null} 触发执行错误。 \\
+\midrule
+风险 & 单题无限 debug，整组实验卡住；finalizer 反而成为失败源。 \\
+\midrule
+应对 & FinalAnswerBlock 只进入 markdown / metadata / reformat；增加 code-cell guard、request timeout、continue-on-error。 \\
+\midrule
+是否影响 PPT & 已修复，可作为“工程迭代让时间更可控”的案例。 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\begin{frame}{困难 5：弱模型仍会错复杂统计语义}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.16\textwidth} X}
+\toprule
+现象 & task 124 在 baseline、light、full 都错；light 无法修复深层统计判断。 \\
+\midrule
+风险 & light 主要修格式和协议，不能保证复杂口径、假设检验、过滤条件全对。 \\
+\midrule
+应对 & 对统计题增加 method-level oracle；必要时升级到 thinking 模型或强模型复算。 \\
+\midrule
+是否影响 PPT & 不影响 light 的收益结论，但提醒不能声称弱模型已接近强模型。 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\begin{frame}{困难 6：DataModeling 慢、协议复杂、错误隐蔽}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.16\textwidth} X}
+\toprule
+现象 & DataModeling 单题可达数百秒到 3600s；tweet-sentiment 等任务出现 performance 无效、metric 类型错配。 \\
+\midrule
+风险 & 即使模型训练了，也可能因为 submission / metric / parser 错误拿不到有效分数。 \\
+\midrule
+应对 & 先做 protocol-aware smoke：submission checker、metric checker、performance parser、evaluation adapter。 \\
+\midrule
+是否影响 PPT & 不影响主线，DataModeling 作为“任务适配”的第二类证据更合适。 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\begin{frame}{困难 7：模型替代与 small set 偏差}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.16\textwidth} X}
+\toprule
+现象 & qwen2.5 系列 API 不可用，后续实验是 qwen3.5 系列 model-substituted setting；small set 是 known-error 集合。 \\
+\midrule
+风险 & 不能严格声称复现论文模型；small set 可能高估或低估 full 257 效果。 \\
+\midrule
+应对 & 明确标注 model-substituted；full 257 是必须补的主实验；small set 只用于趋势和错误分析。 \\
+\midrule
+是否影响 PPT & 影响结论强度，需要保守表达：当前证明趋势，full 结论待验证。 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\begin{frame}{困难 8：Memory 检索可能带来噪声}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.16\textwidth} X}
+\toprule
+现象 & 两轮 memory-learning 链路能跑，但整体收益不稳定；round2 命中高，不等于有用。 \\
+\midrule
+风险 & 相似但不同型的经验注入 prompt，造成负迁移。 \\
+\midrule
+应对 & memory usefulness gate：题型、指标、字段、错误模式都匹配才注入；先不把 memory 作为主贡献。 \\
+\midrule
+是否影响 PPT & 不影响主线，可作为预算控制和 sub-agent 体系的后续模块。 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\section{当前差距}
+
+\begin{frame}{合理预期目标 vs 当前进度}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.18\textwidth} p{0.17\textwidth} X p{0.18\textwidth}}
+\toprule
+目标项 & 当前状态 & 证据 & 下一步 \\
+\midrule
+full 257 weak baseline vs light & 未完成 & 只有 47 题 small set & 先跑 qwen3.5-flash full 257 baseline / light \\
+\midrule
+harness\_full 全量收益 & 未完成 & small set full 最高但 92.79s/题 & light 稳定后再跑 full \\
+\midrule
+最小消融 & 未完成 & no\_finalizer / no\_skills / no\_oracle\_or\_verifier 尚未跑 & 先跑 47 题消融 \\
+\midrule
+weak-to-strong gap & 待验证 & strong full 已有，weak full 未跑 & 生成 full gap 表 \\
+\midrule
+DataModeling protocol harness & 初步观察 & 仅有 qwen25 vs qwen35b 对比和失败案例 & 做 protocol failure case study \\
+\midrule
+sub-agent / 难度路由 & 未完成 & 目前只有 light/full 两档 & 做离线设计和 gated fallback smoke \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\begin{frame}{当前距离目标有多远}
+\begin{itemize}
+  \item \textbf{已经有趋势证据}：small set 上 weak + harness 有显著提升，light 性价比清楚。
+  \item \textbf{还缺主实验证据}：full 257 尚未跑，不能声称 full benchmark 上接近强模型。
+  \item \textbf{还缺归因证据}：最小消融尚未跑，不能严格说明 finalizer、skills、verifier 各自贡献。
+  \item \textbf{还缺第二 benchmark 证据}：DataModeling 目前更适合讲 protocol-aware 设计和失败分析，而不是完整 harness 分数。
+  \item \textbf{还缺系统化预算控制}：sub-agent / difficulty-aware routing 仍是下一阶段方案。
+\end{itemize}
+\end{frame}
+
+\section{下一步计划}
+
+\begin{frame}{下一步优先级}
+\begin{enumerate}
+  \item 跑 \code{qwen3.5-flash} full 257：baseline + original reformat vs harness\_light。
+  \item 若 light 结果稳定，再跑 harness\_full，重点看 hard 和 runtime。
+  \item 做最小消融：no\_finalizer / no\_skills / no\_oracle\_or\_verifier。
+  \item 做 weak-to-strong gap 表：weak baseline、weak light、weak full、strong baseline。
+  \item DataModeling 先做 protocol failure case study。
+  \item 最后再考虑 difficulty-aware sub-agent / verifier-gated fallback。
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{建议的实验矩阵}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.22\textwidth} X p{0.22\textwidth}}
+\toprule
+阶段 & 运行内容 & 产出 \\
+\midrule
+阶段 1 & qwen3.5-flash full 257 baseline / harness\_light & 主结果表、runtime 表、weak-to-strong gap \\
+\midrule
+阶段 2 & qwen3.5-flash full 257 harness\_full & 边际收益和成本分析 \\
+\midrule
+阶段 3 & small set 最小消融 & 模块贡献归因 \\
+\midrule
+阶段 4 & DataModeling protocol failure case study & protocol-aware harness 设计和典型案例 \\
+\midrule
+阶段 5 & verifier-gated fallback smoke & sub-agent / 模型分工原型 \\
+\bottomrule
+\end{tabularx}
+\end{frame}
+
+\section{PPT 可用总结}
+
+\begin{frame}{可直接汇报的结论 1}
+\begin{block}{当前已证明的趋势}
+在 qwen3.5-flash 的 InfiAgentBench known-error small set 上，结构化 harness 能让弱模型通过额外交互时间获得明显提升：
+\[
+\text{ABQ: }48.94\% \rightarrow 59.57\% \rightarrow 63.83\%
+\]
+\[
+\text{Hard ABQ: }44.00\% \rightarrow 60.00\% \rightarrow 64.00\%
+\]
+\end{block}
+\begin{alertblock}{保守表述}
+这证明的是趋势，不是 full 257 上弱模型已经接近强模型。
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{可直接汇报的结论 2}
+\begin{block}{light harness 是当前最有性价比方向}
+light harness 保留 DataCard、Contract、basic skills、Finalizer，关闭 search、memory、heavy oracle、heavy verifier。
+\end{block}
+\begin{itemize}
+  \item 相比 baseline：ABQ +10.63 个百分点，runtime +16.79s。
+  \item full 比 light 只再提升 4.26 个百分点，但 runtime 多 45.76s。
+  \item 因此默认策略应是 light-first，而不是 full-everywhere。
+\end{itemize}
+\end{frame}
+
+\begin{frame}{可直接汇报的结论 3}
+\begin{block}{从时间换性能到可控推理预算}
+我们的最终目标是把 DatawiseAgent 的经验现象推进为可控系统设计：
+\end{block}
+\begin{itemize}
+  \item \textbf{任务感知}：InfiAgentBench 用 answer-aware harness，DataModeling 用 protocol-aware harness。
+  \item \textbf{预算可控}：light / full / fallback 根据难度和 verifier 状态启用。
+  \item \textbf{模型分工}：小模型做局部明确检查，弱模型做中等任务，强 thinking 模型处理复杂推理和失败兜底。
+\end{itemize}
+\vspace{0.5em}
+\begin{center}
+\Large 时间换性能 $\Rightarrow$ 时间花对地方
+\end{center}
+\end{frame}
+
+\begin{frame}{最后一句话}
+\begin{center}
+\Large
+我们不是让弱模型无脑多跑几轮，\\[0.5em]
+而是把额外推理时间组织成\\[0.5em]
+\textbf{任务适配、过程校验、预算控制和模型分工}。
+\end{center}
+\end{frame}
+
+\end{document}

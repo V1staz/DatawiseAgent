@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{背景与故事线}{3}{0}{1}
+\beamer@sectionintoc {2}{当前已观察结果}{7}{0}{2}
+\beamer@sectionintoc {3}{合理预期目标}{12}{0}{3}
+\beamer@sectionintoc {4}{困难与迭代}{15}{0}{4}
+\beamer@sectionintoc {5}{当前差距}{23}{0}{5}
+\beamer@sectionintoc {6}{下一步计划}{25}{0}{6}
+\beamer@sectionintoc {7}{PPT 可用总结}{27}{0}{7}

@@ -177,3 +177,55 @@ blocked / not-run：
 - DataModeling 更慢，暂不作为本轮主线。
 - 本轮 harness_full 是 46/47 partial，task 733 未写入结果。
 - small set 是已知错题集合，不代表全 257 题总体分布。
+
+## 12. Lightfix 后的完整 small set 结果
+
+修复 FinalAnswerBlock 被写入 Python code cell 的问题后，重新跑了 47/47 small_error_set：
+
+| 设置 | ABQ | PASQ | UASQ | hard ABQ | 平均 runtime | 备注 |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| baseline raw | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 30.24s | raw 长日志无闭式答案 |
+| baseline + original reformat | 0.4894 | 0.6383 | 0.6705 | 0.4400 | 30.24s | 公平 baseline |
+| harness_light | 0.5957 | 0.6525 | 0.6932 | 0.6000 | 47.03s | DataCard + Contract + basic skills + Finalizer |
+| harness_full | 0.6383 | 0.6950 | 0.7273 | 0.6400 | 92.79s | 准确率最高，但 verifier 成本和阻断仍明显 |
+
+task 733 已解决：
+
+- `harness_light`：success，约 30.75s
+- `harness_full`：success，约 75.60s
+- 不再出现 JSON `false` / `null` 被 Python cell 执行导致的循环。
+
+新的保守结论：
+
+- weak model + harness 能明显缩小 small set 上的 gap，但还不能证明可以替代强模型。
+- `harness_light` 是更划算的下一步路线：比 baseline 多 10.63 个 ABQ 点，runtime 增量约 16.79s。
+- `harness_full` 绝对分数更高，但相比 light 只多 4.26 个 ABQ 点，runtime 多约 45.76s，还带来 4 个 verifier_blocked。
+- 下一轮不建议直接跑 full 257，应先做 verifier/finalizer 校准和 light harness 版本。
+
+## 13. Light vs Full 的案例信息
+
+`harness_light` fixed：
+
+- `57, 125, 271, 273, 450, 513, 528, 647`
+
+`harness_light` regressed：
+
+- `62`：outlier protocol 失控，light 算成 107 个 outliers；full 修回。
+- `451`：dict 格式用了 JSON 双引号和紧凑格式；full 修回 Python dict 字符串风格。
+- `684`：normality / distribution 判断退化。
+
+`harness_full` fixed：
+
+- `57, 125, 133, 271, 273, 513, 528`
+
+`harness_full` regressed：
+
+- `408`：相关性数值从 baseline 正确的 `r=0.10, p=0.0102` 退化为 `r=-0.05, p=0.0001`，疑似 search/oracle/contract 干预导致口径变化。
+
+`harness_full` verifier_blocked：
+
+- `219, 310, 550, 734`
+
+这些结果支持 PPT 里的主线：
+
+> 结构化 harness 对弱模型有真实收益，但 full harness 的重校验不一定划算。更有前途的是轻量化 harness：保留 DataCard、Contract、基础 skill 和 Finalizer，减少 search/memory/heavy verifier 的干预。

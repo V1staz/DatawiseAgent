@@ -1,0 +1,133 @@
+{
+  "run_date": "2026-06-09",
+  "model_name": "qwen3.5-flash",
+  "temperature": 0,
+  "provider": "dashscope",
+  "small_set_size": 47,
+  "metrics": {
+    "baseline_raw": {
+      "ABQ": 0.0,
+      "PASQ": 0.0,
+      "UASQ": 0.0,
+      "easy_ABQ": 0.0,
+      "medium_ABQ": 0.0,
+      "hard_ABQ": 0.0,
+      "format_error": 47,
+      "reformat_missing": 47,
+      "verifier_blocked": 0,
+      "stuck": 0,
+      "average_runtime": 30.2419,
+      "task_status_counts": {
+        "success": 47
+      },
+      "response_count": 47
+    },
+    "baseline_reformat": {
+      "ABQ": 0.4894,
+      "PASQ": 0.6383,
+      "UASQ": 0.6705,
+      "easy_ABQ": 0.5556,
+      "medium_ABQ": 0.5385,
+      "hard_ABQ": 0.44,
+      "format_error": 0,
+      "reformat_missing": 0,
+      "verifier_blocked": 0,
+      "stuck": 0,
+      "average_runtime": 30.2419,
+      "task_status_counts": {
+        "success": 47
+      },
+      "response_count": 47
+    },
+    "harness_light": {
+      "ABQ": 0.5957,
+      "PASQ": 0.6525,
+      "UASQ": 0.6932,
+      "easy_ABQ": 0.6667,
+      "medium_ABQ": 0.5385,
+      "hard_ABQ": 0.6,
+      "format_error": 1,
+      "reformat_missing": 3,
+      "verifier_blocked": 0,
+      "stuck": 1,
+      "average_runtime": 47.0341,
+      "task_status_counts": {
+        "success": 44,
+        "reformat_missing": 2,
+        "execution_error": 1
+      },
+      "response_count": 47
+    },
+    "harness_full": {
+      "ABQ": 0.6383,
+      "PASQ": 0.695,
+      "UASQ": 0.7273,
+      "easy_ABQ": 0.6667,
+      "medium_ABQ": 0.6154,
+      "hard_ABQ": 0.64,
+      "format_error": 0,
+      "reformat_missing": 2,
+      "verifier_blocked": 4,
+      "stuck": 1,
+      "average_runtime": 92.7897,
+      "task_status_counts": {
+        "success": 41,
+        "verifier_blocked": 4,
+        "reformat_missing": 1,
+        "execution_error": 1
+      },
+      "response_count": 47
+    }
+  },
+  "full_vs_baseline_status_counts": {
+    "both_correct": 21,
+    "fixed": 7,
+    "unchanged_wrong": 13,
+    "verifier_blocked": 4,
+    "regressed": 1,
+    "stuck": 1
+  },
+  "light_vs_baseline_status_counts": {
+    "both_correct": 20,
+    "fixed": 8,
+    "regressed": 3,
+    "unchanged_wrong": 15,
+    "stuck": 1
+  },
+  "fixed_full": [
+    57,
+    125,
+    133,
+    271,
+    273,
+    513,
+    528
+  ],
+  "regressed_full": [
+    408
+  ],
+  "verifier_blocked_full": [
+    219,
+    310,
+    550,
+    734
+  ],
+  "stuck_full": [
+    647
+  ],
+  "fixed_light": [
+    57,
+    125,
+    271,
+    273,
+    450,
+    513,
+    528,
+    647
+  ],
+  "regressed_light": [
+    62,
+    451,
+    684
+  ]
+}

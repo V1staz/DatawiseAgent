@@ -1,0 +1,125 @@
+[
+  {
+    "task_id": 62,
+    "difficulty": "medium",
+    "concepts": [
+      "Outlier Detection",
+      "Distribution Analysis"
+    ],
+    "known_error_type": "outlier_protocol_error",
+    "baseline_raw_answer": "```markdown\n[STEP GOAL]: Load the estimated_numbers.csv file and explore the data structure to understand the columns and data types, particularly focusing on the \"No. of deaths_max\" column.\n```\n```python\nimport pandas as pd\nimport numpy as np\n\n# Load the dataset\ndf = pd.read_csv('./input/estimated_numbers.csv')\n\n# Display basic information about the dataframe\nprint(\"Dataset Shape:\", df.shape)\nprint(\"\\nColumn Names:\", df.columns.tolist())\nprint(\"\\nData Types:\")\nprint(df.dtypes)\nprint(\"\\nFirst 5 rows:\")\nprint(df.head())\nprint(\"\\nBasic Statistics for 'No. of deaths_max':\")\nprint(df['No. of deaths_max'].describe())\n```\nTime consumed: 0.02s\nCode output:\nExit Code: 0\nOutput: \nDataset Shape: (856, 11)\n\nColumn Names: ['Country', 'Year', 'No. of cases', 'No. of deaths', 'No. of cases_median', 'No. of cases_min', 'No. of cases_max', 'No. of deaths_median', 'No. of deaths_min', 'No. of deaths_max', 'WHO Region']\n\nData Types:\nCountry                  object\nYear                      int64\nNo. of ",
+    "baseline_reformat_answer": "\\Format{{\n@no_of_countries_with_outliers[number]\n@mean_no_of_deaths_with_outliers[original_mean]\n@mean_no_of_deaths_without_outliers[new_mean]\n}}\n\\Answer{{\n@no_of_countries_with_outliers[5]\n@mean_no_of_deaths_with_outliers[10149.43]\n@mean_no_of_deaths_without_outliers[5949.08]\n}}",
+    "harness_light_answer": "@no_of_countries_with_outliers[107]\n@mean_no_of_deaths_with_outliers[10847.59]\n@mean_no_of_deaths_without_outliers[10847.59]",
+    "harness_full_answer": "@no_of_countries_with_outliers[5]\n@mean_no_of_deaths_with_outliers[10149.43]\n@mean_no_of_deaths_without_outliers[5949.08]",
+    "gold_answer": {
+      "mean_no_of_deaths_with_outliers": "10149.43",
+      "mean_no_of_deaths_without_outliers": "5949.08"
+    },
+    "baseline_raw_correct": false,
+    "baseline_correct": true,
+    "harness_light_correct": false,
+    "harness_full_correct": true,
+    "light_status": "regressed",
+    "full_status": "both_correct",
+    "task_status_full": "success",
+    "suspected_module": "",
+    "failure_reason": "",
+    "runtime": {
+      "baseline": 28.963,
+      "harness_light": 24.945,
+      "harness_full": 39.958
+    },
+    "note": "IQR outlier inclusion/exclusion scope was inconsistent."
+  },
+  {
+    "task_id": 124,
+    "difficulty": "hard",
+    "concepts": [
+      "Summary Statistics",
+      "Correlation Analysis"
+    ],
+    "known_error_type": "significance_judgment_error",
+    "baseline_raw_answer": "```markdown\n[STEP GOAL]: Load the country_vaccinations.csv data and explore its structure to understand the columns available for analysis.\n```\n```python\nimport pandas as pd\nimport numpy as np\n\n# Load the dataset\ndf = pd.read_csv('./input/country_vaccinations.csv')\n\n# Display basic information about the dataset\nprint(\"Dataset Shape:\", df.shape)\nprint(\"\\nColumn Names:\")\nprint(df.columns.tolist())\nprint(\"\\nFirst 5 rows:\")\nprint(df.head())\nprint(\"\\nData types:\")\nprint(df.dtypes)\n```\n```markdown\nNow I need to identify the relevant columns for this analysis. I'll look for columns related to:\n1. Vaccine type used by each country\n2. Total vaccinations per hundred people\n```\n```python\n# Check for vaccine-related columns\nvaccine_cols = [col for col in df.columns if 'vaccine' in col.lower() or 'type' in col.lower()]\nprint(\"Potential vaccine columns:\", vaccine_cols)\n\n# Check for vaccinations per hundred columns\nvax_per_hundred_cols = [col for col in df.columns if 'hundred' in col.lower() or 'per'",
+    "baseline_reformat_answer": "\\Format{{\n@significance_of_difference[significance]\n@p_value[p_value]\n}}\n\\Answer{{\n@significance_of_difference[yes]\n@p_value[0.0000]   \n}}",
+    "harness_light_answer": "@significance_of_difference[yes]\n@p_value[0.0000]",
+    "harness_full_answer": "@significance_of_difference[yes]\n@p_value[0.0043]",
+    "gold_answer": {
+      "significance_of_difference": "no"
+    },
+    "baseline_raw_correct": false,
+    "baseline_correct": false,
+    "harness_light_correct": false,
+    "harness_full_correct": false,
+    "light_status": "unchanged_wrong",
+    "full_status": "unchanged_wrong",
+    "task_status_full": "success",
+    "suspected_module": "",
+    "failure_reason": "both baseline and harness_full failed closed-form eval",
+    "runtime": {
+      "baseline": 54.099,
+      "harness_light": 42.673,
+      "harness_full": 198.614
+    },
+    "note": "Significance decision was yes while label was no."
+  },
+  {
+    "task_id": 418,
+    "difficulty": "medium",
+    "concepts": [
+      "Outlier Detection"
+    ],
+    "known_error_type": "outlier_protocol_error",
+    "baseline_raw_answer": "```markdown\n[STEP GOAL]: Load the bitconnect_price.csv file, examine its structure, and convert the 'Volume' column to numerical values for outlier detection analysis.\n```\n```markdown\nI will start by loading the CSV file and examining its structure to understand the data format, particularly the 'Volume' column.\n```\n```python\nimport pandas as pd\n\n# Load the CSV file\ndf = pd.read_csv('./input/bitconnect_price.csv')\n\n# Display the first few rows and column info\nprint(\"DataFrame shape:\", df.shape)\nprint(\"\\nColumn names:\", df.columns.tolist())\nprint(\"\\nFirst 5 rows:\")\nprint(df.head())\nprint(\"\\nData types:\")\nprint(df.dtypes)\n```\n```markdown\nNow I'll convert the 'Volume' column to numerical values, handling any potential formatting issues (like commas in numbers).\n```\n```python\n# Convert Volume column to numerical values\n# First, let's check the Volume column values\nprint(\"Volume column sample values:\")\nprint(df['Volume'].head(10))\nprint(\"\\nVolume column unique values (first 20):\")\nprint(df[",
+    "baseline_reformat_answer": "\\Answer{{\n@outliers_count[1]   \n}}",
+    "harness_light_answer": "@outliers_count[1]\n@outliers_count[1]",
+    "harness_full_answer": "@outliers_count[1]\n@outliers_count[1]",
+    "gold_answer": {
+      "outliers_count": "1"
+    },
+    "baseline_raw_correct": false,
+    "baseline_correct": true,
+    "harness_light_correct": true,
+    "harness_full_correct": true,
+    "light_status": "both_correct",
+    "full_status": "both_correct",
+    "task_status_full": "success",
+    "suspected_module": "",
+    "failure_reason": "",
+    "runtime": {
+      "baseline": 28.009,
+      "harness_light": 16.571,
+      "harness_full": 49.21
+    },
+    "note": "Trading-volume outlier count missed values."
+  },
+  {
+    "task_id": 451,
+    "difficulty": "easy",
+    "concepts": [
+      "Comprehensive Data Preprocessing"
+    ],
+    "known_error_type": "format_error",
+    "baseline_raw_answer": "```markdown\n[STEP GOAL]: Detect missing values in the baro_2015.csv dataset and count them for each column\n```\n```markdown\nI need to load the CSV file and check for missing values in each of the specified columns: [\"DATE TIME\", \"WINDSPEED\", \"DIR\", \"GUSTS\", \"AT\", \"BARO\", \"RELHUM\", \"VIS\"].\n```\n```python\nimport pandas as pd\n\n# Load the dataset\ndf = pd.read_csv('./input/baro_2015.csv')\n\n# Display basic info about the dataframe\nprint(\"Dataset shape:\", df.shape)\nprint(\"\\nColumn names:\", df.columns.tolist())\nprint(\"\\nFirst few rows:\")\nprint(df.head())\n```\n```python\n# Check for missing values in each column\nmissing_values = df.isnull().sum()\nprint(\"Missing values per column:\")\nprint(missing_values)\n\n# Also check for any empty strings or other indicators of missing data\nprint(\"\\n\\nChecking for empty strings or other missing indicators:\")\nfor col in df.columns:\n    empty_count = (df[col] == '').sum()\n    if empty_count > 0:\n        print(f\"{col}: {empty_count} empty strings\")\n```\n```python\n# Sum",
+    "baseline_reformat_answer": "\\Answer{{\n@missing_values_per_column[{'DATE TIME': 0, 'WINDSPEED': 594, 'DIR': 0, 'GUSTS': 594, 'AT': 590, 'BARO': 594, 'RELHUM': 8736, 'VIS': 8736}]\n}}",
+    "harness_light_answer": "@missing_values_per_column[{\"DATE TIME\":0,\"WINDSPEED\":594,\"DIR\":0,\"GUSTS\":594,\"AT\":590,\"BARO\":594,\"RELHUM\":8736,\"VIS\":8736}]",
+    "harness_full_answer": "@missing_values_per_column[{'DATE TIME': 0, 'WINDSPEED': 594, 'DIR': 0, 'GUSTS': 594, 'AT': 590, 'BARO': 594, 'RELHUM': 8736, 'VIS': 8736}]",
+    "gold_answer": {
+      "missing_values_per_column": "{'DATE TIME': 0, 'WINDSPEED': 594, 'DIR': 0, 'GUSTS': 594, 'AT': 590, 'BARO': 594, 'RELHUM': 8736, 'VIS': 8736}"
+    },
+    "baseline_raw_correct": false,
+    "baseline_correct": true,
+    "harness_light_correct": false,
+    "harness_full_correct": true,
+    "light_status": "regressed",
+    "full_status": "both_correct",
+    "task_status_full": "success",
+    "suspected_module": "",
+    "failure_reason": "",
+    "runtime": {
+      "baseline": 14.985,
+      "harness_light": 35.108,
+      "harness_full": 35.99
+    },
+    "note": "Missing-value dictionary spacing differed from label."
+  }
+]

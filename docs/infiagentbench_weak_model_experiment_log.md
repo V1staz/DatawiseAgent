@@ -243,3 +243,151 @@ env HTTP_PROXY= HTTPS_PROXY= ALL_PROXY= http_proxy= https_proxy= all_proxy= NO_P
 1. 不急着跑 full 257，先修复/限制 final block 只能作为 markdown 或外部解析，不允许被 notebook 当 Python 执行。
 2. 调整 verifier_blocked 的处理策略，区分“格式有答案但校验失败”和“无有效答案”。
 3. 再跑同一 small set 的 `no_finalizer`、`no_oracle_or_verifier`、`no_skills` 最小消融，看 6 个 fixed 与 4 个 regressed 分别来自哪个模块。
+
+## 2026-06-09：qwen3.5-flash small_error_set lightfix run
+
+### 实验目的
+
+修复 task 733 的 FinalAnswerBlock JSON 被写入 Python code cell 后，重新跑 47 题 small set 的三组真实实验：
+
+- `baseline`
+- `harness_light`
+- `harness_full`
+
+本轮仍不跑 full 257，也不跑额外大消融。重点验证稳定性、runtime 和轻量 harness 的性价比。
+
+### 稳定性修复
+
+- FinalAnswerBlock / JSON 只作为 markdown final artifact，不作为可执行 Python cell。
+- 对包含 `final_answer_block`、`format_targets`、`validator_report_id` 且带有 JSON `false` / `true` / `null` 风格内容的 fenced block 做 code-cell guard。
+- `harness_light` 强制启用 finalizer，但关闭 search、memory、heavy oracle、heavy verifier。
+- runner 使用 `--request-timeout 300 --continue-on-error --skip-existing`，避免单题无限阻塞。
+
+### 实际命令
+
+服务启动：
+
+```bash
+env HTTP_PROXY= HTTPS_PROXY= ALL_PROXY= http_proxy= https_proxy= all_proxy= NO_PROXY=127.0.0.1,localhost \
+  .venv310/bin/python main.py
+```
+
+baseline：
+
+```bash
+env HTTP_PROXY= HTTPS_PROXY= ALL_PROXY= http_proxy= https_proxy= all_proxy= NO_PROXY=127.0.0.1,localhost \
+  .venv310/bin/python evaluation/run_harness_infiagent.py \
+  --note weak-qwen35-flash-small-baseline-lightfix-20260609 \
+  --ablation baseline \
+  --model-name qwen3.5-flash \
+  --provider dashscope \
+  --temperature 0 \
+  --question-id "$IDS" \
+  --request-timeout 300 \
+  --continue-on-error --skip-existing
+```
+
+baseline original reformat：
+
+```bash
+env HTTP_PROXY= HTTPS_PROXY= ALL_PROXY= http_proxy= https_proxy= all_proxy= NO_PROXY=127.0.0.1,localhost \
+  .venv310/bin/python evaluation/InfiAgentBench/scripts/reformat.py \
+  --url_file evaluation/InfiAgentBench/scripts/url.txt \
+  --api_key_file evaluation/InfiAgentBench/scripts/api_key.txt \
+  --questions_file_path evaluation/InfiAgentBench/data/da-dev-questions.jsonl \
+  --responses_file_path evaluation/experimental_results/InfiAgent-Bench/results_weak-qwen35-flash-small-baseline-lightfix-20260609.jsonl \
+  --output_file_path evaluation/experimental_results/InfiAgent-Bench/reformat/results_reformat_weak-qwen35-flash-small-baseline-lightfix-20260609.jsonl \
+  --model qwen3.5-flash \
+  --max_resp 2048 \
+  --max_retries 3 \
+  --request_timeout 120
+```
+
+harness light：
+
+```bash
+env HTTP_PROXY= HTTPS_PROXY= ALL_PROXY= http_proxy= https_proxy= all_proxy= NO_PROXY=127.0.0.1,localhost \
+  .venv310/bin/python evaluation/run_harness_infiagent.py \
+  --note weak-qwen35-flash-small-harness-light-lightfix-20260609 \
+  --ablation harness_light \
+  --model-name qwen3.5-flash \
+  --provider dashscope \
+  --temperature 0 \
+  --question-id "$IDS" \
+  --request-timeout 300 \
+  --continue-on-error --skip-existing
+```
+
+harness full：
+
+```bash
+env HTTP_PROXY= HTTPS_PROXY= ALL_PROXY= http_proxy= https_proxy= all_proxy= NO_PROXY=127.0.0.1,localhost \
+  .venv310/bin/python evaluation/run_harness_infiagent.py \
+  --note weak-qwen35-flash-small-harness-full-lightfix-20260609 \
+  --ablation harness_full \
+  --model-name qwen3.5-flash \
+  --provider dashscope \
+  --temperature 0 \
+  --question-id "$IDS" \
+  --request-timeout 300 \
+  --continue-on-error --skip-existing
+```
+
+### 结果文件
+
+- baseline raw：`evaluation/experimental_results/InfiAgent-Bench/results_weak-qwen35-flash-small-baseline-lightfix-20260609.jsonl`
+- baseline reformat：`evaluation/experimental_results/InfiAgent-Bench/reformat/results_reformat_weak-qwen35-flash-small-baseline-lightfix-20260609.jsonl`
+- harness light：`evaluation/experimental_results/InfiAgent-Bench/results_weak-qwen35-flash-small-harness-light-lightfix-20260609.jsonl`
+- harness full raw append：`evaluation/experimental_results/InfiAgent-Bench/results_weak-qwen35-flash-small-harness-full-lightfix-20260609.jsonl`
+- harness full dedup eval file：`evaluation/experimental_results/InfiAgent-Bench/results_weak-qwen35-flash-small-harness-full-lightfix-20260609.dedup.jsonl`
+- 对比目录：`evaluation/experimental_results/InfiAgent-Bench/weak_model_comparison/small-qwen35-flash-lightfix-20260609/`
+
+说明：本轮曾发现两个同 note `harness_full` runner 同时写同一 jsonl，导致 raw append 文件有重复行。已停止较早的重复进程，并保留 raw 文件；评估使用按 task_id 最后一次结果生成的 dedup 文件，47/47 无缺失。
+
+### 指标
+
+| setting | ABQ | PASQ | UASQ | easy ABQ | medium ABQ | hard ABQ | format error | reformat missing | verifier blocked | stuck | avg runtime |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| baseline raw | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 47 | 47 | 0 | 0 | 30.24 |
+| baseline + original reformat | 0.4894 | 0.6383 | 0.6705 | 0.5556 | 0.5385 | 0.4400 | 0 | 0 | 0 | 0 | 30.24 |
+| harness_light + final block | 0.5957 | 0.6525 | 0.6932 | 0.6667 | 0.5385 | 0.6000 | 1 | 3 | 0 | 1 | 47.03 |
+| harness_full + final block | 0.6383 | 0.6950 | 0.7273 | 0.6667 | 0.6154 | 0.6400 | 0 | 2 | 4 | 1 | 92.79 |
+
+### 逐题变化
+
+相对 baseline + original reformat：
+
+- `harness_light` fixed：`57, 125, 271, 273, 450, 513, 528, 647`
+- `harness_light` regressed：`62, 451, 684`
+- `harness_full` fixed：`57, 125, 133, 271, 273, 513, 528`
+- `harness_full` regressed：`408`
+- `harness_full` verifier_blocked：`219, 310, 550, 734`
+- `harness_full` stuck / execution_error：`647`
+
+注意：task 647 虽然最终答案可被 eval 判为正确，但 `task_status` 是 `execution_error`，因此稳定性统计里仍记为 stuck/execution_error。
+
+### task 733 结果
+
+- `baseline`：success
+- `harness_light`：success，runtime 30.75s
+- `harness_full`：success，runtime 75.60s
+- final block reformat：`@has_nan_values_in_new_feature[False] @new_feature_mean[3.54] @new_feature_std[0.54]`
+
+结论：733 的 JSON/Python cell 卡死问题已在本轮 small set 中解决。
+
+### 指定退化题归因
+
+- `62`：baseline 正确，light 错误，full 正确。light 关闭 heavy oracle/verifier 后把 outlier 个数算成 107，说明 outlier protocol 需要 full harness 的方法约束或校验。
+- `124`：baseline、light、full 都错误。full 重新计算出 p-value 0.0043，但仍判断 significant；更像统计口径/题意解析错误，不是 finalizer 问题。
+- `418`：本轮 baseline、light、full 都正确，不再是退化。
+- `451`：baseline 正确，light 错误，full 正确。light 用 JSON dict 双引号和紧凑格式，label 需要 Python dict 字符串风格；这是 finalizer 格式控制问题。
+- `408`：本轮 full 唯一相对 baseline 的真实退化，full 输出 `r=-0.05, p=0.0001`，gold 是 `r=0.10, p=0.0102`。疑似 full 的 search/oracle/contract 干预导致过滤或列选择口径变化。
+
+### 结论
+
+本轮 47/47 完整 small set 支持：
+
+- `harness_full` 准确率最高：ABQ 0.6383，比 baseline + reformat 高 14.89 个百分点。
+- `harness_light` 性价比更好：ABQ 0.5957，比 baseline 高 10.63 个百分点，但平均 runtime 只从 30.24s 增至 47.03s。
+- `harness_full` 从 light 再提升 4.26 个百分点，但 runtime 从 47.03s 增至 92.79s，且有 4 个 verifier_blocked。
+- 当前不应跑 full 257；下一步应优先轻量化 harness，并校准 verifier/finalizer。

@@ -9,7 +9,7 @@
   "model_name": "qwen3.5-flash",
   "provider": "dashscope",
   "request_timeout": 300.0,
-  "run_date": "2026-06-09T14:57:31",
+  "run_date": "2026-06-09T15:27:37",
   "search_policy": "hard-only",
   "semantic_oracles": true,
   "temperature": 0.0
