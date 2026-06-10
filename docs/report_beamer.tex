@@ -29,6 +29,8 @@
 \usepackage{tabularx}
 \usepackage{array}
 \usepackage{colortbl}
+\usepackage{graphicx}
+\graphicspath{{docs/figures/}{figures/}}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,shapes.geometric}
 
@@ -196,265 +198,197 @@
 \takeaway{三条线不是堆模块：先识别任务错法，再把交互结构化，最后按风险决定模型、记忆和预算。}
 \end{frame}
 
-\parttitle{Part I}{Task-Specific Adaptation}{不同任务错法不同，harness 系统根据具体问题设计}
 
-\begin{frame}{Part I Baseline：两个 benchmark 的错法不一样}
-\footnotesize
+\parttitle{Part I}{Task-Specific Adaptation}{从失败源出发，让 harness 按任务类型约束、验证和回收上下文}
+
+\begin{frame}{Problem：两个 benchmark 的失败源并不一样}
+\scriptsize
 \begin{columns}[T]
 \begin{column}{0.49\textwidth}
-\textbf{InfiAgentBench baseline / strong reference}
-\vspace{0.3em}
-
-\begin{tabularx}{\textwidth}{X r r r}
-\toprule
-Setting & ABQ & PASQ & UASQ \\
-\midrule
-Qwen3-32B full latest & 81.74\% & 86.21\% & 86.43\% \\
-Qwen3.5-35B-A3B baseline & 86.38\% & 90.16\% & 90.35\% \\
-\bottomrule
-\end{tabularx}
+\begin{alertblock}{InfiAgentBench：口径与过程漂移}
+\textbf{复现分析：}代码通常能跑完，但过滤/预处理顺序、统计定义、样本口径、答案名和最终格式会漂移；错误不报错，却影响闭式评分。\\[0.35em]
+\textbf{本质问题：}缺少稳定的任务约束和过程校验；题面中的 Answer Contract 没有持续绑定到每一步计算、验证和最终输出。
+\end{alertblock}
+\vspace{0.2em}
+\begin{block}{典型错误}
+\begin{itemize}
+  \item 过滤、预处理或特征构造顺序不当；
+  \item 年份边界、过滤条件、样本口径偏移；
+  \item std / correlation / feature baseline 定义不稳；
+  \item answer name / final format 不一致。
+\end{itemize}
+\end{block}
 \end{column}
 \begin{column}{0.49\textwidth}
-\textbf{DataModeling baseline / strong reference}
-\vspace{0.3em}
-
-\begin{tabularx}{\textwidth}{X r r r}
-\toprule
-Run & Complete & Perf. & Avg time \\
-\midrule
-qwen25 & 68/74 & 0.4290 & 760.25s \\
-qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
-\bottomrule
-\end{tabularx}
+\begin{alertblock}{DataModeling：长链路执行不稳定}
+\textbf{复现分析：}运行链条长、环境依赖复杂、执行时间长，会话/内核容易中断；完成率先受工程链路影响，合法提交后才暴露预测质量。\\[0.35em]
+\textbf{本质问题：}它不是单点答案抽取，而是端到端建模流程控制：数据理解、训练、验证、提交、manifest 和评估证据必须跨步骤一致。
+\end{alertblock}
+\vspace{0.2em}
+\begin{block}{典型错误}
+\begin{itemize}
+  \item 路径、依赖、会话中断导致 final 文件缺失；
+  \item sample copy / fallback 被当成 final；
+  \item 多分类塌缩、均值回归、低信息预测；
+  \item metric / manifest / validation evidence 不完整。
+\end{itemize}
+\end{block}
 \end{column}
 \end{columns}
-\vspace{0.7em}
-\begin{alertblock}{共同结论}
-通过强模型，了解答案正确率上限，同时也说明好的理解和规划可以在正确率及耗时上获得高效提升。我们的优化目标就是通过整合系统、记忆等 harness 技巧，让弱模型也能实现强模型的正确率。但针对不同任务，我们需要分别分析他们的错误源。
-\end{alertblock}
+\vspace{0.08em}
+\begin{beamercolorbox}[wd=\textwidth,sep=0.52ex,rounded=true,leftskip=0.75em,rightskip=0.75em]{chip}
+\scriptsize\textbf{设计指向：}闭式答案任务绑定任务约束；长链路建模任务管理执行、质量证据与恢复机制。
+\end{beamercolorbox}
 \end{frame}
 
-\begin{frame}{Part I Analysis：任务分类分层路由解决计算规则漂移}
-\small
+\begin{frame}{Design I：Task-Aware Routing，把隐性要求显式化}
+\scriptsize
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{block}{从题面抽取路由信号}
+\begin{itemize}
+  \item \textbf{level / concepts}：难度与知识类型；
+  \item \textbf{question / constraints}：过滤、边界、方法；
+  \item \textbf{format}：答案名、小数位、输出模板。
+\end{itemize}
+\end{block}
+\vspace{0.18em}
+\begin{alertblock}{协议 + 验证}
+不同任务进入统计、相关、异常处理、特征工程、机器学习或最终格式 protocol；verifier / finalizer 再检查答案名、统计口径和输出格式。
+\end{alertblock}
+\vspace{0.12em}
+{\scriptsize\textcolor{DWBlue}{\textbf{收束：}}题面要求 $\rightarrow$ 可执行协议 $\rightarrow$ 验证后输出。}
+\end{column}
+\begin{column}{0.65\textwidth}
+\begin{center}
+\setlength{\fboxsep}{3pt}%
+\colorbox{white}{\includegraphics[width=0.965\linewidth]{figures/task_page6.png}}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Design II：Context Engineering，把长交互压缩成可恢复状态}
+\scriptsize
 \begin{columns}[T]
 \begin{column}{0.42\textwidth}
-\begin{alertblock}{核心问题}
-\Large\textbf{代码能跑，\newline 但答案计算规则不稳定}
-\vspace{0.55em}
-
-\normalsize
-同一张表、同一个问题，模型可能在过滤条件、统计方法、小数位或最终格式上发生轻微漂移；这些错误不一定报错，但会直接影响闭式评分。
-\end{alertblock}
-\end{column}
-\begin{column}{0.55\textwidth}
-\begin{block}{Task-Aware harness}
-\begin{enumerate}
-  \item 先用 \textbf{level / concepts / keywords / format} 识别题型；
-  \item 不同题型路由到对应 \textbf{Harness Spec}；
-  \item 规范约束执行，并要求可复现证据；
-  \item verifier 检查输出是否符合任务规范。
-\end{enumerate}
+\begin{block}{三层上下文，不混在一个长 prompt 里}
+\begin{tikzpicture}[node distance=0.22cm]
+  \tikzset{mem/.style={draw=DWBlue!45, fill=DWBlue!6, rounded corners=4pt, inner xsep=5pt, inner ysep=4pt, align=left, text width=0.92\linewidth}}
+  \node[mem] (trace) {\textbf{Transient Trace}\\单题 reason / action / observation，只服务当前恢复，不长期污染上下文};
+  \node[mem, below=of trace] (rules) {\textbf{Curated Rule Cards}\\人工稳定规则：统计口径、format、quality gate，不自更新};
+  \node[mem, below=of rules] (self) {\textbf{Self-Updated Memory}\\agent 自己运行后的失败--修复经验、成功方法 trace，按任务特征检索};
+\end{tikzpicture}
 \end{block}
 \end{column}
-\end{columns}
-\vspace{0.45em}
+\begin{column}{0.56\textwidth}
+\begin{block}{借鉴 context compacting：外部化状态 + 选择性回灌}
 \begin{center}
-\begin{tikzpicture}[node distance=0.14cm]
-  \node[draw=DWBlue, fill=DWBlue!8, rounded corners, inner xsep=8pt, inner ysep=5pt, font=\footnotesize\bfseries] (a) {answer name};
-  \node[draw=DWBlue, fill=DWBlue!8, rounded corners, inner xsep=8pt, inner ysep=5pt, font=\footnotesize\bfseries, right=of a] (b) {filter};
-  \node[draw=DWBlue, fill=DWBlue!8, rounded corners, inner xsep=8pt, inner ysep=5pt, font=\footnotesize\bfseries, right=of b] (c) {rounding};
-  \node[draw=DWBlue, fill=DWBlue!8, rounded corners, inner xsep=8pt, inner ysep=5pt, font=\footnotesize\bfseries, right=of c] (d) {statistical method};
-  \node[draw=DWBlue, fill=DWBlue!8, rounded corners, inner xsep=8pt, inner ysep=5pt, font=\footnotesize\bfseries, right=of d] (e) {final format};
+\begin{tikzpicture}[node distance=0.72cm, >=Latex]
+  \tikzset{box/.style={draw=DWBlue!55, fill=white, rounded corners=4pt, minimum height=0.62cm, align=center, font=\scriptsize\bfseries, text width=1.62cm}}
+  \node[box] (run) {Run};
+  \node[box, right=of run] (verify) {Verifier\\Oracle};
+  \node[box, right=of verify] (classify) {Classify\\Outcome};
+  \node[box, below=0.58cm of classify] (write) {Write Useful\\Memory};
+  \node[box, left=of write] (retrieve) {Retrieve by\\Task Features};
+  \node[box, left=of retrieve] (inject) {Inject Compact\\Hints};
+  \draw[->, thick, DWBlue] (run) -- (verify);
+  \draw[->, thick, DWBlue] (verify) -- (classify);
+  \draw[->, thick, DWBlue] (classify) -- (write);
+  \draw[->, thick, DWBlue] (write) -- (retrieve);
+  \draw[->, thick, DWBlue] (retrieve) -- (inject);
+  \draw[->, thick, DWBlue] (inject) -- (run);
 \end{tikzpicture}
 \end{center}
-\takeaway{重点不是让模型“知道答案”，而是把题目要求显式化为 Answer Spec：任务决定规范，规范约束执行，验证决定能否输出。}
-\end{frame}
-
-
-\begin{frame}{Part I Scheme：Task Router $\rightarrow$ Harness Specs}
-\footnotesize
-\begin{columns}[T]
-\begin{column}{0.34\textwidth}
-\begin{block}{路由信号}
-\begin{itemize}
-  \item level：easy / medium / hard
-  \item concepts：统计、相关性、特征、ML
-  \item question keywords
-  \item expected format
-\end{itemize}
 \end{block}
-\vspace{0.2em}
-\begin{alertblock}{收束目标}
-\textbf{不是统一大 prompt，}\newline
-而是让不同题型进入不同协议，再由 verifier 和 Final Block 收束到稳定答案通道。
-\end{alertblock}
-\end{column}
-\begin{column}{0.63\textwidth}
-\begin{center}
-\resizebox{0.96\linewidth}{!}{%
-\begin{tikzpicture}[x=1cm,y=1cm]
-  \draw[rounded corners=8pt, draw=DWBlue!45, very thick, dashed, fill=DWBlue!3] (0,0) rectangle (8.0,3.55);
-  \node[align=center, text=DWGray, font=\Large\bfseries] at (4.0,2.15) {Illustration Placeholder};
-  \node[align=center, text=DWGray, font=\small] at (4.0,1.65) {Task Router $\rightarrow$ Protocol Cards $\rightarrow$ Verification Gate};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (1.0,0.62) {Stats};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (2.5,0.62) {Corr};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (4.0,0.62) {Feature};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (5.5,0.62) {ML};
-  \node[draw=DWBlue, fill=white, rounded corners, font=\scriptsize\bfseries, minimum width=1.15cm] at (7.0,0.62) {Format};
-\end{tikzpicture}}
-\end{center}
-\end{column}
-\end{columns}
-\vspace{-0.15em}
-\takeaway{后续替换为 GPT-image；核心逻辑：分类路由 $\rightarrow$ 协议约束 $\rightarrow$ 验证收束。}
-\end{frame}
-
-\begin{frame}{Part I Scheme：DataModeling 从 protocol 到 quality-backed}
-\small
-\begin{columns}[T]
-\begin{column}{0.49\textwidth}
-\begin{block}{基于 InfiAgentBench 已有的改动}
-\begin{itemize}
-  \item Answer Spec / Profile：固定 metric、列、行数、target；
-  \item Task Router：tabular、text、time-series、multi-output；
-  \item Submission Validator：schema、ID、概率范围、sample copy；
-  \item Quality Gate：manifest、fallback、常数预测、低信息 final。
-\end{itemize}
-\end{block}
-\end{column}
-\begin{column}{0.49\textwidth}
-\begin{alertblock}{依旧存在的问题}
-\begin{itemize}
-  \item 结构合法但只是 fallback；
-  \item 多分类塌缩成单类；
-  \item 回归/概率输出全局均值；
-  \item CSV 可评，但没有 validation 和选择依据。
-\end{itemize}
+\vspace{0.15em}
+\begin{alertblock}{关键原则}
+不能把 notebook 历史全量保存或回灌，而要把长过程外部化成 \textbf{DataCard / Contract / Trace / Final Block / Manifest}；后续只回灌与当前任务、错误和路由相关的片段。压缩、检索、遗忘共同决定后续推理质量。
 \end{alertblock}
 \end{column}
 \end{columns}
-\takeaway{这一步不替模型建模，只把提交前能检查清楚的内容先检查清楚。}
 \end{frame}
 
-\begin{frame}{Part I Result：Task-Aware harness 带来的直接收益}
+\begin{frame}{Effect I：InfiAgentBench 上，口径与格式错误被显式收束}
 \footnotesize
-\begin{tabularx}{\textwidth}{p{0.34\textwidth} p{0.14\textwidth} r r r}
+\begin{tabularx}{\textwidth}{p{0.33\textwidth} p{0.14\textwidth} r r r}
 \toprule
 Setting & Split & ABQ & PASQ & UASQ \\
 \midrule
 Qwen3-32B baseline & medium & 83.72\% & 86.19\% & 86.00\% \\
-\textbf{Harness rerender} & medium & \textbf{91.95\%} & \textbf{93.06\%} & \textbf{93.42\%} \\
+\textbf{Task-Aware harness} & medium & \textbf{91.95\%} & \textbf{93.06\%} & \textbf{93.42\%} \\
 \midrule
 Qwen3-32B baseline & hard & 66.13\% & 78.49\% & 82.99\% \\
-\textbf{Harness rerender} & hard & \textbf{78.41\%} & \textbf{84.75\%} & \textbf{87.19\%} \\
+\textbf{Task-Aware harness} & hard & \textbf{78.41\%} & \textbf{84.75\%} & \textbf{87.19\%} \\
 \bottomrule
 \end{tabularx}
-\vspace{0.65em}
+\vspace{0.55em}
 \begin{columns}[T]
 \begin{column}{0.32\textwidth}
-\begin{block}{medium}
-ABQ 提升 \textbf{\textcolor{DWBlue}{8.23 个百分点}}，说明格式约束和结果抽取能直接减少可避免错误。
+\begin{block}{Answer Contract}
+答案名、目标字段和小数格式进入 FinalAnswerBlock，减少最终抽取和 reformat 漂移。
 \end{block}
 \end{column}
 \begin{column}{0.32\textwidth}
-\begin{block}{hard}
-ABQ 提升 \textbf{\textcolor{DWBlue}{12.28 个百分点}}，但平均分支数升至 \textbf{2.97}，复杂题仍需要控制搜索成本。
+\begin{block}{Method Check}
+统计口径、过滤边界和特征 baseline 由 rule cards / oracle 显式检查。
 \end{block}
 \end{column}
 \begin{column}{0.32\textwidth}
-\begin{block}{答案通道}
-\textbf{format error / reformat missing / final block missing = 0}，说明结构化答案链路有效。
+\begin{block}{Hard Search}
+hard 题允许多分支解释和回退，但搜索成本需要交给后续 resource-aware 调度控制。
 \end{block}
 \end{column}
 \end{columns}
+\vspace{0.28em}
+\begin{block}{效果定位}
+从“可跑的代码”进一步收束成“口径稳定、格式可验、证据可追”的答案通道。
+\end{block}
 \end{frame}
 
-\begin{frame}{Part I Result：DataModeling 的结果和边界}
-\footnotesize
-\begin{tabularx}{\textwidth}{p{0.37\textwidth} r r r}
+\begin{frame}{Effect II：DataModeling 的边界与系统启发}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.38\textwidth} r r r}
 \toprule
-Setting & Complete & Perf. & Avg time \\
+Run & Valid submissions & Normalized Perf. & Avg time \\
 \midrule
-qwen25 baseline & 68/74 & 0.4290 & 760.25s \\
-qwen35b-a3b-full & 73/74 & 0.5318 & 288.60s \\
-qwen3-vl-8b old harness & 74/74 & 0.3127 & 799.09s \\
-qwen3-vl-32b old harness & 74/74 & 0.2873 & 297.49s \\
+Qwen2.5-72B baseline & 68/74 & 0.4290 & 760.25s \\
+Qwen3.5-35B-A3B strong ref. & 73/74 & 0.5318 & 288.60s \\
+\textbf{Qwen3-VL-32B + harness} & \textbf{74/74} & \textbf{0.5173} & 297.49s \\
 \bottomrule
 \end{tabularx}
-\vspace{0.65em}
-\begin{columns}[T]
-\begin{column}{0.33\textwidth}\metric{+0.1028}{qwen35b vs qwen25}\end{column}
-\begin{column}{0.33\textwidth}\metric{74/74}{qwen3-vl completion}\end{column}
-\begin{column}{0.33\textwidth}\metric{0.45--0.50}{修复典型模式后的目标区间}\end{column}
-\end{columns}
-\vspace{0.45em}
-\smallnote{qwen3-vl 的问题不是不能交文件，而是合法 CSV 里常有均值、常数、fallback 或 manifest 缺失。}
-\takeaway{DataModeling 已经证明强模型与工程约束有收益；弱模型暴露的是 completion 到 performance 的关键断点。}
-\end{frame}
-
-\begin{frame}{Part I Insight：DataModeling 不是单一难度任务}
-\footnotesize
-\begin{columns}[T]
-\begin{column}{0.32\textwidth}
-\begin{block}{有逻辑可循的任务}
-Titanic、Santander 这类 schema / metric 清晰的 tabular 任务，Answer Spec 与 validator 能帮助模型走到有效路径。
-\end{block}
-\end{column}
-\begin{column}{0.32\textwidth}
-\begin{block}{低分集中模式}
-多分类塌缩、均值回归、文本错路由、多输出常数、时间/分组任务错当普通表格。
-\end{block}
-\end{column}
-\begin{column}{0.32\textwidth}
-\begin{alertblock}{下一步抓手}
-manifest-only repair、分级 early-stop、任务族模板、低信息预测拦截。
-\end{alertblock}
-\end{column}
-\end{columns}
 \vspace{0.25em}
-\begin{tabularx}{\textwidth}{p{0.30\textwidth} r X}
-\toprule
-代表复测 & 分数 & 说明 \\
-\midrule
-8B Titanic & 0.7877 & 有效 tabular submission；manifest 需要短修复 \\
-32B Titanic & 0.7709 & 大模型不自动更好，仍受流程厚度影响 \\
-32B Santander & 0.8116 & 预测质量可用，耗时和 manifest 是主要瓶颈 \\
-\bottomrule
-\end{tabularx}
-\takeaway{弱模型低分帮助定位：哪些题需轻约束，哪些题必须进入质量驱动流程。}
-\end{frame}
-
-\begin{frame}{Failure Insights：负结果告诉我们怎么设计系统}
-\footnotesize
 \begin{columns}[T]
-\begin{column}{0.32\textwidth}
-\begin{block}{1. Harness 要适配模型}
-弱模型不能配过厚、过死的流程；目标是按风险调度，而不是 full-everywhere。
+\begin{column}{0.48\textwidth}
+\begin{block}{关键观察}
+\begin{itemize}
+  \item \textbf{74/74} 说明 harness 能稳定 completion；
+  \item \textbf{0.5173} 接近强参考 0.5318，但差距说明 quality gate 只能约束路径，不能替代建模能力；
+  \item 难点从“能否提交”转向 prediction quality、metric evidence 与任务族路由。
+\end{itemize}
 \end{block}
-\end{column}
-\begin{column}{0.32\textwidth}
-\begin{block}{2. 记忆不能全记住}
-旧记忆、低价值记忆会降低信噪比；记忆系统需要重要性、时效性和遗忘机制。
-\end{block}
-\end{column}
-\begin{column}{0.32\textwidth}
-\begin{block}{3. Training-free 有上限}
-DataModeling 跨任务难度大；工程能改路径和验证，但不能完全替代强模型或后训练。
-\end{block}
-\end{column}
-\end{columns}
-\vspace{-0.2em}
+\vspace{0.18em}
 \begin{center}
-\begin{tikzpicture}[x=1cm,y=0.82cm]
-  \draw[->, thick, DWGray] (0,0) -- (8.6,0) node[right, font=\scriptsize]{memory 时间};
-  \draw[->, thick, DWGray] (0,0) -- (0,2.05) node[above, font=\scriptsize]{广义成本};
-  \draw[very thick, DWRed] plot[smooth] coordinates {(0.2,0.25) (2,0.55) (4,1.05) (6,1.65) (8.1,2.05)};
-  \draw[very thick, DWGreen] plot[smooth] coordinates {(0.2,0.28) (2,0.52) (4,0.65) (6,0.70) (8.1,0.73)};
-  \node[DWRed, font=\scriptsize] at (6.8,1.74) {全记住：噪声和上下文压力上升};
-  \node[DWGreen, font=\scriptsize] at (6.45,0.46) {可控遗忘：检索质量稳定};
+\begin{tikzpicture}[x=0.63cm,y=0.45cm]
+  \draw[->, thick, DWGray] (0,0) -- (6.0,0) node[right, font=\tiny]{memory time};
+  \draw[->, thick, DWGray] (0,0) -- (0,2.35) node[above, font=\tiny]{cost / noise};
+  \draw[very thick, DWRed] plot[smooth] coordinates {(0.25,0.25) (1.7,0.55) (3.1,1.02) (4.5,1.65) (5.7,2.12)};
+  \draw[very thick, DWGreen] plot[smooth] coordinates {(0.25,0.28) (1.7,0.50) (3.1,0.64) (4.5,0.70) (5.7,0.73)};
+  \node[DWRed, font=\tiny] at (4.65,1.88) {全量记忆};
+  \node[DWGreen, font=\tiny] at (4.65,0.48) {选择性记忆};
 \end{tikzpicture}
 \end{center}
-\takeaway{失败 insight 把边界讲清楚：模型能力、记忆质量和 harness 厚度必须一起调。}
+\end{column}
+\begin{column}{0.50\textwidth}
+\begin{block}{系统设计启发}
+\begin{itemize}
+  \item \textbf{Model-aware thickness：}弱模型不能承载过厚流程；强模型也需要保留搜索自由度，只在高风险点加验证。
+  \item \textbf{Selective memory：}记忆价值取决于信噪比；只沉淀 verifier / oracle 过滤后的失败--修复经验和成功方法 trace，低价值、过期、冲突经验必须衰减或遗忘。
+  \item \textbf{Training-free boundary：}harness 能约束路径、证据和恢复，但不能替代强模型、后训练或领域建模经验。
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
 \end{frame}
 
 \parttitle{Part II}{Structured Time-for-Performance}{多花时间不是多问几轮，而是把时间变成可验证过程}
@@ -721,45 +655,20 @@ low risk 用 deterministic / small instruct；high risk 才用 32B thinking。
 
 \parttitle{Final Integration}{Resource-Aware DatawiseAgent}{从三个局部改进到一个统一系统}
 
+
 \begin{frame}{融合架构：任务、时间、记忆和资源在同一条链上}
+\vspace{0.2em}
 \begin{center}
-\resizebox{\textwidth}{!}{%
-\begin{tikzpicture}[
-  node distance=0.44cm and 0.30cm,
-  box/.style={draw=DWBlue, fill=white, rounded corners, align=center, minimum width=1.70cm, minimum height=0.68cm, font=\scriptsize},
-  emph/.style={draw=DWBlue, fill=DWBlue!9, rounded corners, align=center, minimum width=1.70cm, minimum height=0.68cm, font=\scriptsize\bfseries},
-  lowbox/.style={draw=DWBlue, fill=white, rounded corners, align=center, minimum width=1.65cm, minimum height=0.55cm, font=\tiny},
-  arrow/.style={-{Latex[length=2mm]}, thick, draw=DWBlue}
-]
-\node[emph] (q) {Question\\+ Data};
-\node[box, right=of q] (router) {Task / Protocol\\Router};
-\node[box, right=of router] (spec) {Answer Spec / Profile\\Quality Spec};
-\node[box, right=of spec] (mem) {Memory\\Filter};
-\node[box, right=of mem] (risk) {Risk\\Estimator};
-\node[box, right=of risk] (exec) {Execution\\Notebook};
-\node[box, right=of exec] (check) {Validator /\\Quality Gate};
-\node[emph, right=of check] (out) {Final Block /\\Submission};
-\draw[arrow] (q) -- (router);
-\draw[arrow] (router) -- (spec);
-\draw[arrow] (spec) -- (mem);
-\draw[arrow] (mem) -- (risk);
-\draw[arrow] (risk) -- (exec);
-\draw[arrow] (exec) -- (check);
-\draw[arrow] (check) -- (out);
-\node[lowbox, below=0.62cm of router] (path1) {answer path};
-\node[lowbox, below=0.62cm of spec] (path2) {quality path};
-\node[lowbox, below=0.62cm of mem] (forget) {retrieve / forget};
-\node[lowbox, below=0.62cm of risk, minimum width=2.0cm] (levels) {low / medium / high};
-\node[lowbox, below=0.62cm of check, minimum width=2.0cm] (report) {EqTok + errors};
-\draw[arrow, dashed] (router) -- (path1);
-\draw[arrow, dashed] (spec) -- (path2);
-\draw[arrow, dashed] (mem) -- (forget);
-\draw[arrow, dashed] (risk) -- (levels);
-\draw[arrow, dashed] (check) -- (report);
+\begin{tikzpicture}
+  \draw[rounded corners=10pt, draw=DWBlue!45, very thick, dashed, fill=white]
+    (0,0) rectangle (12.6,5.75);
+  \node[align=center, text=DWBlue, font=\Large\bfseries] at (6.3,3.35) {Overview Architecture Figure};
+  \node[align=center, text=DWGray, font=\small, text width=10.8cm] at (6.3,2.62)
+    {预留总览图位置：任务路由 / 结构化验证 / 上下文记忆 / 资源调度};
+  \node[align=center, text=DWGray, font=\scriptsize, text width=10.8cm] at (6.3,2.08)
+    {建议放入 draw\_overview 风格的轻量工程结构图，避免与前面单页机制重复。};
 \end{tikzpicture}
-}
 \end{center}
-\takeaway{任务决定检查项，记忆决定上下文质量，验证决定是否继续，风险决定由谁来做。}
 \end{frame}
 
 \begin{frame}{融合的预期}
