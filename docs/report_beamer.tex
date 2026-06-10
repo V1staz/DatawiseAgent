@@ -672,27 +672,7 @@ low risk 用 deterministic / small instruct；high risk 才用 32B thinking。
 \end{center}
 \end{frame}
 
-\begin{frame}{融合的预期}
-\small
-\begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\begin{block}{1. 失败模式不是统一的}
-InfiAgentBench 错在答案定义、统计规则和输出格式；DataModeling 错在 submission、metric、manifest 和低信息预测。
-\end{block}
-\begin{block}{2. Completion \(\neq\) Performance}
-qwen3-vl 能做到 74/74 结构完成，但 performance 低，说明合法 CSV 还必须经过 quality gate。
-\end{block}
-\end{column}
-\begin{column}{0.48\textwidth}
-\begin{block}{3. 记忆和 harness 都要有选择}
-全记住会降低检索信噪比；full harness 也会让弱模型负担过重。关键是保留高价值上下文。
-\end{block}
-\begin{block}{4. 最终系统应该做风险调度}
-low risk 用 deterministic / small instruct，medium risk 用 small model + verifier，high risk 用 strong model + targeted fallback。
-\end{block}
-\end{column}
-\end{columns}
-\end{frame}
+
 
 \begin{frame}
 \vspace{2.4em}
