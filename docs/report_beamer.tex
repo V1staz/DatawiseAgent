@@ -657,18 +657,11 @@ low risk 用 deterministic / small instruct；high risk 才用 32B thinking。
 \parttitle{Final Integration}{Resource-Aware DatawiseAgent}{从三个局部改进到一个统一系统}
 
 
-\begin{frame}{融合架构：任务、时间、记忆和资源在同一条链上}
-\vspace{0.2em}
+
+\begin{frame}{融合架构}
+\vspace{-0.55em}
 \begin{center}
-\begin{tikzpicture}
-  \draw[rounded corners=10pt, draw=DWBlue!45, very thick, dashed, fill=white]
-    (0,0) rectangle (12.6,5.75);
-  \node[align=center, text=DWBlue, font=\Large\bfseries] at (6.3,3.35) {Overview Architecture Figure};
-  \node[align=center, text=DWGray, font=\small, text width=10.8cm] at (6.3,2.62)
-    {预留总览图位置：任务路由 / 结构化验证 / 上下文记忆 / 资源调度};
-  \node[align=center, text=DWGray, font=\scriptsize, text width=10.8cm] at (6.3,2.08)
-    {建议放入 draw\_overview 风格的轻量工程结构图，避免与前面单页机制重复。};
-\end{tikzpicture}
+\includegraphics[width=1.04\textwidth,height=0.86\textheight,keepaspectratio]{figures/overview.png}
 \end{center}
 \end{frame}
 
