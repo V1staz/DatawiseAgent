@@ -19,6 +19,7 @@
 \usepackage{amssymb}
 \usepackage{algorithm}
 \usepackage{algorithmic}
+\graphicspath{{figures/}{./}}
 %
 \pdfinfo{
 /TemplateVersion (2024.1)
@@ -41,14 +42,14 @@
 \maketitle
 
 \begin{abstract}
-Large language model (LLM)-based agents have shown promise in automating data science workflows, yet deploying them in real-world settings faces three interconnected challenges: task-specific failure modes that generic pipelines cannot address, long-context interactions that degrade answer quality rather than improve it, and unsustainable resource consumption from uniform deployment of large models. We present a systematic study of these challenges through the lens of DatawiseAgent, a multi-stage agent framework evaluated on two complementary benchmarks---InfiAgentBench (closed-form data analysis) and DataModeling (Kaggle-style predictive modeling). Our contributions are threefold. First, we introduce a task-aware harness that routes questions by concept, difficulty, and format requirements to protocol-specific constraints, improving medium-difficulty accuracy by 8.2 percentage points on InfiAgentBench and eliminating format-level answer extraction errors entirely. Second, we design a structured interaction pipeline that decomposes long notebook-style conversations into verifiable artifacts (DataCard, Answer Spec, Verifier, Final Block), enabling targeted retry on failure without re-feeding full conversation logs. Third, we propose EqTok, an equivalent-token resource metric based on API pricing ratios, and a risk-stratified scheduler that assigns deterministic processing to low-risk stages and reserves strong models for high-risk reasoning, achieving 40\% resource savings while maintaining 96\% of baseline accuracy. We further identify boundary conditions: training-free harness engineering cannot fully substitute for model capability on hard tasks, and uncurated memory degrades retrieval signal-to-noise ratio over time. Our findings provide actionable design principles for building cost-effective, reliable data science agents.
+Large language model (LLM)-based agents are increasingly used to automate data science workflows, yet practical deployment exposes three linked weaknesses: task-specific failure modes that generic pipelines do not address, long-context interactions that can degrade rather than improve answer quality, and high cost from using large models uniformly across all stages. We study these challenges through DatawiseAgent, a multi-stage agent framework evaluated on two complementary benchmarks: InfiAgentBench for closed-form data analysis and DataModeling for Kaggle-style predictive modeling. Our contributions are threefold. First, we introduce a task-aware harness that routes questions by concept, difficulty, and format requirements to protocol-specific constraints, improving medium-difficulty accuracy by 8.2 percentage points on InfiAgentBench and eliminating format-level answer extraction errors. Second, we design a structured interaction pipeline that decomposes notebook-style conversations into verifiable artifacts (DataCard, Answer Spec, Verifier, Final Block), enabling targeted retry on failure without re-feeding full conversation logs. Third, we propose EqTok, an equivalent-token resource metric based on API pricing ratios, together with a risk-stratified scheduler that assigns deterministic processing to low-risk stages and reserves stronger models for high-risk reasoning, achieving 40\% resource savings while maintaining 96\% of baseline accuracy. We also identify boundary conditions: training-free harness engineering cannot fully substitute for model capability on hard tasks, and uncurated memory degrades retrieval signal-to-noise ratio over time. These findings yield practical design principles for building cost-effective and reliable data science agents.
 \end{abstract}
 
 \section{Introduction}
 
-The rapid advancement of large language models (LLMs) has catalyzed the development of autonomous agents capable of tackling complex data science tasks---from exploratory data analysis to predictive modeling~\cite{wang2024data, guo2024data}. These agents typically operate within a notebook-style environment, where they iteratively plan, generate code, execute analyses, and debug errors in a multi-turn conversation with the user or environment~\cite{infiagentbench, chen2021evaluating}. The promise is compelling: a single agent that can ingest a CSV file, understand a natural language question, produce executable analysis code, and return a verified answer without human intervention.
+The rapid advancement of large language models (LLMs) has catalyzed autonomous agents for data science tasks ranging from exploratory analysis to predictive modeling~\cite{wang2024data, guo2024data}. These agents typically operate in a notebook-style environment: they plan, generate code, execute analyses, and debug errors through a multi-turn interaction with the user or environment~\cite{infiagentbench, chen2021evaluating}. The promise is compelling: a single agent can ingest a CSV file, interpret a natural language question, produce executable analysis code, and return a verified answer without human intervention.
 
-Despite impressive demonstrations on curated benchmarks, deploying such agents in cost-sensitive, multi-task settings reveals three under-explored tensions. \textbf{First}, failure modes are not uniform across tasks. On InfiAgentBench~\cite{infiagentbench}, a benchmark for closed-form data analysis questions, failures predominantly involve answer-name drift, statistical definition ambiguity, and output format instability---the agent often computes the correct statistic but renders it under a mismatched answer key or in an unparseable format. On DataModeling benchmarks derived from Kaggle competitions~\cite{kaggle}, failures instead involve structurally valid but information-poor submissions: constant predictions, collapsed multi-class outputs, and missing manifest files. A generic harness that applies identical constraints to all tasks cannot address this heterogeneity. \textbf{Second}, the conventional wisdom that ``more interaction rounds yield better performance'' conflates structured verification with aimless dialogue. Long notebook histories increase the risk of the model confusing stale intermediate results with the final answer, a phenomenon consistent with the ``lost in the middle'' effect~\cite{liu2024lost}. The cost also grows linearly with context length. \textbf{Third}, uniform deployment of large reasoning models across all stages of the agent pipeline inflates API costs without proportional accuracy gains. Many sub-tasks---data profiling, format validation, answer rendering---are deterministic or require only lightweight instruction following, yet they consume the same expensive model calls as complex code generation.
+Despite strong demonstrations on curated benchmarks, deployment in cost-sensitive, multi-task settings reveals three under-explored tensions. \textbf{First}, failure modes are not uniform across tasks. On InfiAgentBench~\cite{infiagentbench}, failures often involve answer-name drift, statistical definition ambiguity, and output format instability: the agent may compute the correct statistic but render it under the wrong answer key or in an unparseable format. On DataModeling benchmarks derived from Kaggle competitions~\cite{kaggle}, failures instead involve structurally valid but information-poor submissions, such as constant predictions, collapsed multi-class outputs, and missing manifest files. A generic harness with identical constraints for every task cannot address this heterogeneity. \textbf{Second}, the common assumption that more interaction rounds yield better performance conflates structured verification with aimless dialogue. Long notebook histories increase the chance that stale variables, debug outputs, or earlier wrong answers contaminate the final response, consistent with the ``lost in the middle'' effect~\cite{liu2024lost}. Cost also grows with context length. \textbf{Third}, using large reasoning models uniformly across the pipeline inflates API cost without proportional accuracy gains. Many sub-tasks---data profiling, format validation, and answer rendering---are deterministic or require only lightweight instruction following, yet they are often billed like complex code generation.
 
 In this paper, we present an end-to-end study of these three tensions through DatawiseAgent, a multi-stage agent framework evaluated on InfiAgentBench (257 data analysis questions across three sub-tasks: ABQ, PASQ, UASQ) and DataModeling (74 Kaggle competition tasks). Our key insight is that these three tensions are not independent---they jointly determine whether a deployed agent is simultaneously accurate, reliable, and affordable. We make the following contributions:
 
@@ -96,6 +97,13 @@ Our experiments use Qwen model variants (8B, 14B, 32B, and 35B-A3B MoE) deployed
 
 \textbf{DataModeling} comprises 74 Kaggle-style predictive modeling tasks spanning diverse domains. The agent must produce a valid CSV submission file and a manifest documenting model selection rationale. Evaluation uses completion rate (fraction of tasks yielding a parseable submission) and a normalized performance score aggregating domain-specific metrics (AUC, RMSE, log loss). The baseline Qwen2.5 achieves 68/74 completion with a performance score of 0.4290 at an average of 760.3 seconds per task.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{task_profile}
+\caption{InfiAgentBench profile used in our analysis. The split is balanced across difficulty levels, while concept labels concentrate in summary statistics, correlation, preprocessing, feature engineering, and machine learning.}
+\label{fig:task_profile}
+\end{figure}
+
 \subsection{Failure Mode Taxonomy}
 
 Systematic analysis of baseline results reveals distinct failure patterns per benchmark:
@@ -125,11 +133,11 @@ These distinct failure patterns motivate our three-part optimization: task-speci
 
 \subsection{Task Router Design}
 
-The core insight of our task-aware harness is that different question types require different constraint protocols. A Summary Statistics question needs strict enforcement of column selection and rounding precision; a Correlation question needs the method type declared upfront; a Machine Learning question needs a model card. Applying all constraints uniformly either under-constrains questions that need strict rules or over-constrains questions that need flexibility.
+The central premise of the task-aware harness is that different question types require different constraint protocols. A Summary Statistics question needs strict enforcement of column selection and rounding precision; a Correlation question needs the method declared before computation; a Machine Learning question needs a model card rather than a fixed formula. Uniform constraints therefore either under-specify questions that need strict rules or over-specify questions that need modeling flexibility.
 
 We implement a \textbf{Task Router} that classifies each incoming question along four axes: (1) difficulty level (Easy/Medium/Hard), derived from benchmark metadata; (2) data science concepts (Summary Statistics, Correlation, Feature Engineering, Machine Learning, Comprehensive Preprocessing); (3) question-intent keywords (e.g., ``average,'' ``correlation,'' ``predict,'' ``transform''); and (4) expected output format (scalar, list, DataFrame, JSON).
 
-Each question type maps to a \textbf{Harness Spec}---a protocol card specifying:
+Each question type maps to a \textbf{Harness Spec}, a protocol card specifying:
 
 \begin{itemize}
     \item \textbf{Answer Spec}: the exact answer name, filtering conditions, grouping variables, statistical method, rounding precision, and explicitly forbidden operations (e.g., ``do not output a DataFrame'').
@@ -137,7 +145,7 @@ Each question type maps to a \textbf{Harness Spec}---a protocol card specifying:
     \item \textbf{Output Contract}: the precise format template for the final answer block.
 \end{itemize}
 
-The router operates deterministically when benchmark metadata is available. For production settings without pre-annotated difficulty labels, it falls back to a lightweight 8B model for ambiguity resolution. After execution, a \textbf{Verifier} checks whether the output conforms to the Answer Spec before the Final Block renders it. Critically, the Final Block is a deterministic formatter, not an LLM call---it extracts the verified answer value and wraps it in the required output format, eliminating the format degradation failure mode entirely.
+The router operates deterministically when benchmark metadata is available. In production settings without pre-annotated difficulty labels, it falls back to a lightweight 8B model for ambiguity resolution. After execution, a \textbf{Verifier} checks whether the output conforms to the Answer Spec before the Final Block renders it. The Final Block is deliberately deterministic rather than LLM-based: it extracts the verified answer value and wraps it in the required output format, eliminating format degradation as a separate failure mode.
 
 \subsection{Task-Type-Specific Protocol Adjustments}
 
@@ -166,18 +174,25 @@ Harness rerender & Hard & \textbf{78.41\%} & \textbf{84.75\%} & \textbf{87.19\%}
 \end{tabular}
 \end{table*}
 
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.86\textwidth]{task_harness_results}
+\caption{Task-aware harness gains by split and sub-task. The largest absolute gain appears on Hard ABQ, where answer specification, verification, and deterministic final rendering prevent otherwise silent format and definition errors.}
+\label{fig:task_harness_results}
+\end{figure*}
+
 On Medium questions, ABQ improves by 8.23 percentage points, demonstrating that format constraints and structured answer extraction directly eliminate preventable errors. The improvement on PASQ and UASQ (6.87pp and 7.42pp, respectively) confirms that answer specification benefits extend beyond format correction to statistical definition stabilization. On Hard questions, ABQ improves by 12.28 percentage points---the largest absolute gain---though the average number of execution branches rises from 1.0 to 2.97, indicating that the harness triggers additional exploration that increases search cost. This observation directly motivates our subsequent work on resource scheduling (Section~\ref{sec:resource}): more branches improve accuracy but must be managed to control cost.
 
 \subsection{Results on DataModeling}
 
-On DataModeling, the Qwen3.5-35B-A3B achieves 73/74 completion with a normalized performance score of 0.5318 and an average time of 288.6 seconds, significantly outperforming the Qwen2.5 baseline (68/74, 0.4290, 760.3s). However, Qwen3-VL models (8B and 32B), despite achieving 74/74 structural completion, attain performance scores of only 0.3127 and 0.2873 respectively. This reveals a critical \textbf{completion-to-performance gap}: structurally valid CSV files routinely contain mean predictions, constant outputs, or missing manifests that escape basic format validation. Representative re-tests confirm this pattern: 8B Titanic (0.7877 AUC) and 32B Santander (0.8116 AUC) produce usable predictions for well-structured tabular tasks, but both require manifest repair and fail on tasks requiring domain-specific modeling strategies.
+On DataModeling, Qwen3.5-35B-A3B achieves 73/74 completion with a normalized performance score of 0.5318 and an average time of 288.6 seconds, substantially outperforming the Qwen2.5 baseline (68/74, 0.4290, 760.3s). However, Qwen3-VL models (8B and 32B) achieve 74/74 structural completion while reaching performance scores of only 0.3127 and 0.2873, respectively. This exposes a critical \textbf{completion-to-performance gap}: structurally valid CSV files may still contain mean predictions, constant outputs, or missing manifests that escape basic format validation. Representative re-tests confirm the pattern. 8B Titanic (0.7877 AUC) and 32B Santander (0.8116 AUC) produce usable predictions for well-structured tabular tasks, but both require manifest repair and fail on tasks requiring domain-specific modeling strategies.
 
 \section{Structured Time-for-Performance}
 \label{sec:structured}
 
 \subsection{The Problem with Unstructured Long Interactions}
 
-Prior work often treats multi-turn interaction as a universal performance lever---the agent explores, errs, and self-corrects over dozens of notebook cells. Our analysis reveals three specific failure modes in this paradigm:
+Prior work often treats multi-turn interaction as a universal performance lever: the agent explores, errs, and self-corrects over dozens of notebook cells. Our analysis shows that this paradigm introduces three recurring failure modes:
 
 \begin{enumerate}
     \item \textbf{Context Contamination}: As notebook history grows, the model increasingly confuses stale intermediate variables, debug outputs, and earlier incorrect answers with the final result. We observe cases where the agent correctly computes an answer in cell 5, debugs an unrelated error in cells 6--8, and then overwrites the correct answer with a debug intermediate in cell 9.
@@ -198,7 +213,14 @@ We decompose the agent's interaction into six discrete stages, each producing a 
     \item \textbf{Final Block}: A deterministic formatter that renders the verified answer into the required output format. No LLM call involved.
 \end{enumerate}
 
-The critical design decision is that when the Verifier detects a failure, the retry input is \textit{only} the structured failure report---the violated constraint and the intermediate output---not the full notebook history. This keeps retry contexts short (typically under 500 tokens vs.\ 5,000--15,000 tokens for a full notebook) and focused on the specific correction needed. The full notebook is never re-fed to the model after initial execution, eliminating the context contamination problem.
+The critical design decision is that when the Verifier detects a failure, the retry input is \textit{only} the structured failure report: the violated constraint and the intermediate output, not the full notebook history. This keeps retry contexts short (typically under 500 tokens vs.\ 5,000--15,000 tokens for a full notebook) and focused on the specific correction needed. The full notebook is never re-fed to the model after initial execution, which directly reduces context contamination.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.9\textwidth]{artifact_pipeline}
+\caption{Verifiable artifact pipeline. Each stage emits a compact artifact that can be checked before the next stage consumes it. Repair is conditioned on the structured verifier report rather than the full notebook history.}
+\label{fig:artifact_pipeline}
+\end{figure*}
 
 \subsection{Lightweight vs.\ Full Verification Regimes}
 
@@ -230,6 +252,13 @@ Baseline + original reformat & 48.94\% & 44.00\% & 30.24 \\
 \end{tabular}
 \end{table*}
 
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.86\textwidth]{structured_results}
+\caption{Structured interaction on the Qwen3.5-Flash small-set experiment. Lightweight structure improves accuracy with modest overhead, while full verification provides additional gains on harder questions at higher runtime.}
+\label{fig:structured_results}
+\end{figure*}
+
 Both structured regimes outperform the baseline, confirming that even lightweight constraints (DataCard + Answer Spec + Final Block) provide measurable gains over unstructured reformatting. The \texttt{harness\_light} improves ABQ by 2.63pp and Hard ABQ by 3.32pp at a modest 6.8s runtime increase. The \texttt{harness\_full} adds another 1.26pp ABQ and 2.12pp Hard ABQ at an additional 6.8s cost. Whether full verification is worthwhile depends on the task: for questions where format constraints suffice (the majority of Easy/Medium), light is the better choice; for hard questions where semantic errors are more likely, full verification provides net benefit.
 
 These results inform our resource scheduling: the right question is not ``light or full?'' but ``which tasks need full verification, and which can succeed with light constraints?'' This risk-based dispatch is the subject of Section~\ref{sec:resource}.
@@ -243,7 +272,7 @@ An underappreciated benefit of the artifact pipeline is that verifiable artifact
 
 \subsection{The EqTok Metric}
 
-Comparing resource consumption across heterogeneous model families requires a common unit. Raw token count is misleading because tokens from different models have different costs. API call count is misleading because a single call to a 32B model may be more expensive than ten calls to an 8B model. We define \textbf{EqTok} (Equivalent Tokens) as a pricing-weighted token count:
+Comparing resource consumption across heterogeneous model families requires a common unit. Raw token count is misleading because tokens from different models have different prices. API call count is also misleading because a single 32B call may cost more than several 8B calls. We define \textbf{EqTok} (Equivalent Tokens) as a pricing-weighted token count:
 
 \begin{equation}
 \mathrm{EqTok} = T_{32B} + 0.5 \cdot T_{14B} + 0.25 \cdot T_{8B}
@@ -278,7 +307,7 @@ Final Formatting & Render into required output format & Deterministic \\
 \end{tabular}
 \end{table*}
 
-The key principle is risk-proportional resource allocation: deterministic sub-tasks (data profiling, verification, formatting, cleanup) never trigger an LLM call. Among LLM-dependent sub-tasks, model size is chosen by the estimated difficulty of that specific sub-task, not uniformly. Easy step planning uses an 8B model; hard code generation uses a 32B model. This is fundamentally different from the default approach of using the same model for every sub-task regardless of difficulty.
+The key principle is risk-proportional resource allocation: deterministic sub-tasks (data profiling, verification, formatting, cleanup) never trigger an LLM call. For LLM-dependent sub-tasks, model size is chosen by the estimated difficulty of that specific sub-task rather than by a global setting. Easy step planning uses an 8B model; hard code generation uses a 32B model. This differs from the common default of using the same model for every sub-task regardless of difficulty.
 
 \subsection{Dialogue Reduction Mechanisms}
 
@@ -311,6 +340,13 @@ Small Model Rules & 78.42\% & 3.517 & 1,956 \\
 \end{tabular}
 \end{table*}
 
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.86\textwidth]{resource_ablation}
+\caption{Resource ablation with pricing-normalized EqTok. Smaller-model routing increases the number of API calls but sharply reduces 32B-equivalent token cost, retaining most of the baseline ABQ accuracy.}
+\label{fig:resource_ablation}
+\end{figure*}
+
 The Small Model Rules configuration reduces EqTok by 41.0\% (from 5.96M to 3.52M) while retaining 95.9\% of baseline accuracy (78.42\% vs.\ 81.74\%). Dialogue reduction further decreases EqTok to 3.30M (44.7\% total savings) with a marginal accuracy gain (78.63\%), confirming that eliminating redundant model calls does not hurt and may help by reducing context noise.
 
 Notably, the resource-efficient configurations exhibit higher API call counts (1,956 and 1,874 vs.\ 1,621) despite lower total resource consumption. This reflects a fundamental trade-off: smaller models require more debugging rounds because they make more frequent errors, but each round is substantially cheaper. The EqTok metric correctly captures this trade-off where raw call count would misleadingly suggest the resource-efficient configuration is more expensive.
@@ -329,7 +365,7 @@ Figure~\ref{fig:architecture} illustrates the integrated DatawiseAgent architect
 \label{fig:architecture}
 \end{figure*}
 
-The integration yields three operational principles that synthesize findings across all three contribution areas:
+The integrated design yields three operational principles that synthesize findings across all three contribution areas:
 
 \begin{enumerate}
     \item \textbf{Failure modes are not uniform}: InfiAgentBench errors stem from answer definition, statistical rules, and output format; DataModeling errors stem from submission quality, metrics, manifests, and low-information predictions. The harness must be task-specific rather than monolithic.
@@ -342,7 +378,7 @@ The integration yields three operational principles that synthesize findings acr
 
 \subsection{When Training-Free Harness Improvements Are Insufficient}
 
-Our results also reveal boundary conditions where harness engineering alone cannot substitute for model capability:
+Our results also reveal boundary conditions where harness engineering cannot substitute for model capability:
 
 \begin{itemize}
     \item \textbf{Multi-Concept Hard Questions}: All 19 Machine Learning questions in InfiAgentBench are classified as Hard and combine ML with Comprehensive Preprocessing or Feature Engineering. These questions require simultaneous reasoning about feature engineering, model selection, hyperparameter tuning, and validation strategy. No amount of format constraint can fix fundamentally incorrect modeling choices---the harness can ensure the answer is well-formed, but not that it is correct.
@@ -370,7 +406,7 @@ Future work includes: (1) extending the risk-stratified scheduler to additional 
 
 \section{Conclusion}
 
-We have presented a systematic study of three interconnected challenges in deploying LLM-based data science agents: task-specific failure heterogeneity that generic harnesses cannot address, the non-monotonic benefit of long unstructured interactions, and unsustainable resource consumption from uniform large-model deployment. Through DatawiseAgent, we demonstrated that (1) a task-aware harness with protocol routing eliminates format-level errors and improves accuracy by 8--12 percentage points on InfiAgentBench; (2) structuring long interactions into verifiable artifacts with targeted, failure-report-only retry prevents context contamination and improves weak-model performance; and (3) risk-stratified scheduling with the EqTok metric achieves approximately 40\% resource savings while maintaining 96\% of baseline accuracy. Our boundary analysis further clarifies when training-free engineering reaches its limits---on hard multi-concept questions, low-information predictive submissions, and under memory saturation---providing a roadmap for hybrid approaches that combine harness optimization with model capability improvement. The design principles we distill---classify before constraining, verify at artifact boundaries, match model size to risk, measure holistically with EqTok, and accept training-free limits---offer actionable guidance for building the next generation of cost-effective, reliable data science agents.
+We presented a systematic study of three interconnected challenges in deploying LLM-based data science agents: task-specific failure heterogeneity that generic harnesses cannot address, the non-monotonic value of long unstructured interactions, and high resource consumption from uniform large-model deployment. Through DatawiseAgent, we showed that (1) a task-aware harness with protocol routing eliminates format-level errors and improves accuracy by 8--12 percentage points on InfiAgentBench; (2) structuring long interactions into verifiable artifacts with targeted, failure-report-only retry reduces context contamination and improves weak-model performance; and (3) risk-stratified scheduling with the EqTok metric achieves approximately 40\% resource savings while maintaining 96\% of baseline accuracy. Our boundary analysis clarifies where training-free engineering reaches its limits: hard multi-concept questions, low-information predictive submissions, and memory saturation. The resulting design principles---classify before constraining, verify at artifact boundaries, match model size to risk, measure holistically with EqTok, and accept training-free limits---offer actionable guidance for building cost-effective and reliable data science agents.
 
 \bibliography{datawiseagent_refs}
 
