@@ -133,6 +133,15 @@ These distinct failure patterns motivate our three-part optimization: task-speci
 
 The central premise of the task-aware harness is that different question types require different constraint protocols. A Summary Statistics question needs strict enforcement of column selection and rounding precision; a Correlation question needs the method declared before computation; a Machine Learning question needs a model card rather than a fixed formula. Uniform constraints therefore either under-specify questions that need strict rules or over-specify questions that need modeling flexibility.
 
+Figure~\ref{fig:da_hero_overview} summarizes the resulting DA-HERO pipeline. The task-aware routing block analyzes requirements and dispatches each question to a level-, concept-, and type-specific plan before execution; downstream verifier and finalizer modules then enforce the structured answer contract.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.96\textwidth]{2404.PNG}
+\caption{DA-HERO overview for task-aware routing, structured verification, and resource-aware scheduling. The figure highlights how benchmark inputs are converted into requirement specifications, routed through concept-specific skills, checked by verifier/finalizer modules, and saved as reproducible artifacts.}
+\label{fig:da_hero_overview}
+\end{figure*}
+
 We implement a \textbf{Task Router} that classifies each incoming question along four axes: (1) difficulty level (Easy/Medium/Hard), derived from benchmark metadata; (2) data science concepts (Summary Statistics, Correlation, Feature Engineering, Machine Learning, Comprehensive Preprocessing); (3) question-intent keywords (e.g., ``average,'' ``correlation,'' ``predict,'' ``transform''); and (4) expected output format (scalar, list, DataFrame, JSON).
 
 Each question type maps to a \textbf{Harness Spec}, a protocol card specifying:
