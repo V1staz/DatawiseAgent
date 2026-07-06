@@ -41,13 +41,17 @@ from typing import Optional
 
 import httpx
 
-from chat_test_asyncio import create_session, create_user, chat, upload_file
+from chat_test_asyncio import create_session, create_user, chat, upload_file, stop_session
 
 def main(
     user_id: uuid.UUID,
     user_name: Optional[str] = None,
     result_path: str | Path = Path(f"./results/DataModeling/gpt-4o-mini/"),
     model: str = "gpt-4o-mini",
+    start_index: int = 0,
+    end_index: int | None = None,
+    limit: int | None = None,
+    skip_ids: set[int] | None = None,
 ):
 
     Path(result_path).mkdir(parents=True, exist_ok=True)
@@ -78,12 +82,25 @@ def main(
 
     instruction = "I have a data modeling task. You must give me the predicted results as a CSV file as detailed in the following content. You should try your best to predict the answer. I provide you with three files. One is training data, one is test data. There is also a sample file for submission."
 
+    completed_this_run = 0
+    if skip_ids is None:
+        skip_ids = {3}
+
     for i, item in enumerate(samples):
+
+        if i < start_index:
+            continue
+
+        if end_index is not None and i >= end_index:
+            continue
+
+        if limit is not None and completed_this_run >= limit:
+            break
 
         if i in id2results:
             continue
 
-        if i == 3:  #  or i == 17:
+        if i in skip_ids:
             continue
 
         # if i == 14 or i == 17 or i == 22 or i == 33 or i == 48:
@@ -100,6 +117,7 @@ def main(
 
         all_context = instruction + "\n" + description + "\n" + text
 
+        session_id: uuid.UUID | None = None
         try:
             session_id = uuid.UUID(
                 create_session(
@@ -193,12 +211,22 @@ def main(
             with open(results_path, encoding="utf-8", mode="a+") as f:
                 f.write(json.dumps(iteration_result, ensure_ascii=False) + "\n")
                 f.flush()
+            completed_this_run += 1
 
         except Exception as e:
             import traceback
 
             with open(log_path, encoding="utf-8", mode="a+") as f:
                 f.write(traceback.format_exc())
+        finally:
+            if session_id is not None:
+                try:
+                    stop_session(str(user_id), str(session_id))
+                except Exception:
+                    import traceback
+
+                    with open(log_path, encoding="utf-8", mode="a+") as f:
+                        f.write(traceback.format_exc())
 
         # create session
 
@@ -228,6 +256,36 @@ if __name__ == "__main__":
         default="./results/DSBench/gpt-4o-mini/",
         help="Path to store results (default: ./results/DSBench/gpt-4o-mini/)",
     )
+    parser.add_argument(
+        "--model",
+        type=str,
+        default="gpt-4o-mini",
+        help="Model name to record in results.jsonl.",
+    )
+    parser.add_argument(
+        "--start",
+        type=int,
+        default=0,
+        help="Inclusive task index to start from.",
+    )
+    parser.add_argument(
+        "--end",
+        type=int,
+        default=None,
+        help="Exclusive task index to stop at.",
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Maximum number of new tasks to run this invocation.",
+    )
+    parser.add_argument(
+        "--skip_ids",
+        type=str,
+        default="3",
+        help="Comma-separated task indices to skip. Default keeps legacy skip of task 3.",
+    )
 
     args = parser.parse_args()
 
@@ -243,6 +301,11 @@ if __name__ == "__main__":
         user_id=user_id,
         user_name=args.user_name,
         result_path=args.result_path,
+        model=args.model,
+        start_index=args.start,
+        end_index=args.end,
+        limit=args.limit,
+        skip_ids={int(x) for x in args.skip_ids.split(",") if x.strip()},
         # "./results/DataModeling/gpt-4o-test/",
         # result_path="./results/DataModeling/qwen25-72B/",
         # model="Qwen/Qwen2.5-72B-Instruct",

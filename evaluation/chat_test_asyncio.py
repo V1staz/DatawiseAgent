@@ -31,7 +31,7 @@ async def register_websocket(user_id: str, session_id: str):
 
 def create_user(username: str):
     response = httpx.post(
-        f"{BASE_URL}/create_user/", json={"username": username}, timeout=None
+        f"{BASE_URL}/create_user/", json={"username": username}, timeout=None, trust_env=False
     )
     response_data = _json_or_raise(response, "create_user")
     print("Create User Response:", response_data)
@@ -54,6 +54,7 @@ def create_session(
         f"{BASE_URL}/users/{user_id}/sessions/{session_name}",
         json=payload,
         timeout=None,
+        trust_env=False,
     )
     response_data = _json_or_raise(response, "create_session")
     print("Create Session Response:", response_data)
@@ -67,7 +68,10 @@ def chat(
     work_mode: Literal["jupyter", "jupyter+script"] = "jupyter",
     agent_config: Optional[dict] = None,
     request_timeout: Optional[float] = 3600,
+    timeout_seconds: Optional[float] = None,
 ):
+    if timeout_seconds is not None:
+        request_timeout = timeout_seconds
     payload = {
         "user_id": user_id,
         "session_id": session_id,
@@ -80,6 +84,7 @@ def chat(
         f"{BASE_URL}/chat/",
         json=payload,
         timeout=request_timeout,
+        trust_env=False,
     )
     response_data = _json_or_raise(response, "chat")
     print("Chat Response:", response_data)
@@ -106,6 +111,7 @@ def upload_file(
             data={"user_id": user_id, "session_id": session_id},
             files=files,
             timeout=None,
+            trust_env=False,
         )
     response_data = _json_or_raise(response, "upload_file")
     print("Upload File Response:", response_data)
@@ -113,7 +119,7 @@ def upload_file(
 
 def stop_session(user_id: str, session_id: str):
     response = httpx.delete(
-        f"{BASE_URL}/users/{user_id}/sessions/{session_id}", timeout=120
+        f"{BASE_URL}/users/{user_id}/sessions/{session_id}", timeout=120, trust_env=False
     )
     response_data = _json_or_raise(response, "stop_session")
     print("Stop Session Response:", response_data)

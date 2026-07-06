@@ -1,0 +1,7 @@
+{"id":"dm.lifecycle.final_requires_manifest","scope":"all","priority":100,"text":"Do not treat a structurally valid CSV as final until submission_manifest.json explains the selected modeling attempt and validation evidence."}
+{"id":"dm.lifecycle.fallback_separate","scope":"all","priority":95,"text":"Write fallback_submission.csv for recovery, but keep it separate from final_submission.csv unless all improved attempts fail and the manifest marks fallback_recovery."}
+{"id":"dm.preprocessing.pipeline","scope":"tabular","priority":90,"text":"For sklearn tabular models, use ColumnTransformer/Pipeline with imputation and unknown-safe categorical encoding instead of feeding raw object columns to estimators."}
+{"id":"dm.budget.observable_cells","scope":"all","priority":80,"text":"Keep code cells small and observable; cap rows for heavy models before a valid quality-backed final exists."}
+{"id":"dm.binary.probabilities","scope":"tabular_binary_classification","priority":90,"text":"For AUC/log-loss/average-precision/gini tasks, output probabilities in [0,1], not hard labels."}
+{"id":"dm.multioutput.independent","scope":"multi_output","priority":85,"text":"For independent multi-output targets, validate each target independently and do not row-normalize probabilities unless the competition explicitly requires it."}
+{"id":"dm.text.vectorize","scope":"text_modeling","priority":85,"text":"Text columns must be vectorized or converted into explicit features before modeling; never feed raw text directly into numeric estimators."}
