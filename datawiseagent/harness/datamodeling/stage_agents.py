@@ -1,12 +1,10 @@
 """Stage-level role planning for DataModeling harness prompts.
 
-The live benchmark runner still uses one DatawiseAgent session, but the harness
-can make that session execute with explicit internal role separation.  This is
-not a runtime multi-agent dispatcher; it is a machine-readable staged handoff
-plan. Each stage has one accountable role persona, concrete inputs, outputs,
-and failure checks. The final manifest is then expected to summarize those
-stage outputs so repairs can target the failing phase rather than restarting
-broadly.
+The stage plan is both a prompt contract and, when enabled by the live runner,
+an executable sub-agent graph.  Each stage has one accountable role persona,
+concrete inputs, outputs, guardrails, and handoffs.  Runtime stage sub-agents
+produce structured artifacts that the main modeling agent, verifier, and repair
+loop can consume.
 """
 
 from __future__ import annotations
@@ -53,7 +51,7 @@ class StageAgentPlan:
     def prompt_summary(self) -> str:
         lines = [
             f"orchestration_mode={self.orchestration_mode}",
-            "runtime_semantics=single DatawiseAgent session; use these as internal stage roles, not separately spawned processes",
+            "runtime_semantics=executable harness sub-agents when enabled; otherwise single-session internal stage roles",
             f"manifest_must_include={self.required_manifest_key}",
         ]
         lines.extend(agent.prompt_summary() for agent in self.agents)
@@ -137,7 +135,7 @@ def build_stage_agent_plan(protocol_plan: ModelingProtocolPlan) -> StageAgentPla
         ),
     ]
     agents.extend(_task_specific_agents(protocol_plan))
-    return StageAgentPlan(orchestration_mode="single_session_internal_stage_roles", agents=agents)
+    return StageAgentPlan(orchestration_mode="executable_stage_subagent_pipeline", agents=agents)
 
 
 def _task_specific_agents(protocol_plan: ModelingProtocolPlan) -> list[StageAgent]:
