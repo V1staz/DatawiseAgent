@@ -37,12 +37,23 @@ from .memory import build_outcome_memory_card, retrieve_memory_lessons, write_ou
 from .profiler import build_profile, write_profile
 from .protocol import build_protocol_plan
 from .quality import QualityReport, evaluate_submission_quality, quality_failure_category
-from .repair_planner import actions_to_dict, plan_repair_actions
+from .repair_planner import RepairAction, actions_to_dict, plan_repair_actions
 from .risk_scheduler import build_risk_plan
-from .stage_agents import build_stage_agent_plan
+from .review_agent import PASSING_REVIEW, ReviewDecision, parse_review_response, render_review_prompt
+from .stage_agents import StageAgent, build_stage_agent_plan
 from .stage_artifacts import write_finalization_stage_artifact, write_pre_execution_stage_artifacts
+from .stage_pipeline import (
+    StagePipelineResult,
+    executable_pre_modeling_agents,
+    find_stage_agent,
+    parse_stage_subagent_response,
+    relevant_prior_outputs,
+    render_stage_subagent_prompt,
+    write_stage_pipeline_result,
+)
 from .skill_cards import get_skill_cards
 from .submission import SubmissionValidationResult, validate_submission
+from .submission_repair import repair_submission_layers, should_scaffold_repair_quality
 from .task_router import TaskRoute, route_task
 from .verified_evidence import VerifiedModelingEvidence, build_verified_modeling_evidence
 
@@ -108,6 +119,13 @@ class DataModelingAgentHarnessConfig:
     verified_evidence_budget_seconds: int = 90
     verified_evidence_max_candidates: int = 3
     preserve_scoreable_low_confidence: bool = True
+    deterministic_submission_repair: bool = True
+    enable_review_agent: bool = True
+    review_agent_timeout_seconds: int = 600
+    enable_stage_subagent_pipeline: bool = True
+    stage_subagent_timeout_seconds: int = 600
+    stop_stage_subagent_sessions: bool = True
+    write_static_stage_artifacts: bool = False
 
 
 @dataclass(slots=True)
@@ -255,17 +273,73 @@ class DataModelingAgentHarnessRunner:
                 trust=getattr(verified_evidence, "validation_metric_trust", None),
                 best_candidate=getattr(verified_evidence, "best_candidate_name", None),
             )
-            stage_artifact_paths = write_pre_execution_stage_artifacts(
+            stage_artifact_paths = (
+                write_pre_execution_stage_artifacts(
+                    artifact_dir,
+                    contract=contract,
+                    profile=profile,
+                    availability=availability,
+                    route=route,
+                    protocol_plan=protocol_plan,
+                    verified_evidence=verified_evidence,
+                )
+                if self.config.write_static_stage_artifacts
+                else {}
+            )
+            mark("stage_artifacts_written", artifact_count=len(stage_artifact_paths), enabled=self.config.write_static_stage_artifacts)
+            guidance = load_guidance_pack()
+            prompt = ""
+            (artifact_dir / "contract.json").write_text(json.dumps(contract.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+            write_profile(profile, artifact_dir / "profile.json")
+            (artifact_dir / "route.json").write_text(json.dumps(route.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+            guidance_artifacts = guidance.write_artifacts(artifact_dir, route.scopes)
+        except Exception as exc:
+            return self._setup_failure_result(task, start, exc)
+
+        user_id: str | None = None
+        session_id: str | None = None
+        response_content = ""
+        result_path = ""
+        validation_payloads: list[dict[str, Any]] = []
+        quality_payloads: list[dict[str, Any]] = []
+        review_payloads: list[dict[str, Any]] = []
+        review_response_paths: list[str] = []
+        submission_artifacts: list[dict[str, Any]] = []
+        repair_prompts: list[str] = []
+        repair_plan_paths: list[str] = []
+        chat_response_paths: list[str] = []
+        early_stop_count = 0
+        failure = False
+        failure_category = "none"
+        score_result: dict[str, Any] | None = None
+        deterministic_recipe_used = False
+        quality_confidence = "unavailable"
+        current_session_stopped = False
+        stage_pipeline_result = StagePipelineResult(mode="disabled", skipped=True, reason="not_started")
+
+        try:
+            user_name = f"{self.config.model_name}-{contract.task_id}-{contract.name}"
+            user_id = self.client.create_user(user_name)
+            stage_pipeline_result = self._run_stage_subagent_pipeline(
+                user_id,
+                contract,
+                profile,
+                route,
+                protocol_plan,
+                stage_agent_plan,
                 artifact_dir,
-                contract=contract,
-                profile=profile,
                 availability=availability,
-                route=route,
-                protocol_plan=protocol_plan,
+                risk_plan=risk_plan,
                 verified_evidence=verified_evidence,
             )
-            mark("stage_artifacts_written", artifact_count=len(stage_artifact_paths))
-            guidance = load_guidance_pack()
+            stage_pipeline_path = write_stage_pipeline_result(stage_pipeline_result, artifact_dir / "stage_subagent_pipeline.json")
+            mark(
+                "stage_subagents_completed",
+                enabled=self.config.enable_stage_subagent_pipeline,
+                outputs=len(stage_pipeline_result.outputs),
+                blocked=stage_pipeline_result.blocked,
+                path=stage_pipeline_path,
+            )
             prompt = render_agent_prompt(
                 contract,
                 profile,
@@ -278,36 +352,10 @@ class DataModelingAgentHarnessRunner:
                 stage_agent_plan=stage_agent_plan,
                 prior_memory_lessons=prior_memory_lessons,
                 verified_evidence=verified_evidence,
+                stage_pipeline_result=stage_pipeline_result,
             )
-            (artifact_dir / "contract.json").write_text(json.dumps(contract.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
-            write_profile(profile, artifact_dir / "profile.json")
-            (artifact_dir / "route.json").write_text(json.dumps(route.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
-            guidance_artifacts = guidance.write_artifacts(artifact_dir, route.scopes)
             (artifact_dir / "initial_prompt.txt").write_text(prompt, encoding="utf-8")
-            mark("prompted", prompt_path=str(artifact_dir / "initial_prompt.txt"))
-        except Exception as exc:
-            return self._setup_failure_result(task, start, exc)
-
-        user_id: str | None = None
-        session_id: str | None = None
-        response_content = ""
-        result_path = ""
-        validation_payloads: list[dict[str, Any]] = []
-        quality_payloads: list[dict[str, Any]] = []
-        submission_artifacts: list[dict[str, Any]] = []
-        repair_prompts: list[str] = []
-        repair_plan_paths: list[str] = []
-        chat_response_paths: list[str] = []
-        early_stop_count = 0
-        failure = False
-        failure_category = "none"
-        score_result: dict[str, Any] | None = None
-        quality_confidence = "unavailable"
-        current_session_stopped = False
-
-        try:
-            user_name = f"{self.config.model_name}-{contract.task_id}-{contract.name}"
-            user_id = self.client.create_user(user_name)
+            mark("prompted", prompt_path=str(artifact_dir / "initial_prompt.txt"), stage_subagent_outputs=len(stage_pipeline_result.outputs))
             session_id = self._create_task_session(user_id, contract)
             mark("session_created", session_id=session_id)
 
@@ -335,7 +383,7 @@ class DataModelingAgentHarnessRunner:
                 timeout=bool(chat_response.get("timeout")),
             )
             result_path = self._canonical_submission_path(user_id, session_id)
-            validation, quality = self._validate_attempt(
+            validation, quality, repair_used_scaffold = self._validate_attempt(
                 result_path,
                 contract,
                 route,
@@ -346,13 +394,52 @@ class DataModelingAgentHarnessRunner:
                 attempt=0,
                 submission_artifacts=submission_artifacts,
             )
+            deterministic_recipe_used = deterministic_recipe_used or repair_used_scaffold
             validation_payloads.append(validation.to_dict())
             quality_payloads.append(quality.to_dict())
             mark("validated", attempt=0, passed=validation.passed, errors=validation.errors[:3])
             mark("quality_checked", attempt=0, passed=quality.passed, errors=quality.errors[:3])
+            verifier_output = self._run_verifier_stage_subagent(
+                user_id,
+                session_id,
+                contract,
+                profile,
+                route,
+                protocol_plan,
+                stage_agent_plan,
+                artifact_dir,
+                attempt=0,
+                validation=validation,
+                quality=quality,
+                verified_evidence=verified_evidence,
+                session_active=not current_session_stopped,
+            )
+            if verifier_output is not None:
+                stage_pipeline_result.outputs.append(verifier_output)
+                write_stage_pipeline_result(stage_pipeline_result, artifact_dir / "stage_subagent_pipeline.json")
+                mark("stage_subagent_verified", attempt=0, status=verifier_output.status, blocked=verifier_output.blocked)
+            review_decision, review_path = self._review_attempt(
+                user_id,
+                session_id,
+                result_path,
+                contract,
+                route,
+                validation,
+                quality,
+                protocol_plan,
+                stage_agent_plan,
+                verified_evidence,
+                artifact_dir,
+                attempt=0,
+                session_active=not current_session_stopped,
+            )
+            review_payloads.append(review_decision.to_dict())
+            if review_path:
+                review_response_paths.append(review_path)
+            mark("reviewed", attempt=0, passed=review_decision.passed, blocks_finalization=review_decision.blocks_finalization, summary=review_decision.summary[:160])
 
             attempt = 0
-            while self._attempt_needs_repair(validation, quality) and attempt < self.config.max_repair_attempts:
+            while self._attempt_needs_repair(validation, quality, review_decision) and attempt < self.config.max_repair_attempts:
                 attempt += 1
                 if self.config.fresh_session_per_repair and not current_session_stopped and user_id is not None and session_id is not None:
                     self._stop_session_quietly(user_id, session_id)
@@ -362,7 +449,10 @@ class DataModelingAgentHarnessRunner:
                     current_session_stopped = False
                     result_path = self._canonical_submission_path(user_id, session_id)
                     mark("session_created", attempt=attempt, session_id=session_id)
-                repair_actions = plan_repair_actions(contract, validation, quality=quality, route=route, protocol_plan=protocol_plan)
+                repair_actions = self._merge_review_action(
+                    plan_repair_actions(contract, validation, quality=quality, route=route, protocol_plan=protocol_plan),
+                    review_decision,
+                )
                 repair_plan_path = artifact_dir / f"repair_plan_attempt_{attempt}.json"
                 repair_plan_path.write_text(json.dumps(actions_to_dict(repair_actions), ensure_ascii=False, indent=2), encoding="utf-8")
                 repair_plan_paths.append(str(repair_plan_path))
@@ -378,6 +468,8 @@ class DataModelingAgentHarnessRunner:
                     stage_agent_plan=stage_agent_plan,
                     repair_actions=repair_actions,
                     verified_evidence=verified_evidence,
+                    review_decision=review_decision,
+                    stage_pipeline_result=stage_pipeline_result,
                 )
                 repair_prompts.append(repair_prompt)
                 (artifact_dir / f"repair_prompt_attempt_{attempt}.txt").write_text(repair_prompt, encoding="utf-8")
@@ -413,7 +505,7 @@ class DataModelingAgentHarnessRunner:
                     timeout=bool(repair_response.get("timeout")),
                 )
                 result_path = self._canonical_submission_path(user_id, session_id)
-                validation, quality = self._validate_attempt(
+                validation, quality, repair_used_scaffold = self._validate_attempt(
                     result_path,
                     contract,
                     route,
@@ -424,12 +516,53 @@ class DataModelingAgentHarnessRunner:
                     attempt=attempt,
                     submission_artifacts=submission_artifacts,
                 )
+                deterministic_recipe_used = deterministic_recipe_used or repair_used_scaffold
                 validation_payloads.append(validation.to_dict())
                 quality_payloads.append(quality.to_dict())
                 mark("validated", attempt=attempt, passed=validation.passed, errors=validation.errors[:3])
                 mark("quality_checked", attempt=attempt, passed=quality.passed, errors=quality.errors[:3])
+                verifier_output = self._run_verifier_stage_subagent(
+                    user_id,
+                    session_id,
+                    contract,
+                    profile,
+                    route,
+                    protocol_plan,
+                    stage_agent_plan,
+                    artifact_dir,
+                    attempt=attempt,
+                    validation=validation,
+                    quality=quality,
+                    verified_evidence=verified_evidence,
+                    session_active=not current_session_stopped,
+                )
+                if verifier_output is not None:
+                    stage_pipeline_result.outputs.append(verifier_output)
+                    write_stage_pipeline_result(stage_pipeline_result, artifact_dir / "stage_subagent_pipeline.json")
+                    mark("stage_subagent_verified", attempt=attempt, status=verifier_output.status, blocked=verifier_output.blocked)
+                review_decision, review_path = self._review_attempt(
+                    user_id,
+                    session_id,
+                    result_path,
+                    contract,
+                    route,
+                    validation,
+                    quality,
+                    protocol_plan,
+                    stage_agent_plan,
+                    verified_evidence,
+                    artifact_dir,
+                    attempt=attempt,
+                    session_active=not current_session_stopped,
+                )
+                review_payloads.append(review_decision.to_dict())
+                if review_path:
+                    review_response_paths.append(review_path)
+                mark("reviewed", attempt=attempt, passed=review_decision.passed, blocks_finalization=review_decision.blocks_finalization, summary=review_decision.summary[:160])
 
             quality_confidence = _quality_confidence(validation, quality, enforce_quality_gate=self.config.enforce_quality_gate)
+            if review_decision.blocks_finalization:
+                quality_confidence = "review_blocked"
             scoreable_low_confidence = (
                 self.config.preserve_scoreable_low_confidence
                 and validation.passed
@@ -437,7 +570,7 @@ class DataModelingAgentHarnessRunner:
                 and not quality.passed
                 and not _quality_blocks_scoring(quality)
             )
-            if validation.passed and (not self.config.enforce_quality_gate or quality.passed or scoreable_low_confidence):
+            if validation.passed and not review_decision.blocks_finalization and (not self.config.enforce_quality_gate or quality.passed or scoreable_low_confidence):
                 final_artifact = self._copy_final_submission(result_path, artifact_dir)
                 result_path = str(final_artifact)
                 if scoreable_low_confidence:
@@ -458,7 +591,12 @@ class DataModelingAgentHarnessRunner:
                         failure_category = "score_failed"
             else:
                 failure = True
-                failure_category = _failure_category(validation) if not validation.passed else quality_failure_category(quality)
+                if not validation.passed:
+                    failure_category = _failure_category(validation)
+                elif review_decision.blocks_finalization:
+                    failure_category = "review_agent_blocked"
+                else:
+                    failure_category = quality_failure_category(quality)
                 mark("failed", failure_category=failure_category)
 
         except Exception as exc:
@@ -486,6 +624,7 @@ class DataModelingAgentHarnessRunner:
             "score": score_result,
             "fresh_session_per_repair": self.config.fresh_session_per_repair,
             "quality_confidence": quality_confidence,
+            "deterministic_recipe_used": deterministic_recipe_used,
         }
         (artifact_dir / "runtime.json").write_text(json.dumps(runtime, ensure_ascii=False, indent=2), encoding="utf-8")
         run_state_path, event_timeline_path = self._write_run_state_artifacts(
@@ -532,7 +671,7 @@ class DataModelingAgentHarnessRunner:
             harness={
                 "mode": "llm_in_the_loop_agent_harness",
                 "agent_does_modeling": True,
-                "deterministic_recipe_used": False,
+                "deterministic_recipe_used": deterministic_recipe_used,
                 "label_blind_inputs": True,
                 "answers_or_gt_used_for_training": False,
                 "contract_path": str(artifact_dir / "contract.json"),
@@ -541,6 +680,8 @@ class DataModelingAgentHarnessRunner:
                 "data_availability_path": str(data_availability_path),
                 "protocol_plan_path": str(protocol_plan_path),
                 "stage_agent_plan_path": str(stage_agent_plan_path),
+                "stage_subagent_pipeline_path": str(artifact_dir / "stage_subagent_pipeline.json"),
+                "stage_subagent_pipeline": stage_pipeline_result.to_dict(),
                 "stage_artifact_paths": stage_artifact_paths,
                 "verified_modeling_evidence_path": str(verified_evidence_path) if verified_evidence_path else None,
                 "selected_skill_cards_path": str(selected_skill_cards_path),
@@ -555,6 +696,8 @@ class DataModelingAgentHarnessRunner:
                 "chat_response_paths": chat_response_paths,
                 "validation_reports": validation_payloads,
                 "quality_reports": quality_payloads,
+                "review_reports": review_payloads,
+                "review_response_paths": review_response_paths,
                 "submission_artifacts": submission_artifacts,
                 "repair_plan_paths": repair_plan_paths,
                 "repair_count": len(repair_prompts),
@@ -562,6 +705,9 @@ class DataModelingAgentHarnessRunner:
                 "fresh_session_per_repair": self.config.fresh_session_per_repair,
                 "quality_confidence": quality_confidence,
                 "preserve_scoreable_low_confidence": self.config.preserve_scoreable_low_confidence,
+                "enable_review_agent": self.config.enable_review_agent,
+                "enable_stage_subagent_pipeline": self.config.enable_stage_subagent_pipeline,
+                "write_static_stage_artifacts": self.config.write_static_stage_artifacts,
                 "artifact_dir": str(artifact_dir),
                 "failure_category": failure_category,
                 "official_score": score_result,
@@ -604,6 +750,182 @@ class DataModelingAgentHarnessRunner:
             failure=True,
         )
         return AgentHarnessTaskResult(record=record, artifact_dir=artifact_dir)
+
+    def _run_stage_subagent_pipeline(
+        self,
+        user_id: str,
+        contract: Any,
+        profile: Any,
+        route: TaskRoute,
+        protocol_plan: Any,
+        stage_agent_plan: Any,
+        artifact_dir: Path,
+        *,
+        availability: Any | None = None,
+        risk_plan: Any | None = None,
+        verified_evidence: VerifiedModelingEvidence | None = None,
+    ) -> StagePipelineResult:
+        if not self.config.enable_stage_subagent_pipeline:
+            return StagePipelineResult(mode="disabled", skipped=True, reason="config_disabled")
+        agents = executable_pre_modeling_agents(stage_agent_plan)
+        if not agents:
+            return StagePipelineResult(mode="pre_modeling", skipped=True, reason="no_pre_modeling_agents")
+        result = StagePipelineResult(mode="pre_modeling")
+        prior_outputs: list[Any] = []
+        base_dir = artifact_dir / "stage_subagents"
+        base_dir.mkdir(parents=True, exist_ok=True)
+        for index, agent in enumerate(agents):
+            output = self._run_one_stage_subagent(
+                user_id,
+                contract,
+                profile,
+                route,
+                protocol_plan,
+                stage_agent_plan,
+                agent,
+                base_dir,
+                index=index,
+                availability=availability,
+                risk_plan=risk_plan,
+                verified_evidence=verified_evidence,
+                prior_outputs=relevant_prior_outputs(agent, stage_agent_plan, prior_outputs),
+            )
+            prior_outputs.append(output)
+            result.outputs.append(output)
+            output_path = base_dir / f"{index:02d}_{agent.id}_output.json"
+            output_path.write_text(json.dumps(output.to_dict(), ensure_ascii=False, indent=2, default=str), encoding="utf-8")
+            result.artifact_paths[f"{agent.id}_prompt"] = str(base_dir / f"{index:02d}_{agent.id}_prompt.txt")
+            result.artifact_paths[f"{agent.id}_response"] = str(base_dir / f"{index:02d}_{agent.id}_response.json")
+            result.artifact_paths[f"{agent.id}_output"] = str(output_path)
+            if output.blocked and agent.id == "data_availability_auditor":
+                break
+        return result
+
+    def _run_one_stage_subagent(
+        self,
+        user_id: str,
+        contract: Any,
+        profile: Any,
+        route: TaskRoute,
+        protocol_plan: Any,
+        stage_agent_plan: Any,
+        agent: StageAgent,
+        base_dir: Path,
+        *,
+        index: int,
+        availability: Any | None,
+        risk_plan: Any | None,
+        verified_evidence: VerifiedModelingEvidence | None,
+        prior_outputs: list[Any],
+    ) -> Any:
+        prompt = render_stage_subagent_prompt(
+            agent,
+            contract,
+            profile,
+            route,
+            protocol_plan,
+            stage_agent_plan,
+            availability=availability,
+            risk_plan=risk_plan,
+            verified_evidence=verified_evidence,
+            prior_outputs=prior_outputs,
+        )
+        prompt_path = base_dir / f"{index:02d}_{agent.id}_prompt.txt"
+        prompt_path.write_text(prompt, encoding="utf-8")
+        session_id: str | None = None
+        try:
+            session_id = self._create_stage_subagent_session(user_id, contract, agent)
+            response = self.client.chat(
+                user_id,
+                session_id,
+                query=prompt,
+                work_mode="jupyter+script",
+                timeout_seconds=min(int(self.config.chat_timeout_seconds), int(self.config.stage_subagent_timeout_seconds)),
+            )
+            response = dict(response)
+        except Exception as exc:
+            response = _chat_exception_response(prompt, exc)
+        finally:
+            if session_id is not None and self.config.stop_stage_subagent_sessions:
+                self._stop_session_quietly(user_id, session_id)
+        response_path = base_dir / f"{index:02d}_{agent.id}_response.json"
+        response_path.write_text(json.dumps(response, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
+        return parse_stage_subagent_response(agent, response)
+
+    def _create_stage_subagent_session(self, user_id: str, contract: Any, agent: StageAgent) -> str:
+        session_id = self.client.create_session(user_id, f"{contract.name}-{agent.id}", tool_mode="datamodeling")
+        self._upload_stage_agent_public_csvs(user_id, session_id, contract, agent)
+        return session_id
+
+    def _upload_stage_agent_public_csvs(self, user_id: str, session_id: str, contract: Any, agent: StageAgent) -> None:
+        wanted = _stage_agent_csv_inputs(agent)
+        data_dir = Path(contract.data_dir)
+        for filename in wanted:
+            path = data_dir / filename
+            if path.exists():
+                self.client.upload_file(user_id, session_id, file_path=str(path), filename_to_save=filename)
+
+
+    def _run_verifier_stage_subagent(
+        self,
+        user_id: str | None,
+        session_id: str | None,
+        contract: Any,
+        profile: Any,
+        route: TaskRoute,
+        protocol_plan: Any,
+        stage_agent_plan: Any,
+        artifact_dir: Path,
+        *,
+        attempt: int,
+        validation: SubmissionValidationResult,
+        quality: QualityReport,
+        verified_evidence: VerifiedModelingEvidence | None,
+        session_active: bool,
+    ) -> Any | None:
+        if not self.config.enable_stage_subagent_pipeline or not session_active or not user_id or not session_id:
+            return None
+        agent = find_stage_agent(stage_agent_plan, "verifier_finalizer")
+        if agent is None:
+            return None
+        prompt = render_stage_subagent_prompt(
+            agent,
+            contract,
+            profile,
+            route,
+            protocol_plan,
+            stage_agent_plan,
+            verified_evidence=verified_evidence,
+            finalization_context={
+                "attempt": attempt,
+                "validator": validation.to_dict(),
+                "quality_gate": quality.to_dict(),
+                "expected_final_path": "./input/final_submission.csv",
+                "expected_manifest_path": "./input/submission_manifest.json",
+            },
+        )
+        target_dir = artifact_dir / "stage_subagents"
+        target_dir.mkdir(parents=True, exist_ok=True)
+        prompt_path = target_dir / f"attempt_{attempt:02d}_verifier_finalizer_prompt.txt"
+        prompt_path.write_text(prompt, encoding="utf-8")
+        try:
+            response = self.client.chat(
+                user_id,
+                session_id,
+                query=prompt,
+                work_mode="jupyter+script",
+                timeout_seconds=min(int(self.config.chat_timeout_seconds), int(self.config.stage_subagent_timeout_seconds)),
+            )
+            response = dict(response)
+        except Exception as exc:
+            response = _chat_exception_response(prompt, exc)
+        output = parse_stage_subagent_response(agent, response)
+        response_path = target_dir / f"attempt_{attempt:02d}_verifier_finalizer_response.json"
+        response_path.write_text(
+            json.dumps({"response": response, "output": output.to_dict()}, ensure_ascii=False, indent=2, default=str),
+            encoding="utf-8",
+        )
+        return output
 
     def _upload_public_csvs(self, user_id: str, session_id: str, contract: Any) -> None:
         data_dir = Path(contract.data_dir)
@@ -721,6 +1043,100 @@ class DataModelingAgentHarnessRunner:
         except Exception:
             pass
 
+    def _review_attempt(
+        self,
+        user_id: str | None,
+        session_id: str | None,
+        submission_path: str,
+        contract: Any,
+        route: TaskRoute,
+        validation: SubmissionValidationResult,
+        quality: QualityReport,
+        protocol_plan: Any | None,
+        stage_agent_plan: Any | None,
+        verified_evidence: VerifiedModelingEvidence | None,
+        artifact_dir: Path,
+        *,
+        attempt: int,
+        session_active: bool,
+    ) -> tuple[ReviewDecision, str | None]:
+        if not self.config.enable_review_agent:
+            return PASSING_REVIEW, None
+        if not session_active or not user_id or not session_id:
+            skipped = ReviewDecision(
+                passed=True,
+                confidence="skipped_non_blocking",
+                summary="review agent skipped because the live session is not active",
+            )
+            path = artifact_dir / f"review_agent_attempt_{attempt}.json"
+            path.write_text(json.dumps(skipped.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+            return skipped, str(path)
+
+        prompt = render_review_prompt(
+            contract,
+            validation,
+            quality,
+            attempt=attempt,
+            submission_path=submission_path,
+            route=route,
+            protocol_plan=protocol_plan,
+            stage_agent_plan=stage_agent_plan,
+            verified_evidence=verified_evidence,
+        )
+        (artifact_dir / f"review_prompt_attempt_{attempt}.txt").write_text(prompt, encoding="utf-8")
+        try:
+            response = self.client.chat(
+                user_id,
+                session_id,
+                query=prompt,
+                work_mode="jupyter+script",
+                timeout_seconds=min(int(self.config.chat_timeout_seconds), int(self.config.review_agent_timeout_seconds)),
+            )
+            response = dict(response)
+        except Exception as exc:
+            response = _chat_exception_response(prompt, exc)
+        decision = parse_review_response(response)
+        response_path = artifact_dir / f"review_response_attempt_{attempt}.json"
+        response_path.write_text(
+            json.dumps(
+                {
+                    "response": response,
+                    "decision": decision.to_dict(),
+                },
+                ensure_ascii=False,
+                indent=2,
+                default=str,
+            ),
+            encoding="utf-8",
+        )
+        return decision, str(response_path)
+
+    def _merge_review_action(self, actions: list[RepairAction], review_decision: ReviewDecision) -> list[RepairAction]:
+        if not review_decision.blocks_finalization:
+            return actions
+        findings = [finding for finding in review_decision.findings if finding.severity.lower() in {"blocker", "major"}]
+        required_steps = tuple(
+            finding.repair_instruction
+            for finding in findings
+            if finding.repair_instruction
+        )[:5]
+        evidence = tuple(
+            finding.evidence
+            for finding in findings
+            if finding.evidence
+        )[:5]
+        review_action = RepairAction(
+            id="repair_review_agent_findings",
+            priority=12,
+            problem="The dedicated review-agent found blocker/major finalization risks that must be fixed before scoring.",
+            required_steps=required_steps or ("address the review-agent blocker/major findings",),
+            success_evidence=evidence or ("review-agent findings no longer reproduce",),
+        )
+        merged: dict[str, RepairAction] = {review_action.id: review_action}
+        for action in actions:
+            merged.setdefault(action.id, action)
+        return sorted(merged.values(), key=lambda item: (item.priority, item.id))[: max(3, len(actions))]
+
     def _current_final_submission_valid(
         self,
         user_id: str,
@@ -771,7 +1187,21 @@ class DataModelingAgentHarnessRunner:
         *,
         attempt: int,
         submission_artifacts: list[dict[str, Any]],
-    ) -> tuple[SubmissionValidationResult, QualityReport]:
+    ) -> tuple[SubmissionValidationResult, QualityReport, bool]:
+        repair_used_scaffold = False
+        if self.config.deterministic_submission_repair:
+            repair_submission_layers(
+                result_path,
+                contract,
+                artifact_dir,
+                attempt=attempt,
+                verified_evidence=verified_evidence,
+                route=route,
+                protocol_plan=protocol_plan,
+                stage_agent_plan=stage_agent_plan,
+                reason="pre_validation",
+            )
+
         validation = validate_submission(
             result_path,
             contract,
@@ -779,10 +1209,6 @@ class DataModelingAgentHarnessRunner:
             reject_sample_target_copy=True,
             write_path=artifact_dir / f"validation_attempt_{attempt}.json",
         )
-        if validation.errors == ["submission_file_missing"]:
-            adopted = self._adopt_valid_candidate_submission(result_path, contract, artifact_dir, attempt)
-            if adopted is not None:
-                validation = adopted
         snapshot = self._snapshot_submission(result_path, artifact_dir, attempt)
         if snapshot is not None:
             submission_artifacts.append(snapshot)
@@ -797,64 +1223,58 @@ class DataModelingAgentHarnessRunner:
             stage_agent_plan=stage_agent_plan,
             verified_evidence=verified_evidence,
         )
-        return validation, quality
 
-    def _attempt_needs_repair(self, validation: SubmissionValidationResult, quality: QualityReport) -> bool:
+        if (
+            self.config.deterministic_submission_repair
+            and validation.passed
+            and not quality.passed
+            and should_scaffold_repair_quality(quality.errors)
+        ):
+            scaffold_report = repair_submission_layers(
+                result_path,
+                contract,
+                artifact_dir,
+                attempt=attempt,
+                verified_evidence=verified_evidence,
+                route=route,
+                protocol_plan=protocol_plan,
+                stage_agent_plan=stage_agent_plan,
+                prefer_scaffold=True,
+                allow_scaffold=True,
+                reason="quality_scaffold_repair",
+            )
+            repair_used_scaffold = repair_used_scaffold or scaffold_report.stage == "scaffold_adopted"
+            if scaffold_report.changed:
+                validation = validate_submission(
+                    result_path,
+                    contract,
+                    strict=True,
+                    reject_sample_target_copy=True,
+                    write_path=artifact_dir / f"validation_attempt_{attempt}.json",
+                )
+                snapshot = self._snapshot_submission(result_path, artifact_dir, attempt)
+                if snapshot is not None:
+                    snapshot["repair_stage"] = scaffold_report.stage
+                    submission_artifacts.append(snapshot)
+                quality = evaluate_submission_quality(
+                    result_path,
+                    contract,
+                    route,
+                    validation,
+                    write_path=artifact_dir / f"quality_attempt_{attempt}.json",
+                    require_manifest=self.config.enforce_quality_gate,
+                    protocol_plan=protocol_plan,
+                    stage_agent_plan=stage_agent_plan,
+                    verified_evidence=verified_evidence,
+                )
+        return validation, quality, repair_used_scaffold
+
+    def _attempt_needs_repair(self, validation: SubmissionValidationResult, quality: QualityReport, review_decision: ReviewDecision | None = None) -> bool:
         if not validation.passed:
             return True
+        if review_decision is not None and review_decision.blocks_finalization:
+            return True
         return bool(self.config.enforce_quality_gate and not quality.passed)
-
-    def _adopt_valid_candidate_submission(
-        self,
-        result_path: str,
-        contract: Any,
-        artifact_dir: Path,
-        attempt: int,
-    ) -> SubmissionValidationResult | None:
-        """Copy an agent-created candidate to the canonical final path when safe.
-
-        This is a file-placement repair, not modeling: the LLM still creates the
-        predictions.  The harness only accepts explicit candidate filenames and
-        only after the strict, sample-copy-rejecting validator passes.
-        """
-
-        final_path = Path(result_path)
-        input_dir = final_path.parent
-        candidate_names = (
-            "fallback_submission.csv",
-            "submission.csv",
-            "predictions.csv",
-            "candidate_submission.csv",
-        )
-        for name in candidate_names:
-            candidate = input_dir / name
-            if not candidate.exists() or candidate.resolve() == final_path.resolve():
-                continue
-            candidate_validation = validate_submission(
-                candidate,
-                contract,
-                strict=True,
-                reject_sample_target_copy=True,
-            )
-            if not candidate_validation.passed:
-                continue
-            final_path.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(candidate, final_path)
-            adopted = validate_submission(
-                final_path,
-                contract,
-                strict=True,
-                reject_sample_target_copy=True,
-                write_path=artifact_dir / f"validation_attempt_{attempt}.json",
-            )
-            adopted.checks.append(f"adopted_agent_candidate:{name}")
-            adopted.summary["adopted_from"] = str(candidate)
-            (artifact_dir / f"validation_attempt_{attempt}.json").write_text(
-                json.dumps(adopted.to_dict(), ensure_ascii=False, indent=2),
-                encoding="utf-8",
-            )
-            return adopted
-        return None
 
     def _snapshot_submission(self, submission_path: str, artifact_dir: Path, attempt: int) -> dict[str, Any] | None:
         source = Path(submission_path)
@@ -1047,6 +1467,26 @@ def _failure_category(validation: SubmissionValidationResult) -> str:
     if "target" in first or "numeric" in first or "text" in first or "class" in first:
         return "target_format_error"
     return first.split(":", 1)[0]
+
+
+def _stage_agent_csv_inputs(agent: StageAgent) -> tuple[str, ...]:
+    """Map a stage's declared role to the minimum public CSV uploads it needs."""
+
+    by_agent = {
+        "data_availability_auditor": ("train.csv", "test.csv", "sample_submission.csv"),
+        "data_auditor": ("train.csv", "test.csv", "sample_submission.csv"),
+        "split_guardian": ("train.csv",),
+        "feature_builder": ("train.csv", "test.csv"),
+        "verifier_finalizer": ("sample_submission.csv",),
+    }
+    if agent.id in by_agent:
+        return by_agent[agent.id]
+    mentioned = " ".join([*agent.inputs, *agent.outputs]).lower()
+    wanted: list[str] = []
+    for filename in ("train.csv", "test.csv", "sample_submission.csv"):
+        if filename.lower() in mentioned:
+            wanted.append(filename)
+    return tuple(wanted or ("train.csv",))
 
 
 def _quality_confidence(validation: SubmissionValidationResult, quality: QualityReport, *, enforce_quality_gate: bool) -> str:

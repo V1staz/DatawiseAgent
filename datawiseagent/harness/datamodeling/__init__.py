@@ -11,6 +11,7 @@ from .data_availability import DataAvailabilityReport, inspect_data_availability
 from .profiler import DataProfile, build_profile
 from .protocol import ModelingProtocolPlan, build_protocol_plan
 from .stage_agents import StageAgent, StageAgentPlan, build_stage_agent_plan
+from .stage_pipeline import StagePipelineResult, StageSubAgentOutput
 from .agent_prompt import render_agent_prompt, render_repair_prompt
 from .agent_runner import DataModelingAgentHarnessConfig, DataModelingAgentHarnessRunner, FunctionChatClient, summarize_agent_harness_results
 from .quality import QualityReport, evaluate_submission_quality
@@ -33,6 +34,8 @@ __all__ = [
     "StageAgent",
     "StageAgentPlan",
     "build_stage_agent_plan",
+    "StagePipelineResult",
+    "StageSubAgentOutput",
     "render_agent_prompt",
     "render_repair_prompt",
     "DataModelingAgentHarnessConfig",
