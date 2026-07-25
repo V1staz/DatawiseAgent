@@ -1,0 +1,26 @@
+# Keep the AuthorKit tree focused on the DA-HERO manuscript sources.
+/*
+!/.gitignore
+!/paper/
+
+# LaTeX build intermediates and generated manuscript products.
+/paper/*.aux
+/paper/*.bbl
+/paper/*.bcf
+/paper/*.blg
+/paper/*.dvi
+/paper/*.fdb_latexmk
+/paper/*.fls
+/paper/*.lof
+/paper/*.log
+/paper/*.lot
+/paper/*.nav
+/paper/*.out
+/paper/*.pdf
+/paper/*.run.xml
+/paper/*.snm
+/paper/*.synctex.gz
+/paper/*.toc
+/paper/*.vrb
+/paper/*.xdv
+/paper/_minted-*/
